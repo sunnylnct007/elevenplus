@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Day 1 — 11+ Daily Practice</title>
+  <title>Day 2 — 11+ Daily Practice</title>
   <style>
     :root {
       --blue: #1c4c96;
       --blue-light: #e8eef8;
       --green: #1a7a4a;
       --green-light: #e6f4ed;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --purple: #6d28d9;
+      --purple-light: #ede9fe;
       --text: #1a1a2e;
       --muted: #64748b;
       --border: #e2e8f0;
@@ -69,6 +73,7 @@
       gap: 32px;
       font-size: 0.82rem;
       color: var(--muted);
+      flex-wrap: wrap;
     }
     .timer-bar strong { color: var(--blue); }
     /* ── Main layout ── */
@@ -88,8 +93,10 @@
       padding: 14px 20px;
       border-bottom: 1px solid var(--border);
     }
-    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
-    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-header.math-hdr  { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr   { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-header.bonus-hdr { background: #fef9ec; border-bottom-color: #fde68a; }
+    .section-header.word-hdr  { background: #f5f3ff; border-bottom-color: #ddd6fe; }
     .section-icon {
       width: 36px; height: 36px;
       border-radius: 8px;
@@ -97,8 +104,10 @@
       font-size: 1.1rem;
       flex-shrink: 0;
     }
-    .math-hdr .section-icon { background: #1c4c96; }
-    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .math-hdr  .section-icon { background: #1c4c96; }
+    .eng-hdr   .section-icon { background: #1a7a4a; }
+    .bonus-hdr .section-icon { background: #b45309; }
+    .word-hdr  .section-icon { background: #6d28d9; }
     .section-header h2 { font-size: 1.05rem; color: var(--text); }
     .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
     .section-body { padding: 20px 20px 24px; }
@@ -132,8 +141,7 @@
       content: counter(qcount);
       position: absolute;
       left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 14px;
       width: 22px; height: 22px;
       border-radius: 50%;
       background: var(--blue);
@@ -142,7 +150,8 @@
       font-weight: 700;
       display: flex; align-items: center; justify-content: center;
     }
-    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .eng-section ol.qlist > li::before  { background: var(--green); }
+    .bonus-section ol.qlist > li::before { background: var(--amber); }
     .help-btn {
       display: inline-block;
       margin-left: 8px;
@@ -159,6 +168,10 @@
       user-select: none;
     }
     .help-btn:hover { background: var(--blue); color: #fff; }
+    .eng-section  .help-btn { border-color: var(--green); color: var(--green); }
+    .eng-section  .help-btn:hover { background: var(--green); color: #fff; }
+    .bonus-section .help-btn { border-color: var(--amber); color: var(--amber); }
+    .bonus-section .help-btn:hover { background: var(--amber); color: #fff; }
     .answer {
       display: none;
       margin-top: 10px;
@@ -197,6 +210,60 @@
       padding-left: 18px;
     }
     .writing-checklist li { margin-bottom: 2px; }
+    /* ── Bonus challenge ── */
+    .challenge-box {
+      background: var(--amber-light);
+      border: 1.5px solid #fcd34d;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.93rem;
+      color: #78350f;
+      margin-bottom: 14px;
+    }
+    .challenge-box strong { color: var(--amber); }
+    /* ── Word of the Day ── */
+    .wotd-card {
+      background: var(--purple-light);
+      border: 1.5px solid #c4b5fd;
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .wotd-word {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--purple);
+      letter-spacing: -0.5px;
+    }
+    .wotd-pos {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      background: var(--purple);
+      color: #fff;
+      border-radius: 99px;
+      padding: 2px 9px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .wotd-pronunciation {
+      font-size: 0.85rem;
+      color: var(--purple);
+      opacity: 0.7;
+      margin: 4px 0 10px;
+    }
+    .wotd-def { font-size: 0.93rem; color: #3b0764; margin-bottom: 8px; }
+    .wotd-example {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #5b21b6;
+      border-left: 3px solid #c4b5fd;
+      padding-left: 10px;
+      margin-bottom: 12px;
+    }
+    .wotd-task { font-size: 0.88rem; color: #4c1d95; }
+    .wotd-task strong { color: var(--purple); }
     /* ── Navigation ── */
     .nav-row {
       display: flex;
@@ -239,6 +306,7 @@
       header h1 { font-size: 1.25rem; }
       .section-body { padding: 14px 14px 18px; }
       ol.qlist > li { padding-left: 38px; }
+      .timer-bar { gap: 16px; }
     }
   </style>
 </head>
@@ -247,11 +315,11 @@
 <div class="topbar">
   <a href="../index.html">&#8592; All Days</a>
   <span class="sep">|</span>
-  <span>Day 1 of 28</span>
+  <span>Day 2 of 28</span>
 </div>
 
 <header>
-  <div class="day-chip">Day 1</div>
+  <div class="day-chip">Day 2</div>
   <h1>Sutton Grammar 11+ Daily Practice</h1>
   <p>Maths &amp; English — about 40–45 minutes total</p>
 </header>
@@ -259,6 +327,7 @@
 <div class="timer-bar">
   <span><strong>Maths</strong> ~20 min</span>
   <span><strong>English</strong> ~20–25 min</span>
+  <span><strong>Bonus &amp; Word</strong> ~5 min extra</span>
   <span>Try every question on your own first!</span>
 </div>
 
@@ -278,43 +347,43 @@
         <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
         <ol class="qlist">
           <li>
-            What is 7 &times; 8?
+            What is 9 &times; 7?
             <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
             <div id="a1" class="answer">
-              <strong>Answer: 56</strong><br>
-              Think of 7 groups of 8: 8&thinsp;+&thinsp;8&thinsp;+&thinsp;8&thinsp;+&thinsp;8&thinsp;+&thinsp;8&thinsp;+&thinsp;8&thinsp;+&thinsp;8 = 56.
+              <strong>Answer: 63</strong><br>
+              Think of 10 &times; 7 = 70, then subtract 7: 70 &minus; 7 = 63.
             </div>
           </li>
           <li>
-            What is 54 &divide; 6?
+            What is 72 &divide; 8?
             <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
             <div id="a2" class="answer">
               <strong>Answer: 9</strong><br>
-              Because 6 &times; 9 = 54, so 54 divided by 6 is 9.
+              Because 8 &times; 9 = 72, so 72 &divide; 8 = 9.
             </div>
           </li>
           <li>
-            Round 3,468 to the nearest hundred.
+            Round 7,842 to the nearest thousand.
             <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
             <div id="a3" class="answer">
-              <strong>Answer: 3,500</strong><br>
-              The hundreds digit is 4; the tens digit is 6 (&ge;5), so round up: 3,500.
+              <strong>Answer: 8,000</strong><br>
+              The hundreds digit is 8 (&ge;5), so round the thousands digit up: 7,000 &rarr; 8,000.
             </div>
           </li>
           <li>
-            Find &frac14; of 32.
+            Find &frac35; of 40.
             <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
             <div id="a4" class="answer">
-              <strong>Answer: 8</strong><br>
-              One quarter means divide by 4: 32 &divide; 4 = 8.
+              <strong>Answer: 24</strong><br>
+              Find &frac15; first: 40 &divide; 5 = 8. Then multiply by 3: 8 &times; 3 = 24.
             </div>
           </li>
           <li>
-            Find 10% of 250.
+            Find 25% of 180.
             <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
             <div id="a5" class="answer">
-              <strong>Answer: 25</strong><br>
-              10% = one tenth, so 250 &divide; 10 = 25.
+              <strong>Answer: 45</strong><br>
+              25% = &frac14;, so 180 &divide; 4 = 45.
             </div>
           </li>
         </ol>
@@ -325,43 +394,43 @@
         <p class="task-intro">Show clear working for each question:</p>
         <ol class="qlist">
           <li>
-            A box holds 24 apples. Sam buys 3 boxes. How many apples does he have in total?
+            A baker makes 144 rolls and packs them into bags of 12. How many bags does she fill?
             <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
             <div id="a6" class="answer">
-              <strong>Answer: 72 apples</strong><br>
-              Apples per box &times; boxes: 24 &times; 3 = 72.
+              <strong>Answer: 12 bags</strong><br>
+              Total rolls &divide; bag size: 144 &divide; 12 = 12.
             </div>
           </li>
           <li>
-            There are 48 sweets. &frac34; of them are cola flavour. How many cola sweets are there?
+            A cinema has 5 rows of seats. Each row has 18 seats. On Monday, 62 seats are empty. How many seats are taken?
             <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
             <div id="a7" class="answer">
-              <strong>Answer: 36 cola sweets</strong><br>
-              Find &frac14;: 48 &divide; 4 = 12. &nbsp;Then &frac34; = 3 &times; 12 = 36.
+              <strong>Answer: 28 seats</strong><br>
+              Total = 5 &times; 18 = 90. Seats taken = 90 &minus; 62 = 28.
             </div>
           </li>
           <li>
-            A book costs &pound;6.50. Amir buys 4 books. How much does he pay altogether?
+            Mia saves &pound;4.75 each week. How much will she have saved after 8 weeks?
             <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
             <div id="a8" class="answer">
-              <strong>Answer: &pound;26.00</strong><br>
-              6.50 &times; 4 = (6 &times; 4) + (0.50 &times; 4) = 24 + 2 = &pound;26.
+              <strong>Answer: &pound;38.00</strong><br>
+              4.75 &times; 8 = (4 &times; 8) + (0.75 &times; 8) = 32 + 6 = &pound;38.
             </div>
           </li>
           <li>
-            A train journey starts at 09:35 and ends at 11:10. How long does the journey take?
+            A swimming lesson starts at 14:45 and lasts 50 minutes. What time does it finish?
             <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
             <div id="a9" class="answer">
-              <strong>Answer: 1 hour 35 minutes</strong><br>
-              09:35 &rarr; 10:35 = 1 hour; 10:35 &rarr; 11:10 = 35 minutes. Total: 1h 35m.
+              <strong>Answer: 15:35</strong><br>
+              14:45 + 15 min = 15:00, then + 35 min = 15:35.
             </div>
           </li>
           <li>
-            In a class of 30 children, 40% are left-handed. How many children are left-handed?
+            In a bag of 60 counters, &frac23; are red. How many counters are <em>not</em> red?
             <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
             <div id="a10" class="answer">
-              <strong>Answer: 12 children</strong><br>
-              10% of 30 = 3, so 40% = 4 &times; 3 = 12.
+              <strong>Answer: 20 counters</strong><br>
+              &frac13; are not red. Find &frac13; of 60: 60 &divide; 3 = 20.
             </div>
           </li>
         </ol>
@@ -371,7 +440,7 @@
   </div>
 
   <!-- ═══════════ ENGLISH ═══════════ -->
-  <div class="section-card">
+  <div class="section-card eng-section">
     <div class="section-header eng-hdr">
       <div class="section-icon">&#x1F4DA;</div>
       <h2>English</h2>
@@ -384,47 +453,47 @@
         <ol class="qlist">
           <li>
             Choose the correct spelling:<br>
-            A)&nbsp;recieve &nbsp;&nbsp; B)&nbsp;receive &nbsp;&nbsp; C)&nbsp;receeve
+            A)&nbsp;definately &nbsp;&nbsp; B)&nbsp;definatly &nbsp;&nbsp; C)&nbsp;definitely
             <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
             <div id="e1" class="answer">
-              <strong>Answer: B) receive</strong><br>
-              Use &ldquo;i before e except after c&rdquo; &rarr; r&nbsp;e&nbsp;c&nbsp;e&nbsp;i&nbsp;v&nbsp;e.
+              <strong>Answer: C) definitely</strong><br>
+              There is no &lsquo;a&rsquo; in definitely — think of it as de-<strong>FINITE</strong>-ly (it contains the word &ldquo;finite&rdquo;).
             </div>
           </li>
           <li>
             Add the missing punctuation:<br>
-            <em>on saturday james went to the park he met his friend ben there</em>
+            <em>yesterday lucy baked a chocolate cake her sister maya ate three slices</em>
             <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
             <div id="e2" class="answer">
-              <strong>Corrected:</strong> <em>On Saturday, James went to the park. He met his friend Ben there.</em><br>
-              Capital letters for sentence starts and proper nouns; full stop between sentences; comma after &ldquo;Saturday&rdquo;.
+              <strong>Corrected:</strong> <em>Yesterday, Lucy baked a chocolate cake. Her sister Maya ate three slices.</em><br>
+              Capital letters for sentence starts and proper nouns (Lucy, Maya); full stop between sentences; comma after &ldquo;Yesterday&rdquo;.
             </div>
           </li>
           <li>
-            Identify the verb in:<br>
-            <em>The cat chased the mouse across the garden.</em>
+            Identify the adjective in this sentence:<br>
+            <em>The enormous dog barked at the postman.</em>
             <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
             <div id="e3" class="answer">
-              <strong>Answer: chased</strong><br>
-              The verb is the doing/action word in the sentence.
+              <strong>Answer: enormous</strong><br>
+              An adjective is a describing word — here it tells us more about the noun &ldquo;dog&rdquo;.
             </div>
           </li>
           <li>
-            Choose a synonym for <strong>happy</strong>:<br>
-            A)&nbsp;joyful &nbsp;&nbsp; B)&nbsp;silent &nbsp;&nbsp; C)&nbsp;worried
+            Choose a synonym for <strong>exhausted</strong>:<br>
+            A)&nbsp;energetic &nbsp;&nbsp; B)&nbsp;tired &nbsp;&nbsp; C)&nbsp;frightened
             <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
             <div id="e4" class="answer">
-              <strong>Answer: A) joyful</strong><br>
-              A synonym has a similar meaning. Joyful &asymp; happy.
+              <strong>Answer: B) tired</strong><br>
+              A synonym has a similar meaning. Exhausted means very tired.
             </div>
           </li>
           <li>
-            Choose an antonym for <strong>gentle</strong>:<br>
-            A)&nbsp;soft &nbsp;&nbsp; B)&nbsp;calm &nbsp;&nbsp; C)&nbsp;rough
+            Choose an antonym for <strong>ancient</strong>:<br>
+            A)&nbsp;old &nbsp;&nbsp; B)&nbsp;crumbling &nbsp;&nbsp; C)&nbsp;modern
             <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
             <div id="e5" class="answer">
-              <strong>Answer: C) rough</strong><br>
-              An antonym has the opposite meaning. Rough &ne; gentle.
+              <strong>Answer: C) modern</strong><br>
+              An antonym has the opposite meaning. Ancient means very old, so modern (new) is its antonym.
             </div>
           </li>
         </ol>
@@ -434,50 +503,52 @@
         <div class="task-title">Part 2 &mdash; Comprehension</div>
         <p class="task-intro">Read this passage carefully, then answer the questions:</p>
         <div class="passage">
-          Ben stared out of the classroom window. Dark clouds were gathering over the playground,
-          and the wind was beginning to shake the trees. The teacher continued to talk about
-          fractions, but Ben was thinking about the football match after school. If the rain
-          grew heavier, the match would be cancelled, and he had been looking forward to it
-          all week.
+          Priya pressed her face against the cold glass of the aquarium tank.
+          Enormous shadows drifted silently past &mdash; rays, as wide as dinner
+          tables, gliding just centimetres away. The guide had told the class
+          that rays could live for up to 25 years and that some species were
+          endangered because of overfishing. Priya had always loved the sea,
+          but today she felt something stronger than love: a fierce, quiet
+          determination to protect it.
         </div>
         <ol class="qlist">
           <li>
-            What lesson is the teacher talking about?
+            Where is Priya?
             <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
             <div id="e6" class="answer">
-              <strong>Answer: Fractions (Maths)</strong><br>
-              The passage states: &ldquo;the teacher continued to talk about fractions.&rdquo;
+              <strong>Answer: At an aquarium.</strong><br>
+              She is pressing her face against the glass of an aquarium tank.
             </div>
           </li>
           <li>
-            Where is Ben sitting?
+            What are the enormous shadows that drift past?
             <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
             <div id="e7" class="answer">
-              <strong>Answer: In the classroom</strong><br>
-              He is looking out of the classroom window.
+              <strong>Answer: Rays</strong> (a type of sea creature).<br>
+              The passage describes them as rays as wide as dinner tables.
             </div>
           </li>
           <li>
-            Why might the football match be cancelled?
+            Give one reason why some rays are endangered.
             <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
             <div id="e8" class="answer">
-              <strong>Answer: Because of heavy rain.</strong><br>
-              The text says: &ldquo;If the rain grew heavier, the match would be cancelled.&rdquo;
+              <strong>Answer: Overfishing.</strong><br>
+              The guide tells the class that some species are endangered because of overfishing.
             </div>
           </li>
           <li>
-            Find and copy a phrase that shows the weather is getting worse.
+            Find and copy a simile from the passage.
             <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
             <div id="e9" class="answer">
-              <strong>Example: &ldquo;Dark clouds were gathering&rdquo;</strong><br>
-              Other acceptable answers: &ldquo;the wind was beginning to shake the trees&rdquo;; &ldquo;if the rain grew heavier&rdquo;.
+              <strong>Answer: &ldquo;as wide as dinner tables&rdquo;</strong><br>
+              A simile compares two things using &ldquo;as&rdquo; or &ldquo;like&rdquo;.
             </div>
           </li>
           <li>
-            How do you know that Ben cares about the football match? Explain in one sentence.
+            How has visiting the aquarium changed how Priya feels about the sea? Use evidence from the passage.
             <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
             <div id="e10" class="answer">
-              <strong>Example answer:</strong> He has been looking forward to the match all week and is worried it will be cancelled, showing it is very important to him.
+              <strong>Example answer:</strong> She already loved the sea, but seeing the rays in danger made her feel a &ldquo;fierce, quiet determination to protect it&rdquo; &mdash; showing she now wants to take action, not just enjoy it.
             </div>
           </li>
         </ol>
@@ -486,35 +557,113 @@
       <div class="task">
         <div class="task-title">Part 3 &mdash; Writing Task</div>
         <div class="writing-prompt">
-          <strong>Prompt:</strong> You arrive at the football pitch and see that the weather has changed again.
-          Describe what you see, how you feel, and what happens next.<br><br>
+          <strong>Prompt:</strong> You press your hand against the cold glass of the aquarium tank.
+          Something on the other side looks back at you. Describe what you see,
+          how it makes you feel, and what happens next.<br><br>
           Write 8–10 sentences. Try to use:
           <ul class="writing-checklist">
             <li>Full stops and commas correctly</li>
-            <li>At least three interesting adjectives</li>
-            <li>One example of speech (with speech marks)</li>
+            <li>At least two examples of figurative language (simile, metaphor, or personification)</li>
+            <li>One sentence of speech (with speech marks)</li>
           </ul>
         </div>
         <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
         <div id="e11" class="answer">
           <strong>Example answer:</strong><br>
-          <em>The football pitch was almost unrecognisable. Puddles covered the muddy grass and the bitter wind howled around the empty stands. I shivered as cold rain splashed my face. &ldquo;Are we still playing?&rdquo; I shouted to my coach. He smiled and nodded, so I pulled up my soggy socks and ran onto the pitch, feeling nervously excited.</em><br><br>
-          <strong>Check your own writing for:</strong> capital letters and full stops, commas in the right places, interesting adjectives (describe the pitch and weather), speech marks around spoken words.
+          <em>The water was ink-dark except for a single beam of blue light. I pressed my palm flat against the glass and felt the cold shoot up my arm like an electric shock. A vast octopus emerged from the shadows, its eyes &mdash; golden and intelligent &mdash; fixing on mine as if it could read my thoughts. &ldquo;It&rsquo;s looking right at me,&rdquo; I whispered to my teacher. The creature raised one curling arm and pressed it against the glass, almost touching my hand. I stood completely still, my heart hammering, unable to look away.</em><br><br>
+          <strong>Check your own writing for:</strong> clear sentences with full stops and capital letters, correct commas, figurative language (simile, metaphor or personification), and speech marks around spoken words.
         </div>
       </div>
 
     </div>
   </div>
 
+  <!-- ═══════════ BONUS MATHS CHALLENGE ═══════════ -->
+  <div class="section-card bonus-section">
+    <div class="section-header bonus-hdr">
+      <div class="section-icon">&#x2B50;</div>
+      <h2>Bonus Maths Challenge</h2>
+      <span class="time-note">~5 minutes · optional</span>
+    </div>
+    <div class="section-body">
+      <div class="task">
+        <div class="task-title">Harder Problems &mdash; Push Yourself!</div>
+        <p class="task-intro">These questions are trickier — great for extra exam practice. Take your time and show all working.</p>
+        <ol class="qlist">
+          <li>
+            <div class="challenge-box">
+              A train travels 270 km in 3 hours. At the same speed, how far will it travel in 5 hours?
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+            <div id="b1" class="answer">
+              <strong>Answer: 450 km</strong><br>
+              Step 1 — find the speed: 270 &divide; 3 = 90 km/h.<br>
+              Step 2 — multiply by 5: 90 &times; 5 = 450 km.
+            </div>
+          </li>
+          <li>
+            <div class="challenge-box">
+              A rectangle has a perimeter of 36 cm. Its length is twice its width. What is the area of the rectangle?
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+            <div id="b2" class="answer">
+              <strong>Answer: 72 cm&sup2;</strong><br>
+              Let width = w, so length = 2w.<br>
+              Perimeter: 2(w + 2w) = 36 &rarr; 2(3w) = 36 &rarr; 6w = 36 &rarr; w = 6 cm.<br>
+              Length = 12 cm. Area = 12 &times; 6 = 72 cm&sup2;.
+            </div>
+          </li>
+          <li>
+            <div class="challenge-box">
+              In a survey, 45 out of 180 children said their favourite colour is blue. What percentage is this?
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+            <div id="b3" class="answer">
+              <strong>Answer: 25%</strong><br>
+              45 &divide; 180 = &frac14; = 25%.&nbsp; Or: (45 &divide; 180) &times; 100 = 25.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ WORD OF THE DAY ═══════════ -->
+  <div class="section-card">
+    <div class="section-header word-hdr">
+      <div class="section-icon">&#x1F4D6;</div>
+      <h2>Word of the Day</h2>
+      <span class="time-note">~2 minutes</span>
+    </div>
+    <div class="section-body">
+      <div class="wotd-card">
+        <div>
+          <span class="wotd-word">tenacious</span>
+          <span class="wotd-pos">adjective</span>
+        </div>
+        <div class="wotd-pronunciation">ten-AY-shuss</div>
+        <div class="wotd-def"><strong>Definition:</strong> holding firmly to something; not giving up easily; determined and persistent.</div>
+        <div class="wotd-example">&ldquo;Despite falling twice, the tenacious young climber reached the top of the wall.&rdquo;</div>
+        <div class="wotd-task">
+          <strong>Your turn:</strong> Write your own sentence using <em>tenacious</em> that is set somewhere other than a sports context — try school, nature, or an adventure story!
+        </div>
+      </div>
+      <p style="margin-top:14px; font-size:0.82rem; color:var(--muted);">
+        <strong>Tip:</strong> Knowing words like <em>tenacious</em> helps in both comprehension questions and your own writing — examiners reward varied vocabulary!
+      </p>
+    </div>
+  </div>
+
   <!-- Navigation -->
   <div class="nav-row">
-    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
-    <a href="day-02.html" class="nav-btn">Day 2 &rarr;</a>
+    <a href="day-01.html" class="nav-btn secondary">&#8592; Day 1</a>
+    <a href="../index.html" class="nav-btn secondary">All Days</a>
+    <a href="day-03.html" class="nav-btn disabled">Day 3 &rarr;</a>
   </div>
 
 </main>
 
-<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 1 of 28</footer>
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 2 of 28</footer>
 
 <script>
   function toggleAnswer(id) {
