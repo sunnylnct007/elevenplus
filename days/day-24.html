@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 24 — Sutton 11+ Daily Practice</title>
+<style>
+:root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}.eng-hdr h2{color:var(--green)}.bonus-hdr h2{color:var(--amber)}.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.8;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple)}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+</style>
+<script>
+function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 24</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-hdr math-hdr"><h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>What is 11² + 12²?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">265. 11² = 121. 12² = 144. 121 + 144 = 265.</div></li>
+        <li>What is 5/6 − 3/8?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">11/24. LCM of 6 and 8 = 24. 5/6 = 20/24. 3/8 = 9/24. 20/24 − 9/24 = 11/24.</div></li>
+        <li>A polygon has interior angles summing to 1,260°. How many sides does it have?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">9 sides. (n−2) × 180 = 1,260 → n−2 = 7 → n = 9.</div></li>
+        <li>Solve: 3(x − 4) = 2x + 1.
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">x = 13. Expand: 3x − 12 = 2x + 1. Subtract 2x: x − 12 = 1. x = 13.</div></li>
+        <li>What is 8% of £4,500?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">£360. 1% = £45. 8 × £45 = £360.</div></li>
+      </ol>
+    </div>
+
+    <!-- Line graph visual -->
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Plotting y = 2x − 1</strong>
+      <svg viewBox="0 0 220 180" width="220" height="180" style="display:block;margin:8px auto">
+        <!-- Axes -->
+        <line x1="60" y1="10" x2="60" y2="170" stroke="#999" stroke-width="1.5"/>
+        <line x1="10" y1="110" x2="210" y2="110" stroke="#999" stroke-width="1.5"/>
+        <!-- Grid -->
+        <line x1="100" y1="10" x2="100" y2="170" stroke="#eee" stroke-width="1"/>
+        <line x1="140" y1="10" x2="140" y2="170" stroke="#eee" stroke-width="1"/>
+        <line x1="180" y1="10" x2="180" y2="170" stroke="#eee" stroke-width="1"/>
+        <line x1="20" y1="10" x2="20" y2="170" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="70" x2="210" y2="70" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="150" x2="210" y2="150" stroke="#eee" stroke-width="1"/>
+        <!-- Plot y=2x-1: (-1,-3)=x:-1→pixel:20,y:-3→pixel:150  (3,5)=x:3→pixel:180,y:5→pixel:70 -->
+        <line x1="20" y1="150" x2="180" y2="70" stroke="#1c4c96" stroke-width="2.5"/>
+        <!-- Points -->
+        <circle cx="20" cy="150" r="4" fill="#1c4c96"/>
+        <circle cx="60" cy="130" r="4" fill="#1c4c96"/>
+        <circle cx="100" cy="110" r="4" fill="#1c4c96"/>
+        <circle cx="140" cy="90" r="4" fill="#1c4c96"/>
+        <circle cx="180" cy="70" r="4" fill="#1c4c96"/>
+        <!-- Labels -->
+        <text x="15" y="160" font-size="9" fill="#555">−1,−3</text>
+        <text x="54" y="145" font-size="9" fill="#555">0,−1</text>
+        <text x="95" y="106" font-size="9" fill="#555">1,1</text>
+        <text x="135" y="86" font-size="9" fill="#555">2,3</text>
+        <text x="175" y="66" font-size="9" fill="#555">3,5</text>
+        <text x="185" y="114" font-size="11" fill="#888">x</text>
+        <text x="52" y="12" font-size="11" fill="#888">y</text>
+        <text x="65" y="25" font-size="11" fill="#1c4c96">y = 2x − 1</text>
+      </svg>
+      <figcaption>Gradient = 2, y-intercept = −1. Passes through (0, −1) and (1, 1).</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>A bus journey has 3 stops and takes 1 h 15 min in total, with equal time between stops. How long is each section?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">25 min each. 1 h 15 min = 75 min. 75 ÷ 3 = 25 min per section.</div></li>
+        <li>A farmer has fields in ratio 5:3:2. Total area is 600 acres. What is the largest field?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">300 acres. Total parts = 10. One part = 60 acres. Largest = 5 × 60 = 300 acres.</div></li>
+        <li>A cube has surface area 96 cm². What is the side length and volume?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Side = 4 cm. Volume = 64 cm³. 6 faces: 96 ÷ 6 = 16 cm² per face. Side = √16 = 4. Volume = 4³ = 64.</div></li>
+        <li>A train departs at 09:47 and arrives at 13:22. How long is the journey?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">3 hours 35 minutes. 09:47 → 10:00 = 13 min. 10:00 → 13:00 = 3 h. 13:00 → 13:22 = 22 min. Total: 3 h 35 min.</div></li>
+        <li>Plot y = 2x − 1 for x = −1, 0, 1, 2, 3. State the coordinates.
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">(−1, −3), (0, −1), (1, 1), (2, 3), (3, 5). Gradient = 2, y-intercept = −1.</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr eng-hdr"><h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>Explain the difference between concrete and abstract nouns in terms of a writer's choices.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Concrete nouns name physical things ("chair", "blood") — vivid and immediate. Abstract nouns name ideas or emotions ("grief", "freedom") — important for themes but less sensory. Strong writers balance both: "She felt grief" (abstract) vs "She sat very still, staring at his empty chair" (concrete showing grief).</div></li>
+        <li>What is prolepsis (flash-forward/foreshadowing)? Give an example.
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">When a writer hints at or describes events yet to happen. Example: "I did not know, as I shook his hand that morning, that I would never see him again." Creates dramatic irony and tension.</div></li>
+        <li>Punctuate this correctly: <em>however the results which had been expected to show improvement were disappointing although the team remained optimistic</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer"><em>However, the results, which had been expected to show improvement, were disappointing, although the team remained optimistic.</em></div></li>
+        <li>What does <strong>magnanimous</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Generous in spirit, especially to a rival; noble and forgiving. Example: "Despite losing the final, she was magnanimous in defeat, congratulating the winners warmly."</div></li>
+        <li>What is iambic pentameter? Mark the stresses in: <em>Shall I compare thee to a summer's day?</em>
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Iambic pentameter = five iambs (da-DUM) per line = 10 syllables. Stresses: shall-I / com-PARE / thee-TO / a-SUM / mer's-DAY. Used throughout Shakespeare's sonnets and plays.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — Words Without Borders</h3>
+      <div class="passage-box">
+        There is a word in German — Waldeinsamkeit — which means the feeling of solitude and connection that comes from being alone in the forest. English has no equivalent. It is not quite loneliness, because loneliness implies lack; it is not quite peace, because peace is passive. Waldeinsamkeit is active: you walk, you listen, the trees close around you, and you feel, simultaneously, very small and very present. Many languages have words for states of mind that English cannot quite capture: the Japanese mono no aware, the sense of the bittersweet beauty of impermanence; the Portuguese saudade, a deep emotional longing for something or someone that may be gone forever. The absence of a word does not mean the absence of the feeling. It means only that nobody, in that language, needed a word for it yet.
+      </div>
+      <ol class="qlist">
+        <li>What does Waldeinsamkeit mean?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">The feeling of solitude and connection from being alone in the forest — neither loneliness (which implies lack) nor passive peace, but an active state of feeling small and very present.</div></li>
+        <li>How does the writer distinguish Waldeinsamkeit from loneliness and peace?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">Loneliness implies lack/absence of something desired; peace is passive. Waldeinsamkeit is active — you walk, listen, feel both small and present simultaneously.</div></li>
+        <li>What other untranslatable words does the writer give?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">Japanese "mono no aware": the bittersweet beauty of impermanence. Portuguese "saudade": deep longing for something or someone that may be gone.</div></li>
+        <li>What does "the absence of a word does not mean the absence of the feeling" mean?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The feeling exists regardless of whether a language has named it. The lack of a word means that culture hasn't needed to label it yet — not that the experience is absent.</div></li>
+        <li>What is the tone of this passage and how is it achieved?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">Thoughtful, philosophical, and gently celebratory of the diversity of human experience. Achieved through careful definition-building, listing cross-cultural examples, and the reflective final sentence.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px">Invent your own untranslatable word for a feeling English doesn't have a word for. Define it carefully, give an example of when you might feel it, and explain why it needs a word.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>There should be a word for the particular feeling when you return to a place you loved as a child and find it smaller than you remembered. Not disappointment exactly — the place hasn't changed. You have. Call it membrosis: the moment you realise a memory was larger than its origin. You feel it standing in a childhood bedroom now used as a study, or at the foot of a hill you once thought was a mountain. The world has not shrunk. Only your astonishment has. Membrosis is not sad; it is honest. It is the feeling of understanding, at last, how big you have become — and what you have had to give up to get there.</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr bonus-hdr"><h2>&#x2B50; Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Linear equations:</strong> A line passes through (2, 3) and (6, 11). Find the equation of the line in the form y = mx + c.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">y = 2x − 1. Gradient = (11−3)/(6−2) = 8/4 = 2. Using (2, 3): 3 = 2(2) + c → c = −1. Equation: y = 2x − 1.</div></li>
+      <li><strong>Fractions &amp; time:</strong> A task takes 2¾ hours. If 3/5 of it has been completed, how many minutes remain?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">66 minutes. 2¾ hours = 165 min. Completed: 3/5 × 165 = 99 min. Remaining: 165 − 99 = 66 min.</div></li>
+      <li><strong>Polygon angles:</strong> The interior angle of a regular polygon is 150°. How many sides does it have?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">12 sides. Exterior angle = 180 − 150 = 30°. Number of sides = 360° ÷ 30° = 12.</div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr word-hdr"><h2>&#x1F4AC; Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">contemplative</div>
+        <div class="word-pos">adjective</div>
+        <div class="word-def">Expressing or involving prolonged thought; given to deep, quiet reflection. From Latin <em>contemplari</em> — to observe.</div>
+        <div class="word-example">"Walking alone in the forest, she fell into a contemplative silence, aware of nothing but her own footsteps and the sound of the wind."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="day-nav">
+  <a href="day-23.html" class="nav-btn">&#8592; Day 23</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-25.html" class="nav-btn">Day 25 &#8594;</a>
+</nav>
+</main>
+</body>
+</html>

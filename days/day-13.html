@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 13 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem}
+  </style>
+  <script>
+    function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 13 of 28</span>
+</div>
+<div class="page-header">
+  <div class="day-chip">Day 13</div>
+  <h1>Trapeziums, Speed &amp; The Music Room</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<div class="section-card">
+  <div class="section-header math-hdr"><span class="section-icon">&#9998;</span><h2>Maths (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 48 &times; 25?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>1,200</strong>. Trick: 48 &times; 25 = 48 &times; 100 &divide; 4 = 4,800 &divide; 4 = 1,200.</div>
+        </li>
+        <li>What is 4/5 &divide; 2/3?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>6/5 = 1 1/5</strong>. Dividing by a fraction = multiply by its reciprocal: 4/5 &times; 3/2 = 12/10 = 6/5.</div>
+        </li>
+        <li>What is 7.5% of 240?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">Answer: <strong>18</strong>. 5% of 240 = 12. 2.5% of 240 = 6. Total = 18.</div>
+        </li>
+        <li>A regular polygon has an exterior angle of 45&deg;. How many sides does it have?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">Answer: <strong>8 sides</strong>. Exterior angles sum to 360&deg;. 360 &divide; 45 = 8 sides. (This is an octagon.)</div>
+        </li>
+        <li>What is the next term in the sequence: 1, 4, 9, 16, 25, 36, ___?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Answer: <strong>49</strong>. These are square numbers (1&sup2;, 2&sup2;, 3&sup2;, &hellip;). The next is 7&sup2; = 49.</div>
+        </li>
+      </ol>
+
+      <!-- Trapezium visual -->
+      <div class="vis-box">
+        <div class="vis-label">Trapezium — area formula</div>
+        <svg viewBox="0 0 260 120" width="260" height="120" style="overflow:visible">
+          <polygon points="50,100 210,100 170,20 90,20" fill="#eff6ff" stroke="#1c4c96" stroke-width="2.5"/>
+          <!-- top label -->
+          <text x="130" y="14" text-anchor="middle" font-size="13" fill="#1c4c96" font-weight="bold">8 m</text>
+          <!-- bottom label -->
+          <text x="130" y="116" text-anchor="middle" font-size="13" fill="#1c4c96" font-weight="bold">12 m</text>
+          <!-- height arrow -->
+          <line x1="230" y1="20" x2="230" y2="100" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="242" y="65" text-anchor="start" font-size="12" fill="#b45309">h = 5 m</text>
+          <!-- formula -->
+          <text x="130" y="63" text-anchor="middle" font-size="12" fill="#1a7a4a">A = ½ × (8+12) × 5</text>
+          <text x="130" y="80" text-anchor="middle" font-size="12" fill="#1a7a4a" font-weight="bold">= 50 m²</text>
+        </svg>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:4px">Formula: A = &frac12; &times; (a + b) &times; h &nbsp; where a and b are the parallel sides</p>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>A price increased by 20% to &pound;84. What was the original price?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">Answer: <strong>&pound;70</strong>. &pound;84 = 120% of original. Original = &pound;84 &divide; 1.2 = &pound;70.</div>
+        </li>
+        <li>A trapezium has parallel sides 12 m and 8 m, and height 5 m. What is its area?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Answer: <strong>50 m&sup2;</strong>. A = &frac12; &times; (12 + 8) &times; 5 = &frac12; &times; 20 &times; 5 = 50 m&sup2;.</div>
+        </li>
+        <li>Share &pound;360 in the ratio 3:4:5. How much does each person receive?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Total parts = 3 + 4 + 5 = 12. One part = &pound;360 &divide; 12 = &pound;30. Shares: <strong>&pound;90, &pound;120, &pound;150</strong>.</div>
+        </li>
+        <li>What is the angle between the hands of a clock at 3:15?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Answer: <strong>7.5&deg;</strong>. Minute hand at 90&deg; (3 o&rsquo;clock position). Hour hand moves 0.5&deg; per minute past 90&deg;: 0.5 &times; 15 = 7.5&deg;. So hour hand is at 97.5&deg;. Difference = 7.5&deg;.</div>
+        </li>
+        <li>A cyclist covers 45 km in 1 hour 30 minutes. What is the average speed in km/h?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">Answer: <strong>30 km/h</strong>. 1 h 30 min = 1.5 h. Speed = 45 &divide; 1.5 = 30 km/h.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header eng-hdr"><span class="section-icon">&#128218;</span><h2>English (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>What is a <strong>modal verb</strong>? List four examples and explain what each expresses.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Modal verbs express possibility, ability, obligation, or permission. Examples: <em>can</em> (ability), <em>might</em> (weak possibility), <em>must</em> (strong obligation), <em>should</em> (advice), <em>would</em> (conditional), <em>could</em> (past ability or polite request).</div>
+        </li>
+        <li>Correct all errors:<br><em>&ldquo;Your going to love there new house,&rdquo; she said, &ldquo;its even bigger then the last one.&rdquo;</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Corrected: <em>&ldquo;You&rsquo;re going to love their new house,&rdquo; she said, &ldquo;it&rsquo;s even bigger than the last one.&rdquo;</em> Errors: your&rarr;you&rsquo;re; there&rarr;their; its&rarr;it&rsquo;s; then&rarr;than.</div>
+        </li>
+        <li>What is a <strong>complex sentence</strong>? Write one.
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">A complex sentence has a <strong>main clause</strong> + at least one <strong>subordinate clause</strong> joined by a subordinating conjunction. Example: <em>&ldquo;Although she had studied for weeks, she still felt nervous as she walked in.&rdquo;</em></div>
+        </li>
+        <li>What does <strong>trepidation</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer"><strong>Trepidation</strong> means fear or anxiety about what might happen. Example: <em>&ldquo;With trepidation, she pushed open the door to her new school.&rdquo;</em></div>
+        </li>
+        <li>What is the purpose of a <strong>rhetorical question</strong> in persuasive writing?
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Asked <strong>for effect, not an answer</strong> &mdash; draws the reader in and implies the answer is obvious. Example: <em>&ldquo;Do we really want our children to grow up in a polluted world?&rdquo;</em></div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        The first thing Anya noticed when she entered the old music room was that it smelled of time. Not dust exactly &mdash; something more specific: rosin, and old wood, and the particular metallic tang of piano strings that had been silent for too long. A cello stood in the corner, alone on its stand, as if it had simply been waiting for someone to return. She had been told that the room had been locked for twelve years, ever since the school&rsquo;s music teacher &mdash; a formidable woman named Miss Hargreaves &mdash; had retired without warning and never come back. Nobody had thought to open it since. Anya crossed to the cello and placed her hand flat against its shoulder. Beneath her palm, the wood was warm, as though it still held the memory of music.
+      </div>
+      <ol class="q-list">
+        <li>What details suggest the room has been unused?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Locked for twelve years; piano strings <strong>silent for too long</strong>; nobody had reopened it since Miss Hargreaves left.</div>
+        </li>
+        <li>How does smell create atmosphere in this passage?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">Specific layered smells (rosin, old wood, metallic strings) make the room <strong>vivid and real</strong>. &ldquo;Smelled of time&rdquo; is a metaphor signalling age and stillness &mdash; smell is the most evocative sense for memory.</div>
+        </li>
+        <li>What is the effect of &ldquo;still held the memory of music&rdquo;?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">It <strong>personifies the cello</strong> &mdash; gives it a kind of inner life, as if music has left a trace. The warmth becomes mysterious and emotional rather than merely physical.</div>
+        </li>
+        <li>What do we learn about Miss Hargreaves? What is left unanswered?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">She was &ldquo;<strong>formidable</strong>&rdquo;, left without warning, and never returned. Unanswered: <strong>why</strong> she left, where she went, and why no one reopened the room for twelve years.</div>
+        </li>
+        <li>How does the writer make the cello feel like more than an instrument? Give two techniques.
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">(1) <strong>Personification</strong>: &ldquo;waiting for someone to return&rdquo; &mdash; as if it had expectations. (2) <strong>Metaphor</strong>: &ldquo;held the memory of music&rdquo; &mdash; suggests it retains past experience. (3) <strong>Body language</strong>: Anya places her hand on its &ldquo;shoulder&rdquo; &mdash; treating it like a person.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short piece (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;Anya picks up the cello and begins to play. Describe the first few notes and what happens in the room as the music starts.&rdquo;</p>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:8px">Try to use: <strong>personification of the cello</strong>, <strong>pathetic fallacy</strong>, and a sense of <strong>awakening</strong>.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer:</strong><br>
+        <em>The first note was reluctant &mdash; thin and uncertain, as if the cello itself was remembering how to speak. Then the bow found its grip, and the sound opened like a door long shut. Outside, the rain that had been falling all morning seemed to pause. She played on &mdash; not a piece she knew, but something that seemed to come from the instrument itself. In the corridor, a teacher stopped walking. Music had been waiting all along, held in the walls like a held breath, waiting only for someone to release it.</em><br><br>
+        <strong>Check for:</strong> (1) personification: cello &ldquo;remembering how to speak&rdquo; (2) pathetic fallacy: rain pausing as music begins (3) awakening: the corridor, the teacher stopping, the walls releasing.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header bonus-hdr"><span class="section-icon">&#11088;</span><h2>Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking.</p>
+    <ol class="q-list">
+      <li><strong>Reverse percentage:</strong> After a 15% increase, a price is &pound;92. What was the original price? After a further 10% decrease, what is the final price?
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">Original: &pound;92 &divide; 1.15 = <strong>&pound;80</strong>. Final after 10% decrease: &pound;92 &times; 0.9 = <strong>&pound;82.80</strong>.</div>
+      </li>
+      <li><strong>Compound area:</strong> A shape is made of a rectangle (10 m &times; 4 m) with a trapezium on top (parallel sides 10 m and 6 m, height 3 m). What is the total area?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">Rectangle: 10 &times; 4 = 40 m&sup2;. Trapezium: &frac12; &times; (10 + 6) &times; 3 = &frac12; &times; 16 &times; 3 = 24 m&sup2;. Total = <strong>64 m&sup2;</strong>.</div>
+      </li>
+      <li><strong>Clock problem:</strong> At what time between 4 and 5 o&rsquo;clock are the hands of the clock exactly together?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">At 4:00 the hour hand is at 120&deg; and minute hand at 0&deg;. The minute hand gains 5.5&deg; per minute on the hour hand. For the minute hand to catch up 120&deg;: 120 &divide; 5.5 = 21.8 minutes &asymp; <strong>4:21 and 49 seconds</strong>.</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header word-hdr"><span class="section-icon">&#128219;</span><h2>Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">resonant</div>
+      <div class="word-pron">/ REZ-uh-nunt / &nbsp;&mdash;&nbsp; adjective</div>
+      <div class="word-def">Producing a deep, rich sound that continues to vibrate. Also used figuratively to mean something that evokes a strong emotional response or has lasting significance &mdash; an idea or image can be resonant if it stays in the mind long after.</div>
+      <div class="word-eg">&ldquo;The first note Anya drew from the cello was unexpectedly resonant &mdash; it filled the room and seemed to vibrate in the walls as if the space itself had been waiting to speak.&rdquo;</div>
+      <div class="word-task"><strong>Your turn:</strong> Write a sentence using <em>resonant</em> in a figurative sense (not about sound, but about an idea or memory). What is something that has stayed resonant with you long after you experienced it?</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-12.html">&#8592; Day 12</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-14.html">Day 14 &rarr;</a>
+</div>
+</div>
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 13 of 28 &nbsp;|&nbsp; Keep going!</div>
+</body>
+</html>

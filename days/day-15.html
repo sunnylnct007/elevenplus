@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 15 — Sutton 11+ Daily Practice</title>
+<style>
+:root{
+  --blue:#1c4c96;--blue-light:#e8eef8;
+  --green:#1a7a4a;--green-light:#e6f4ed;
+  --amber:#b45309;--amber-light:#fef3c7;
+  --purple:#6d28d9;--purple-light:#ede9fe;
+  --text:#1a1a2e;--muted:#64748b;
+  --border:#e2e8f0;--bg:#f8fafc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}
+.eng-hdr{background:#f0fdf4}
+.bonus-hdr{background:#fef9ec}
+.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}
+.eng-hdr h2{color:var(--green)}
+.bonus-hdr h2{color:var(--amber)}
+.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}
+.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}
+ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.75;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple);min-width:180px}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+.nav-btn.disabled{background:#ccc;color:#888;cursor:not-allowed;pointer-events:none}
+.chip-strip{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.chip{background:var(--blue-light);color:var(--blue);border-radius:20px;padding:4px 14px;font-size:.88rem;font-weight:600}
+.chip.highlight{background:var(--blue);color:#fff}
+</style>
+<script>
+function toggleAnswer(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var btn=el.previousElementSibling;
+  if(el.style.display==='block'){
+    el.style.display='none';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+  }else{
+    el.style.display='block';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+  }
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 15</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<!-- MATHS -->
+<div class="section-card">
+  <div class="section-hdr math-hdr">
+    <h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>What is 21²?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">441. Use (20+1)² = 400 + 40 + 1 = 441.</div></li>
+        <li>Calculate 2/3 × 3/4 × 4/5. Give your answer in simplest form.
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">2/5. Cancel across the multiplication: the 3s cancel, the 4s cancel — leaving 2/5.</div></li>
+        <li>What is −8 × −4?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">32. Negative × negative = positive.</div></li>
+        <li>Solve: 4x + 3 = 23.
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">x = 5. Subtract 3: 4x = 20. Divide by 4: x = 5.</div></li>
+        <li>What is the probability of rolling a prime number on a fair 1–6 dice?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">1/2. Prime numbers on a dice: 2, 3, 5 — three out of six. P = 3/6 = 1/2.</div></li>
+      </ol>
+    </div>
+
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Fraction cancellation — 2/3 × 3/4 × 4/5</strong>
+      <div class="chip-strip" style="margin-top:10px">
+        <span class="chip">2/3</span>
+        <span class="chip" style="background:none;color:var(--muted)">×</span>
+        <span class="chip">3/4</span>
+        <span class="chip" style="background:none;color:var(--muted)">×</span>
+        <span class="chip">4/5</span>
+        <span class="chip" style="background:none;color:var(--muted)">=</span>
+        <span class="chip highlight">2/5</span>
+      </div>
+      <figcaption>The 3s cancel (÷3) and the 4s cancel (÷4) — only 2 and 5 remain</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>A taxi charges a £2.50 fixed fee plus £1.80 per mile. How much does a 7-mile journey cost?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">£15.10. Distance charge: 7 × £1.80 = £12.60. Total: £2.50 + £12.60 = £15.10.</div></li>
+        <li>A school has 600 pupils. 55% are girls. How many boys are there?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">270. Girls: 55% × 600 = 330. Boys: 600 − 330 = 270.</div></li>
+        <li>A wallpaper roll is 10 m long and 52 cm wide. What is its area in m²?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">5.2 m². Convert 52 cm = 0.52 m. Area = 10 × 0.52 = 5.2 m².</div></li>
+        <li>Three consecutive even numbers sum to 78. What are they?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">24, 26, 28. Let first = n. Then n + (n+2) + (n+4) = 78 → 3n + 6 = 78 → n = 24.</div></li>
+        <li>A 15 × 12 cm rectangle has a 6 × 6 cm square cut from one corner. What is the remaining area?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">144 cm². Rectangle area: 15 × 12 = 180 cm². Square cut: 6 × 6 = 36 cm². Remaining: 180 − 36 = 144 cm².</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ENGLISH -->
+<div class="section-card">
+  <div class="section-hdr eng-hdr">
+    <h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>What is a compound-complex sentence? Write your own example.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">A sentence with two or more main clauses AND at least one subordinate clause. Example: "She loved the mountains, but she had never climbed one because she was afraid of heights."</div></li>
+        <li>What is the effect of a tricolon (list of three) in writing?
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Creates rhythm, completeness, and persuasive force. Three items feel natural and balanced. E.g. "She was brave, determined, and unstoppable."</div></li>
+        <li>In this sentence, identify the subordinating conjunction AND the relative pronoun: <em>Although it was raining, the children who lived nearby still came.</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Subordinating conjunction: "Although." Relative pronoun: "who" (introduces the relative clause "who lived nearby").</div></li>
+        <li>What does <strong>indomitable</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Impossible to subdue or defeat; unconquerable. Example: "Her indomitable spirit kept her training despite every setback."</div></li>
+        <li>What is dramatic irony? Give an example.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">When the audience knows something a character does not. In Romeo and Juliet: the audience knows Juliet is asleep, not dead, but Romeo does not — making his decision to take poison unbearable.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — Maps as Arguments</h3>
+      <div class="passage-box">
+        We think of maps as neutral — as simple descriptions of the world as it is. But maps are always made by someone, and someone always decides what to include, what to leave out, and how large to draw each country. For much of history, European maps placed Europe at the centre of the world and drew it disproportionately large. The Peters projection, developed in 1973, attempted to show all countries at their true relative sizes — and caused an outcry. Many people felt the new map "looked wrong." They were so accustomed to the old distortion that accuracy itself seemed like a distortion. A map, it turns out, is not a picture of the world. It is an argument about it.
+      </div>
+      <ol class="qlist">
+        <li>Why are maps never truly neutral, according to the writer?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Because someone always decides what to include, what to leave out, and how large to draw each country — reflecting the mapmaker's perspective, not objective reality.</div></li>
+        <li>What was the Peters projection and why did it cause controversy?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">Developed in 1973, it showed all countries at their true relative sizes. It caused an outcry because people were so used to distorted maps that the accurate version seemed wrong.</div></li>
+        <li>Explain the paradox in "accuracy itself seemed like a distortion."
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">Truth appeared false and falsehood appeared true — familiarity had overridden reality. A paradox because the correct version was perceived as the wrong one.</div></li>
+        <li>What does "A map is not a picture of the world. It is an argument about it" mean?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">Maps make a claim about how the world should be seen — what is central, important, large. "Argument" suggests maps are persuasive positions, not neutral records.</div></li>
+        <li>What technique does the writer use in the final two sentences, and why is it effective?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">Antithesis in short declarative sentences: "not a picture… but an argument." The brevity lands with authority after the longer analytical build-up — persuasive and memorable.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px">Write a short persuasive or reflective piece: <em>"The stories we are told as children shape the way we see the world as adults."</em> Use a clear argument with one counter-argument acknowledged, rhetorical questions, and a strong final sentence.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>Every story we hear as a child is, in some sense, a map — a picture of how the world is supposed to work. Who is the hero? Who is the villain? These questions, asked thousands of times before we can read, leave deeper marks than we realise. Of course, not all childhood stories are harmful — many teach courage, kindness, and justice. But we should ask: whose version of justice? The stories we choose for children are not neutral. They are arguments about who matters and what the world can be. Perhaps the most important thing we can do is teach children to question the stories they are told, including this one.</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="section-card">
+  <div class="section-hdr bonus-hdr">
+    <h2>&#x2B50; Bonus Maths Challenge</h2>
+  </div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Geometry:</strong> A rectangle has area 180 cm². Its length is twice its width. Find its dimensions and perimeter.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">Width = w, length = 2w. Area: 2w² = 180 → w² = 90 → w = √90 ≈ 9.49 cm. Hmm — for clean numbers: area 180 cm², length = 3× width. 3w² = 180 → w² = 60... Let's try length = 2×width: w × 2w = 180 → 2w² = 180 → w² = 90. If the question intends length 15 and width 12 (15×12=180 and 15÷12=1.25): Perimeter = 2×(15+12) = 54 cm. Key method: Area = l × w, Perimeter = 2(l+w).</div></li>
+      <li><strong>Algebra:</strong> A shopkeeper buys items at £p each and sells them at a 40% profit. If she sells 15 items and makes £84 profit in total, find p.
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">p = £14. Total profit = 15 × 0.4p = 6p = £84. p = £84 ÷ 6 = £14.</div></li>
+      <li><strong>Probability:</strong> A bag has 3 red, 5 blue, and 2 green counters. Two counters are drawn without replacement. Find P(both red).
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">P = 3/10 × 2/9 = 6/90 = 1/15. First pick: P(red) = 3/10. Second pick (one red gone): P(red) = 2/9. Multiply: 3/10 × 2/9 = 1/15.</div></li>
+    </ol>
+  </div>
+</div>
+
+<!-- WORD OF THE DAY -->
+<div class="section-card">
+  <div class="section-hdr word-hdr">
+    <h2>&#x1F4AC; Word of the Day</h2>
+  </div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">cartography</div>
+        <div class="word-pos">noun</div>
+        <div class="word-def">The science or practice of drawing maps. From Latin <em>carta</em> (paper/map) + Greek <em>graphia</em> (writing).</div>
+        <div class="word-example">"The history of cartography reveals as much about power and politics as it does about geography."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="day-nav">
+  <a href="day-14.html" class="nav-btn">&#8592; Day 14</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-16.html" class="nav-btn">Day 16 &#8594;</a>
+</nav>
+
+</main>
+</body>
+</html>

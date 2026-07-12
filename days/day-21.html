@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 21 — Sutton 11+ Daily Practice</title>
+<style>
+:root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}.eng-hdr h2{color:var(--green)}.bonus-hdr h2{color:var(--amber)}.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.8;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple)}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+</style>
+<script>
+function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 21</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-hdr math-hdr"><h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>What is 17 × 18?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">306. 17×20 − 17×2 = 340 − 34 = 306.</div></li>
+        <li>Express 0.36 as a fraction in simplest form.
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">9/25. 0.36 = 36/100 = 9/25.</div></li>
+        <li>Solve: 6 − 2x = 14.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">x = −4. Subtract 6: −2x = 8. Divide by −2: x = −4.</div></li>
+        <li>What is the perimeter of a regular hexagon with side 8 cm?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">48 cm. 6 × 8 = 48 cm.</div></li>
+        <li>What is the cube root of 125?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">5. Because 5 × 5 × 5 = 125.</div></li>
+      </ol>
+    </div>
+
+    <!-- Rectangle coordinate plot -->
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Plotting coordinates — identifying the shape</strong>
+      <svg viewBox="0 0 200 200" width="200" height="200" style="display:block;margin:10px auto">
+        <line x1="20" y1="180" x2="190" y2="180" stroke="#ccc" stroke-width="1.5"/>
+        <line x1="20" y1="20" x2="20" y2="180" stroke="#ccc" stroke-width="1.5"/>
+        <!-- Grid lines -->
+        <line x1="60" y1="20" x2="60" y2="180" stroke="#eee" stroke-width="1"/>
+        <line x1="100" y1="20" x2="100" y2="180" stroke="#eee" stroke-width="1"/>
+        <line x1="140" y1="20" x2="140" y2="180" stroke="#eee" stroke-width="1"/>
+        <line x1="20" y1="140" x2="190" y2="140" stroke="#eee" stroke-width="1"/>
+        <line x1="20" y1="100" x2="190" y2="100" stroke="#eee" stroke-width="1"/>
+        <line x1="20" y1="60" x2="190" y2="60" stroke="#eee" stroke-width="1"/>
+        <!-- Rectangle (1,1)=60,140 (4,1)=140,140 (4,5)=140,60 (1,5)=60,60 -->
+        <rect x="60" y="60" width="80" height="80" fill="#c7ddf540" stroke="#1c4c96" stroke-width="2.5"/>
+        <circle cx="60" cy="140" r="4" fill="#1c4c96"/>
+        <circle cx="140" cy="140" r="4" fill="#1c4c96"/>
+        <circle cx="140" cy="60" r="4" fill="#1c4c96"/>
+        <circle cx="60" cy="60" r="4" fill="#1c4c96"/>
+        <text x="48" y="155" font-size="10" fill="#555">(1,1)</text>
+        <text x="140" y="155" font-size="10" fill="#555">(4,1)</text>
+        <text x="140" y="55" font-size="10" fill="#555">(4,5)</text>
+        <text x="30" y="55" font-size="10" fill="#555">(1,5)</text>
+        <text x="185" y="183" font-size="11" fill="#888">x</text>
+        <text x="12" y="18" font-size="11" fill="#888">y</text>
+      </svg>
+      <figcaption>Width = 3, height = 4 → Rectangle (3 ≠ 4, so not a square)</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>A recipe needs 300 g flour for 12 biscuits. How much flour for 20 biscuits?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">500 g. 300 ÷ 12 = 25 g per biscuit. 25 × 20 = 500 g.</div></li>
+        <li>A school trip costs £18.50 per pupil for 32 pupils. What is the total cost?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">£592. 32 × £18.50 = £592.</div></li>
+        <li>A bag has 4 red, 6 blue, and 5 yellow marbles. What is P(red or yellow)?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">3/5. Favourable: 4 + 5 = 9. Total: 15. P = 9/15 = 3/5.</div></li>
+        <li>Plot these coordinates and name the shape: (1,1), (4,1), (4,5), (1,5).
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Rectangle. Width = 3 units, height = 4 units. All four right angles; opposite sides equal. Since 3 ≠ 4, it is a rectangle not a square.</div></li>
+        <li>A shop marks up goods by 35% on cost. Cost price is £60. What is the selling price?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">£81. 35% of £60 = £21. Selling price = £60 + £21 = £81.</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr eng-hdr"><h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>What is an oxymoron? Give two examples.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">An oxymoron places contradictory words together for effect. Examples: "bittersweet", "deafening silence", "living death". The contradiction creates a vivid, paradoxical meaning.</div></li>
+        <li>Add a colon and a semi-colon correctly: <em>She had one aim to win and she would stop at nothing to achieve it.</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer"><em>She had one aim: to win; and she would stop at nothing to achieve it.</em> Colon after "aim" introduces what the aim is. Semi-colon separates two closely related main clauses.</div></li>
+        <li>What is the difference between first, second, and third person narration?
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">First person: narrator is a character, uses "I/we" — intimate, subjective. Second person: addresses reader as "you" — unusual, immersive. Third person: narrator outside the story ("he/she/they") — can be omniscient (knows all) or limited (one character's view).</div></li>
+        <li>What does <strong>labyrinthine</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Like a labyrinth; extremely complicated and full of twisting passages. Example: "The labyrinthine rules of the tax system confused even the most experienced accountants."</div></li>
+        <li>What is an extended metaphor? How does it differ from a simple metaphor?
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">A simple metaphor makes one comparison ("Life is a journey"). An extended metaphor develops that comparison across several sentences: "Life is a journey; some roads are smooth, others rutted with hardship; not all of us arrive where we intended." The same vehicle is revisited repeatedly.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — The Chess Lesson</h3>
+      <div class="passage-box">
+        The summer I turned twelve, my grandmother taught me to play chess. She was not gentle about it. She did not let me win, not even once, and when I made a poor move she would tap the offending piece with one finger and say, simply, "Think." The board was old — the white squares had gone the colour of weak tea — and the pieces were mismatched, some belonging to a set long since lost. We played every evening after dinner, in the hour before the light faded. When I finally beat her, near the end of that summer, she studied the board for a long time after I said checkmate. Then she looked up and smiled and said: "Good. Now you can learn." I didn't understand that until much later.
+      </div>
+      <ol class="qlist">
+        <li>What did the narrator's grandmother teach that summer, and how did she teach it?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Chess — not gently: refusing to let the narrator win, simply saying "Think" when a poor move was made.</div></li>
+        <li>What details describe the chess set, and what do they suggest?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">White squares gone the colour of weak tea; mismatched pieces from a set long lost. These suggest the set is old and well-used — an object with history, implying the grandmother has been playing for a long time.</div></li>
+        <li>Why is the final line — "I didn't understand that until much later" — effective?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">It creates retrospective irony: the narrator (now older) knows something their younger self did not. It suggests the lesson was about more than chess — mastery, humility, or life. The reader is invited to wonder what the real lesson was.</div></li>
+        <li>What does the grandmother mean by "Good. Now you can learn."?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">Winning was not the goal — it was only the beginning. Real learning starts after you can beat a teacher, when you must push beyond what they gave you. The remark reframes victory as merely a threshold, not an achievement.</div></li>
+        <li>How does the writer use time in this passage?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">The whole summer is compressed into a few key moments. The final sentence leaps forward to adulthood. This compression and leap gives the passage the quality of memory: vivid in some moments, hazy in the connections.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px">Write a short piece about something a person taught you — not a school lesson but something you understood only later. Use: a specific person doing a specific thing, a moment of apparent failure or confusion, and a final line from the perspective of your older self.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>My father never explained anything twice. He showed you once — how to change a tyre, how to read a map — and then he waited. When I did it wrong, he watched. I found this infuriating for most of my childhood. Now I understand: he was teaching me to be patient with myself, to try again without expecting rescue, to solve things without asking someone else first. He never said any of this. He just watched, and waited. I am still learning to do the same.</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr bonus-hdr"><h2>&#x2B50; Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Algebra:</strong> The sum of three consecutive multiples of 5 is 150. What are they?
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">45, 50, 55. Let them be 5n, 5n+5, 5n+10. Sum = 15n+15 = 150 → 15n = 135 → n = 9. So: 45, 50, 55.</div></li>
+      <li><strong>Percentages:</strong> A coat costs £85 after a 15% discount. What was the original price?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">£100. £85 = 85% of original. Original = £85 ÷ 0.85 = £100.</div></li>
+      <li><strong>Coordinates:</strong> A rectangle has vertices at (2, 1), (8, 1), and (8, 5). What are the coordinates of the fourth vertex? Find the perimeter and area.
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">Fourth vertex: (2, 5). Width = 8−2 = 6 units, height = 5−1 = 4 units. Perimeter = 2×(6+4) = 20 units. Area = 6×4 = 24 square units.</div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr word-hdr"><h2>&#x1F4AC; Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">sagacious</div>
+        <div class="word-pos">adjective</div>
+        <div class="word-def">Having or showing keen mental discernment and good judgement; wise. From Latin <em>sagax</em> — of quick perception.</div>
+        <div class="word-example">"The grandmother's sagacious teaching style — never letting her grandchild win — proved, in the end, the greater kindness."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="day-nav">
+  <a href="day-20.html" class="nav-btn">&#8592; Day 20</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-22.html" class="nav-btn">Day 22 &#8594;</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 14 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem}
+  </style>
+  <script>
+    function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 14 of 28</span>
+</div>
+<div class="page-header">
+  <div class="day-chip">Day 14</div>
+  <h1>Algebra, Average Speed &amp; the Arctic Tern</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<div class="section-card">
+  <div class="section-header math-hdr"><span class="section-icon">&#9998;</span><h2>Maths (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 36 &times; 15?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>540</strong>. 36 &times; 10 = 360, 36 &times; 5 = 180. Sum = 540.</div>
+        </li>
+        <li>Simplify: 3x + 5x &minus; 2x
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>6x</strong>. Collect like terms: 3 + 5 &minus; 2 = 6.</div>
+        </li>
+        <li>What is 1/3 of 4/5?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">Answer: <strong>4/15</strong>. &ldquo;Of&rdquo; means multiply: 1/3 &times; 4/5 = 4/15.</div>
+        </li>
+        <li>A number is tripled then 8 is subtracted; the result is 28. What is the number?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">Answer: <strong>12</strong>. Work backwards: 28 + 8 = 36. 36 &divide; 3 = 12. Check: 12 &times; 3 = 36, 36 &minus; 8 = 28 &#10003;</div>
+        </li>
+        <li>What is the area of a triangle with base 14 cm and height 9 cm?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Answer: <strong>63 cm&sup2;</strong>. A = &frac12; &times; 14 &times; 9 = 63 cm&sup2;.</div>
+        </li>
+      </ol>
+
+      <!-- Speed triangle visual -->
+      <div class="vis-box">
+        <div class="vis-label">Speed, Distance, Time triangle</div>
+        <svg viewBox="0 0 180 130" width="180" height="130">
+          <!-- outer triangle -->
+          <polygon points="90,10 10,120 170,120" fill="#eff6ff" stroke="#1c4c96" stroke-width="2"/>
+          <!-- horizontal divider -->
+          <line x1="50" y1="65" x2="130" y2="65" stroke="#1c4c96" stroke-width="2"/>
+          <!-- vertical divider inside lower half -->
+          <line x1="90" y1="65" x2="90" y2="120" stroke="#1c4c96" stroke-width="2"/>
+          <!-- labels -->
+          <text x="90" y="46" text-anchor="middle" font-size="14" font-weight="bold" fill="#1c4c96">D</text>
+          <text x="57" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a7a4a">S</text>
+          <text x="123" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#b45309">T</text>
+        </svg>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:4px">Cover what you want: D = S &times; T &nbsp;|&nbsp; S = D &divide; T &nbsp;|&nbsp; T = D &divide; S</p>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>Pens cost 45p and rulers cost 80p. Jess spends exactly &pound;5. Find one possible combination.
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">4 rulers + 4 pens = (4 &times; 80p) + (4 &times; 45p) = 320p + 180p = <strong>500p = &pound;5</strong>. &#10003; (Other combinations may also work.)</div>
+        </li>
+        <li>A train travels 120 km at 80 km/h, then returns at 60 km/h. What is the total journey time?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Outward: 120 &divide; 80 = 1.5 h. Return: 120 &divide; 60 = 2 h. Total = <strong>3.5 hours</strong>.</div>
+        </li>
+        <li>30 pupils have a mean score of 64. Two pupils scored 100. What is the mean of the remaining 28?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Total score = 64 &times; 30 = 1,920. Remove two 100s: 1,920 &minus; 200 = 1,720. Mean of 28 = 1,720 &divide; 28 &asymp; <strong>61.4</strong>.</div>
+        </li>
+        <li>An isosceles triangle has two equal angles of 68&deg;. What is the third angle?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Answer: <strong>44&deg;</strong>. 180 &minus; 68 &minus; 68 = 44&deg;.</div>
+        </li>
+        <li>A price increases by 15% from &pound;260. What is the new amount?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">Answer: <strong>&pound;299</strong>. 10% of &pound;260 = &pound;26. 5% = &pound;13. 15% = &pound;39. &pound;260 + &pound;39 = &pound;299.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header eng-hdr"><span class="section-icon">&#128218;</span><h2>English (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>What is the <strong>pluperfect (past perfect) tense</strong>? Give an example.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">The pluperfect uses <strong>had + past participle</strong> for an action completed <em>before</em> another past event. Example: <em>&ldquo;She realised she had left her keys at home.&rdquo;</em> (&ldquo;had left&rdquo; happened before &ldquo;realised&rdquo;.)</div>
+        </li>
+        <li>Identify and correct the dangling modifier:<br><em>Running down the street, the bus disappeared from sight.</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">The modifier &ldquo;running&rdquo; should describe a person, not the bus. Corrected: <em>&ldquo;Running down the street, he watched the bus disappear from sight.&rdquo;</em> The modifier must be next to the noun it describes.</div>
+        </li>
+        <li>What is the difference between <strong>formal</strong> and <strong>informal register</strong>? Give an example of each.
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer"><strong>Formal</strong>: complete sentences, sophisticated vocabulary, no contractions. <strong>Informal</strong>: conversational, contractions, colloquial. Same idea &mdash; Formal: <em>&ldquo;I would be grateful if you could attend.&rdquo;</em> Informal: <em>&ldquo;Can you come?&rdquo;</em></div>
+        </li>
+        <li>What does <strong>poignant</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer"><strong>Poignant</strong> means evoking keen sadness, especially for something beautiful but fading. Example: <em>&ldquo;The final photograph was particularly poignant, taken just days before they parted.&rdquo;</em></div>
+        </li>
+        <li>What are the three <strong>degrees of comparison</strong>? Use the word <em>cold</em>.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Positive: <strong>cold</strong>. Comparative: <strong>colder</strong>. Superlative: <strong>coldest</strong>. For longer adjectives: beautiful &rarr; more beautiful &rarr; most beautiful.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        The Arctic tern holds a record that no other creature on Earth can match. Each year, it migrates from its breeding grounds near the North Pole to the Antarctic and back again &mdash; a round trip of up to 90,000 kilometres. To put this in perspective: over the course of its lifetime, an Arctic tern may travel the equivalent of three trips to the Moon and back. It weighs roughly 100 grams &mdash; less than a bar of chocolate. It navigates using the sun, the stars, and the Earth&rsquo;s magnetic field. It sleeps in flight. And yet, despite this extraordinary endurance, the Arctic tern is rarely celebrated. It is not majestic, like the eagle. It is not beloved, like the robin. It is small, loud, and surprisingly aggressive &mdash; but it crosses the world twice a year as a matter of routine, and has done so for millions of years.
+      </div>
+      <ol class="q-list">
+        <li>What record does the Arctic tern hold?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">It migrates further than any other creature &mdash; <strong>up to 90,000 km per year</strong>, from Arctic to Antarctic and back.</div>
+        </li>
+        <li>What is the purpose of the &ldquo;bar of chocolate&rdquo; and &ldquo;three trips to the Moon&rdquo; comparisons?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">Both make <strong>abstract facts concrete and surprising</strong>. &ldquo;Less than a bar of chocolate&rdquo; highlights the bird&rsquo;s tiny weight; &ldquo;three trips to the Moon&rdquo; gives lifetime distance a relatable scale.</div>
+        </li>
+        <li>How does the writer use contrast throughout?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">Tiny weight vs enormous distance; unrecognised vs extraordinary; &ldquo;not majestic&hellip; not beloved&rdquo; vs record-breaking migration. <strong>Appearance vs hidden achievement</strong> is the writer&rsquo;s key argument.</div>
+        </li>
+        <li>What is the writer&rsquo;s tone and attitude? How can you tell?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer"><strong>Admiring and gently critical</strong>. &ldquo;Extraordinary endurance&rdquo; shows admiration; &ldquo;rarely celebrated&rdquo; suggests absurdity. &ldquo;Has done so for millions of years&rdquo; carries quiet awe.</div>
+        </li>
+        <li>What wider point might the writer be making?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">We celebrate <strong>surface qualities</strong> (beauty, majesty) over <strong>substance</strong> (endurance, quiet achievement). The tern symbolises unrecognised excellence.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short piece (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;Choose an animal, person, or thing that is underestimated or overlooked. Write a short piece revealing why it deserves more recognition.&rdquo;</p>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:8px">Try to use: <strong>surprising comparisons</strong>, <strong>contrast between appearance and achievement</strong>, and a <strong>strong final sentence</strong>.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer (the earthworm):</strong><br>
+        <em>The earthworm has no eyes, no ears, and no skeleton. It is, by almost any measure, unremarkable &mdash; and yet without it, most of the food on your plate would not exist. A single acre of healthy farmland may contain over a million earthworms. Charles Darwin spent 44 years studying them and concluded they had shaped more of Earth&rsquo;s surface than any other animal. They do not appear on nature documentaries. They are simply there, beneath your feet, doing the quiet, essential work of keeping the world alive. If that is not extraordinary, it is hard to say what is.</em><br><br>
+        <strong>Check for:</strong> (1) surprising comparisons: Darwin&rsquo;s 44 years, 1 million per acre (2) contrast: unremarkable appearance vs essential function (3) strong final sentence.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header bonus-hdr"><span class="section-icon">&#11088;</span><h2>Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking.</p>
+    <ol class="q-list">
+      <li><strong>Average speed trap:</strong> A car travels 60 km at 40 km/h, then 60 km at 60 km/h. What is the average speed for the whole journey? (Beware: it is NOT 50 km/h.)
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">Time for first half: 60&divide;40 = 1.5 h. Time for second half: 60&divide;60 = 1 h. Total time = 2.5 h. Total distance = 120 km. Average speed = 120&divide;2.5 = <strong>48 km/h</strong>. Not 50 &mdash; the slower speed takes more time, pulling the average down.</div>
+      </li>
+      <li><strong>Algebra investigation:</strong> Solve: 5(2x &minus; 3) = 35. Then verify your answer by substituting back.
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">Expand: 10x &minus; 15 = 35. 10x = 50. <strong>x = 5</strong>. Check: 5(2&times;5 &minus; 3) = 5(10&minus;3) = 5&times;7 = 35 &#10003;</div>
+      </li>
+      <li><strong>Mean challenge:</strong> A class of 20 has a mean score of 72. A class of 30 has a mean score of 66. What is the combined mean?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">Total for class A: 20 &times; 72 = 1,440. Total for class B: 30 &times; 66 = 1,980. Combined total = 3,420. Combined pupils = 50. Mean = 3,420 &divide; 50 = <strong>68.4</strong>. (Not 69 &mdash; the larger class pulls the average down.)</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header word-hdr"><span class="section-icon">&#128219;</span><h2>Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">indefatigable</div>
+      <div class="word-pron">/ in-deh-FAT-ih-guh-bul / &nbsp;&mdash;&nbsp; adjective</div>
+      <div class="word-def">Persisting tirelessly, never showing signs of becoming exhausted or giving up. An indefatigable person or creature keeps going long after others would have stopped.</div>
+      <div class="word-eg">&ldquo;The Arctic tern is perhaps the most indefatigable traveller on Earth &mdash; crossing 90,000 kilometres every year, not as an achievement, but as a matter of routine.&rdquo;</div>
+      <div class="word-task"><strong>Your turn:</strong> Write a sentence using <em>indefatigable</em> to describe a person, animal, or historical figure. Can you think of a real person in history who could be described as indefatigable?</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-13.html">&#8592; Day 13</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-15.html">Day 15 &rarr;</a>
+</div>
+</div>
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 14 of 28 &nbsp;|&nbsp; Halfway there soon!</div>
+</body>
+</html>

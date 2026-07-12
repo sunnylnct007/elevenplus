@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 16 — Sutton 11+ Daily Practice</title>
+<style>
+:root{
+  --blue:#1c4c96;--blue-light:#e8eef8;
+  --green:#1a7a4a;--green-light:#e6f4ed;
+  --amber:#b45309;--amber-light:#fef3c7;
+  --purple:#6d28d9;--purple-light:#ede9fe;
+  --text:#1a1a2e;--muted:#64748b;
+  --border:#e2e8f0;--bg:#f8fafc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}
+.eng-hdr{background:#f0fdf4}
+.bonus-hdr{background:#fef9ec}
+.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}
+.eng-hdr h2{color:var(--green)}
+.bonus-hdr h2{color:var(--amber)}
+.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}
+.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}
+ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.85;margin-bottom:14px}
+.passage-box p{margin-bottom:10px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple);min-width:180px}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+.chip-strip{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0}
+.chip{background:var(--blue-light);color:var(--blue);border-radius:20px;padding:4px 14px;font-size:.88rem;font-weight:600}
+.chip.highlight{background:var(--blue);color:#fff}
+</style>
+<script>
+function toggleAnswer(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var btn=el.previousElementSibling;
+  if(el.style.display==='block'){
+    el.style.display='none';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+  }else{
+    el.style.display='block';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+  }
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 16</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<!-- MATHS -->
+<div class="section-card">
+  <div class="section-hdr math-hdr">
+    <h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>Solve: 5(2x − 3) = 25.
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">x = 4. Expand: 10x − 15 = 25. Add 15: 10x = 40. Divide: x = 4.</div></li>
+        <li>Express 0.125 as a fraction in simplest form.
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">1/8. 0.125 = 125/1000 = 1/8. (Also: 0.125 = 1 ÷ 8.)</div></li>
+        <li>A regular pentagon has perimeter 65 cm. What is the length of one side?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">13 cm. A pentagon has 5 equal sides. 65 ÷ 5 = 13 cm.</div></li>
+        <li>What is the sum of all integers from 1 to 10?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">55. Use Gauss's method: pair 1+10=11, 2+9=11, 3+8=11, 4+7=11, 5+6=11. Five pairs of 11 = 55.</div></li>
+        <li>A triangle has angles 47° and 68°. Find the third angle and classify the triangle.
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">65°. Angles sum to 180°: 180 − 47 − 68 = 65°. All angles &lt; 90° → acute triangle. All sides different → scalene.</div></li>
+      </ol>
+    </div>
+
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">nth term: 4n − 1</strong>
+      <div class="chip-strip" style="margin-top:10px">
+        <span class="chip">n=1<br>3</span>
+        <span class="chip">n=2<br>7</span>
+        <span class="chip">n=3<br>11</span>
+        <span class="chip">n=4<br>15</span>
+        <span class="chip highlight">n=5<br>19</span>
+      </div>
+      <figcaption>Each term increases by 4 (common difference). nth term = 4n − 1.</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>In a pie chart, 45 out of 120 students chose science as their favourite subject. What angle represents this on the pie chart?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">135°. Fraction: 45/120 = 3/8. Angle: 3/8 × 360° = 135°.</div></li>
+        <li>A cuboid has dimensions 1.5 m × 0.8 m × 1.2 m. Find its volume in litres (1 m³ = 1,000 litres).
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">1,440 litres. Volume = 1.5 × 0.8 × 1.2 = 1.44 m³. In litres: 1.44 × 1000 = 1,440 L.</div></li>
+        <li>Find the nth term of the sequence: 3, 7, 11, 15, 19, …
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">4n − 1. Common difference = 4 (so coefficient of n is 4). When n=1: 4(1)−1 = 3. ✓ When n=2: 4(2)−1 = 7. ✓</div></li>
+        <li>A jacket is sold for £63 after a 30% discount. What was the original price?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">£90. £63 = 70% of original. Original = £63 ÷ 0.7 = £90.</div></li>
+        <li>A running track has two straight sections of 100 m each and two semicircular ends with diameter 50 m. Find the total perimeter. (π = 3.14)
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">357 m. Straight sections: 2 × 100 = 200 m. Two semicircles = one full circle: circumference = π × 50 = 3.14 × 50 = 157 m. Total: 200 + 157 = 357 m.</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ENGLISH -->
+<div class="section-card">
+  <div class="section-hdr eng-hdr">
+    <h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>Rewrite this sentence in the passive voice: <em>The council built the new library in 2019.</em>
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">"The new library was built by the council in 2019." In the passive, the object becomes the subject and the verb uses "to be" + past participle. The agent (the council) is introduced with "by" and can be omitted: "The new library was built in 2019."</div></li>
+        <li>Convert this direct speech to reported speech: <em>"We are leaving tomorrow," said Mia.</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Mia said that they were leaving the following day. Changes: "We" → "they"; "are leaving" → "were leaving" (backshift); "tomorrow" → "the following day."</div></li>
+        <li>What does the prefix <strong>contra-</strong> mean? Give three words using it.
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Contra- means "against" or "opposite." Words: contradict (speak against), contrast (set against), contraband (against the ban), contraflow (opposite flow).</div></li>
+        <li>What does <strong>ephemeral</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Lasting only a very short time; transitory. Example: "The beauty of cherry blossom is ephemeral — it fades within a week of opening."</div></li>
+        <li>Name the four main types of imagery a writer can use and give one example of each.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Visual: "The sky bled crimson." Auditory: "Leaves whispered in the wind." Tactile: "The cold stone bit into his palms." Olfactory: "The sharp scent of pine filled the air." Writers use multiple senses to make scenes vivid and immersive.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — The Last Leaf</h3>
+      <div class="passage-box">
+        <p>It had been clinging on for weeks — the last leaf on the oak at the bottom of the garden. While the others had let go in the first November gales, this one held on, dark and crumpled, its edges curled inward as if it were making a fist.</p>
+        <p>My grandmother watched it from the kitchen window every morning. She did not say much about it. But once, stirring her tea, she remarked: "It's being defiant." I didn't know, then, what she meant. A leaf cannot be defiant. And yet I kept looking at it too.</p>
+        <p>It fell in January, two days before she died. I have thought about that leaf, on and off, for the whole of my adult life. Not because I believe in signs. Because some things, small and unremarkable, teach you what you couldn't have learned from anything larger.</p>
+      </div>
+      <ol class="qlist">
+        <li>How does the writer describe the last leaf, and what does this suggest?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">"Dark and crumpled, its edges curled inward as if it were making a fist." The simile of a fist gives the leaf a sense of will and resistance — it is fighting to hold on. This physical description prepares us for the grandmother's word "defiant."</div></li>
+        <li>What does the grandmother mean when she says the leaf is "being defiant"?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">She is projecting human qualities onto the leaf — seeing in its stubborn survival a form of resistance against the season, against the inevitable. She may be thinking of herself as much as the leaf.</div></li>
+        <li>What is the significance of the timing — the leaf fell two days before she died?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">It creates a symbolic connection between the leaf's final surrender and the grandmother's death. The writer does not claim it is a sign ("Not because I believe in signs"), but acknowledges the leaf as a powerful, lasting image nonetheless.</div></li>
+        <li>What is the effect of the short final sentence: "Because some things, small and unremarkable, teach you what you couldn't have learned from anything larger."?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">It offers a quiet reflection — that small, ordinary things can carry profound meaning. The paradox (small teaches what large cannot) gives the sentence weight. It also justifies why the writer has told this story.</div></li>
+        <li>How does the writer use the leaf as a symbol throughout the passage?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">The leaf begins as a physical object (described vividly), becomes a symbol of defiance through the grandmother's word, and ends as a symbol of human resilience and mortality. Its fall mirrors her death. The leaf carries meaning without the writer ever stating it directly — it is shown, not told.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px">Choose a natural object (a stone, a wave, a bare tree, a cloud) and write a short piece in which it becomes a symbol for a human quality — without ever saying so directly.</p>
+      <p style="margin-bottom:10px">Try to use: a specific sensory description, one person who notices the object, and a final line that widens the meaning quietly.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>There is a stone on the windowsill that my father brought back from a beach in Wales thirty years ago. It is smooth and grey, palm-sized, unremarkable. He put it there the year he gave up drinking, and nobody has moved it since. When I visit, I notice it before I notice anything else. My father doesn't talk about that year. He just makes tea and asks about the children, and the stone sits in the window in the late afternoon light. It has been exactly the same, all this time. So has he.</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="section-card">
+  <div class="section-hdr bonus-hdr">
+    <h2>&#x2B50; Bonus Maths Challenge</h2>
+  </div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Algebra:</strong> Solve: 3(x + 4) − 2(x − 1) = 20.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">x = 6. Expand: 3x + 12 − 2x + 2 = 20. Simplify: x + 14 = 20. x = 6.</div></li>
+      <li><strong>Percentage:</strong> A price rises 20% then falls 20%. What is the overall percentage change?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">−4% (a decrease). Start at £100. After +20%: £120. After −20%: £120 × 0.8 = £96. Net change: £96 − £100 = −£4, so 4% decrease. Successive percentage changes are NOT additive.</div></li>
+      <li><strong>nth term:</strong> The nth term of a sequence is n² + 3. List the first five terms and find which term equals 147.
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">Terms: 4, 7, 12, 19, 28 (for n = 1,2,3,4,5). For 147: n² + 3 = 147 → n² = 144 → n = 12. The 12th term is 147.</div></li>
+    </ol>
+  </div>
+</div>
+
+<!-- WORD OF THE DAY -->
+<div class="section-card">
+  <div class="section-hdr word-hdr">
+    <h2>&#x1F4AC; Word of the Day</h2>
+  </div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">resilient</div>
+        <div class="word-pos">adjective</div>
+        <div class="word-def">Able to recover quickly from difficulties; capable of springing back to shape after being stretched or compressed. From Latin <em>resilire</em> — to spring back.</div>
+        <div class="word-example">"She was resilient enough to return to training three weeks after the injury that had ended other careers."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="day-nav">
+  <a href="day-15.html" class="nav-btn">&#8592; Day 15</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-17.html" class="nav-btn">Day 17 &#8594;</a>
+</nav>
+
+</main>
+</body>
+</html>

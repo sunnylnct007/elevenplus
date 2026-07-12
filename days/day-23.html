@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 23 — Sutton 11+ Daily Practice</title>
+<style>
+:root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}.eng-hdr h2{color:var(--green)}.bonus-hdr h2{color:var(--amber)}.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.8;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple)}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+</style>
+<script>
+function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 23</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-hdr math-hdr"><h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>Solve: 2x/5 − 1 = 3.
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">x = 10. Add 1: 2x/5 = 4. Multiply by 5: 2x = 20. x = 10.</div></li>
+        <li>What is 4/7 of 42?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">24. 42 ÷ 7 = 6. 6 × 4 = 24.</div></li>
+        <li>Write the prime factorisation of 180.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">2² × 3² × 5. 180 = 2 × 90 = 2 × 2 × 45 = 4 × 9 × 5.</div></li>
+        <li>Two angles on a straight line are in ratio 1:4. Find both angles.
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">36° and 144°. Angles on a line sum to 180°. 1 part = 36°. 4 parts = 144°.</div></li>
+        <li>What is 2.5% of £8,000?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">£200. 1% = £80. 2.5 × £80 = £200.</div></li>
+      </ol>
+    </div>
+
+    <!-- Box folding diagram -->
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Folding a box from card — net to 3D</strong>
+      <svg viewBox="0 0 260 140" width="260" height="140" style="display:block;margin:8px auto">
+        <!-- Net representation -->
+        <rect x="10" y="10" width="120" height="80" fill="none" stroke="#1c4c96" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <rect x="30" y="10" width="80" height="80" fill="#c7ddf540" stroke="#1c4c96" stroke-width="2"/>
+        <text x="70" y="55" text-anchor="middle" font-size="11" fill="#1c4c96">30 cm</text>
+        <text x="12" y="55" font-size="10" fill="#1c4c96" transform="rotate(-90,12,55)">20 cm</text>
+        <text x="14" y="100" font-size="10" fill="#b45309">cut 5cm corners</text>
+        <!-- Arrow -->
+        <text x="140" y="58" font-size="20" fill="#888">→</text>
+        <!-- Box 3D -->
+        <rect x="165" y="30" width="80" height="60" fill="#c7ddf550" stroke="#1c4c96" stroke-width="2"/>
+        <polyline points="165,30 185,15 245,15 245,75 225,90" fill="none" stroke="#1c4c96" stroke-width="1.5"/>
+        <line x1="245" y1="15" x2="225" y2="30" stroke="#1c4c96" stroke-width="1.5"/>
+        <text x="200" y="60" font-size="10" fill="#1c4c96">20×10×5</text>
+        <text x="190" y="115" font-size="10" fill="#1a7a4a">V = 1,000 cm³</text>
+      </svg>
+      <figcaption>Removing 5 cm corner squares leaves a box 20×10 cm base, 5 cm tall</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>A map has scale 1:25,000. A road is 8 cm on the map. What is the actual length in km?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">2 km. 8 × 25,000 = 200,000 cm = 2,000 m = 2 km.</div></li>
+        <li>A card is 30 cm × 20 cm. Four 5 cm squares are cut from the corners, then the card is folded into an open box. Find the dimensions and volume.
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Box: 20 cm × 10 cm × 5 cm. Volume = 20 × 10 × 5 = 1,000 cm³.</div></li>
+        <li>In a survey: 60% like chocolate, 25% like vanilla. Out of 200 people, how many like strawberry?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">30. Strawberry = 100 − 60 − 25 = 15%. 15% × 200 = 30.</div></li>
+        <li>Prove algebraically that the product of two consecutive odd integers is always odd.
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Let them be (2n+1) and (2n+3). Product = (2n+1)(2n+3) = 4n²+8n+3 = 2(2n²+4n+1)+1. This has the form 2k+1 (an odd number). ✓</div></li>
+        <li>A cylinder has the same height as its diameter. Its volume is 250π cm³. Find its radius.
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">r = 5 cm. Height = diameter = 2r. V = πr²(2r) = 2πr³ = 250π → r³ = 125 → r = 5.</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr eng-hdr"><h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>What is a parenthetical clause? Give three ways to punctuate one.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">A clause that adds extra information which could be removed without changing the main meaning. Punctuation options: (1) Commas: "The house, which had been empty for years, was sold." (2) Dashes: "The house — which had been empty for years — was sold." (3) Brackets: "The house (which had been empty for years) was sold."</div></li>
+        <li>What is the subjunctive mood? Give two examples.
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">The subjunctive expresses wishes, hypotheticals, or conditions contrary to fact — often using "were" instead of "was." Examples: "If I were you, I would reconsider." "She demanded that he leave immediately." More common in formal or literary writing.</div></li>
+        <li>Identify the literary technique and explain its effect: <em>"The flames clawed at the curtains, hungry for more."</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Personification — "clawed" (an animalistic action) and "hungry" give the fire predatory, purposeful qualities. Effect: makes the fire seem malevolent and dangerous, intensifying the drama.</div></li>
+        <li>What does <strong>incandescent</strong> mean? Give a literal and a figurative use.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Literally: glowing with intense heat or light. Figuratively: intensely angry. Literal: "The incandescent bulb filled the room with warm light." Figurative: "She was incandescent with fury when she heard the news."</div></li>
+        <li>What is free verse? How does it differ from blank verse?
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Free verse has no fixed metre or rhyme scheme — the poet makes deliberate rhythmic choices but is unconstrained. Blank verse has no rhyme but DOES have regular metre — usually iambic pentameter (10 syllables, da-DUM pattern). Shakespeare's plays use blank verse; much modern poetry uses free verse.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — The Library</h3>
+      <div class="passage-box">
+        Nobody talks about the smell of libraries. They talk about the quiet, the long tables, the particular quality of the light through high windows — but not the smell, which is the best thing. It is the smell of paper and time, of dust that has settled on ideas, of thousands of different people's attention held in one place. I have been going to this library since I was seven years old. It is where I went when home was difficult and school was loud and my own head was too crowded to be in. I never borrowed anything extraordinary. But every time I walked in, I became slightly more myself. That is not a small thing.
+      </div>
+      <ol class="qlist">
+        <li>Why, according to the writer, do people overlook the smell of libraries?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">They focus on other qualities — the quiet, the light, the long tables — and overlook the smell, which the writer considers "the best thing."</div></li>
+        <li>What is the smell of libraries compared to, and why is this effective?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">"Paper and time", "dust that has settled on ideas", "thousands of different people's attention." These descriptions make the smell intellectual and human — the residue of thought, not mere mustiness.</div></li>
+        <li>Why did the writer go to the library?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">When home was difficult, school was loud, and their own head was too crowded — the library was a retreat and refuge.</div></li>
+        <li>What does "every time I walked in, I became slightly more myself" mean?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The library allowed the writer to recover a sense of identity — calm, undistracted, centred. The word "slightly" is precise and honest, avoiding overstatement.</div></li>
+        <li>How does the final sentence function structurally and emotionally?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">"That is not a small thing." is short and declarative — it follows the modest admission ("slightly more myself") and defends it against underestimation. Its brevity gives it finality and quiet force.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px">Write a short piece about a place that has meant something to you — a refuge or space where you felt more yourself. Use: specific sensory detail (not just visual), a clear sense of why you went there, and a modest final line that understates the importance of the place.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>The school pond was small enough to jump across and smelled of mud and something alive, though you could never see quite what. Nobody went there at lunchtime except me. I went because it was the only part of school that didn't want anything from you — it wasn't checking if you had done your homework or asking you to sit still. The water was always moving slightly, even when there was no wind. I liked that. I would sit on an old pallet someone had left as a bench and do nothing in particular, and after ten minutes I was always better. I never told anyone about it. Some things work only because they belong to you alone.</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr bonus-hdr"><h2>&#x2B50; Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Cylinders:</strong> A cylinder has radius 4 cm and height 10 cm. Find its volume and curved surface area. (π = 3.14)
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">Volume = π × 16 × 10 = 502.4 cm³. Curved SA = 2πrh = 2 × 3.14 × 4 × 10 = 251.2 cm².</div></li>
+      <li><strong>Proof:</strong> Show that the sum of any two consecutive odd numbers is divisible by 4.
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">Let consecutive odd numbers be (2n−1) and (2n+1). Sum = 4n. Since 4n is divisible by 4 for all integers n, the sum is always divisible by 4. ✓</div></li>
+      <li><strong>Scale:</strong> A map has scale 1:50,000. Two towns are 6.4 cm apart on the map. What is the real distance in km? How many cm on the map represents 5 km?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">Real distance: 6.4 × 50,000 = 320,000 cm = 3.2 km. For 5 km: 5 km = 500,000 cm. 500,000 ÷ 50,000 = 10 cm on the map.</div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr word-hdr"><h2>&#x1F4AC; Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">solace</div>
+        <div class="word-pos">noun / verb</div>
+        <div class="word-def">Comfort or consolation in a time of distress or sadness. From Latin <em>solacium</em> — comfort.</div>
+        <div class="word-example">"For years, the library had been her solace — a place to think clearly when the rest of life felt too loud."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="day-nav">
+  <a href="day-22.html" class="nav-btn">&#8592; Day 22</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-24.html" class="nav-btn">Day 24 &#8594;</a>
+</nav>
+</main>
+</body>
+</html>

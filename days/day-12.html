@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 12 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .seq-strip{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap}
+    .seq-tile{border:2px solid var(--blue);border-radius:8px;padding:7px 12px;background:var(--blue-light);font-weight:bold;color:var(--blue);font-size:0.95rem;min-width:52px;text-align:center}
+    .seq-arrow{color:var(--muted);font-size:1rem;font-weight:bold}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem}
+  </style>
+  <script>
+    function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 12 of 28</span>
+</div>
+<div class="page-header">
+  <div class="day-chip">Day 12</div>
+  <h1>Simultaneous Equations, Sequences &amp; The Lighthouse</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<div class="section-card">
+  <div class="section-header math-hdr"><span class="section-icon">&#9998;</span><h2>Maths (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 345 &times; 8?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>2,760</strong>. 300 &times; 8 = 2,400; 40 &times; 8 = 320; 5 &times; 8 = 40. Sum = 2,760.</div>
+        </li>
+        <li>Simplify 24/36.
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>2/3</strong>. HCF of 24 and 36 = 12. 24 &divide; 12 = 2, 36 &divide; 12 = 3.</div>
+        </li>
+        <li>What is 40% of 3.5 km in metres?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">3.5 km = 3,500 m. 40% &times; 3,500 = <strong>1,400 m</strong>.</div>
+        </li>
+        <li>What are the first three multiples of 11?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">Answer: <strong>11, 22, 33</strong>.</div>
+        </li>
+        <li>A piece of string is 2.4 m. How many 30 cm pieces can be cut?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">2.4 m = 240 cm. 240 &divide; 30 = <strong>8 pieces</strong>.</div>
+        </li>
+      </ol>
+
+      <div class="vis-box">
+        <div class="vis-label">Halving sequence: &divide;2 each time</div>
+        <div class="seq-strip">
+          <div class="seq-tile">100</div><div class="seq-arrow">&divide;2</div>
+          <div class="seq-tile">50</div><div class="seq-arrow">&divide;2</div>
+          <div class="seq-tile">25</div><div class="seq-arrow">&divide;2</div>
+          <div class="seq-tile">12.5</div><div class="seq-arrow">&divide;2</div>
+          <div class="seq-tile">6.25</div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:8px">This is a <strong>geometric sequence</strong> (common ratio = 0.5). Terms can become decimals &mdash; that&rsquo;s fine!</p>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>2 apples and 3 pears cost &pound;2.05. 1 apple and 2 pears cost &pound;1.20. Find the price of one apple.
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">Let a = apple price, p = pear price. From equation 2: a + 2p = 1.20 &rarr; a = 1.20 &minus; 2p. Substitute into equation 1: 2(1.20&minus;2p) + 3p = 2.05 &rarr; 2.40 &minus; 4p + 3p = 2.05 &rarr; p = 0.35. So a = 1.20 &minus; 0.70 = <strong>50p</strong>. Pear = 35p.</div>
+        </li>
+        <li>A cylinder has radius 5 cm and height 12 cm. What is its volume? (Use &pi; = 3.14)
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">V = &pi; &times; r&sup2; &times; h = 3.14 &times; 25 &times; 12 = <strong>942 cm&sup3;</strong>.</div>
+        </li>
+        <li>In a bag: 5 red, 7 blue, 3 green. What is P(not blue)?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Total = 15. Not blue = 15 &minus; 7 = 8. P(not blue) = <strong>8/15</strong>.</div>
+        </li>
+        <li>At 8:45 am, a train is 247 km from the station. It travels at 65 km/h. What time does it arrive?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Time = 247 &divide; 65 = 3.8 hours = 3 h 48 min. Arrival = 8:45 + 3 h 48 min = <strong>12:33 pm</strong>.</div>
+        </li>
+        <li>Find the rule and next term: 100, 50, 25, 12.5, ___
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">Rule: <strong>divide by 2</strong> each time. Next term = 12.5 &divide; 2 = <strong>6.25</strong>.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header eng-hdr"><span class="section-icon">&#128218;</span><h2>English (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>What is <strong>alliteration</strong>? Give an example and explain why a writer might use it.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer"><strong>Alliteration</strong> = repetition of the same consonant sound at the start of nearby words. Example: <em>&ldquo;The dark, damp dungeon dripped with dread.&rdquo;</em> Effects: creates rhythm, reinforces mood (harsh d-sounds = menace), makes writing memorable.</div>
+        </li>
+        <li>Add a fronted adverbial and a relative clause to improve:<br><em>The dog ran across the garden.</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Example: <em>&ldquo;In a burst of sudden energy, the dog that had been asleep for hours ran across the garden.&rdquo;</em> Fronted adverbial: &ldquo;In a burst of sudden energy,&rdquo; Relative clause: &ldquo;that had been asleep for hours.&rdquo;</div>
+        </li>
+        <li>Write a sentence using <strong>parenthesis</strong> (a pair of dashes), then repeat it using brackets.
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Dashes: <em>The journey &mdash; which took nearly four hours &mdash; was worth every minute.</em> Brackets: <em>The journey (which took nearly four hours) was worth every minute.</em> Both add extra information that could be removed without breaking the sentence.</div>
+        </li>
+        <li>What does <strong>melancholy</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer"><strong>Melancholy</strong> = a deep, gentle sadness, often without a clear reason. Example: <em>&ldquo;On autumn evenings, the empty park had a quiet melancholy about it.&rdquo;</em></div>
+        </li>
+        <li>What is <strong>pathetic fallacy</strong>? Give an example.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer"><strong>Pathetic fallacy</strong> = using weather or environment to reflect a character&rsquo;s emotions. Example: <em>&ldquo;As she left the funeral, rain began to fall.&rdquo;</em> The weather mirrors or creates mood.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        The lighthouse had stood on the cliff for over two hundred years. It had watched wars begin and end, storms wreck and spare, generations of fishing boats leave before dawn and return, or not return, by nightfall. It did not judge. It simply turned its light across the dark water &mdash; once, and again, and again &mdash; a steady pulse that said: here is the edge. Here is the danger. Here, still, is something solid. Now it was decommissioned. A modern navigation buoy bobbed somewhere out at sea, and the lighthouse would be converted into holiday flats. A sign on the door said viewings by appointment.
+      </div>
+      <ol class="q-list">
+        <li>What has the lighthouse witnessed over two hundred years?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Wars beginning and ending; storms wrecking ships and sparing them; boats leaving before dawn and <strong>sometimes not returning</strong>.</div>
+        </li>
+        <li>What is the effect of &ldquo;or not return&rdquo; in the passage?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">The phrase is placed after a pause (comma), making the reader slow down. The <strong>quiet, understated</strong> addition carries enormous weight &mdash; it acknowledges death and loss without dramatising it. The brevity is what makes it moving.</div>
+        </li>
+        <li>Analyse &ldquo;here is the edge. Here is the danger. Here, still, is something solid.&rdquo;
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">The <strong>anaphora</strong> (repeated &ldquo;here&rdquo;) creates rhythmic urgency &mdash; like the lighthouse beam itself. The three sentences build: edge (physical), danger (warning), something solid (<strong>reassurance</strong>). The structure mirrors the lighthouse&rsquo;s function: warning, then comfort.</div>
+        </li>
+        <li>How does the final sentence change the mood of the passage?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">It is deliberately <strong>flat and bathetic</strong> &mdash; the grand, stoic lighthouse reduced to a &ldquo;viewings by appointment&rdquo; notice. The contrast between its two centuries of vital purpose and its fate as holiday flats is the source of the passage&rsquo;s sadness. The prose deflates from lyrical to bureaucratic.</div>
+        </li>
+        <li>What theme does the writer explore?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer"><strong>Loss, change, the replacement of the old with the new</strong>, and what is lost when the useful becomes obsolete. Also the contrast between grandeur and the mundane.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short piece (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;Write about a building or place that has outlived its original purpose. Use personification, contrast between past and present, and a final line that lands with quiet sadness or irony.&rdquo;</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer (an old post office):</strong><br>
+        <em>It used to know the weight of things. Letters, parcels, small packages of hope and grief &mdash; it had held them all before sending them on their way. The queues went out the door on the day the welfare cheques arrived. Now it sells artisan bread and scented candles. The original counter is still there, behind the coffee machine, glass-topped, waiting as if someone might yet slide a letter across it. Nobody does.</em><br><br>
+        <strong>Check for:</strong> (1) personification: &ldquo;know the weight&rdquo; (2) past vs present contrast: queues vs coffee shop (3) quiet final sentence: &ldquo;Nobody does.&rdquo;
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header bonus-hdr"><span class="section-icon">&#11088;</span><h2>Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking.</p>
+    <ol class="q-list">
+      <li><strong>Simultaneous equations:</strong> 3 coffees and 2 teas cost &pound;8.50. 1 coffee and 4 teas cost &pound;7.50. Find the cost of each.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">3c + 2t = 8.50 (eq1), c + 4t = 7.50 (eq2). Multiply eq2 by 3: 3c + 12t = 22.50. Subtract eq1: 10t = 14.00, t = <strong>&pound;1.40</strong>. Then c = 7.50 &minus; 4(1.40) = 7.50 &minus; 5.60 = <strong>&pound;1.90</strong>.</div>
+      </li>
+      <li><strong>Probability (combined):</strong> A bag has 4 red and 6 blue balls. One ball is drawn, noted, and replaced. What is the probability that both the first and second draws are red?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">P(red first) = 4/10 = 2/5. P(red second) = 4/10 = 2/5 (replaced, so same). P(both red) = 2/5 &times; 2/5 = <strong>4/25</strong>.</div>
+      </li>
+      <li><strong>Speed &amp; time:</strong> A train travels 247 km at 65 km/h (the problem from today). Halfway through the journey it slows to 52 km/h for a 30-minute delay, then resumes at 65 km/h. How much later does it arrive?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">The <strong>delay is 30 minutes</strong>, regardless of the speed change (the delay is a stop, not a speed reduction). So the train arrives exactly <strong>30 minutes later</strong> than the original 12:33 pm &rarr; <strong>13:03</strong>.</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header word-hdr"><span class="section-icon">&#128219;</span><h2>Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">stoic</div>
+      <div class="word-pron">/ STOH-ik / &nbsp;&mdash;&nbsp; adjective / noun</div>
+      <div class="word-def">Enduring pain, difficulty, or hardship without complaining or showing emotion. A stoic person accepts what cannot be changed and faces adversity with quiet strength. (Originally from the ancient Greek philosophical school of Stoicism.)</div>
+      <div class="word-eg">&ldquo;The lighthouse was stoic in the face of every storm &mdash; it did not judge, it did not waver; it simply turned its light across the dark water, again and again.&rdquo;</div>
+      <div class="word-task"><strong>Your turn:</strong> Write a sentence using <em>stoic</em> to describe a person in a difficult situation. Is being stoic always a strength, or can it sometimes be a weakness?</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-11.html">&#8592; Day 11</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-13.html">Day 13 &rarr;</a>
+</div>
+</div>
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 12 of 28 &nbsp;|&nbsp; Keep going!</div>
+</body>
+</html>

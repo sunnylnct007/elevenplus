@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 11 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .data-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:6px 0}
+    .data-chip{border:2px solid var(--blue);border-radius:6px;padding:5px 12px;font-weight:bold;color:var(--blue);background:var(--blue-light);font-size:0.9rem}
+    .data-chip.hl{background:var(--blue);color:#fff}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .nav-btn.disabled{border-color:var(--border);color:var(--muted);cursor:default;pointer-events:none}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem}
+  </style>
+  <script>
+    function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 11 of 28</span>
+</div>
+<div class="page-header">
+  <div class="day-chip">Day 11</div>
+  <h1>LCM, Standard Form &amp; Mr Okafor&rsquo;s Allotment</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<div class="section-card">
+  <div class="section-header math-hdr"><span class="section-icon">&#9998;</span><h2>Maths (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 19 &times; 7?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>133</strong>. Use (20 &times; 7) &minus; (1 &times; 7) = 140 &minus; 7 = 133.</div>
+        </li>
+        <li>What is the LCM of 6 and 9?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>18</strong>. Multiples of 6: 6, 12, 18&hellip; Multiples of 9: 9, 18&hellip; First common multiple = 18.</div>
+        </li>
+        <li>What is 3/4 &minus; 1/6? Give your answer in simplest form.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">Answer: <strong>7/12</strong>. Common denominator = 12. 3/4 = 9/12, 1/6 = 2/12. 9/12 &minus; 2/12 = 7/12.</div>
+        </li>
+        <li>Write 520,000 in standard form.
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">Answer: <strong>5.2 &times; 10&sup5;</strong>. Move the decimal 5 places left: 5.2 &times; 100,000.</div>
+        </li>
+        <li>What is the range of: 4, 17, 9, 3, 22, 11?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Answer: <strong>19</strong>. Highest &minus; lowest = 22 &minus; 3 = 19.</div>
+        </li>
+      </ol>
+
+      <div class="vis-box">
+        <div class="vis-label">Finding the median — ordered data set</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:8px">Scores ordered: 44, 55, 55, 62, 68, 71, 73, 80 &nbsp;&mdash;&nbsp; 8 values, median = average of 4th &amp; 5th</p>
+        <div class="data-row">
+          <div class="data-chip">44</div>
+          <div class="data-chip">55</div>
+          <div class="data-chip">55</div>
+          <div class="data-chip hl">62</div>
+          <div class="data-chip hl">68</div>
+          <div class="data-chip">71</div>
+          <div class="data-chip">73</div>
+          <div class="data-chip">80</div>
+        </div>
+        <p style="font-size:0.82rem;margin-top:8px;color:var(--muted)">Median = (62 + 68) &divide; 2 = <strong>65</strong> &nbsp;|&nbsp; Mode = <strong>55</strong> (appears twice)</p>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>A school raises &pound;2,340 for charity, split equally among 9 charities. How much per charity?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">Answer: <strong>&pound;260</strong>. 2,340 &divide; 9 = 260.</div>
+        </li>
+        <li>A rectangle has width 9 cm and area 108 cm&sup2;. Find the length and perimeter.
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Length = 108 &divide; 9 = <strong>12 cm</strong>. Perimeter = 2 &times; (12 + 9) = <strong>42 cm</strong>.</div>
+        </li>
+        <li>A car uses 1 litre per 12 km. How many litres are needed for 210 km?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Answer: <strong>17.5 litres</strong>. 210 &divide; 12 = 17.5.</div>
+        </li>
+        <li>Scores: 55, 62, 71, 68, 44, 80, 55, 73. Find the mode and median.
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Mode = <strong>55</strong> (appears twice). Ordered: 44, 55, 55, 62, 68, 71, 73, 80. Median = (62 + 68) &divide; 2 = <strong>65</strong>.</div>
+        </li>
+        <li>A 4.8 m plank is cut into 60 cm pieces. How many pieces? Any left over?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">Convert: 4.8 m = 480 cm. 480 &divide; 60 = <strong>8 pieces exactly</strong>. No remainder.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header eng-hdr"><span class="section-icon">&#128218;</span><h2>English (about 20 minutes)</h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>Identify the conjunction and state if it is coordinating or subordinating:<br><em>She practised every day because she wanted to improve.</em>
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer"><strong>&ldquo;Because&rdquo;</strong> is a <strong>subordinating conjunction</strong>. It joins a main clause to a subordinate clause that depends on it. (Coordinating conjunctions join equal clauses: for, and, nor, but, or, yet, so.)</div>
+        </li>
+        <li>Punctuate correctly:<br><em>the museum said the guide is home to over 3000 artefacts including items from ancient egypt greece and rome</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer"><em>The museum, said the guide, is home to over 3,000 artefacts, including items from ancient Egypt, Greece, and Rome.</em> Capital for proper nouns (Egypt, Greece, Rome); comma around reporting clause; comma before list; number written with comma.</div>
+        </li>
+        <li>Give synonyms and antonyms for the word <em>brave</em>.
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Synonyms: <em>courageous, fearless, bold, valiant, intrepid</em>. Antonyms: <em>cowardly, timid, fearful, craven</em>.</div>
+        </li>
+        <li>What does <strong>ominous</strong> mean? Use it in a sentence about weather.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer"><strong>Ominous</strong> means giving a warning that something bad is about to happen &mdash; threatening. Example: <em>&ldquo;An ominous bank of dark clouds gathered on the horizon.&rdquo;</em></div>
+        </li>
+        <li>What is an ellipsis (&hellip;)? Give an example used for suspense in fiction.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">An ellipsis is three dots showing a trailing off, a pause, or omission. In fiction it creates suspense or uncertainty. Example: <em>&ldquo;He opened the box. Inside was something he had never expected to find&hellip;&rdquo;</em></div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        Every morning, without fail, Mr Okafor arrived at the allotment before anyone else. He was there when the mist still lay across the vegetable beds, when the gate creaked as it swung open, when the world was still half-asleep. He never seemed to hurry. He moved between the rows of beans and cabbages with a slow, considered care &mdash; touching a leaf here, crouching to inspect the soil there &mdash; as if he were conducting a quiet conversation with each plant in turn. The other allotment holders respected him enormously, though few of them could have explained why. Perhaps it was simply that he treated the earth as if it mattered.
+      </div>
+      <ol class="q-list">
+        <li>When does Mr Okafor arrive?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Before anyone else &mdash; when the mist still lies across the beds and the world is <strong>&ldquo;still half-asleep.&rdquo;</strong></div>
+        </li>
+        <li>What does &ldquo;conducting a quiet conversation with each plant&rdquo; suggest about him?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">This <strong>metaphor</strong> suggests he tends each plant individually with great attentiveness, as though each has its own needs &mdash; implying a deep, personal relationship with his garden and extraordinary patience.</div>
+        </li>
+        <li>Why do others respect him, even though they can&rsquo;t explain it?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">They can see the care and patience he brings to his work. The final line gives the clue: <strong>&ldquo;he treated the earth as if it mattered&rdquo;</strong> &mdash; a quiet dignity others feel but cannot name.</div>
+        </li>
+        <li>How does the writer use listing (anaphora) in this passage? What is the effect?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The repeated <strong>&ldquo;when&rdquo;</strong> clauses build a vivid, layered picture of the early morning ritual, creating a rhythmic, almost incantatory quality &mdash; reinforcing how regular and devoted his visits are.</div>
+        </li>
+        <li>What overall impression of Mr Okafor does the writer create? How?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer"><strong>Calm, wise, meditative</strong> &mdash; achieved through his slow movements, the plant-conversation metaphor, and the understated final sentence: simple, quiet, and profound.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short piece (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;Describe a person completely devoted to one thing &mdash; a hobby, craft, or place. Capture what makes them special without stating it directly.&rdquo;</p>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:8px">Try to use: <strong>show not tell</strong>, a <strong>metaphor</strong> for how they interact with their passion, and a <strong>quiet final sentence</strong>.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer (a baker):</strong><br>
+        <em>My grandfather gets up at four o&rsquo;clock and nobody has ever asked him to. By the time we wake, the table is covered in flour like a light fall of snow. He doesn&rsquo;t use recipes &mdash; he says the dough tells you what it needs, if you listen. When he kneads the bread, his hands work like a conductor leading an orchestra without looking at the score. Every morning the evidence is on the cooling rack. It is enough.</em><br><br>
+        <strong>Check for:</strong> (1) show not tell: no sentence says &ldquo;he is passionate&rdquo; &mdash; we infer it (2) metaphor: &ldquo;hands work like a conductor&rdquo; (3) quiet final sentence: &ldquo;It is enough.&rdquo;
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header bonus-hdr"><span class="section-icon">&#11088;</span><h2>Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking.</p>
+    <ol class="q-list">
+      <li><strong>Standard form:</strong> Write 0.00047 in standard form. Then calculate (3 &times; 10&sup4;) &times; (2 &times; 10&sup3;) and give your answer in standard form.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">0.00047 = <strong>4.7 &times; 10&minus;4</strong>. (3 &times; 10&sup4;) &times; (2 &times; 10&sup3;) = 6 &times; 10&sup7; = <strong>60,000,000</strong>.</div>
+      </li>
+      <li><strong>Mode, median, mean puzzle:</strong> A data set of 5 numbers has a mean of 10, a median of 9, and a mode of 8. Two of the numbers are 8 and 8. Find the other three numbers.
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">Total = 5 &times; 10 = 50. Known: 8 + 8 = 16. Remaining three sum to 34. Median (middle value when ordered) = 9, so the third number is 9. Remaining two sum to 25 and must both be &ge; 9. Possible: <strong>8, 8, 9, ?, ?</strong> where ?+? = 25. E.g. 12 and 13 (or 11 and 14). Many correct answers &mdash; the key constraints are: two 8s, middle value = 9, total = 50.</div>
+      </li>
+      <li><strong>LCM problem:</strong> A red light flashes every 6 seconds, a blue light every 8 seconds, and a green light every 9 seconds. They all flash together at time zero. After how many seconds do they next all flash together?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">Find LCM(6, 8, 9). Prime factors: 6=2&times;3, 8=2&sup3;, 9=3&sup2;. LCM = 2&sup3; &times; 3&sup2; = 8 &times; 9 = <strong>72 seconds</strong>.</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-header word-hdr"><span class="section-icon">&#128219;</span><h2>Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">meticulous</div>
+      <div class="word-pron">/ meh-TIK-yoo-lus / &nbsp;&mdash;&nbsp; adjective</div>
+      <div class="word-def">Showing great attention to detail and care; very precise and thorough. A meticulous person checks every small thing and leaves nothing to chance.</div>
+      <div class="word-eg">&ldquo;Mr Okafor&rsquo;s meticulous attention to each plant &mdash; touching a leaf here, inspecting the soil there &mdash; was what set him apart from the other allotment holders.&rdquo;</div>
+      <div class="word-task"><strong>Your turn:</strong> Write a sentence using <em>meticulous</em> to describe a craftsperson, scientist, or teacher. Can you think of a task where being meticulous is absolutely essential?</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-10.html">&#8592; Day 10</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-12.html">Day 12 &rarr;</a>
+</div>
+</div>
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 11 of 28 &nbsp;|&nbsp; Keep going!</div>
+</body>
+</html>

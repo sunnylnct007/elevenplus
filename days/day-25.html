@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 25 — Sutton 11+ Daily Practice</title>
+<style>
+:root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}.eng-hdr h2{color:var(--green)}.bonus-hdr h2{color:var(--amber)}.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.8;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple)}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+</style>
+<script>
+function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 25</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-hdr math-hdr"><h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>Solve simultaneously: x + y = 10 and x − y = 4.
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">x = 7, y = 3. Add the equations: 2x = 14 → x = 7. Subtract to find y: 10 − 7 = 3.</div></li>
+        <li>What is 0.4% of 5,000?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">20. 1% = 50. 0.4% = 50 × 0.4 = 20.</div></li>
+        <li>A parallelogram has base 9 cm and height 6 cm. Find its area.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">54 cm². A = base × height = 9 × 6 = 54 cm².</div></li>
+        <li>What is (−3)³?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">−27. (−3) × (−3) = 9. 9 × (−3) = −27.</div></li>
+        <li>What fraction of 3 hours is 45 minutes?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">1/4. 3 hours = 180 minutes. 45/180 = 1/4.</div></li>
+      </ol>
+    </div>
+
+    <!-- Semicircle diagram -->
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Semicircle perimeter</strong>
+      <svg viewBox="0 0 220 130" width="220" height="130" style="display:block;margin:8px auto">
+        <line x1="30" y1="100" x2="190" y2="100" stroke="#1c4c96" stroke-width="2.5"/>
+        <path d="M 30 100 A 80 80 0 0 1 190 100" fill="#c7ddf540" stroke="#1c4c96" stroke-width="2.5"/>
+        <line x1="110" y1="100" x2="190" y2="100" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="140" y="115" font-size="11" fill="#b45309">r = 10</text>
+        <text x="90" y="96" font-size="11" fill="#1c4c96">d = 20</text>
+        <text x="55" y="55" font-size="10" fill="#1a7a4a">arc = πr = 31.4</text>
+        <text x="55" y="70" font-size="10" fill="#1a7a4a">+ diameter = 20</text>
+        <text x="55" y="85" font-size="11" fill="#1a7a4a" font-weight="bold">= 51.4 cm</text>
+      </svg>
+      <figcaption>Semicircle perimeter = curved arc + straight diameter</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>A 600 ml bottle of juice contains 30% real fruit. How many ml of real fruit does it contain?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">180 ml. 30% × 600 = 180 ml.</div></li>
+        <li>A two-digit number: the digits sum to 11 and reversing the digits gives a number 27 more. What is the original number?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">47. Let tens digit = a, units = b. a+b=11 and (10b+a)−(10a+b)=27 → 9b−9a=27 → b−a=3. Solving: a=4, b=7. Number = 47.</div></li>
+        <li>The mean of 5 numbers is 18. Four of the numbers are 14, 22, 9, 25. What is the fifth number?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">20. Total = 18 × 5 = 90. Sum of four: 14+22+9+25 = 70. Fifth number = 90 − 70 = 20.</div></li>
+        <li>A semicircle has diameter 20 cm. Find its total perimeter (straight edge + curved edge). (π = 3.14)
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">51.4 cm. Curved arc = π × r = 3.14 × 10 = 31.4 cm. Add diameter: 31.4 + 20 = 51.4 cm.</div></li>
+        <li>Share £1,260 in ratio 2:5:7. Find each share.
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">£180, £450, £630. Total parts = 14. One part = £90. Shares: 2×90=£180, 5×90=£450, 7×90=£630.</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr eng-hdr"><h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>What is chiasmus? Give one famous example.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Chiasmus reverses the structure of a phrase for effect (A-B-B-A pattern). Famous example: "Ask not what your country can do for you — ask what you can do for your country" (JFK). The reversal creates balance and memorability.</div></li>
+        <li>What is the difference between tone and mood in a text?
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Tone = the writer's attitude towards the subject (e.g. ironic, admiring, mournful). Mood = the atmosphere the reader experiences (e.g. tense, dreamy, melancholy). A horror story might have a fearful mood but a calm, detached tone.</div></li>
+        <li>Correct the apostrophe errors: <em>Its important that all of the students parents' attend. The school's rules are clear.</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer"><em>It's important that all of the students' parents attend. The school's rules are clear.</em> (Its→It's; parents', not students'; the apostrophe after students' shows possession by multiple students.)</div></li>
+        <li>What does <strong>nonchalant</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Casually calm and relaxed; appearing not to care or worry. Example: "He gave a nonchalant shrug when told he had won, as if the outcome had never been in doubt."</div></li>
+        <li>What is the effect of beginning a sentence with a conjunction ("But", "And", "Because")? When should this be used?
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Starting with a conjunction creates emphasis, a conversational tone, or a dramatic pause. "But she did not come." — the single word sets up expectation, then delivers a punchy statement. Used sparingly for effect; overuse loses impact. Now grammatically accepted in literary writing.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — The Last Day</h3>
+      <div class="passage-box">
+        On the morning of her last day, my grandmother asked to be taken outside. It was October, and cold, but she was specific: she wanted to sit in the garden, in the metal chair near the apple tree, with a cup of tea she would not finish. We wrapped her in blankets and carried the chair, and she sat there for perhaps an hour while we moved around her quietly, uncertain what to do with our hands. She did not speak much. She looked at the apple tree, which still had a few fruit on it, small and forgotten. Once she said: "I planted that." She said it the way you would note a fact you were glad to know. When we brought her back inside, she slept for most of the afternoon. She died that night, as quietly as she had always done everything.
+      </div>
+      <ol class="qlist">
+        <li>What did the grandmother ask for on her last day, and what details make this specific?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">To sit outside in the garden — specifically in the metal chair near the apple tree, with a cup of tea. The specificity makes the scene vivid and the request seem purposeful.</div></li>
+        <li>What is the effect of "a cup of tea she would not finish"?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">It signals, without stating it, that she is dying — she asks for the gesture of tea rather than the tea itself. This understatement is more affecting than a direct statement about her condition.</div></li>
+        <li>Analyse the sentence "I planted that," including how she says it.
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">She says it "the way you would note a fact you were glad to know" — with quiet satisfaction, not sentiment. Short, plain, and possessive. It is her final act of taking stock: something of hers will outlast her.</div></li>
+        <li>How is the family's discomfort conveyed without direct description of their emotions?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">"Uncertain what to do with our hands" — physical awkwardness stands in for emotional helplessness. This concrete body-language detail conveys grief and inadequacy more powerfully than abstract emotional language.</div></li>
+        <li>How does the final sentence mirror the grandmother's character throughout the passage?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">"As quietly as she had always done everything." — her death characterises her entire life. She was consistent to the end. The adverb "quietly" echoes her not speaking much, her plain words, and the simplicity of her request.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px">Write a short piece about a person through a single specific memory — not a summary of who they were, but one scene that captures them. Use: precise sensory details, one thing they said or did that reveals character, and a final sentence that reaches beyond the memory.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>My uncle always brought oranges. Not flowers, not wine — oranges, in a paper bag, which he would set on the table without explanation, as if it were perfectly obvious why. He peeled one every time, methodically, in one long spiral, then divided it into sections and handed them around without asking if anyone wanted one. He assumed you did. I never saw anyone refuse. I think of this now when I feel overwhelmed by other people's fussiness about what they will and will not accept. Just hand them the orange. Most of the time, they will take it.</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr bonus-hdr"><h2>&#x2B50; Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Simultaneous equations:</strong> 2x + 3y = 12 and x − y = 1. Find x and y.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">x = 3, y = 2. From second equation: x = y + 1. Substitute: 2(y+1) + 3y = 12 → 5y + 2 = 12 → y = 2. x = 3.</div></li>
+      <li><strong>Ratio &amp; digits:</strong> A three-digit number has digits in ratio 1:2:3 (hundreds:tens:units). The number is divisible by 9. What is it?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">123. Digits: 1, 2, 3 (ratio 1:2:3). Sum = 1+2+3 = 6 — not divisible by 9. Try scaling: 2, 4, 6 → sum = 12, not divisible by 9. Try 3, 6, 9 → sum = 18, divisible by 9. Answer: 369.</div></li>
+      <li><strong>Mean &amp; algebra:</strong> The mean of n numbers is 14. When a value of 26 is added, the mean rises to 15. Find n.
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">n = 11. Original sum = 14n. New sum = 14n + 26. New mean: (14n + 26)/(n+1) = 15. So 14n + 26 = 15n + 15. n = 11.</div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr word-hdr"><h2>&#x1F4AC; Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">legacy</div>
+        <div class="word-pos">noun</div>
+        <div class="word-def">Something handed down from a predecessor; a lasting impact left by a person's actions or achievements. From Latin <em>legatus</em> — one who is sent as a representative.</div>
+        <div class="word-example">"The apple tree in the garden was her most enduring legacy — outlasting memory, still bearing fruit."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="day-nav">
+  <a href="day-24.html" class="nav-btn">&#8592; Day 24</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-26.html" class="nav-btn">Day 26 &#8594;</a>
+</nav>
+</main>
+</body>
+</html>

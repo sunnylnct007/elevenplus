@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 17 — Sutton 11+ Daily Practice</title>
+<style>
+:root{
+  --blue:#1c4c96;--blue-light:#e8eef8;
+  --green:#1a7a4a;--green-light:#e6f4ed;
+  --amber:#b45309;--amber-light:#fef3c7;
+  --purple:#6d28d9;--purple-light:#ede9fe;
+  --text:#1a1a2e;--muted:#64748b;
+  --border:#e2e8f0;--bg:#f8fafc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}.eng-hdr h2{color:var(--green)}.bonus-hdr h2{color:var(--amber)}.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}
+ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.8;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple)}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+</style>
+<script>
+function toggleAnswer(id){
+  var el=document.getElementById(id);if(!el)return;
+  var btn=el.previousElementSibling;
+  if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}
+  else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 17</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-hdr math-hdr"><h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>Solve: 3x/4 = 12.
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">x = 16. Multiply both sides by 4: 3x = 48. Divide by 3: x = 16.</div></li>
+        <li>What is 2.4 × 0.05?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">0.12. 2.4 × 5 = 12. Since 0.05 = 5/100, divide by 100: 12 ÷ 100 = 0.12.</div></li>
+        <li>Find the HCF of 42 and 70.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">14. Factors of 42: 1,2,3,6,7,14,21,42. Factors of 70: 1,2,5,7,10,14,35,70. HCF = 14.</div></li>
+        <li>What is the nth term of: 5, 8, 11, 14, 17, …?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">3n + 2. Common difference = 3. When n=1: 3(1)+2=5. ✓ When n=2: 3(2)+2=8. ✓</div></li>
+        <li>What is 1.5³?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">3.375. 1.5 × 1.5 = 2.25. 2.25 × 1.5 = 3.375.</div></li>
+      </ol>
+    </div>
+
+    <!-- Annular ring diagram -->
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Annular path — circular pond with surrounding path</strong>
+      <svg viewBox="0 0 200 200" width="180" height="180" style="margin:10px auto;display:block">
+        <circle cx="100" cy="100" r="75" fill="#c7ddf5" stroke="#1c4c96" stroke-width="2"/>
+        <circle cx="100" cy="100" r="55" fill="#fff" stroke="#1c4c96" stroke-width="2"/>
+        <text x="100" y="104" text-anchor="middle" font-size="11" fill="#1c4c96">pond r=3m</text>
+        <text x="145" y="70" font-size="10" fill="#b45309">path 1m</text>
+        <line x1="100" y1="100" x2="155" y2="100" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="127" y="95" font-size="9" fill="#b45309">r=4m</text>
+      </svg>
+      <figcaption>Path area = π×4² − π×3² = 50.24 − 28.26 = 21.98 m²</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>A train has 8 carriages, each holding 72 passengers. The train is 85% full. How many passengers are on board?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">489 passengers. Total capacity: 8 × 72 = 576. 85% of 576 = 576 × 0.85 = 489.6 ≈ 489.</div></li>
+        <li>Two numbers have a sum of 91 and a difference of 17. What are they?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">54 and 37. (91 + 17) ÷ 2 = 54. (91 − 17) ÷ 2 = 37. Check: 54+37=91 ✓, 54−37=17 ✓.</div></li>
+        <li>A square and a rectangle have equal areas. The square has side 12 cm and the rectangle is 8 cm wide. How long is the rectangle?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">18 cm. Square area = 12² = 144 cm². Rectangle length = 144 ÷ 8 = 18 cm.</div></li>
+        <li>In a class of 28 pupils, 3/7 wear glasses. Of those NOT wearing glasses, half have brown eyes. How many pupils have brown eyes and no glasses?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">8. Glasses: 3/7 × 28 = 12. No glasses: 28 − 12 = 16. Half with brown eyes: 16 ÷ 2 = 8.</div></li>
+        <li>A circular pond has radius 3 m and is surrounded by a path 1 m wide. Find the area of the path alone. (π = 3.14)
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">21.98 m². Outer radius = 3+1 = 4 m. Outer area = π×4² = 50.24 m². Inner area = π×3² = 28.26 m². Path = 50.24 − 28.26 = 21.98 m².</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr eng-hdr"><h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>What is the difference between a common noun, a proper noun, and an abstract noun? Give one example of each.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Common noun: a general person, place, or thing (e.g. "city", "dog"). Proper noun: a specific named entity, always capitalised (e.g. "London", "Beethoven"). Abstract noun: a concept or emotion that cannot be physically touched (e.g. "freedom", "courage").</div></li>
+        <li>What is a determiner? Give four examples used in sentences.
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">A determiner introduces a noun and specifies it. Examples: "the" (definite article), "a/an" (indefinite article), "this/these/those" (demonstrative), "some/every/no" (quantifier), "my/your/his" (possessive).</div></li>
+        <li>Rewrite using a more precise verb: <em>The dog went across the road.</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Examples: "The dog darted across the road." / "The dog lumbered across the road." / "The dog trotted across the road." Each verb tells us something specific about speed, size, or mood that "went" does not.</div></li>
+        <li>What does <strong>tenacious</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Holding firmly to something; very determined, not easily giving up. Example: "Despite failing three times, she remained tenacious and passed on her fourth attempt."</div></li>
+        <li>What is hyperbole? Give two examples — one serious, one comic.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Hyperbole is deliberate exaggeration for emphasis or effect. Serious: "She carried the weight of the world on her shoulders." Comic: "I've told you a million times to tidy your room!" Both intensify meaning — one for emotional weight, one for humour.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — Selin's Competition</h3>
+      <div class="passage-box">
+        It was the morning of the competition, and Selin had not slept. She lay in the dark listening to the house breathe — the creak of the pipes, the distant hum of the refrigerator — and rehearsed the opening bars of the Beethoven sonata in her head, note by note, as if repetition might build a wall against disaster. Her mother knocked at six. "Eat something," she said, without opening the door. Selin ate nothing. At the concert hall, the other competitors moved with the casual confidence of people who had done this a thousand times, or seemed to. Selin found a corner and sat with her hands in her lap, very still. She had been playing piano since she was four. This was her thirty-seventh competition. She had never won one. But today felt different — she couldn't have said why. It just did.
+      </div>
+      <ol class="qlist">
+        <li>What is Selin doing as she lies in bed, and why?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Rehearsing the opening bars of a Beethoven sonata note by note in her head — "as if repetition might build a wall against disaster." She is anxious and trying to calm herself through mental practice.</div></li>
+        <li>How does the writer convey Selin's anxiety without using the word "anxious"?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">She hasn't slept; she notices tiny domestic sounds (pipes, refrigerator) — hypersensitivity to small details signals a worried mind; she eats nothing; she finds a corner and sits very still. All these physical details show anxiety indirectly.</div></li>
+        <li>What is the effect of "or seemed to" after the description of the other competitors?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">It introduces doubt — the competitors may not be as confident as they appear. Selin's perception may be distorted by her own nerves. The phrase humanises the competitors and adds realism.</div></li>
+        <li>What do the statistics — "since she was four", "thirty-seventh competition", "never won" — add to the passage?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The specific numbers make her story concrete and moving — the reader can calculate the dedication and persistence. Delivered without self-pity, they build quietly to a climax: the revelation she has never won, transforming the final line into something hopeful and vulnerable.</div></li>
+        <li>How does the final paragraph create both tension and hope?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">Tension from the accumulated facts: 37 competitions, never won, sitting very still. Hope from: "But today felt different — she couldn't have said why. It just did." The uncertainty makes the hope feel genuine. The short final sentence "It just did" lands with quiet conviction.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px"><em>Selin walks onto the stage. Write the moment she begins to play — from the first sight of the audience to the first note.</em></p>
+      <p style="margin-bottom:10px">Use: specific sensory detail, a turning point where fear shifts to something else, and a final sentence capturing the moment she is fully in the music.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>The stage was brighter than she had expected — a wall of white light that turned the audience into a single dark shape. She adjusted the stool. The hall was very quiet. She could hear, somewhere near the front, someone coughing. She placed her hands on the keys and felt the familiar cool of the ivory, and for a moment she thought: I cannot do this. Then she played the first note. It was exactly right. And then the second, and the phrase took shape in the air above the piano, and she stopped thinking about the audience and the thirty-seven competitions. There was only the music now — her hands, the keys, and something larger than both of them moving through the hall like breath.</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr bonus-hdr"><h2>&#x2B50; Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Sequences:</strong> A sequence has nth term 3n + 2. Which term in the sequence equals 200? Is 200 actually in the sequence?
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">3n + 2 = 200 → 3n = 198 → n = 66. Yes — the 66th term is 200. Always check n is a positive integer to confirm membership.</div></li>
+      <li><strong>Circles:</strong> A circular pond has diameter 14 m. A path of 2 m surrounds it. Find the area of the path. (π = 3.14)
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">113.04 m². Inner radius = 7 m. Outer radius = 9 m. Outer area = π×81 = 254.34 m². Inner area = π×49 = 153.86 m². Path = 254.34 − 153.86 = 100.48 m².</div></li>
+      <li><strong>Algebra + fractions:</strong> Solve: x/3 + x/4 = 7.
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">x = 12. LCM of 3 and 4 is 12. Multiply through by 12: 4x + 3x = 84. 7x = 84. x = 12.</div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr word-hdr"><h2>&#x1F4AC; Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">fortitude</div>
+        <div class="word-pos">noun</div>
+        <div class="word-def">Courage and strength in facing pain or adversity. From Latin <em>fortis</em> — strong.</div>
+        <div class="word-example">"It took remarkable fortitude to compete in her thirty-seventh tournament, knowing she had never yet won."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="day-nav">
+  <a href="day-16.html" class="nav-btn">&#8592; Day 16</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-18.html" class="nav-btn">Day 18 &#8594;</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 18 — Sutton 11+ Daily Practice</title>
+<style>
+:root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}.eng-hdr h2{color:var(--green)}.bonus-hdr h2{color:var(--amber)}.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.8;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple)}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+</style>
+<script>
+function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 18</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-hdr math-hdr"><h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>Solve: 2(3x + 1) = 5x + 9.
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">x = 7. Expand: 6x + 2 = 5x + 9. Subtract 5x: x + 2 = 9. x = 7.</div></li>
+        <li>What is 3/8 + 5/6?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">29/24 = 1 5/24. LCM of 8 and 6 = 24. 3/8 = 9/24, 5/6 = 20/24. Sum = 29/24.</div></li>
+        <li>A number is 6 less than three times another number. If the smaller number is 9, what is the larger?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">21. Larger = (3 × 9) − 6 = 27 − 6 = 21.</div></li>
+        <li>What is the interior angle of a regular hexagon?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">120°. Sum of interior angles = (6−2) × 180° = 720°. Each angle = 720° ÷ 6 = 120°.</div></li>
+        <li>Estimate 49.7 × 19.8 by rounding to 1 significant figure, then find the exact answer.
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Estimate: 50 × 20 = 1,000. Exact: 49.7 × 20 − 49.7 × 0.2 = 994 − 9.94 = 984.06.</div></li>
+      </ol>
+    </div>
+
+    <!-- Pythagoras ladder diagram -->
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Pythagoras — Ladder against a wall</strong>
+      <svg viewBox="0 0 200 200" width="200" height="180" style="display:block;margin:10px auto">
+        <line x1="40" y1="170" x2="160" y2="170" stroke="#ccc" stroke-width="2"/>
+        <line x1="40" y1="10" x2="40" y2="170" stroke="#ccc" stroke-width="2"/>
+        <rect x="36" y="166" width="8" height="8" fill="none" stroke="#ccc" stroke-width="1.5"/>
+        <line x1="40" y1="40" x2="115" y2="170" stroke="#1c4c96" stroke-width="3" stroke-linecap="round"/>
+        <line x1="40" y1="40" x2="40" y2="170" stroke="#1a7a4a" stroke-width="2.5" stroke-dasharray="6,3"/>
+        <line x1="40" y1="170" x2="115" y2="170" stroke="#b45309" stroke-width="2.5"/>
+        <text x="22" y="108" font-size="13" fill="#1a7a4a">h</text>
+        <text x="72" y="185" font-size="12" fill="#b45309">0.6m</text>
+        <text x="88" y="100" font-size="12" fill="#1c4c96">1.8m</text>
+      </svg>
+      <figcaption>h² = 1.8² − 0.6² = 3.24 − 0.36 = 2.88 → h ≈ 1.7 m</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>In an election, candidate A gets 48%, candidate B 35%, candidate C the rest — out of 2,500 votes. How many votes does each candidate get?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">A: 1,200. B: 875. C: 17% × 2500 = 425. Check: 1200+875+425 = 2,500. ✓</div></li>
+        <li>A 1.8 m ladder leans against a wall. Its base is 0.6 m from the wall. How high up the wall does it reach? (Give to 1 d.p.)
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">1.7 m. h² = 1.8² − 0.6² = 3.24 − 0.36 = 2.88. h = √2.88 ≈ 1.697 ≈ 1.7 m.</div></li>
+        <li>A shop has a "buy 2 get 1 free" offer on bottles of juice at £1.40 each. Cost for 9 bottles?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">£8.40. Every 3 bottles costs 2 × £1.40 = £2.80. 9 bottles = 3 groups: 3 × £2.80 = £8.40.</div></li>
+        <li>Sequence: 2, 5, 10, 17, 26, … What is the pattern? What is the next term?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Differences: 3, 5, 7, 9 (increasing odd numbers). Next difference = 11. Next term = 26 + 11 = 37. Pattern: n² + 1.</div></li>
+        <li>A rectangular pool (50 m × 20 m) is surrounded by a path 2 m wide. What is the total area of the path?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">296 m². Outer: (50+4) × (20+4) = 54 × 24 = 1,296 m². Inner pool: 50 × 20 = 1,000 m². Path = 296 m².</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr eng-hdr"><h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>What is a non-finite clause? Give two examples.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">A clause with a verb not inflected for tense — using an infinitive or -ing/-ed form without a subject. Examples: "To win the race, she trained every day." / "Exhausted by the climb, he sat down." These are sophisticated sentence openers.</div></li>
+        <li>What is the difference between denotation and connotation? Illustrate with the word <em>snake</em>.
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Denotation = literal dictionary meaning. Snake: a limbless reptile. Connotation = associations the word carries. Snake: deception, danger, betrayal. Writers choose words for their connotations as much as their denotations.</div></li>
+        <li>Identify the grammatical error and correct it: <em>Each of the students have submitted their essay on time.</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">"have" → "has." "Each" is singular, so the verb must be singular: "Each of the students has submitted their essay on time."</div></li>
+        <li>What does <strong>ubiquitous</strong> mean? Use it in a sentence about modern technology.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Seeming to appear everywhere at the same time; omnipresent. Example: "Smartphones have become so ubiquitous that it is now unusual to see a person without one."</div></li>
+        <li>What is zoomorphism? How does it differ from personification?
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Zoomorphism applies animal characteristics to humans or objects: "He prowled the room like a predator." Personification is the reverse — applying human characteristics to non-human things: "The wind howled." Personification humanises; zoomorphism animalises.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — The Night Market</h3>
+      <div class="passage-box">
+        The night market exists only in the hours between midnight and dawn, in a city that would rather not know about it. You will not find it on any map. Word of mouth brings you there — a whispered address, a described alleyway, a particular door. Inside, traders sell things that are difficult to categorise: regrets, bottled in blue glass; memories of summer, wrapped in yellow paper; the precise feeling of being seven years old on a Saturday morning, sold for the price of a single coin. Nobody haggles. Nobody argues. Buyers leave quietly, clutching their parcels with both hands, careful not to let go. Whether the contents are real is a question the market does not encourage you to ask.
+      </div>
+      <ol class="qlist">
+        <li>What does "a city that would rather not know about it" suggest?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">It suggests the market exists in a morally ambiguous space — the city is aware but chooses to ignore it. This anthropomorphises the city, giving it a complicit attitude: willful ignorance rather than genuine unawareness.</div></li>
+        <li>What kinds of things are sold at the market? What do they have in common?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">Regrets, memories, and childhood feelings — all intangible emotional experiences. What they share: they are abstract and deeply personal, normally impossible to possess or trade.</div></li>
+        <li>Analyse the image "regrets, bottled in blue glass." What makes it effective?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">It makes an abstract emotion (regret) tangible — it has a colour (blue, suggesting sadness) and a container (glass, suggesting fragility). Bottling implies regrets can be contained and perhaps set aside. The specificity makes the writing vivid rather than vaguely fantastical.</div></li>
+        <li>What is the effect of the final sentence?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">"Does not encourage" is euphemistic and slightly ominous — suggesting not just discouragement but a warning. It leaves the reader uncertain, like the buyers: unwilling to look too closely. It also asks: what does "real" mean for an emotion or a memory?</div></li>
+        <li>How does the writer create a dreamlike atmosphere?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">Through: nocturnal setting; deliberate vagueness about location; impossible goods; the quiet, ritualistic behaviour of buyers; direct address "you." The calm, matter-of-fact prose makes the fantastical feel more real — refusal to marvel at what it describes increases the uncanny effect.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px"><em>You visit the night market and choose one item to buy. Describe what it is, what it looks like, and what happens when you open it at home.</em></p>
+      <p style="margin-bottom:10px">Use: matter-of-fact tone (describe impossible things calmly), specific sensory details, and an ambiguous ending.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>I chose a small jar, no bigger than my fist, sealed with black wax and labelled in handwriting I almost recognised. The trader said nothing. I paid without counting the coins. At home, I sat across from it for a long time. When I finally broke the seal, there was no smell, no smoke — just a faint warmth that spread up from my palms. And then I was eleven years old, standing in my grandmother's garden on a summer evening, the grass cool beneath my bare feet, her voice calling from inside the house. It lasted perhaps four seconds. When I came back to the kitchen, the jar was empty. I put the lid back on anyway. I didn't throw it away.</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr bonus-hdr"><h2>&#x2B50; Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Pythagoras:</strong> A right-angled triangle has legs of 9 cm and 12 cm. Find its hypotenuse and area.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">Hypotenuse = 15 cm. (9² + 12² = 81 + 144 = 225; √225 = 15.) Area = ½ × 9 × 12 = 54 cm².</div></li>
+      <li><strong>Fractions &amp; algebra:</strong> Solve: 3/8 + x/4 = 1.
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">x = 5/2 = 2.5. x/4 = 1 − 3/8 = 5/8. x = 5/8 × 4 = 5/2.</div></li>
+      <li><strong>Compound sequences:</strong> A sequence is: 1, 1, 2, 3, 5, 8, 13, … (each term = sum of previous two). What is the 10th term?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">55. Continue: 21, 34, 55. (This is the Fibonacci sequence.)</div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr word-hdr"><h2>&#x1F4AC; Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">liminal</div>
+        <div class="word-pos">adjective</div>
+        <div class="word-def">Relating to a threshold or transitional stage between two states or worlds. From Latin <em>limen</em> — threshold.</div>
+        <div class="word-example">"The night market occupied a liminal space — neither fully real nor entirely imagined."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="day-nav">
+  <a href="day-17.html" class="nav-btn">&#8592; Day 17</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-19.html" class="nav-btn">Day 19 &#8594;</a>
+</nav>
+</main>
+</body>
+</html>

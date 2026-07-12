@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day 19 — Sutton 11+ Daily Practice</title>
+<style>
+:root{--blue:#1c4c96;--blue-light:#e8eef8;--green:#1a7a4a;--green-light:#e6f4ed;--amber:#b45309;--amber-light:#fef3c7;--purple:#6d28d9;--purple-light:#ede9fe;--text:#1a1a2e;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:16px}
+header{background:var(--blue);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:1.25rem;font-weight:700;flex:1}
+.day-badge{background:#fff;color:var(--blue);border-radius:20px;padding:4px 14px;font-weight:700;font-size:.9rem;white-space:nowrap}
+main{max-width:860px;margin:28px auto;padding:0 16px}
+.section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:28px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.section-hdr{padding:14px 20px;display:flex;align-items:center;gap:10px}
+.math-hdr{background:#eff6ff}.eng-hdr{background:#f0fdf4}.bonus-hdr{background:#fef9ec}.word-hdr{background:#f5f3ff}
+.section-hdr h2{font-size:1.1rem;font-weight:700}
+.math-hdr h2{color:var(--blue)}.eng-hdr h2{color:var(--green)}.bonus-hdr h2{color:var(--amber)}.word-hdr h2{color:var(--purple)}
+.section-body{padding:20px}
+.task-block{margin-bottom:22px}.task-block:last-child{margin-bottom:0}
+.task-block h3{font-size:.98rem;font-weight:700;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+ol.qlist{margin-left:20px}ol.qlist li{margin-bottom:10px;padding-left:4px}
+.help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:10px;padding:1px 9px;font-size:.8rem;cursor:pointer;margin-left:6px;transition:background .15s}
+.help-btn:hover{background:var(--blue-light)}
+.answer{display:none;margin-top:6px;padding:10px 14px;background:#f0f6ff;border-left:3px solid var(--blue);border-radius:6px;font-size:.9rem;color:#1e3a6e}
+.passage-box{background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-style:italic;line-height:1.8;margin-bottom:14px}
+.visual-box{background:#f0f6ff;border:1px solid #c7d9f5;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.visual-box figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.word-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.word-title{font-size:1.5rem;font-weight:800;color:var(--purple)}
+.word-pos{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.word-def{font-size:.95rem;margin-bottom:6px}
+.word-example{font-style:italic;color:#3b2a6e;font-size:.9rem;border-left:3px solid var(--purple);padding-left:10px}
+nav.day-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+.nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.nav-btn:hover{background:#163d7a}
+.nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.nav-btn.secondary:hover{background:var(--blue-light)}
+</style>
+<script>
+function toggleAnswer(id){var el=document.getElementById(id);if(!el)return;var btn=el.previousElementSibling;if(el.style.display==='block'){el.style.display='none';if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';}else{el.style.display='block';if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';}}
+</script>
+</head>
+<body>
+<header>
+  <div class="day-badge">Day 19</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+</header>
+<main>
+
+<div class="section-card">
+  <div class="section-hdr math-hdr"><h2>&#x1F4D0; Maths <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="qlist">
+        <li>What is 7/9 ÷ 14/27?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">3/2 = 1½. Flip and multiply: 7/9 × 27/14. Cancel: 7s and 9s simplify → 1×3/1×2 = 3/2.</div></li>
+        <li>What is 15% of 15% of 400?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">9. Step 1: 15% of 400 = 60. Step 2: 15% of 60 = 9.</div></li>
+        <li>Expand and simplify: (x + 3)(x + 5).
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">x² + 8x + 15. FOIL: x² + 5x + 3x + 15 = x² + 8x + 15.</div></li>
+        <li>A line passes through (0, 2) and (3, 8). What is its gradient?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">2. Gradient = (8−2)/(3−0) = 6/3 = 2.</div></li>
+        <li>Write 0.000045 in standard form.
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">4.5 × 10⁻⁵. Move the decimal 5 places right to get 4.5, so the power is −5.</div></li>
+      </ol>
+    </div>
+
+    <!-- Cone diagram -->
+    <div class="visual-box">
+      <strong style="color:var(--blue);font-size:.9rem">Volume of a cone</strong>
+      <svg viewBox="0 0 200 180" width="200" height="160" style="display:block;margin:10px auto">
+        <ellipse cx="100" cy="145" rx="55" ry="14" fill="#c7ddf5" stroke="#1c4c96" stroke-width="1.5"/>
+        <line x1="45" y1="145" x2="100" y2="30" stroke="#1c4c96" stroke-width="2"/>
+        <line x1="155" y1="145" x2="100" y2="30" stroke="#1c4c96" stroke-width="2"/>
+        <line x1="100" y1="30" x2="100" y2="145" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="105" y="92" font-size="12" fill="#b45309">h=8</text>
+        <text x="118" y="160" font-size="11" fill="#1c4c96">r=6</text>
+        <text x="10" y="20" font-size="11" fill="#1a7a4a">V = ⅓πr²h</text>
+      </svg>
+      <figcaption>V = ⅓ × 3.14 × 36 × 8 = 301.44 cm³</figcaption>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="qlist">
+        <li>A house price increased by 12% to £336,000. What was the original price?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">£300,000. £336,000 = 112% of original. Original = £336,000 ÷ 1.12 = £300,000.</div></li>
+        <li>A cone has radius 6 cm and height 8 cm. Find its volume. (V = ⅓πr²h, π = 3.14)
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">301.44 cm³. V = ⅓ × 3.14 × 36 × 8 = ⅓ × 904.32 = 301.44 cm³.</div></li>
+        <li>In a survey of 80 people: 1/4 prefer tea, 3/8 prefer coffee, the rest prefer water. What percentage prefer water?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">37.5%. Tea: 1/4 = 2/8. Together tea+coffee: 5/8. Water = 3/8. As %: 3/8 × 100 = 37.5%.</div></li>
+        <li>Two dice are rolled. What is the probability of a total of 7?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">1/6. Combinations totalling 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) = 6 outcomes out of 36. P = 6/36 = 1/6.</div></li>
+        <li>A car depreciates by 15% each year. It cost £20,000 new. What is it worth after 2 years?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">£14,450. After year 1: £20,000 × 0.85 = £17,000. After year 2: £17,000 × 0.85 = £14,450.</div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr eng-hdr"><h2>&#x1F4D6; English <span style="font-weight:400;font-size:.9rem">(~20 minutes)</span></h2></div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="qlist">
+        <li>What is the difference between assonance and consonance? Give one example of each.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Assonance = repetition of vowel sounds: "The rain in Spain stays mainly in the plain." Consonance = repetition of consonant sounds within or at the end of words: "The rocks clacked and clicked." Both create musical effects in poetry and prose.</div></li>
+        <li>Explain the term "unreliable narrator" and give an example.
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">A narrator whose account cannot be fully trusted — due to limited knowledge, self-interest, or deliberate deception. A child narrator may be unreliable because they misunderstand what adults are doing. The effect: the reader must read between the lines.</div></li>
+        <li>Rewrite using a non-finite clause opener: <em>She was exhausted after the race, so she sat down immediately.</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">"Exhausted after the race, she sat down immediately." The participial phrase opens the sentence with economy and elegance.</div></li>
+        <li>What does <strong>perspicacious</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">Having a ready insight into things; shrewdly observant and analytical. Example: "The perspicacious detective noticed, without being told, that the window had been opened from the inside."</div></li>
+        <li>What is the effect of short, simple sentences in fiction? When should a writer use them?
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Short sentences create pace, tension, and impact. They draw the eye and make the reader pause. Best used at moments of shock ("She was dead."), fragmented thought under stress, or to end a scene with finality. Their power comes from contrast with longer sentences.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Comprehension — The Truth About Glass</h3>
+      <div class="passage-box">
+        Glass is one of the strangest materials in the world. It is not, strictly speaking, a solid. Scientists classify it as an amorphous solid — a material that has the disordered structure of a liquid but behaves like a solid. This is why very old windows, in ancient churches and cathedrals, appear thicker at the bottom than at the top. For centuries, the explanation offered was that glass flows downwards imperceptibly slowly over hundreds of years. This idea is almost certainly a myth. The real reason is that medieval glassmakers could not make perfectly uniform glass, and when panes were fitted, the thicker edge was typically placed at the bottom for stability. But the myth is so appealing, so wonderfully strange, that many people prefer it to the truth.
+      </div>
+      <ol class="qlist">
+        <li>What is an "amorphous solid"?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">A material with the disordered internal structure of a liquid but that behaves outwardly like a solid.</div></li>
+        <li>What explanation was given for why old church windows appear thicker at the bottom?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">That glass flows very slowly downwards over hundreds of years, accumulating at the bottom of the pane.</div></li>
+        <li>What is the real explanation?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">Medieval glassmakers couldn't make perfectly uniform glass, so when panes were fitted, the thicker edge was placed at the bottom for stability — the uneven thickness was there from the start, not caused by flow.</div></li>
+        <li>What does "the myth is so appealing, so wonderfully strange" reveal about the writer's attitude?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The writer is sympathetic to human preference for the myth, finding it understandable. "Wonderfully" shows genuine appreciation of the myth's imaginative power, suggesting that the desire for mystery is a natural human quality worth acknowledging.</div></li>
+        <li>What broader point might the writer be making in the final sentence?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">Humans sometimes choose appealing stories over accurate facts. Imagination and wonder can be more compelling than rational explanation. This is not a criticism but an observation: we are storytelling creatures, drawn to mystery.</div></li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Writing task</h3>
+      <p style="margin-bottom:10px">Choose an ordinary object (a mirror, a key, a clock) and write a short piece that starts with the scientific truth about it — then explores the myths and meanings people have given it.</p>
+      <p style="margin-bottom:10px">Use: a clear shift between the scientific and the mythological, precise vocabulary, and a final line that reflects on why humans need stories.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer"><em>A mirror is, in scientific terms, a flat surface coated with a thin layer of metal that reflects light with minimal scattering. When you stand before one, you are seeing photons bounced back at you in less than a nanosecond. There is nothing more to it than physics. And yet. Mirrors have been believed, across centuries, to hold the souls of the dead, to tell the future, to reveal the true self that the face conceals. In fairy tales, they speak and deceive. In superstition, breaking one costs seven years. Physics cannot explain this. But then, physics was never what mirrors were really for.</em></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr bonus-hdr"><h2>&#x2B50; Bonus Maths Challenge</h2></div>
+  <div class="section-body">
+    <ol class="qlist">
+      <li><strong>Depreciation:</strong> A computer costs £800. It loses 20% of its value each year. How much is it worth after 3 years?
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">£409.60. Year 1: £800 × 0.8 = £640. Year 2: £640 × 0.8 = £512. Year 3: £512 × 0.8 = £409.60.</div></li>
+      <li><strong>FOIL &amp; substitution:</strong> Expand (x + 4)(x − 2). Then find the value when x = 5.
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">x² + 2x − 8. When x = 5: 25 + 10 − 8 = 27.</div></li>
+      <li><strong>Probability:</strong> Three coins are flipped. What is the probability of getting exactly 2 heads?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">3/8. Possible outcomes with exactly 2 heads: HHT, HTH, THH = 3 outcomes. Total outcomes = 2³ = 8. P = 3/8.</div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="section-card">
+  <div class="section-hdr word-hdr"><h2>&#x1F4AC; Word of the Day</h2></div>
+  <div class="section-body">
+    <div class="word-card">
+      <div>
+        <div class="word-title">empirical</div>
+        <div class="word-pos">adjective</div>
+        <div class="word-def">Based on observation or experience rather than theory or pure logic. From Greek <em>empeiria</em> — experience.</div>
+        <div class="word-example">"The empirical evidence showed clearly that glass in old windows had been uneven from the moment it was made."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="day-nav">
+  <a href="day-18.html" class="nav-btn">&#8592; Day 18</a>
+  <a href="../index.html" class="nav-btn secondary">All Days</a>
+  <a href="day-20.html" class="nav-btn">Day 20 &#8594;</a>
+</nav>
+</main>
+</body>
+</html>
