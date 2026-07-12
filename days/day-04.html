@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Day 3 — 11+ Daily Practice</title>
+  <title>Day 4 — 11+ Daily Practice</title>
   <style>
     :root {
       --blue: #1c4c96;
@@ -26,7 +26,6 @@
       color: var(--text);
       line-height: 1.7;
     }
-    /* ── Top bar ── */
     .topbar {
       background: var(--blue);
       color: #fff;
@@ -39,7 +38,6 @@
     .topbar a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem; }
     .topbar a:hover { color: #fff; }
     .topbar .sep { opacity: 0.4; }
-    /* ── Header ── */
     header {
       background: var(--blue);
       color: #fff;
@@ -59,7 +57,6 @@
     }
     header h1 { font-size: 1.6rem; font-weight: 700; }
     header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
-    /* ── Timer bar ── */
     .timer-bar {
       background: #fff;
       border-bottom: 1px solid var(--border);
@@ -72,9 +69,7 @@
       flex-wrap: wrap;
     }
     .timer-bar strong { color: var(--blue); }
-    /* ── Main ── */
     main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
-    /* ── Section cards ── */
     .section-card {
       background: #fff;
       border: 1.5px solid var(--border);
@@ -107,7 +102,6 @@
     .section-header h2 { font-size: 1.05rem; color: var(--text); }
     .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
     .section-body { padding: 20px 20px 24px; }
-    /* ── Sub-task ── */
     .task { margin-bottom: 28px; }
     .task:last-child { margin-bottom: 0; }
     .task-title {
@@ -121,7 +115,6 @@
       border-bottom: 1px dashed var(--border);
     }
     .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
-    /* ── Questions ── */
     ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
     ol.qlist > li {
       counter-increment: qcount;
@@ -148,7 +141,6 @@
     }
     .eng-section   ol.qlist > li::before { background: var(--green); }
     .bonus-section ol.qlist > li::before { background: var(--amber); }
-    /* ── Help button ── */
     .help-btn {
       display: inline-block;
       margin-left: 8px;
@@ -169,7 +161,6 @@
     .eng-section   .help-btn:hover { background: var(--green); color: #fff; }
     .bonus-section .help-btn { border-color: var(--amber); color: var(--amber); }
     .bonus-section .help-btn:hover { background: var(--amber); color: #fff; }
-    /* ── Answer reveal ── */
     .answer {
       display: none;
       margin-top: 10px;
@@ -180,7 +171,42 @@
       font-size: 0.88rem;
       color: #14532d;
     }
-    /* ── Passage ── */
+    /* Factor grid */
+    .factor-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .factor-chip {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--blue-light);
+      border: 1.5px solid #bfdbfe;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    /* Inverse ops strip */
+    .inverse-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+    .inv-box {
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: #f8fafc;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .inv-box.highlight { background: var(--blue-light); border-color: #bfdbfe; color: var(--blue); }
+    .inv-arrow { color: var(--muted); font-size: 0.8rem; }
+    /* Passage */
     .passage {
       background: #fffbeb;
       border: 1px solid #fde68a;
@@ -192,7 +218,7 @@
       margin-bottom: 16px;
       line-height: 1.8;
     }
-    /* ── Writing prompt ── */
+    /* Writing prompt */
     .writing-prompt {
       background: var(--blue-light);
       border-radius: 10px;
@@ -201,42 +227,9 @@
       color: var(--blue);
       margin-bottom: 12px;
     }
-    .writing-checklist {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-top: 8px;
-      padding-left: 18px;
-    }
+    .writing-checklist { font-size: 0.85rem; color: var(--muted); margin-top: 8px; padding-left: 18px; }
     .writing-checklist li { margin-bottom: 2px; }
-    /* ── Sequence visual ── */
-    .sequence-strip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin: 10px 0 4px;
-    }
-    .seq-num {
-      width: 38px; height: 38px;
-      border-radius: 8px;
-      background: var(--blue-light);
-      border: 1.5px solid #bfdbfe;
-      color: var(--blue);
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .seq-gap {
-      width: 38px; height: 38px;
-      border-radius: 8px;
-      background: #fff;
-      border: 2px dashed #94a3b8;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      color: #94a3b8;
-    }
-    .seq-arrow { color: var(--muted); font-size: 0.75rem; }
-    /* ── Bonus challenge box ── */
+    /* Bonus */
     .challenge-box {
       background: var(--amber-light);
       border: 1.5px solid #fcd34d;
@@ -246,19 +239,14 @@
       color: #78350f;
       margin-bottom: 14px;
     }
-    /* ── Word of the Day ── */
+    /* Word of the Day */
     .wotd-card {
       background: var(--purple-light);
       border: 1.5px solid #c4b5fd;
       border-radius: 12px;
       padding: 18px 20px;
     }
-    .wotd-word {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--purple);
-      letter-spacing: -0.5px;
-    }
+    .wotd-word { font-size: 1.5rem; font-weight: 700; color: var(--purple); letter-spacing: -0.5px; }
     .wotd-pos {
       display: inline-block;
       font-size: 0.72rem;
@@ -284,7 +272,7 @@
     }
     .wotd-task { font-size: 0.88rem; color: #4c1d95; }
     .wotd-task strong { color: var(--purple); }
-    /* ── Navigation ── */
+    /* Nav */
     .nav-row {
       display: flex;
       justify-content: space-between;
@@ -323,11 +311,11 @@
 <div class="topbar">
   <a href="../index.html">&#8592; All Days</a>
   <span class="sep">|</span>
-  <span>Day 3 of 28</span>
+  <span>Day 4 of 28</span>
 </div>
 
 <header>
-  <div class="day-chip">Day 3</div>
+  <div class="day-chip">Day 4</div>
   <h1>Sutton Grammar 11+ Daily Practice</h1>
   <p>Maths &amp; English — about 40–45 minutes total</p>
 </header>
@@ -355,43 +343,54 @@
         <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
         <ol class="qlist">
           <li>
-            What is 8 &times; 12?
+            What is 7 &times; 13?
             <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
             <div id="a1" class="answer">
-              <strong>Answer: 96</strong><br>
-              Split it: (8 &times; 10) + (8 &times; 2) = 80 + 16 = 96.
+              <strong>Answer: 91</strong><br>
+              Split it: (7 &times; 10) + (7 &times; 3) = 70 + 21 = 91.
             </div>
           </li>
           <li>
-            What is 132 &divide; 11?
+            What is 156 &divide; 12?
             <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
             <div id="a2" class="answer">
-              <strong>Answer: 12</strong><br>
-              Check: 11 &times; 10 = 110, then 11 &times; 2 = 22, so 110 + 22 = 132. &#10003;
+              <strong>Answer: 13</strong><br>
+              Check: (12 &times; 10) + (12 &times; 3) = 120 + 36 = 156. &#10003;
             </div>
           </li>
           <li>
-            Write &frac34; as a decimal and as a percentage.
+            List all the factors of 36.
             <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
             <div id="a3" class="answer">
-              <strong>Answer: 0.75 and 75%</strong><br>
-              3 &divide; 4 = 0.75. Then 0.75 &times; 100 = 75%.
+              <strong>Answer: 1, 2, 3, 4, 6, 9, 12, 18, 36</strong><br>
+              Work in pairs: 1&times;36, 2&times;18, 3&times;12, 4&times;9, 6&times;6. Stop when the pairs meet.
+            </div>
+            <div class="factor-grid" style="margin-top:10px;">
+              <span class="factor-chip">1</span>
+              <span class="factor-chip">2</span>
+              <span class="factor-chip">3</span>
+              <span class="factor-chip">4</span>
+              <span class="factor-chip">6</span>
+              <span class="factor-chip">9</span>
+              <span class="factor-chip">12</span>
+              <span class="factor-chip">18</span>
+              <span class="factor-chip">36</span>
             </div>
           </li>
           <li>
-            What is the value of the digit 6 in the number 46,372?
+            What is 40% of 85?
             <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
             <div id="a4" class="answer">
-              <strong>Answer: 6,000 (six thousand)</strong><br>
-              The digits in 46,372 are: 4 = ten-thousands, <strong>6 = thousands</strong>, 3 = hundreds, 7 = tens, 2 = units.
+              <strong>Answer: 34</strong><br>
+              10% of 85 = 8.5. &nbsp;40% = 8.5 &times; 4 = 34.
             </div>
           </li>
           <li>
-            What is 15% of 60?
+            What are the next two terms in this sequence? &nbsp;100, 91, 82, 73, &hellip;
             <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
             <div id="a5" class="answer">
-              <strong>Answer: 9</strong><br>
-              10% of 60 = 6. &nbsp;5% = half of that = 3. &nbsp;15% = 6 + 3 = 9.
+              <strong>Answer: 64 and 55</strong><br>
+              Rule: subtract 9 each time. &nbsp;73 &minus; 9 = 64, &nbsp;64 &minus; 9 = 55.
             </div>
           </li>
         </ol>
@@ -402,58 +401,54 @@
         <p class="task-intro">Show clear working for each question:</p>
         <ol class="qlist">
           <li>
-            A train timetable shows these departure times from London: 07:15, 08:05, 09:50, 11:30. What is the gap in minutes between the <em>second</em> and <em>third</em> departure?
+            A school library has 840 books. 35% are non-fiction. How many non-fiction books are there?
             <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
             <div id="a6" class="answer">
-              <strong>Answer: 105 minutes</strong><br>
-              08:05 &rarr; 09:05 = 60 min. &nbsp;09:05 &rarr; 09:50 = 45 min. &nbsp;Total = 60 + 45 = 105 min.
+              <strong>Answer: 294 books</strong><br>
+              10% of 840 = 84. &nbsp;30% = 84 &times; 3 = 252. &nbsp;5% = 84 &divide; 2 = 42. &nbsp;35% = 252 + 42 = 294.
             </div>
           </li>
           <li>
-            A box of 24 pencils costs &pound;3.60. What is the cost of one pencil?
+            Ahmed thinks of a number, doubles it, then subtracts 7. The answer is 19. What was his number?
             <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
             <div id="a7" class="answer">
-              <strong>Answer: 15p</strong><br>
-              &pound;3.60 &divide; 24 = &pound;0.15 = 15p.
+              <strong>Answer: 13</strong><br>
+              Work backwards using inverse operations:<br>
+              19 + 7 = 26, &nbsp;then 26 &divide; 2 = 13. &nbsp;Check: 13 &times; 2 &minus; 7 = 19. &#10003;
+            </div>
+            <div class="inverse-strip" style="margin-top:10px;">
+              <div class="inv-box highlight">?</div>
+              <span class="inv-arrow">&#xD7;2 &rarr;</span>
+              <div class="inv-box">&#xD7;2</div>
+              <span class="inv-arrow">&minus;7 &rarr;</span>
+              <div class="inv-box highlight">19</div>
+              <span style="color:var(--muted);font-size:0.78rem;margin-left:4px;">reverse: +7 then &divide;2</span>
             </div>
           </li>
           <li>
-            A rectangle has a length of 14 cm and a width of 7 cm. What is its perimeter? What is its area?
+            A shop sells apples for 35p each and bananas for 22p each. Fiona buys 4 apples and 3 bananas. How much change does she get from &pound;3.00?
             <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
             <div id="a8" class="answer">
-              <strong>Perimeter = 42 cm</strong><br>
-              P = 2 &times; (14 + 7) = 2 &times; 21 = 42 cm.<br><br>
-              <strong>Area = 98 cm&sup2;</strong><br>
-              A = 14 &times; 7 = 98 cm&sup2;.
+              <strong>Answer: 94p</strong><br>
+              Apples: 4 &times; 35p = 140p. &nbsp;Bananas: 3 &times; 22p = 66p.<br>
+              Total spent: 140 + 66 = 206p = &pound;2.06.<br>
+              Change: &pound;3.00 &minus; &pound;2.06 = <strong>94p</strong>.
             </div>
           </li>
           <li>
-            In a class of 32 pupils, &frac38; walk to school. How many pupils do <em>NOT</em> walk to school?
+            A jug holds 2 litres of juice. Each glass holds 125 ml. How many full glasses can be poured?
             <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
             <div id="a9" class="answer">
-              <strong>Answer: 20 pupils</strong><br>
-              &frac18; of 32 = 32 &divide; 8 = 4. &nbsp;So &frac38; = 3 &times; 4 = 12 walk. &nbsp;32 &minus; 12 = 20 do not walk.
+              <strong>Answer: 16 glasses</strong><br>
+              Convert: 2 litres = 2,000 ml. &nbsp;2,000 &divide; 125 = 16.
             </div>
           </li>
           <li>
-            A sequence starts: 4, 11, 18, 25, &hellip; What are the next two terms? What is the rule?
+            A square has a perimeter of 52 cm. What is its area?
             <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
             <div id="a10" class="answer">
-              <strong>Next two terms: 32 and 39</strong><br>
-              Rule: add 7 each time. &nbsp;25 + 7 = 32, &nbsp;32 + 7 = 39.
-            </div>
-            <div class="sequence-strip" style="margin-top:10px;">
-              <div class="seq-num">4</div>
-              <span class="seq-arrow">+7</span>
-              <div class="seq-num">11</div>
-              <span class="seq-arrow">+7</span>
-              <div class="seq-num">18</div>
-              <span class="seq-arrow">+7</span>
-              <div class="seq-num">25</div>
-              <span class="seq-arrow">+7</span>
-              <div class="seq-gap">?</div>
-              <span class="seq-arrow">+7</span>
-              <div class="seq-gap">?</div>
+              <strong>Answer: 169 cm&sup2;</strong><br>
+              Side = 52 &divide; 4 = 13 cm. &nbsp;Area = 13 &times; 13 = 169 cm&sup2;.
             </div>
           </li>
         </ol>
@@ -475,50 +470,53 @@
         <div class="task-title">Part 1 &mdash; SPaG &amp; Vocabulary</div>
         <ol class="qlist">
           <li>
-            Which sentence uses a comma correctly?<br>
-            A) Although it was raining, the match continued.<br>
-            B) Although, it was raining the match continued.<br>
-            C) Although it was raining the, match continued.
+            Which sentence is punctuated correctly?<br>
+            A) &ldquo;I&rsquo;m not sure,&rdquo; said Ella, &ldquo;but I think it&rsquo;s this way.&rdquo;<br>
+            B) &ldquo;I&rsquo;m not sure&rdquo; said Ella &ldquo;but I think it&rsquo;s this way.&rdquo;<br>
+            C) &ldquo;I&rsquo;m not sure,&rdquo; said Ella &ldquo;but I think it&rsquo;s this way.&rdquo;
             <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
             <div id="e1" class="answer">
               <strong>Answer: A</strong><br>
-              When a sentence begins with a subordinate clause (&ldquo;Although it was raining&rdquo;), a comma separates it from the main clause. The comma goes <em>after</em> the subordinate clause, not inside it.
+              Punctuation always goes <em>inside</em> the speech marks. When speech is split by a reporting clause (&ldquo;said Ella&rdquo;), a comma follows that clause and the second part of speech starts with a lower-case letter.<br>
+              Memory trick: <strong>RAPS</strong> — Reporting clause, comma After Punctuation inside Speech marks.
             </div>
           </li>
           <li>
-            Rewrite this sentence in the past tense:<br>
-            <em>The children run across the field and climb the oak tree.</em>
+            Add a prefix to make the opposite of each word:<br>
+            (i)&nbsp;happy &nbsp;&nbsp; (ii)&nbsp;visible &nbsp;&nbsp; (iii)&nbsp;possible
             <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
             <div id="e2" class="answer">
-              <strong>Answer:</strong> <em>The children ran across the field and climbed the oak tree.</em><br>
-              &ldquo;Run&rdquo; &rarr; &ldquo;ran&rdquo; (irregular); &ldquo;climb&rdquo; &rarr; &ldquo;climbed&rdquo; (regular, add -ed).
+              <strong>(i) un</strong>happy &nbsp;&nbsp; <strong>(ii) in</strong>visible &nbsp;&nbsp; <strong>(iii) im</strong>possible<br>
+              &ldquo;im-&rdquo; is used before roots starting with <strong>p</strong>, <strong>b</strong>, or <strong>m</strong> (impatient, imbalance, immature). All others usually take &ldquo;in-&rdquo;.
             </div>
           </li>
           <li>
-            Identify the adverb in this sentence:<br>
-            <em>She quietly opened the door and slipped outside.</em>
+            Identify the preposition in this sentence:<br>
+            <em>The cat hid underneath the wooden table.</em>
             <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
             <div id="e3" class="answer">
-              <strong>Answer: quietly</strong><br>
-              An adverb modifies a verb — here it tells us <em>how</em> she opened the door. (&ldquo;Outside&rdquo; is also an adverb of place, so either is acceptable.)
+              <strong>Answer: underneath</strong><br>
+              A preposition shows the relationship between a noun/pronoun and another word — here it tells us <em>where</em> the cat hid. Other common prepositions: above, below, beside, through, across.
             </div>
           </li>
           <li>
-            Choose the correct word to complete the sentence:<br>
-            <em>The team had to decide _______ to continue the game.</em><br>
-            A)&nbsp;weather &nbsp;&nbsp; B)&nbsp;whether &nbsp;&nbsp; C)&nbsp;wether
+            What literary device is used in this sentence?<br>
+            <em>&ldquo;The silver snake of the river slid through the valley.&rdquo;</em>
             <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
             <div id="e4" class="answer">
-              <strong>Answer: B) whether</strong><br>
-              &ldquo;Whether&rdquo; introduces alternatives or choices. &ldquo;Weather&rdquo; = rain/sun etc. &ldquo;Wether&rdquo; = a castrated sheep!
+              <strong>Primary answer: metaphor</strong> (the river is described <em>as</em> a snake, without &ldquo;like&rdquo; or &ldquo;as&rdquo;).<br>
+              <strong>Bonus:</strong> alliteration — the repeated &ldquo;s&rdquo; sound in <em>silver, snake, slid</em> gives the sentence a slithering, snake-like feel. Both are excellent to mention in an exam answer.
             </div>
           </li>
           <li>
-            What is a <strong>metaphor</strong>? Write your own example.
+            Choose the correct word:<br>
+            <em>The magician&rsquo;s trick had a great _______ on the audience.</em><br>
+            A)&nbsp;affect &nbsp;&nbsp; B)&nbsp;effect
             <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
             <div id="e5" class="answer">
-              <strong>A metaphor</strong> describes something <em>as if it IS</em> something else, without using &ldquo;like&rdquo; or &ldquo;as&rdquo;.<br>
-              Examples: &ldquo;The classroom was a zoo.&rdquo; &nbsp;&bull;&nbsp; &ldquo;Her voice was velvet.&rdquo; &nbsp;&bull;&nbsp; &ldquo;Time is a thief.&rdquo;
+              <strong>Answer: B) effect</strong><br>
+              &ldquo;Effect&rdquo; is usually a <em>noun</em> (a result). &ldquo;Affect&rdquo; is usually a <em>verb</em> (to influence).<br>
+              Memory trick: <strong>RAVEN</strong> — Remember Affect is a Verb, Effect is a Noun.
             </div>
           </li>
         </ol>
@@ -528,56 +526,54 @@
         <div class="task-title">Part 2 &mdash; Comprehension</div>
         <p class="task-intro">Read this passage carefully, then answer the questions:</p>
         <div class="passage">
-          At the edge of the forest, Tom&aacute;s stopped walking. He had been here
-          a hundred times before, but tonight the trees seemed different &mdash;
-          taller, closer together, whispering amongst themselves as the wind
-          moved through their highest branches. The path ahead was swallowed
-          by darkness. He pulled his torch from his pocket and clicked it on.
-          A thin beam of yellow light cut through the black. Behind him, the
-          village lights glittered like scattered coins. He took one deep
-          breath, gripped his torch more tightly, and stepped forwards.
+          The market was alive. Voices, colours, and smells tumbled over each
+          other in a cheerful chaos. Layla moved slowly through the crowd,
+          her basket already heavy with tomatoes, herbs, and a loaf of bread
+          still warm from the bakery. At the flower stall, she paused. An old
+          woman behind the counter watched her with bright, patient eyes.
+          &ldquo;Take your time, child,&rdquo; she said, in a voice as smooth as river
+          stones. Layla chose a small bunch of yellow marigolds &mdash; the colour
+          of the sun, the colour of her grandmother&rsquo;s kitchen. She handed over
+          her last coin and walked home with flowers in her arms and the smell
+          of bread rising around her like a question she already knew the
+          answer to.
         </div>
         <ol class="qlist">
           <li>
-            Where is Tom&aacute;s at the start of the passage?
+            Name three items already in Layla&rsquo;s basket before she reaches the flower stall.
             <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
             <div id="e6" class="answer">
-              <strong>Answer: At the edge of a forest.</strong><br>
-              The passage opens: &ldquo;At the edge of the forest, Tom&aacute;s stopped walking.&rdquo;
+              <strong>Answer: tomatoes, herbs, and a loaf of bread.</strong><br>
+              All three are listed in the second sentence. The bread detail (&ldquo;still warm from the bakery&rdquo;) also tells us she has been shopping for a while.
             </div>
           </li>
           <li>
-            Has Tom&aacute;s been to this place before? How do you know?
+            What does the word <strong>alive</strong> suggest about the market?
             <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
             <div id="e7" class="answer">
-              <strong>Answer: Yes.</strong><br>
-              &ldquo;He had been here a hundred times before.&rdquo; This familiarity makes his fear more striking — the place has <em>changed</em>, not him.
+              <strong>Example answer:</strong> &ldquo;Alive&rdquo; is a metaphor suggesting the market is bursting with energy, as though it were a living creature. It creates a sense of movement and excitement before any specific detail is given.
             </div>
           </li>
           <li>
-            Find and copy a simile from the passage.
+            Find and copy a simile from the passage. What does it tell you about the old woman&rsquo;s voice?
             <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
             <div id="e8" class="answer">
-              <strong>Answer: &ldquo;like scattered coins&rdquo;</strong><br>
-              Full sentence: &ldquo;the village lights glittered like scattered coins.&rdquo; A simile compares using &ldquo;like&rdquo; or &ldquo;as&rdquo;.
+              <strong>Simile: &ldquo;as smooth as river stones&rdquo;</strong><br>
+              It suggests her voice is calm, gentle, and worn smooth &mdash; like stones shaped by flowing water over a long time. It makes her seem kind and unhurried.
             </div>
           </li>
           <li>
-            How does the writer make the forest feel threatening? Give two examples from the passage.
+            Why do you think Layla chooses the yellow marigolds? Use evidence from the passage.
             <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
             <div id="e9" class="answer">
-              <strong>Any two of these:</strong><br>
-              &bull; &ldquo;taller, closer together&rdquo; &mdash; the trees feel oppressive, closing in.<br>
-              &bull; &ldquo;whispering amongst themselves&rdquo; &mdash; personification, as if the trees are conspiring.<br>
-              &bull; &ldquo;The path ahead was swallowed by darkness&rdquo; &mdash; metaphor making darkness seem like a predator.<br>
-              &bull; He &ldquo;gripped his torch more tightly&rdquo; &mdash; his physical action reveals his fear.
+              <strong>Example answer:</strong> She chooses them because they remind her of her grandmother&rsquo;s kitchen — &ldquo;the colour of her grandmother&rsquo;s kitchen.&rdquo; This suggests the flowers carry a personal memory, making them emotionally significant rather than just decorative.
             </div>
           </li>
           <li>
-            What does the word <strong>swallowed</strong> suggest about the darkness?
+            What effect does the final sentence have on the reader? Comment on the language used.
             <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
             <div id="e10" class="answer">
-              <strong>Example answer:</strong> &ldquo;Swallowed&rdquo; is a metaphor suggesting the darkness is alive and hungry &mdash; as if it has consumed or eaten the path. It makes the darkness feel powerful and dangerous, rather than simply the absence of light.
+              <strong>Example answer:</strong> The final sentence creates a feeling of warmth and belonging. The simile &ldquo;like a question she already knew the answer to&rdquo; suggests Layla feels a deep sense of certainty and comfort &mdash; home is familiar and safe. The long, flowing sentence also mirrors the gentle, unhurried pace of her walk home.
             </div>
           </li>
         </ol>
@@ -586,22 +582,21 @@
       <div class="task">
         <div class="task-title">Part 3 &mdash; Writing Task</div>
         <div class="writing-prompt">
-          <strong>Prompt:</strong> Tom&aacute;s steps into the forest. Describe what he sees, hears and smells. Something unexpected happens. What is it, and how does he react?<br><br>
+          <strong>Prompt:</strong> You are walking through a busy market. Describe what you can see, hear, and smell. You notice something unusual at one of the stalls. What is it, and what do you do?<br><br>
           Write 8–10 sentences. Try to use:
           <ul class="writing-checklist">
-            <li>Full stops and commas correctly</li>
-            <li>At least one metaphor and one simile</li>
-            <li>Varied sentence lengths — some short for impact, some longer for description</li>
+            <li>A variety of sentence types — statements, questions, exclamations</li>
+            <li>At least one example of personification</li>
+            <li>Carefully chosen adjectives to build atmosphere</li>
           </ul>
         </div>
         <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
         <div id="e11" class="answer">
           <strong>Example answer:</strong><br>
-          <em>The darkness closed around Tom&aacute;s like a fist. His torch threw a pale circle of light onto the muddy path, and beyond its edge the shadows stood as solid as walls. The air smelled of damp earth and something sweeter &mdash; pine resin, perhaps, or rotting leaves. An owl called once, and then fell silent. Tom&aacute;s walked slowly, placing each foot with care. Then he heard it: a soft, rhythmic crunching in the undergrowth, ten metres to his left. He froze. The sound stopped. His heart was a drum beating behind his ribs as he swung his torch towards the noise and held his breath.</em><br><br>
+          <em>The market roared and sparkled around me. Stalls jostled for attention on either side of the narrow alley, their canopies flapping like bright flags in the breeze. The smell of roasted nuts drifted past, warm and sweet, followed immediately by the sharp bite of vinegar from the pickle cart. Everywhere voices called out, bantered, laughed. Then I saw it. Tucked between a scarf stall and a fruit seller was a small glass cabinet, no bigger than a shoebox, and inside it &mdash; glowing faintly blue &mdash; sat what appeared to be a tiny, beating heart. What on earth was it? I stepped closer, my curiosity pulling me forward like a magnet, and pressed my nose against the cold glass.</em><br><br>
           <strong>Check your own writing for:</strong><br>
-          &bull; Varied sentence lengths &mdash; notice the short punch of &ldquo;He froze.&rdquo;<br>
-          &bull; Simile: &ldquo;like a fist&rdquo; / &ldquo;as solid as walls&rdquo;<br>
-          &bull; Metaphor: &ldquo;His heart was a drum&rdquo;<br>
+          &bull; Sentence variety &mdash; question (&ldquo;What on earth was it?&rdquo;) and short punchy statement (&ldquo;Then I saw it.&rdquo;)<br>
+          &bull; Personification &mdash; &ldquo;stalls jostled for attention&rdquo;<br>
           &bull; Sensory detail &mdash; sight, sound and smell all used
         </div>
       </div>
@@ -619,43 +614,41 @@
     <div class="section-body">
       <div class="task">
         <div class="task-title">Harder Problems &mdash; Push Yourself!</div>
-        <p class="task-intro">These questions build on today&rsquo;s topics but with an extra twist. Show all working.</p>
+        <p class="task-intro">These questions build on today&rsquo;s topics. Show all working carefully.</p>
         <ol class="qlist">
           <li>
             <div class="challenge-box">
-              A sequence has the rule &ldquo;multiply by 3 then subtract 1&rdquo;. The first term is 2. Write down the first five terms of the sequence.
+              What is the smallest number that is a multiple of both 8 and 12? (This is called the Lowest Common Multiple, or LCM.)
             </div>
             <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
             <div id="b1" class="answer">
-              <strong>Answer: 2, 5, 14, 41, 122</strong><br>
-              Term 1 = 2<br>
-              Term 2 = (2 &times; 3) &minus; 1 = 5<br>
-              Term 3 = (5 &times; 3) &minus; 1 = 14<br>
-              Term 4 = (14 &times; 3) &minus; 1 = 41<br>
-              Term 5 = (41 &times; 3) &minus; 1 = 122
+              <strong>Answer: 24</strong><br>
+              Multiples of 8: 8, 16, <strong>24</strong>, 32, 40&hellip;<br>
+              Multiples of 12: 12, <strong>24</strong>, 36&hellip;<br>
+              The first number on both lists is 24.
             </div>
           </li>
           <li>
             <div class="challenge-box">
-              A square and a rectangle have the same perimeter of 48 cm. The rectangle&rsquo;s length is 15 cm. What is the area of the square?
+              Maya thinks of a number. She multiplies it by 5, adds 8, then divides by 3. The result is 11. What was her number?
             </div>
             <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
             <div id="b2" class="answer">
-              <strong>Answer: 144 cm&sup2;</strong><br>
-              Square side = 48 &divide; 4 = 12 cm. &nbsp;Area = 12 &times; 12 = 144 cm&sup2;.<br>
-              (The rectangle is a red herring &mdash; you only need the perimeter!)
+              <strong>Answer: 5</strong><br>
+              Work backwards:<br>
+              11 &times; 3 = 33 &nbsp;&rarr;&nbsp; 33 &minus; 8 = 25 &nbsp;&rarr;&nbsp; 25 &divide; 5 = <strong>5</strong>.<br>
+              Check: 5 &times; 5 = 25, 25 + 8 = 33, 33 &divide; 3 = 11. &#10003;
             </div>
           </li>
           <li>
             <div class="challenge-box">
-              A shopkeeper sells a jacket for &pound;54. This is 20% more than he paid for it. How much did he pay?
+              A tap fills a 360-litre tank at a rate of 15 litres per minute. A drain removes water at 9 litres per minute. Both are running at the same time. How many minutes will it take to fill the tank?
             </div>
             <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
             <div id="b3" class="answer">
-              <strong>Answer: &pound;45</strong><br>
-              &pound;54 = 120% of the cost price.<br>
-              1% = &pound;54 &divide; 120 = &pound;0.45<br>
-              100% = &pound;0.45 &times; 100 = &pound;45.
+              <strong>Answer: 60 minutes</strong><br>
+              Net fill rate = 15 &minus; 9 = 6 litres per minute.<br>
+              Time = 360 &divide; 6 = <strong>60 minutes</strong>.
             </div>
           </li>
         </ol>
@@ -673,32 +666,32 @@
     <div class="section-body">
       <div class="wotd-card">
         <div>
-          <span class="wotd-word">foreboding</span>
-          <span class="wotd-pos">noun / adjective</span>
+          <span class="wotd-word">clamour</span>
+          <span class="wotd-pos">noun / verb</span>
         </div>
-        <div class="wotd-pronunciation">for-BOH-ding</div>
-        <div class="wotd-def"><strong>Definition:</strong> a strong feeling that something bad or unpleasant is going to happen; a sense of approaching danger or doom.</div>
-        <div class="wotd-example">&ldquo;As Tom&aacute;s stood at the forest&rsquo;s edge, a deep foreboding crept over him — as though the trees themselves were warning him to turn back.&rdquo;</div>
+        <div class="wotd-pronunciation">KLAM-er</div>
+        <div class="wotd-def"><strong>Definition:</strong> a loud, confused noise made by a large number of people or animals; to shout loudly and insistently as a crowd.</div>
+        <div class="wotd-example">&ldquo;Above the clamour of the market, Layla could just make out the flower-seller&rsquo;s calm, unhurried voice.&rdquo;</div>
         <div class="wotd-task">
-          <strong>Your turn:</strong> Write a sentence using <em>foreboding</em> set somewhere other than a forest &mdash; perhaps a school corridor, a sports ground before a match, or the moment before an exam result.
+          <strong>Your turn:</strong> Write a sentence using <em>clamour</em> in a setting other than a market &mdash; perhaps a school playground, a football stadium, or a parliament debate.
         </div>
       </div>
       <p style="margin-top:14px; font-size:0.82rem; color:var(--muted);">
-        <strong>Tip:</strong> Using a word like <em>foreboding</em> in your writing task instantly shows the examiner you have a wide vocabulary — pair it with a short, punchy sentence for maximum effect.
+        <strong>Tip:</strong> <em>Clamour</em> can replace overused words like &ldquo;noise&rdquo; or &ldquo;shouting&rdquo; in your writing. Examiners notice when you reach for a more precise or vivid word.
       </p>
     </div>
   </div>
 
   <!-- Navigation -->
   <div class="nav-row">
-    <a href="day-02.html" class="nav-btn secondary">&#8592; Day 2</a>
+    <a href="day-03.html" class="nav-btn secondary">&#8592; Day 3</a>
     <a href="../index.html" class="nav-btn secondary">All Days</a>
-    <a href="day-04.html" class="nav-btn">Day 4 &rarr;</a>
+    <a href="day-05.html" class="nav-btn disabled">Day 5 &rarr;</a>
   </div>
 
 </main>
 
-<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 3 of 28</footer>
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 4 of 28</footer>
 
 <script>
   function toggleAnswer(id) {
