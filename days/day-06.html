@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Day 5 — 11+ Daily Practice</title>
+  <title>Day 6 — 11+ Daily Practice</title>
   <style>
     :root {
       --blue: #1c4c96;
@@ -171,56 +171,78 @@
       font-size: 0.88rem;
       color: #14532d;
     }
-    /* Fraction number line */
-    .frac-line-wrap { margin: 12px 0 4px; overflow-x: auto; }
-    .frac-line {
-      position: relative;
-      height: 48px;
-      min-width: 300px;
-      max-width: 100%;
+    /* Factor chips */
+    .factor-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
     }
-    .frac-line .line {
-      position: absolute;
-      top: 24px;
-      left: 8px; right: 8px;
-      height: 2px;
-      background: #bfdbfe;
-      border-radius: 2px;
-    }
-    .frac-line .tick {
-      position: absolute;
-      top: 16px;
-      width: 2px;
-      height: 16px;
-      background: var(--blue);
-      transform: translateX(-50%);
-    }
-    .frac-line .tick-label {
-      position: absolute;
-      top: 0;
-      font-size: 0.7rem;
+    .factor-chip {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--blue-light);
+      border: 1.5px solid #bfdbfe;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--blue);
-      transform: translateX(-50%);
-      white-space: nowrap;
     }
-    .frac-line .end-label {
-      position: absolute;
-      top: 18px;
-      font-size: 0.72rem;
+    .factor-chip.shared {
+      border: 2px solid var(--green);
+      background: var(--green-light);
+      color: var(--green);
+    }
+    .factor-rows-wrap {
+      margin: 12px 0 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .factor-row-label {
+      font-size: 0.78rem;
+      font-weight: 700;
       color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
     }
-    /* Cuboid diagram */
-    .cuboid-wrap {
+    .shared-legend {
+      font-size: 0.76rem;
+      color: var(--green);
+      margin-top: 6px;
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin: 10px 0 4px;
-      flex-wrap: wrap;
+      gap: 6px;
     }
-    .cuboid-svg { flex-shrink: 0; }
-    .cuboid-labels { font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
-    .cuboid-labels strong { color: var(--blue); }
+    .shared-legend-chip {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 5px;
+      border: 2px solid var(--green);
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    /* Inverse ops strip */
+    .inverse-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+    .inv-box {
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: #f8fafc;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .inv-box.highlight { background: var(--blue-light); border-color: #bfdbfe; color: var(--blue); }
+    .inv-arrow { color: var(--muted); font-size: 0.8rem; }
     /* Passage */
     .passage {
       background: #fffbeb;
@@ -326,11 +348,11 @@
 <div class="topbar">
   <a href="../index.html">&#8592; All Days</a>
   <span class="sep">|</span>
-  <span>Day 5 of 28</span>
+  <span>Day 6 of 28</span>
 </div>
 
 <header>
-  <div class="day-chip">Day 5</div>
+  <div class="day-chip">Day 6</div>
   <h1>Sutton Grammar 11+ Daily Practice</h1>
   <p>Maths &amp; English — about 40–45 minutes total</p>
 </header>
@@ -358,66 +380,80 @@
         <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
         <ol class="qlist">
           <li>
-            What is 6 &times; 14?
+            What is 11 &times; 15?
             <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
             <div id="a1" class="answer">
-              <strong>Answer: 84</strong><br>
-              Split it: (6 &times; 10) + (6 &times; 4) = 60 + 24 = 84.
+              <strong>Answer: 165</strong><br>
+              Split method: (11 &times; 10) + (11 &times; 5) = 110 + 55 = 165.
             </div>
           </li>
           <li>
-            What is the lowest common multiple (LCM) of 4 and 6?
+            What is the HCF (Highest Common Factor) of 24 and 36?
             <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
             <div id="a2" class="answer">
               <strong>Answer: 12</strong><br>
-              Multiples of 4: 4, 8, <strong>12</strong>, 16&hellip;<br>
-              Multiples of 6: 6, <strong>12</strong>, 18&hellip;<br>
-              The first number on both lists is 12.
+              List the factor pairs for each number and find the highest factor that appears on both lists.<br>
+              Factors of 24: 1, 2, 3, 4, 6, 8, <strong>12</strong>, 24.<br>
+              Factors of 36: 1, 2, 3, 4, 6, 9, <strong>12</strong>, 18, 36.<br>
+              The highest factor on both lists is <strong>12</strong>.
             </div>
-          </li>
-          <li>
-            Write these fractions in order from smallest to largest: &frac12;, &frac25;, &frac34;, 3/10.
-            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
-            <div id="a3" class="answer">
-              <strong>Answer: 3/10, &frac25;, &frac12;, &frac34;</strong><br>
-              Convert to 20ths: 3/10 = 6/20 &nbsp;&bull;&nbsp; 2/5 = 8/20 &nbsp;&bull;&nbsp; 1/2 = 10/20 &nbsp;&bull;&nbsp; 3/4 = 15/20.<br>
-              Order: 6/20 &lt; 8/20 &lt; 10/20 &lt; 15/20.
-            </div>
-            <!-- Fraction number line visual -->
-            <div class="frac-line-wrap">
-              <div class="frac-line">
-                <div class="line"></div>
-                <span class="end-label" style="left:2px;">0</span>
-                <span class="end-label" style="right:2px;">1</span>
-                <!-- 3/10 = 30% -->
-                <div class="tick" style="left:30%;"></div>
-                <span class="tick-label" style="left:30%;">3/10</span>
-                <!-- 2/5 = 40% -->
-                <div class="tick" style="left:40%;"></div>
-                <span class="tick-label" style="left:40%;">2/5</span>
-                <!-- 1/2 = 50% -->
-                <div class="tick" style="left:50%;"></div>
-                <span class="tick-label" style="left:50%;">1/2</span>
-                <!-- 3/4 = 75% -->
-                <div class="tick" style="left:75%;"></div>
-                <span class="tick-label" style="left:75%;">3/4</span>
+            <!-- Factor chip visual: two rows side by side -->
+            <div class="factor-rows-wrap">
+              <div>
+                <div class="factor-row-label">Factors of 24</div>
+                <div class="factor-grid">
+                  <span class="factor-chip shared">1</span>
+                  <span class="factor-chip shared">2</span>
+                  <span class="factor-chip shared">3</span>
+                  <span class="factor-chip shared">4</span>
+                  <span class="factor-chip shared">6</span>
+                  <span class="factor-chip">8</span>
+                  <span class="factor-chip shared">12</span>
+                  <span class="factor-chip">24</span>
+                </div>
+              </div>
+              <div>
+                <div class="factor-row-label">Factors of 36</div>
+                <div class="factor-grid">
+                  <span class="factor-chip shared">1</span>
+                  <span class="factor-chip shared">2</span>
+                  <span class="factor-chip shared">3</span>
+                  <span class="factor-chip shared">4</span>
+                  <span class="factor-chip shared">6</span>
+                  <span class="factor-chip">9</span>
+                  <span class="factor-chip shared">12</span>
+                  <span class="factor-chip">18</span>
+                  <span class="factor-chip">36</span>
+                </div>
               </div>
             </div>
-          </li>
-          <li>
-            What is 8&sup2; (eight squared)?
-            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
-            <div id="a4" class="answer">
-              <strong>Answer: 64</strong><br>
-              8&sup2; means 8 &times; 8 = 64. The small raised 2 means &ldquo;multiplied by itself twice.&rdquo;
+            <div class="shared-legend">
+              <span class="shared-legend-chip">12</span>
+              Shared factors are highlighted &mdash; the <strong>highest</strong> shared factor is <strong>12</strong>.
             </div>
           </li>
           <li>
-            A triangle has angles of 90&deg;, 55&deg;, and 35&deg;. What type of triangle is it? What do the angles add up to?
+            Write 0.6 as a fraction in its simplest form.
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 3/5</strong><br>
+              0.6 = 6/10. Simplify by dividing top and bottom by 2: 6 &divide; 2 = 3, 10 &divide; 2 = 5. So 0.6 = <strong>3/5</strong>.
+            </div>
+          </li>
+          <li>
+            What is &radic;49?
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 7</strong><br>
+              &radic;49 = 7 because 7 &times; 7 = 49. The square root asks: &ldquo;which number multiplied by itself gives 49?&rdquo;
+            </div>
+          </li>
+          <li>
+            What do the angles inside a quadrilateral add up to?
             <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
             <div id="a5" class="answer">
-              <strong>Type: right-angled triangle</strong> (one angle is exactly 90&deg;).<br>
-              <strong>Sum: 180&deg;</strong> &mdash; 90 + 55 + 35 = 180. All triangles have angles that sum to exactly 180&deg;.
+              <strong>Answer: 360&deg;</strong><br>
+              Any quadrilateral (4-sided shape) has interior angles that sum to exactly 360&deg;. You can see why by splitting a quadrilateral into two triangles — each triangle has 180&deg;, so together 2 &times; 180 = 360&deg;.
             </div>
           </li>
         </ol>
@@ -428,66 +464,60 @@
         <p class="task-intro">Show clear working for each question:</p>
         <ol class="qlist">
           <li>
-            A car travels at a steady speed of 60 km/h. How far does it travel in 2 hours and 30 minutes?
+            A recipe uses 320 g of flour to make a dish for 4 people. How much flour is needed for 7 people?
             <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
             <div id="a6" class="answer">
-              <strong>Answer: 150 km</strong><br>
-              2 hours: 60 &times; 2 = 120 km.<br>
-              30 min (half an hour): 60 &divide; 2 = 30 km.<br>
-              Total: 120 + 30 = 150 km.
+              <strong>Answer: 560 g</strong><br>
+              For 1 person: 320 &divide; 4 = 80 g.<br>
+              For 7 people: 80 &times; 7 = <strong>560 g</strong>.
             </div>
           </li>
           <li>
-            In a survey of 200 pupils, &frac38; said their favourite subject was Maths. How many pupils did <em>NOT</em> choose Maths?
+            A coat costs &pound;48 and is reduced by 25% in a sale. What is the sale price?
             <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
             <div id="a7" class="answer">
-              <strong>Answer: 125 pupils</strong><br>
-              &frac18; of 200 = 25. &nbsp;&frac38; = 3 &times; 25 = 75 chose Maths.<br>
-              200 &minus; 75 = 125 did not choose Maths.
+              <strong>Answer: &pound;36</strong><br>
+              25% of &pound;48 = &pound;48 &divide; 4 = &pound;12.<br>
+              Sale price = &pound;48 &minus; &pound;12 = <strong>&pound;36</strong>.<br>
+              Or: 75% of &pound;48 = 0.75 &times; 48 = &pound;36.
             </div>
           </li>
           <li>
-            A cuboid has length 5 cm, width 4 cm, and height 3 cm. What is its volume?
+            The mean of 5 numbers is 14. Four of the numbers are 11, 15, 18, and 12. What is the fifth number?
             <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
             <div id="a8" class="answer">
-              <strong>Answer: 60 cm&sup3;</strong><br>
-              Volume = length &times; width &times; height = 5 &times; 4 &times; 3 = 60 cm&sup3;.
-            </div>
-            <div class="cuboid-wrap">
-              <svg class="cuboid-svg" width="110" height="80" viewBox="0 0 110 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- front face -->
-                <rect x="20" y="30" width="60" height="40" fill="#e8eef8" stroke="#1c4c96" stroke-width="1.5"/>
-                <!-- top face -->
-                <polygon points="20,30 50,10 110,10 80,30" fill="#bfdbfe" stroke="#1c4c96" stroke-width="1.5"/>
-                <!-- right face -->
-                <polygon points="80,30 110,10 110,50 80,70" fill="#dbeafe" stroke="#1c4c96" stroke-width="1.5"/>
-                <!-- dimension labels -->
-                <text x="48" y="55" font-size="9" fill="#1c4c96" text-anchor="middle">5 cm</text>
-                <text x="10" y="52" font-size="9" fill="#1c4c96" text-anchor="middle">3 cm</text>
-                <text x="97" y="32" font-size="9" fill="#1c4c96" text-anchor="middle">4 cm</text>
-              </svg>
-              <div class="cuboid-labels">
-                V = l &times; w &times; h<br>
-                = <strong>5</strong> &times; <strong>4</strong> &times; <strong>3</strong><br>
-                = <strong>60 cm&sup3;</strong>
-              </div>
+              <strong>Answer: 14</strong><br>
+              Total of all 5 numbers = mean &times; count = 14 &times; 5 = 70.<br>
+              Sum of the four known numbers = 11 + 15 + 18 + 12 = 56.<br>
+              Fifth number = 70 &minus; 56 = <strong>14</strong>.
             </div>
           </li>
           <li>
-            Zara scores 18 out of 25 in a test. What percentage did she score?
+            A map has a scale of 1:50,000. Two towns are 6 cm apart on the map. What is the real distance in kilometres?
             <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
             <div id="a9" class="answer">
-              <strong>Answer: 72%</strong><br>
-              Method 1: &times; top and bottom by 4 &rarr; 18/25 = 72/100 = 72%.<br>
-              Method 2: 18 &divide; 25 = 0.72, then &times; 100 = 72%.
+              <strong>Answer: 3 km</strong><br>
+              Real distance = 6 &times; 50,000 = 300,000 cm.<br>
+              Convert: 300,000 cm &divide; 100 = 3,000 m &divide; 1,000 = <strong>3 km</strong>.
             </div>
           </li>
           <li>
-            A rectangle has an area of 84 cm&sup2;. Its width is 6 cm. What is its length? What is its perimeter?
+            A number is multiplied by 6, then 14 is added, giving 62. What was the original number?
             <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
             <div id="a10" class="answer">
-              <strong>Length = 14 cm</strong> &mdash; Area &divide; width = 84 &divide; 6 = 14 cm.<br>
-              <strong>Perimeter = 40 cm</strong> &mdash; 2 &times; (14 + 6) = 2 &times; 20 = 40 cm.
+              <strong>Answer: 8</strong><br>
+              Work backwards using inverse operations:<br>
+              62 &minus; 14 = 48, &nbsp;then 48 &divide; 6 = <strong>8</strong>.<br>
+              Check: 8 &times; 6 = 48, 48 + 14 = 62. &#10003;
+            </div>
+            <!-- Inverse ops strip -->
+            <div class="inverse-strip" style="margin-top:10px;">
+              <div class="inv-box highlight">?</div>
+              <span class="inv-arrow">&times;6 &rarr;</span>
+              <div class="inv-box">&times;6</div>
+              <span class="inv-arrow">+14 &rarr;</span>
+              <div class="inv-box highlight">62</div>
+              <span style="color:var(--muted);font-size:0.78rem;margin-left:4px;">reverse: &minus;14 then &divide;6</span>
             </div>
           </li>
         </ol>
@@ -509,54 +539,48 @@
         <div class="task-title">Part 1 &mdash; SPaG &amp; Vocabulary</div>
         <ol class="qlist">
           <li>
-            Which sentence uses the apostrophe correctly?<br>
-            A) The dog&rsquo;s bone was buried in the garden.<br>
-            B) The dogs&rsquo; bone was buried in the garden.<br>
-            C) Both A and B are correct, depending on the meaning.
+            What word class is &ldquo;tired&rdquo; in this sentence?<br>
+            <em>The tired children fell asleep immediately.</em>
             <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
             <div id="e1" class="answer">
-              <strong>Answer: C</strong><br>
-              &ldquo;The dog&rsquo;s bone&rdquo; = bone belonging to <em>one</em> dog (apostrophe before the s).<br>
-              &ldquo;The dogs&rsquo; bone&rdquo; = bone belonging to <em>more than one</em> dog (apostrophe after the s).<br>
-              Both are correct — the position of the apostrophe tells us how many owners there are.
+              <strong>Answer: adjective</strong><br>
+              &ldquo;Tired&rdquo; describes the noun &ldquo;children&rdquo; &mdash; it tells us what the children are like. Adjectives modify nouns. Other clues: you could ask &ldquo;what kind of children?&rdquo; and the answer is &ldquo;tired&rdquo; children.
             </div>
           </li>
           <li>
-            Add the correct suffix to turn each word into an adverb:<br>
-            (i)&nbsp;brave &nbsp;&nbsp; (ii)&nbsp;happy &nbsp;&nbsp; (iii)&nbsp;gentle
+            Rewrite this sentence in the <strong>active voice</strong>:<br>
+            <em>The trophy was won by our school.</em>
             <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
             <div id="e2" class="answer">
-              <strong>(i) bravely</strong> — add -ly directly.<br>
-              <strong>(ii) happily</strong> — change y to i, then add -ly (happy &rarr; happily).<br>
-              <strong>(iii) gently</strong> — words ending consonant + le drop the e before -ly (gentle &rarr; gently).
+              <strong>Answer: Our school won the trophy.</strong><br>
+              In the passive voice, the subject receives the action (&ldquo;the trophy was won&rdquo;). In the active voice, the subject performs the action (&ldquo;our school won&rdquo;). Active voice is usually more direct and powerful.
             </div>
           </li>
           <li>
-            Identify the subordinate clause in this sentence:<br>
-            <em>Although she was nervous, Clara walked onto the stage.</em>
+            Choose the correct word: &ldquo;I _______ been waiting for an hour.&rdquo;<br>
+            A)&nbsp;have &nbsp;&nbsp; B)&nbsp;of
             <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
             <div id="e3" class="answer">
-              <strong>Subordinate clause: &ldquo;Although she was nervous&rdquo;</strong><br>
-              It cannot stand alone as a sentence — it depends on the main clause (&ldquo;Clara walked onto the stage&rdquo;) to make sense. It begins with a subordinating conjunction: <em>although</em>.
+              <strong>Answer: A) have</strong><br>
+              The correct form is &ldquo;I <em>have</em> been waiting&rdquo; &mdash; &ldquo;have&rdquo; is an auxiliary (helping) verb that forms the present perfect tense. &ldquo;Of&rdquo; is a preposition, not a verb. The error &ldquo;could of / should of / would of&rdquo; comes from mishearing &ldquo;could&rsquo;ve / should&rsquo;ve / would&rsquo;ve&rdquo; (contractions of &ldquo;could have&rdquo; etc.).
             </div>
           </li>
           <li>
-            What is the difference between a <strong>metaphor</strong> and a <strong>simile</strong>? Give one example of each.
+            What does the word <strong>vivid</strong> mean? Use it in a sentence of your own.
             <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
             <div id="e4" class="answer">
-              <strong>Simile</strong> — compares using &ldquo;like&rdquo; or &ldquo;as&rdquo;: &ldquo;Her eyes were <em>like</em> stars.&rdquo;<br>
-              <strong>Metaphor</strong> — says something IS something else: &ldquo;Her eyes <em>were</em> stars.&rdquo;<br>
-              A metaphor is often considered stronger because it makes a bold, direct claim rather than a comparison.
+              <strong>Definition:</strong> producing strong, clear images in the mind; intensely bright, detailed, or lifelike.<br>
+              <strong>Example:</strong> &ldquo;She had such a vivid memory of that afternoon that she could almost smell the sea.&rdquo;<br>
+              <em>Vivid</em> is an adjective. Related words: vividly (adverb), vividness (noun).
             </div>
           </li>
           <li>
-            Choose the correct word to complete the sentence:<br>
-            <em>The explorers walked along the rocky _______ of the cliff.</em><br>
-            A)&nbsp;led &nbsp;&nbsp; B)&nbsp;ledge &nbsp;&nbsp; C)&nbsp;edge &nbsp;&nbsp; D)&nbsp;lease
+            What is <strong>alliteration</strong>? Write your own example.
             <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
             <div id="e5" class="answer">
-              <strong>Answer: C) edge</strong> (or B) ledge — both fit grammatically and in meaning).<br>
-              &ldquo;Edge&rdquo; = the rim or border. &ldquo;Ledge&rdquo; = a narrow flat shelf on a cliff. &ldquo;Led&rdquo; is the past tense of lead. &ldquo;Lease&rdquo; = a rental agreement — doesn&rsquo;t fit at all!
+              <strong>Definition:</strong> Alliteration is the repetition of the same consonant sound at the beginning of nearby words, usually in the same phrase or sentence.<br>
+              <strong>Example:</strong> &ldquo;The silver snake slithered silently through the shadows.&rdquo;<br>
+              <em>Why writers use it:</em> to create rhythm, emphasise key words, and make a phrase memorable or musical.
             </div>
           </li>
         </ol>
@@ -564,53 +588,46 @@
 
       <div class="task">
         <div class="task-title">Part 2 &mdash; Comprehension</div>
-        <p class="task-intro">Read this passage carefully, then answer the questions:</p>
+        <p class="task-intro">Read this passage carefully, then answer the questions below:</p>
         <div class="passage">
-          Nobody had expected the storm. One moment the sky was a wide, pale
-          blue; the next, it turned the colour of a bruise. Lightning tore
-          across the horizon in jagged white lines, and the thunder that
-          followed shook the windows of the little lighthouse. Keeper Aldous
-          stood at the top of his tower, watching. Below, the sea had become
-          a furious animal &mdash; heaving, crashing, flinging white foam against
-          the rocks. He had kept this lighthouse for thirty years. He had
-          seen storms like this before. But something was different tonight:
-          in the distance, through the driving rain, he could make out the
-          small, dark shape of a boat.
+          The robot arrived on a Tuesday. It was delivered in a plain brown box, and Maya&rsquo;s mother had to sign for it before the courier even looked up from her screen. Maya watched from the top of the stairs as her mother wrestled it through the front door. It was about the height of a ten-year-old, with a smooth white casing and two circular eyes that glowed faintly green. For three days it stood in the corner of the kitchen, switched off. On the fourth day, Maya plugged it in. The green eyes blinked. Then it said, in a voice that was almost but not quite human: &ldquo;Hello, Maya. I&rsquo;ve been waiting.&rdquo;
         </div>
         <ol class="qlist">
           <li>
-            How did the sky change at the start of the storm?
+            How was the robot delivered, and what did Maya&rsquo;s mother have to do before it came inside?
             <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
             <div id="e6" class="answer">
-              <strong>Answer:</strong> It changed from &ldquo;wide, pale blue&rdquo; to &ldquo;the colour of a bruise&rdquo; — turning dark purple/grey very suddenly. The writer uses &ldquo;one moment&hellip; the next&rdquo; to show how fast this happened.
+              <strong>Answer:</strong> The robot was delivered in a plain brown box. Maya&rsquo;s mother had to sign for it before the courier even looked up from her screen.
             </div>
           </li>
           <li>
-            What is Aldous&rsquo;s job, and how long has he been doing it?
+            How does the writer describe the robot&rsquo;s height?
             <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
             <div id="e7" class="answer">
-              <strong>Answer:</strong> He is a lighthouse keeper and has kept this lighthouse for thirty years.
+              <strong>Answer:</strong> It was described as &ldquo;about the height of a ten-year-old.&rdquo; This comparison helps the reader picture the robot&rsquo;s size immediately, without needing measurements.
             </div>
           </li>
           <li>
-            &ldquo;The sea had become a furious animal.&rdquo; What effect does this metaphor create?
+            Why is the phrase &ldquo;almost but not quite human&rdquo; an effective description of the robot&rsquo;s voice?
             <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
             <div id="e8" class="answer">
-              <strong>Example answer:</strong> The metaphor makes the sea seem wild, unpredictable, and dangerous &mdash; as though it has its own rage and power. The verbs that follow (&ldquo;heaving, crashing, flinging&rdquo;) build on this by giving the sea violent, animal-like actions. It makes the storm feel threatening and alive rather than just a weather event.
+              <strong>Example answer:</strong> The phrase is effective because it creates an unsettling, uncanny feeling. Something that is <em>almost</em> human is more disturbing than something that is clearly mechanical &mdash; it sits in an uncomfortable in-between space. The reader can almost hear a human voice, but knows it isn&rsquo;t one, which makes the robot feel eerie and slightly threatening rather than simply harmless.
             </div>
           </li>
           <li>
-            How does the writer build tension at the end of the passage? Comment on both structure and language.
+            What is surprising about the robot&rsquo;s first words? Explain the effect on the reader.
             <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
             <div id="e9" class="answer">
-              <strong>Example answer:</strong> Two short sentences (&ldquo;He had kept this lighthouse for thirty years. He had seen storms like this before.&rdquo;) suggest Aldous is experienced and calm — then the word &ldquo;But&rdquo; signals a change. The final long sentence delays the key detail (the boat) until the very end, building suspense. The phrase &ldquo;through the driving rain&rdquo; adds difficulty and drama just before the revelation.
+              <strong>Example answer:</strong> The robot says &ldquo;I&rsquo;ve been waiting&rdquo; &mdash; which implies it was aware and conscious even while switched off for three days. This is deeply surprising because a machine should not be able to &ldquo;wait&rdquo; in any meaningful sense. It suggests the robot has inner experience, creating a sense of unease and mystery. The reader is left wondering: what else does it know?
             </div>
           </li>
           <li>
-            What might happen next? Use evidence from the passage to support your prediction.
+            How does the writer create mystery before the robot speaks? Give two examples from the text.
             <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
             <div id="e10" class="answer">
-              <strong>Example answer:</strong> Aldous may attempt a rescue — he is an experienced keeper (&ldquo;thirty years&rdquo;) who notices the boat immediately despite the storm. The word &ldquo;different&rdquo; hints that something unusual is about to happen, and the boat in danger suggests a rescue mission is coming.
+              <strong>Example answer:</strong><br>
+              1. The robot stands &ldquo;switched off&rdquo; for three days &mdash; the delay builds tension and makes the reader curious about when and how it will finally be activated.<br>
+              2. The detail that the courier &ldquo;didn&rsquo;t look up from her screen&rdquo; suggests the delivery is treated as mundane, which contrasts with how extraordinary the robot turns out to be. The ordinary surroundings make the robot&rsquo;s strangeness more striking.
             </div>
           </li>
         </ol>
@@ -619,22 +636,22 @@
       <div class="task">
         <div class="task-title">Part 3 &mdash; Writing Task</div>
         <div class="writing-prompt">
-          <strong>Prompt:</strong> Aldous climbs back down from the lighthouse tower and prepares to go out in the storm. Describe his thoughts and actions as he gets ready. What does he take with him? How does he feel?<br><br>
+          <strong>Prompt:</strong> The robot follows Maya to school the next morning. Write the scene: describe the playground falling silent as they arrive, contrast the reactions of different children (dialogue, fear, curiosity), and include Maya&rsquo;s inner thoughts as she feels a knot in her stomach.<br><br>
           Write 8–10 sentences. Try to use:
           <ul class="writing-checklist">
-            <li>A mixture of short punchy sentences and longer descriptive ones</li>
-            <li>Powerful verbs (not just &ldquo;walked&rdquo; or &ldquo;picked up&rdquo;)</li>
-            <li>At least one piece of direct thought shown in italics or speech marks</li>
+            <li>Dialogue that shows character &mdash; what does Finn say as he steps back?</li>
+            <li>A contrast between the older children&rsquo;s fear and the younger children&rsquo;s curiosity</li>
+            <li>At least one sentence of Maya&rsquo;s inner thought in italics</li>
           </ul>
         </div>
         <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
         <div id="e11" class="answer">
           <strong>Example answer:</strong><br>
-          <em>Aldous descended the spiral staircase two steps at a time, his hand barely touching the cold iron rail. His mind was already at the water&rsquo;s edge. He hauled on his oilskin jacket and jammed his boots onto his feet without unlacing them. The rope. He would need the rope. He coiled it over his shoulder, then grabbed the lantern from its hook by the door. &ldquo;Thirty years,&rdquo; he muttered to himself, &ldquo;and I&rsquo;ve never lost a soul yet.&rdquo; He wasn&rsquo;t about to start tonight. The door screamed on its hinges as the wind wrenched it open, and the rain hit him like a wall of cold needles. He stepped out into the dark.</em><br><br>
+          <em>The playground fell silent the moment they walked through the gate.</em> Even the Year Threes stopped their chasing game and stood with open mouths, watching the smooth white figure walk calmly at Maya&rsquo;s side. Finn stepped back, his bag clutched to his chest. &ldquo;What is that?&rdquo; he said, as if the robot couldn&rsquo;t hear him. &ldquo;That,&rdquo; said Maya, trying to keep her voice steady, &ldquo;is my robot.&rdquo; The younger children were braver &mdash; a girl with two red plaits reached out and touched the robot&rsquo;s arm, then giggled. But the green eyes tracked every movement, and Maya felt the knot tighten in her stomach. <em>What if I&rsquo;ve made a terrible mistake?</em> The robot turned its head slowly and looked at her. &ldquo;Good morning, Maya,&rdquo; it said. &ldquo;You appear to be nervous.&rdquo;<br><br>
           <strong>Check your own writing for:</strong><br>
-          &bull; Powerful verbs &mdash; &ldquo;descended, hauled, jammed, coiled, wrenched&rdquo; rather than &ldquo;went, put on, took&rdquo;<br>
-          &bull; Sentence variety &mdash; short sentences (&ldquo;The rope. He would need the rope.&rdquo;) for urgency<br>
-          &bull; Direct thought or speech &mdash; we hear Aldous&rsquo;s voice, making him feel real
+          &bull; Contrast &mdash; older children afraid vs. younger children curious<br>
+          &bull; Italicised inner thought &mdash; shows Maya&rsquo;s private worry<br>
+          &bull; Powerful verbs &mdash; &ldquo;tracked,&rdquo; &ldquo;tighten,&rdquo; &ldquo;stepped back&rdquo;
         </div>
       </div>
 
@@ -655,38 +672,37 @@
         <ol class="qlist">
           <li>
             <div class="challenge-box">
-              A boat travels 45 km at 15 km/h, then a further 60 km at 20 km/h. What is the total journey time in hours and minutes?
+              What is the HCF of 48 and 60?
             </div>
             <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
             <div id="b1" class="answer">
-              <strong>Answer: 6 hours</strong><br>
-              Leg 1: 45 &divide; 15 = 3 hours.<br>
-              Leg 2: 60 &divide; 20 = 3 hours.<br>
-              Total = 3 + 3 = <strong>6 hours</strong>.
+              <strong>Answer: 12</strong><br>
+              Factors of 48: 1, 2, 3, 4, 6, 8, <strong>12</strong>, 16, 24, 48.<br>
+              Factors of 60: 1, 2, 3, 4, 5, 6, 10, <strong>12</strong>, 15, 20, 30, 60.<br>
+              The highest factor on both lists is <strong>12</strong>.
             </div>
           </li>
           <li>
             <div class="challenge-box">
-              A swimming pool is a cuboid 25 m long, 10 m wide, and 2 m deep. Water is pumped in at 5,000 litres per minute. How many minutes does it take to fill? (1 m&sup3; = 1,000 litres)
+              A map has a scale of 1:25,000. Two villages are 12 cm apart on the map. What is the real distance in kilometres?
             </div>
             <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
             <div id="b2" class="answer">
-              <strong>Answer: 100 minutes</strong><br>
-              Volume = 25 &times; 10 &times; 2 = 500 m&sup3;.<br>
-              In litres: 500 &times; 1,000 = 500,000 litres.<br>
-              Time = 500,000 &divide; 5,000 = <strong>100 minutes</strong>.
+              <strong>Answer: 3 km</strong><br>
+              Real distance = 12 &times; 25,000 = 300,000 cm.<br>
+              Convert: 300,000 cm &divide; 100 = 3,000 m &divide; 1,000 = <strong>3 km</strong>.
             </div>
           </li>
           <li>
             <div class="challenge-box">
-              Which is larger: &frac57; or &frac79;? Show how you know.
+              The mean of 6 numbers is 15. Five of the numbers are 12, 18, 14, 17, and 15. What is the sixth number?
             </div>
             <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
             <div id="b3" class="answer">
-              <strong>Answer: &frac79; is larger.</strong><br>
-              Common denominator of 7 and 9 is 63.<br>
-              5/7 = 45/63 &nbsp;&bull;&nbsp; 7/9 = 49/63.<br>
-              49/63 &gt; 45/63, so <strong>7/9 &gt; 5/7</strong>.
+              <strong>Answer: 14</strong><br>
+              Total of all 6 numbers = mean &times; count = 15 &times; 6 = 90.<br>
+              Sum of the five known numbers = 12 + 18 + 14 + 17 + 15 = 76.<br>
+              Sixth number = 90 &minus; 76 = <strong>14</strong>.
             </div>
           </li>
         </ol>
@@ -704,32 +720,32 @@
     <div class="section-body">
       <div class="wotd-card">
         <div>
-          <span class="wotd-word">indomitable</span>
+          <span class="wotd-word">uncanny</span>
           <span class="wotd-pos">adjective</span>
         </div>
-        <div class="wotd-pronunciation">in-DOM-it-uh-bul</div>
-        <div class="wotd-def"><strong>Definition:</strong> impossible to subdue or defeat; having a will or spirit that refuses to give in, no matter the difficulty.</div>
-        <div class="wotd-example">&ldquo;Despite thirty years of storms and sleepless nights, Keeper Aldous remained indomitable — always the first to answer the sea&rsquo;s call for help.&rdquo;</div>
+        <div class="wotd-pronunciation">un-KAN-ee</div>
+        <div class="wotd-def"><strong>Definition:</strong> strangely familiar yet unsettling; beyond what is natural or expected, in a way that feels eerie.</div>
+        <div class="wotd-example">&ldquo;The robot&rsquo;s smile was uncanny &mdash; almost warm, almost kind, but with something behind its green eyes that Maya could not name.&rdquo;</div>
         <div class="wotd-task">
-          <strong>Your turn:</strong> Write a sentence using <em>indomitable</em> about a person — real or fictional — who overcomes a challenge. It could be a scientist, an athlete, a character from a book, or someone you admire.
+          <strong>Your turn:</strong> Write a sentence using <em>uncanny</em> about a moment when something familiar suddenly felt strange &mdash; perhaps a reflection, a dream, or a place you knew well.
         </div>
       </div>
       <p style="margin-top:14px; font-size:0.82rem; color:var(--muted);">
-        <strong>Tip:</strong> <em>Indomitable</em> is a powerful word to use when writing about a character&rsquo;s inner strength. In a comprehension question about how a writer presents a character, using this word in your answer shows real sophistication.
+        <strong>Tip:</strong> <em>Uncanny</em> is perfect for describing the robot passage &mdash; using it in a comprehension answer shows you understand how the writer creates unease. For example: &ldquo;The writer creates an uncanny effect by making the robot&rsquo;s voice almost human, but not quite.&rdquo;
       </p>
     </div>
   </div>
 
   <!-- Navigation -->
   <div class="nav-row">
-    <a href="day-04.html" class="nav-btn secondary">&#8592; Day 4</a>
+    <a href="day-05.html" class="nav-btn secondary">&#8592; Day 5</a>
     <a href="../index.html" class="nav-btn secondary">All Days</a>
-    <a href="day-06.html" class="nav-btn">Day 6 &rarr;</a>
+    <a href="day-07.html" class="nav-btn">Day 7 &rarr;</a>
   </div>
 
 </main>
 
-<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 5 of 28</footer>
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 6 of 28</footer>
 
 <script>
   function toggleAnswer(id) {

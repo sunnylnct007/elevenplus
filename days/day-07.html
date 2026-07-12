@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 7 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}
+    .eng-hdr{background:#f0fdf4}
+    .bonus-hdr{background:#fef9ec}
+    .word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    .eng-hdr~.section-body .task-block h3{color:var(--green)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .prob-strip{display:flex;align-items:center;justify-content:center;gap:0;font-size:0.85rem;margin:8px auto;flex-wrap:wrap}
+    .prob-cell{border:2px solid var(--blue);border-radius:6px;padding:6px 12px;background:var(--blue-light);font-weight:bold;color:var(--blue)}
+    .prob-cell.blue{background:var(--blue);color:#fff}
+    .prob-arrow{color:var(--muted);margin:0 4px;font-size:1rem}
+    .fraction-strip{display:flex;align-items:stretch;height:36px;border-radius:8px;overflow:hidden;border:1px solid var(--border);width:260px;margin:10px auto}
+    .frac-seg{display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:bold;color:#fff}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .nav-btn.disabled{border-color:var(--border);color:var(--muted);cursor:default;pointer-events:none}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem;color:var(--text)}
+  </style>
+  <script>
+    function toggleAnswer(id){
+      var el=document.getElementById(id);
+      if(!el)return;
+      var btn=el.previousElementSibling;
+      if(el.style.display==='block'){
+        el.style.display='none';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+      }else{
+        el.style.display='block';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 7 of 28</span>
+</div>
+
+<div class="page-header">
+  <div class="day-chip">Day 7</div>
+  <h1>Probability, Fractions &amp; Antarctica Comprehension</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<!-- MATHS -->
+<div class="section-card">
+  <div class="section-header math-hdr">
+    <span class="section-icon">&#9998;</span>
+    <h2>Maths (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 9 &times; 16?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>144</strong>. Split: (9 &times; 10) + (9 &times; 6) = 90 + 54 = 144.</div>
+        </li>
+        <li>Is 97 a prime number? How do you know?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>Yes</strong>. A prime has exactly two factors: 1 and itself. Test all primes up to &radic;97 &asymp; 9.8: not divisible by 2, 3, 5, or 7. So 97 is prime.</div>
+        </li>
+        <li>What is 2/3 + 3/4? Give your answer as a mixed number.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">Answer: <strong>1 5/12</strong>. Common denominator is 12: 2/3 = 8/12, 3/4 = 9/12. Sum = 17/12 = 1 5/12.</div>
+        </li>
+        <li>Convert 2.35 km into metres.
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">Answer: <strong>2,350 m</strong>. 1 km = 1,000 m, so 2.35 &times; 1,000 = 2,350 m.</div>
+        </li>
+        <li>A bag contains 3 red, 5 blue, and 2 yellow counters. What is the probability of picking a blue counter at random?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Answer: <strong>1/2</strong>. Total counters = 3 + 5 + 2 = 10. Blue = 5. Probability = 5/10 = 1/2.</div>
+        </li>
+      </ol>
+
+      <!-- Visual aid: probability bar -->
+      <div class="vis-box">
+        <div class="vis-label">Probability strip — counters in the bag</div>
+        <div class="fraction-strip">
+          <div class="frac-seg" style="width:30%;background:#c0392b;">3 Red</div>
+          <div class="frac-seg" style="width:50%;background:#1c4c96;">5 Blue</div>
+          <div class="frac-seg" style="width:20%;background:#f39c12;color:#1a1a2e;">2 Y</div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:6px;">Blue takes up exactly half the strip &rarr; P(blue) = 5/10 = <strong>1/2</strong></p>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>A train journey takes 3 hours 45 minutes. The train arrives at 17:20. What time did it depart?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">Answer: <strong>13:35</strong>. Subtract 3 hours: 17:20 &minus; 3 h = 14:20. Subtract 45 minutes: 14:20 &minus; 45 min = 13:35.</div>
+        </li>
+        <li>A farmer has 144 eggs. He packs them into boxes of 6. He sells each box for &pound;1.80. How much does he earn in total?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Answer: <strong>&pound;43.20</strong>. Boxes = 144 &divide; 6 = 24 boxes. Earnings = 24 &times; &pound;1.80 = &pound;43.20.</div>
+        </li>
+        <li>In a class, the ratio of boys to girls is 2:3. There are 18 girls. How many boys are there?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Answer: <strong>12 boys</strong>. 3 parts = 18, so 1 part = 18 &divide; 3 = 6. Boys = 2 parts = 2 &times; 6 = 12. Check: 12:18 = 2:3 &#10003;</div>
+        </li>
+        <li>A tank holds 60 litres when full. It is currently 3/5 full. How many more litres are needed to fill it?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Answer: <strong>24 litres</strong>. 3/5 of 60 = 36 litres already in the tank. Needed = 60 &minus; 36 = 24 litres.</div>
+        </li>
+        <li>Plot these coordinates and name the shape: A(1,1), B(5,1), C(5,4), D(1,4). What is its area?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">The shape is a <strong>rectangle</strong>. Width = 5 &minus; 1 = 4 units. Height = 4 &minus; 1 = 3 units. Area = 4 &times; 3 = <strong>12 square units</strong>.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ENGLISH -->
+<div class="section-card">
+  <div class="section-header eng-hdr">
+    <span class="section-icon">&#128218;</span>
+    <h2>English (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>Which sentence uses a semicolon correctly?<br>
+          A) She loved reading; especially fantasy novels.<br>
+          B) It was late; nevertheless, she kept working.<br>
+          C) The cat sat; on the warm windowsill.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Answer: <strong>B</strong>. A semicolon joins two independent clauses (each could be a sentence). In A and C, the second part is not a full independent clause.</div>
+        </li>
+        <li>Add the missing apostrophes:<br><em>Its a shame that the childrens coats were left at the teachers house.</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Corrected: <em>It&#8217;s a shame that the children&#8217;s coats were left at the teacher&#8217;s house.</em> &ldquo;It&#8217;s&rdquo; = it is (contraction). &ldquo;Children&#8217;s&rdquo; = belonging to children (irregular plural). &ldquo;Teacher&#8217;s&rdquo; = belonging to one teacher.</div>
+        </li>
+        <li>What is the difference between a <strong>noun phrase</strong> and a <strong>verb phrase</strong>? Give an example of each.
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">A <strong>noun phrase</strong> is built around a noun: e.g. &ldquo;the old, crumbling tower.&rdquo; A <strong>verb phrase</strong> is built around a verb expressing action or state: e.g. &ldquo;had been sleeping for hours.&rdquo; Noun phrases can be expanded with adjectives, determiners, and prepositional phrases.</div>
+        </li>
+        <li>What does the prefix <strong>mis-</strong> mean? Give two examples.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer">&ldquo;Mis-&rdquo; means <strong>wrongly or badly</strong>. Examples: <em>misunderstand</em> (understand wrongly), <em>misbehave</em> (behave badly), <em>mislead</em>, <em>misspell</em>, <em>misplace</em>.</div>
+        </li>
+        <li>What is onomatopoeia? Give two examples from nature or weather.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer"><strong>Onomatopoeia</strong> is when a word sounds like the thing it describes. Nature/weather examples: &ldquo;thunder <em>rumbled</em>&rdquo;, &ldquo;rain <em>pattered</em>&rdquo;, &ldquo;leaves <em>rustled</em>&rdquo;, &ldquo;waves <em>crashed</em>&rdquo;, &ldquo;wind <em>howled</em>&rdquo;.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        The scientists had drilled for three weeks before they found it: a layer of ice that had not been touched by sunlight for two million years. Below it, according to their instruments, was liquid water. Not frozen. Liquid. Dr Yuen pressed her gloved hand against the drill casing and tried to imagine the ocean that might exist beneath her feet &mdash; dark, cold, and utterly silent. If there was water, there might be life. Simple life, perhaps: bacteria, microscopic creatures adapted to the crushing pressure and the permanent dark. &ldquo;We need to go carefully,&rdquo; she said to her team, her breath clouding in the frozen air. &ldquo;Whatever is down there has been waiting two million years. Let&rsquo;s not disturb it more than we have to.&rdquo;
+      </div>
+      <ol class="q-list">
+        <li>How long had the scientists been drilling before they made their discovery?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Answer: <strong>Three weeks.</strong></div>
+        </li>
+        <li>Why does the writer repeat &ldquo;Liquid.&rdquo; as a one-word sentence?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">The repetition and short sentence emphasise the <strong>shock and significance</strong> of the discovery. After &ldquo;Not frozen.&rdquo; another single word &mdash; &ldquo;Liquid.&rdquo; &mdash; lands with impact. The short sentences slow the reader down, as if Dr Yuen herself can barely believe what the instruments show.</div>
+        </li>
+        <li>What might the discovery of liquid water suggest, according to Dr Yuen?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">It might suggest the presence of <strong>life</strong> &mdash; specifically simple life such as bacteria or microscopic creatures adapted to high pressure and darkness.</div>
+        </li>
+        <li>What does the word <strong>adapted</strong> mean in this context?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">In this context, &ldquo;adapted&rdquo; means <strong>changed or evolved over time to suit particular conditions</strong> &mdash; here, the crushing pressure and permanent darkness. The creatures would be specially suited to survive in those extreme conditions.</div>
+        </li>
+        <li>What does Dr Yuen&rsquo;s final speech reveal about her character? Use evidence.
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">She appears <strong>cautious, thoughtful, and respectful</strong> of the environment. She says &ldquo;We need to go carefully&rdquo; and &ldquo;Let&rsquo;s not disturb it more than we have to&rdquo; &mdash; showing she is not just excited by discovery but concerned about human interference. This makes her seem like a <strong>responsible and ethical scientist</strong>.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short paragraph or story opening (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;The team lowers a small camera into the water below the ice. Describe what the camera shows. What do they see? How do the scientists react?&rdquo;</p>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:8px">Try to use: <strong>present tense</strong> to create immediacy, <strong>precise scientific vocabulary</strong> alongside vivid description, and a <strong>dramatic final sentence</strong>.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer:</strong><br>
+        <em>The screen flickers and then resolves into a blue-black world of extraordinary stillness. Dr Yuen leans forward. The water is clear &mdash; far clearer than any ocean she has seen &mdash; and the camera&rsquo;s light cuts through it in a perfect white cone. At first there is nothing: just water, and rock, and silence. Then she sees it. Something moves at the very edge of the light &mdash; a slow, pale pulse, rhythmic as breathing. &ldquo;Is that&hellip;?&rdquo; someone whispers behind her. Nobody finishes the sentence. The pulse moves again, unhurried and ancient, and the room holds its breath. Two million years of darkness, and now, for the first time, something is seen.</em><br><br>
+        <strong>Check for:</strong> (1) present tense throughout: <em>flickers, resolves, leans, moves</em> (2) precise/scientific words: &ldquo;resolves&rdquo;, &ldquo;extraordinary stillness&rdquo;, &ldquo;rhythmic&rdquo; alongside vivid description (3) dramatic final sentence creating awe.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="section-card">
+  <div class="section-header bonus-hdr">
+    <span class="section-icon">&#11088;</span>
+    <h2>Bonus Maths Challenge</h2>
+  </div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking. Take your time.</p>
+    <ol class="q-list">
+      <li><strong>Mixed fraction problem:</strong> A jug holds 2 1/4 litres. A glass holds 3/8 of a litre. How many full glasses can be filled from the jug? How much water is left over?
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">Convert 2 1/4 = 9/4 litres. Divide by 3/8: 9/4 &divide; 3/8 = 9/4 &times; 8/3 = 72/12 = <strong>6 glasses</strong> exactly. No water left over.</div>
+      </li>
+      <li><strong>Probability &amp; reasoning:</strong> A bag holds 4 red and <em>n</em> blue marbles. The probability of picking a red marble is 1/3. What is <em>n</em>?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">P(red) = 4/(4+n) = 1/3. Cross-multiply: 12 = 4+n, so <strong>n = 8</strong>. Check: 4/(4+8) = 4/12 = 1/3 &#10003;</div>
+      </li>
+      <li><strong>Time challenge:</strong> A film starts at 14:45 and lasts 2 hours 20 minutes. There is then a 15-minute interval before a second film of 1 hour 35 minutes. What time does the evening end?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">Film 1 ends: 14:45 + 2h 20min = 17:05. Interval ends: 17:05 + 15 min = 17:20. Film 2 ends: 17:20 + 1h 35min = <strong>18:55</strong>.</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- WORD OF THE DAY -->
+<div class="section-card">
+  <div class="section-header word-hdr">
+    <span class="section-icon">&#128219;</span>
+    <h2>Word of the Day</h2>
+  </div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">sentient</div>
+      <div class="word-pron">/ SEN-shent / &nbsp;&mdash;&nbsp; adjective</div>
+      <div class="word-def">Able to feel, perceive, or experience things consciously; having awareness and sensation. A sentient being can sense its surroundings and respond to them with feeling.</div>
+      <div class="word-eg">&ldquo;If bacteria had survived for two million years in the dark ocean, they could not be called sentient &mdash; yet they would be alive, and that alone was staggering.&rdquo;</div>
+      <div class="word-task">
+        <strong>Your turn:</strong> Write a sentence using <em>sentient</em> in the context of artificial intelligence or animals. Does a robot in a story need to be sentient to seem frightening?
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-06.html">&#8592; Day 6</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-08.html">Day 8 &rarr;</a>
+</div>
+
+</div><!-- .main -->
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 7 of 28 &nbsp;|&nbsp; Keep going!</div>
+</body>
+</html>

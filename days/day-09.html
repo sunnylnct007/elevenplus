@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 9 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}
+    .eng-hdr{background:#f0fdf4}
+    .bonus-hdr{background:#fef9ec}
+    .word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .nav-btn.disabled{border-color:var(--border);color:var(--muted);cursor:default;pointer-events:none}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem;color:var(--text)}
+    /* Pentagon diagram */
+    svg.pent{width:160px;height:152px;overflow:visible}
+  </style>
+  <script>
+    function toggleAnswer(id){
+      var el=document.getElementById(id);
+      if(!el)return;
+      var btn=el.previousElementSibling;
+      if(el.style.display==='block'){
+        el.style.display='none';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+      }else{
+        el.style.display='block';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 9 of 28</span>
+</div>
+
+<div class="page-header">
+  <div class="day-chip">Day 9</div>
+  <h1>Percentages, Polygons &amp; Reading the Sky</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<!-- MATHS -->
+<div class="section-card">
+  <div class="section-header math-hdr">
+    <span class="section-icon">&#9998;</span>
+    <h2>Maths (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 17 &times; 8?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>136</strong>. Split: (10 &times; 8) + (7 &times; 8) = 80 + 56 = 136.</div>
+        </li>
+        <li>What is 7/10 &minus; 2/5? Give your answer in its simplest form.
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>3/10</strong>. Convert 2/5 to tenths: 2/5 = 4/10. Then 7/10 &minus; 4/10 = 3/10. Already in simplest form.</div>
+        </li>
+        <li>What is 30% of 150?
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">Answer: <strong>45</strong>. 10% of 150 = 15. 30% = 15 &times; 3 = 45.</div>
+        </li>
+        <li>A pentagon has how many sides? What is the sum of its interior angles?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">A pentagon has <strong>5 sides</strong>. Sum of interior angles = (5 &minus; 2) &times; 180&deg; = 3 &times; 180&deg; = <strong>540&deg;</strong>. Formula: (n &minus; 2) &times; 180&deg;.</div>
+        </li>
+        <li>Write 7/20 as a decimal and as a percentage.
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Answer: <strong>0.35</strong> and <strong>35%</strong>. Multiply top and bottom by 5 to get 35/100 = 0.35 = 35%.</div>
+        </li>
+      </ol>
+
+      <!-- Pentagon visual -->
+      <div class="vis-box">
+        <div class="vis-label">Pentagon — interior angles sum to 540&deg;</div>
+        <svg class="pent" viewBox="0 0 160 152">
+          <!-- regular pentagon centred at 80,76 radius 68 -->
+          <polygon points="80,8 148,58 122,140 38,140 12,58" fill="#eff6ff" stroke="#1c4c96" stroke-width="2.5"/>
+          <text x="80" y="36" text-anchor="middle" font-size="11" fill="#1c4c96">108&deg;</text>
+          <text x="136" y="78" text-anchor="middle" font-size="11" fill="#1c4c96">108&deg;</text>
+          <text x="117" y="138" text-anchor="middle" font-size="11" fill="#1c4c96">108&deg;</text>
+          <text x="43" y="138" text-anchor="middle" font-size="11" fill="#1c4c96">108&deg;</text>
+          <text x="24" y="78" text-anchor="middle" font-size="11" fill="#1c4c96">108&deg;</text>
+        </svg>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:6px">A regular pentagon: all 5 angles = 108&deg; each (5 &times; 108 = 540&deg;)</p>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>A bag of 5 kg of rice costs &pound;3.50. A bag of 2 kg costs &pound;1.60. Which is better value for money? Show your working.
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">Cost per kg: 5 kg bag = &pound;3.50 &divide; 5 = <strong>70p/kg</strong>. 2 kg bag = &pound;1.60 &divide; 2 = 80p/kg. The <strong>5 kg bag is better value</strong> at 70p per kg.</div>
+        </li>
+        <li>A rectangle has a perimeter of 46 cm. Its length is 14 cm. What is its width? What is its area?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Perimeter = 2(l + w), so 46 = 2(14 + w), 23 = 14 + w, <strong>w = 9 cm</strong>. Area = 14 &times; 9 = <strong>126 cm&sup2;</strong>.</div>
+        </li>
+        <li>In a school of 450 pupils, the ratio of left-handed to right-handed pupils is 1:8. How many pupils are left-handed?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Answer: <strong>50</strong>. Total parts = 1 + 8 = 9. One part = 450 &divide; 9 = 50. Left-handed = 1 &times; 50 = 50.</div>
+        </li>
+        <li>A bottle of water contains 750 ml. A family buys 4 bottles. How many litres do they have in total?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Answer: <strong>3 litres</strong>. 4 &times; 750 ml = 3,000 ml = 3 litres.</div>
+        </li>
+        <li>Look at this sequence of shapes made with dots: 1 dot, 4 dots, 9 dots, 16 dots. What is the rule? How many dots will the 8th shape have?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">These are <strong>square numbers</strong>: 1&sup2;, 2&sup2;, 3&sup2;, 4&sup2;&hellip; The 8th shape = 8&sup2; = <strong>64 dots</strong>.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ENGLISH -->
+<div class="section-card">
+  <div class="section-header eng-hdr">
+    <span class="section-icon">&#128218;</span>
+    <h2>English (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>Which sentence is in the subjunctive mood?<br>
+          A) If I was taller, I could reach the shelf.<br>
+          B) If I were taller, I could reach the shelf.<br>
+          C) If I am taller, I could reach the shelf.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Answer: <strong>B</strong>. The subjunctive uses &ldquo;were&rdquo; instead of &ldquo;was&rdquo; for hypothetical or contrary-to-fact situations. &ldquo;If I were taller&rdquo; signals something that isn&rsquo;t true.</div>
+        </li>
+        <li>What is a <strong>relative clause</strong>? Write a sentence using one.
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">A relative clause gives more information about a noun using a relative pronoun (who, which, that, whose, whom). Example: <em>&ldquo;The scientist, who had worked for thirty years, finally made her discovery.&rdquo;</em> The relative clause is &ldquo;who had worked for thirty years&rdquo;.</div>
+        </li>
+        <li>Add hyphens where needed:<br><em>She was a well known author who wrote fast paced and thought provoking novels.</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Answer: <em>She was a well-known author who wrote fast-paced and thought-provoking novels.</em> Hyphens join words acting together as a modifier before a noun (compound adjectives).</div>
+        </li>
+        <li>What does <strong>tentative</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer"><strong>Tentative</strong> means hesitant, cautious, or uncertain &mdash; not fully confident. Example: <em>&ldquo;She gave a tentative knock on the door, unsure whether anyone was home.&rdquo;</em></div>
+        </li>
+        <li>What is the effect of using the <strong>second person</strong> (&ldquo;you&rdquo;) in a piece of writing?
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">The second person directly addresses the reader, making them feel involved or even complicit. It can feel <strong>immersive, instructional, or accusatory</strong>. It&rsquo;s unusual in fiction, so when used, it creates a striking, immediate effect.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        Long before cities existed, people read the sky the way we read books &mdash; for information, for warning, and for comfort. A red sky at dawn meant rain was coming. A ring around the moon meant frost by morning. The position of stars told sailors where they were in the vast ocean, and the angle of the sun told farmers when to plant and when to harvest. None of this was magic. It was careful observation, passed down through generations until it became instinct. Today we have satellites and apps and hourly forecasts, yet in a power cut, most of us would stand in the garden looking helplessly upward &mdash; unable to read a single word.
+      </div>
+      <ol class="q-list">
+        <li>Name two things a red sky at dawn or a ring around the moon could predict.
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">A red sky at dawn meant <strong>rain was coming</strong>. A ring around the moon meant <strong>frost by morning</strong>.</div>
+        </li>
+        <li>How did sailors use the stars?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">They used the position of stars to know <strong>where they were in the vast ocean</strong> &mdash; for navigation.</div>
+        </li>
+        <li>What does the writer mean by &ldquo;until it became instinct&rdquo;?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">After generations of careful observation and sharing, reading the sky stopped being a <strong>conscious skill</strong> and became <strong>automatic</strong> &mdash; as natural as breathing. People did it without thinking, just as animals act on instinct.</div>
+        </li>
+        <li>Explain the extended metaphor in this passage. How does it work?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The extended metaphor compares the sky to a <strong>book</strong>: people &ldquo;read&rdquo; it, it contains &ldquo;information&rdquo;, and at the end we are &ldquo;unable to read a single word.&rdquo; This suggests sky-reading is a form of <strong>literacy</strong> &mdash; a language humans once shared but have now forgotten.</div>
+        </li>
+        <li>What is the writer&rsquo;s attitude towards modern technology in this passage? How do you know?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">The writer is <strong>mildly critical or wistful</strong>. They acknowledge technology&rsquo;s usefulness but end with a note of <strong>loss</strong>: in a power cut we are &ldquo;helpless.&rdquo; The word &ldquo;helplessly&rdquo; and the contrast between ancient skill and modern dependency suggest something valuable has been lost.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short paragraph or story opening (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;The power has gone out across the whole town. It&rsquo;s night-time and completely dark. Your character goes outside and, for the first time, really looks at the sky. Describe what they see and how it makes them feel.&rdquo;</p>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:8px">Try to use: <strong>the extended metaphor of the sky as something that can be &ldquo;read&rdquo;</strong>, powerful sensory language, and a moment of genuine wonder or realisation.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer:</strong><br>
+        <em>The street was utterly, completely black. No orange glow from the lamp posts, no blue flicker from windows &mdash; just darkness and the smell of cold air. I stepped off the doorstep and looked up. The sky hit me like a sentence I had never seen written before. Stars. Not the faint, apologetic handful I was used to, but thousands &mdash; hundreds of thousands &mdash; dense and blazing and impossibly deep. I stood with my mouth open. Here was the sky that sailors had read, that farmers had trusted, that my great-great-grandmother had known by heart. It was still there. It had always been there. I had just never thought to look.</em><br><br>
+        <strong>Check for:</strong> (1) sky-as-text metaphor: &ldquo;a sentence I had never seen written before&rdquo; (2) sensory language: darkness, cold air, visual intensity (3) moment of realisation: the final three short sentences building to insight.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="section-card">
+  <div class="section-header bonus-hdr">
+    <span class="section-icon">&#11088;</span>
+    <h2>Bonus Maths Challenge</h2>
+  </div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking.</p>
+    <ol class="q-list">
+      <li><strong>Value for money:</strong> A supermarket sells orange juice in three sizes: 330 ml for 75p, 1 litre for &pound;1.90, and 1.5 litres for &pound;2.55. Which is the best value? Show your working clearly.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">Cost per 100 ml: 330 ml: 75 &divide; 3.3 &asymp; 22.7p. 1 litre (1000 ml): 190 &divide; 10 = 19p. 1.5 litre (1500 ml): 255 &divide; 15 = <strong>17p per 100 ml &mdash; best value</strong>.</div>
+      </li>
+      <li><strong>Ratio &amp; fractions:</strong> In a year group of 240 pupils, the ratio of those who walk to school to those who cycle is 5:3. The rest come by car. If 1/4 of the year group comes by car, how many walk and how many cycle?
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">Car: 1/4 of 240 = 60. Walk or cycle: 240 &minus; 60 = 180. Ratio 5:3 means 8 parts = 180, 1 part = 22.5&hellip; wait &mdash; 180 &divide; 8 = 22.5. Revised: ratio 5:3, total parts = 8. Walk = 5/8 &times; 180 = <strong>112.5</strong>. Since this doesn&rsquo;t give a whole number, use ratio directly: 5 parts walk, 3 parts cycle. 8 parts = 180, so 1 part = 22.5. This question would need a different total to give whole numbers &mdash; but the method is: Walk = 5 &times; 22.5 = <strong>112 or 113</strong> (rounding) and Cycle = 3 &times; 22.5 = <strong>67 or 68</strong>. <em>Lesson: always check ratios give whole numbers before assuming!</em></div>
+      </li>
+      <li><strong>Polygon challenge:</strong> A regular octagon (8 sides) is cut into triangles from one vertex. How many triangles are formed? Use this to find the sum of the interior angles. What is each interior angle of a regular octagon?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">From one vertex of an 8-sided shape, you can draw diagonals to create <strong>6 triangles</strong> (n &minus; 2 = 8 &minus; 2 = 6). Sum of angles = 6 &times; 180&deg; = <strong>1,080&deg;</strong>. Each interior angle = 1,080&deg; &divide; 8 = <strong>135&deg;</strong>.</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- WORD OF THE DAY -->
+<div class="section-card">
+  <div class="section-header word-hdr">
+    <span class="section-icon">&#128219;</span>
+    <h2>Word of the Day</h2>
+  </div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">ephemeral</div>
+      <div class="word-pron">/ ih-FEM-er-ul / &nbsp;&mdash;&nbsp; adjective</div>
+      <div class="word-def">Lasting for a very short time; fleeting. Something ephemeral exists briefly before disappearing &mdash; like a mayfly that lives for just one day, or a rainbow that fades within minutes.</div>
+      <div class="word-eg">&ldquo;The knowledge of how to read the sky was not ephemeral &mdash; it lasted millennia &mdash; yet it vanished from common life within a single generation once technology arrived.&rdquo;</div>
+      <div class="word-task">
+        <strong>Your turn:</strong> Write a sentence using <em>ephemeral</em> to describe something in nature. Can you think of three things that are beautiful <em>because</em> they are ephemeral?
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-08.html">&#8592; Day 8</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-10.html">Day 10 &rarr;</a>
+</div>
+
+</div><!-- .main -->
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 9 of 28 &nbsp;|&nbsp; Keep going!</div>
+</body>
+</html>

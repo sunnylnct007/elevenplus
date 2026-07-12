@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 10 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}
+    .eng-hdr{background:#f0fdf4}
+    .bonus-hdr{background:#fef9ec}
+    .word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .nav-btn.disabled{border-color:var(--border);color:var(--muted);cursor:default;pointer-events:none}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem;color:var(--text)}
+    /* Triangle diagram */
+    svg.tri{width:200px;height:160px;overflow:visible}
+  </style>
+  <script>
+    function toggleAnswer(id){
+      var el=document.getElementById(id);
+      if(!el)return;
+      var btn=el.previousElementSibling;
+      if(el.style.display==='block'){
+        el.style.display='none';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+      }else{
+        el.style.display='block';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 10 of 28</span>
+</div>
+
+<div class="page-header">
+  <div class="day-chip">Day 10</div>
+  <h1>Cube Numbers, Ratio &amp; The Courage Passage</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<!-- MATHS -->
+<div class="section-card">
+  <div class="section-header math-hdr">
+    <span class="section-icon">&#9998;</span>
+    <h2>Maths (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 13 &times; 13?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>169</strong>. Split: (13 &times; 10) + (13 &times; 3) = 130 + 39 = 169. Learn this: 13&sup2; = 169 is a useful square number.</div>
+        </li>
+        <li>What is the value of 3&sup3; (three cubed)?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>27</strong>. 3&sup3; = 3 &times; 3 &times; 3 = 9 &times; 3 = 27.</div>
+        </li>
+        <li>Simplify the ratio 45:30.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">Answer: <strong>3:2</strong>. Divide both parts by their HCF (15): 45 &divide; 15 = 3, 30 &divide; 15 = 2.</div>
+        </li>
+        <li>What is &minus;3 + (&minus;5)?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">Answer: <strong>&minus;8</strong>. Adding a negative = subtracting: &minus;3 + (&minus;5) = &minus;3 &minus; 5 = &minus;8.</div>
+        </li>
+        <li>What is the mean of: 6, 9, 12, 15, 18?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Answer: <strong>12</strong>. Sum = 6+9+12+15+18 = 60. Mean = 60 &divide; 5 = 12. (Notice: in an arithmetic sequence, the mean equals the middle value.)</div>
+        </li>
+      </ol>
+
+      <!-- Triangle angles visual -->
+      <div class="vis-box">
+        <div class="vis-label">Triangle angles — ratio 1:2:3</div>
+        <svg class="tri" viewBox="0 0 200 160">
+          <!-- right-angled triangle: right angle at bottom-right -->
+          <polygon points="10,150 190,150 190,10" fill="#eff6ff" stroke="#1c4c96" stroke-width="2.5"/>
+          <!-- right angle marker -->
+          <polyline points="175,150 175,135 190,135" fill="none" stroke="#1c4c96" stroke-width="1.8"/>
+          <!-- angle labels -->
+          <text x="25" y="145" font-size="13" fill="#1c4c96" font-weight="bold">30&deg;</text>
+          <text x="155" y="30" font-size="13" fill="#1c4c96" font-weight="bold">60&deg;</text>
+          <text x="150" y="148" font-size="13" fill="#1c4c96" font-weight="bold">90&deg;</text>
+        </svg>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:4px">Ratio 1:2:3 &rarr; angles 30&deg;, 60&deg;, 90&deg; &rarr; this is a <strong>right-angled triangle</strong></p>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>Tickets for a concert cost &pound;12 for adults and &pound;7 for children. A family buys 2 adult and 3 child tickets. What is the total cost?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">Answer: <strong>&pound;45</strong>. Adults: 2 &times; &pound;12 = &pound;24. Children: 3 &times; &pound;7 = &pound;21. Total = &pound;24 + &pound;21 = &pound;45.</div>
+        </li>
+        <li>A piece of ribbon is 4.5 m long. It is cut into pieces of 30 cm each. How many pieces are cut, and how much ribbon is left over?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Answer: <strong>15 pieces, no ribbon left</strong>. Convert: 4.5 m = 450 cm. 450 &divide; 30 = 15 pieces exactly. No remainder.</div>
+        </li>
+        <li>The angles of a triangle are in the ratio 1:2:3. What are the three angles?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Answer: <strong>30&deg;, 60&deg;, 90&deg;</strong>. Total ratio parts = 1+2+3 = 6. Total angles = 180&deg;. One part = 30&deg;. Angles = 30&deg;, 60&deg;, 90&deg;. This is a right-angled triangle!</div>
+        </li>
+        <li>A school has 360 pupils. 40% travel by bus, 1/4 walk, and the rest come by car. How many come by car?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Answer: <strong>126 by car</strong>. Bus: 40% of 360 = 144. Walk: 1/4 of 360 = 90. Car = 360 &minus; 144 &minus; 90 = 126.</div>
+        </li>
+        <li>A cylinder has a radius of 5 cm and a height of 10 cm. Using &pi; = 3.14, what is its volume? (V = &pi; &times; r&sup2; &times; h)
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">Answer: <strong>785 cm&sup3;</strong>. V = 3.14 &times; 5&sup2; &times; 10 = 3.14 &times; 25 &times; 10 = 3.14 &times; 250 = 785 cm&sup3;.</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ENGLISH -->
+<div class="section-card">
+  <div class="section-header eng-hdr">
+    <span class="section-icon">&#128218;</span>
+    <h2>English (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>Which sentence uses a colon correctly?<br>
+          A) She needed three things: courage, patience, and time.<br>
+          B) She needed: three things courage, patience and time.<br>
+          C) She needed three things courage: patience and time.
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Answer: <strong>A</strong>. A colon introduces a list or explanation after a complete clause. &ldquo;She needed three things&rdquo; is complete, and the colon correctly introduces what those things are.</div>
+        </li>
+        <li>What is a <strong>fronted adverbial</strong>? Write an example.
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">A fronted adverbial is a word or phrase placed at the <strong>beginning of a sentence</strong> (before the main clause) telling us when, where, how, or why. Always followed by a comma. Example: <em>&ldquo;With trembling hands, she opened the letter.&rdquo;</em> or <em>&ldquo;As the sun set, the sky turned gold.&rdquo;</em></div>
+        </li>
+        <li>Identify the type of sentence:<br><em>&ldquo;What a magnificent performance that was!&rdquo;</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">This is an <strong>exclamatory sentence</strong>. It expresses strong feeling and ends with an exclamation mark. Key feature: it begins with &ldquo;What&rdquo; or &ldquo;How&rdquo; followed by a noun phrase.</div>
+        </li>
+        <li>What does <strong>melancholy</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer"><strong>Melancholy</strong> means a feeling of deep sadness or thoughtful sorrow, often without a clear cause &mdash; more reflective and quiet than &ldquo;upset&rdquo;. Example: <em>&ldquo;A melancholy silence settled over the empty playground after the children had gone home.&rdquo;</em></div>
+        </li>
+        <li>Rewrite this sentence to make it more formal:<br><em>&ldquo;It&rsquo;s well known that loads of people can&rsquo;t get enough sleep.&rdquo;</em>
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer">Example: <em>&ldquo;It is widely acknowledged that a significant proportion of the population does not get sufficient sleep.&rdquo;</em> Changes: &ldquo;It&rsquo;s&rdquo; &rarr; &ldquo;It is&rdquo;, &ldquo;well known&rdquo; &rarr; &ldquo;widely acknowledged&rdquo;, &ldquo;loads of people&rdquo; &rarr; &ldquo;a significant proportion of the population&rdquo;, &ldquo;can&rsquo;t get enough&rdquo; &rarr; &ldquo;does not get sufficient&rdquo;.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        There is a particular kind of courage that has nothing to do with charging into battle or climbing mountains. It is quieter than that. It is the courage of the person who raises their hand in a silent room, even though their voice might shake. It is the courage of the child who sits alone at lunch and still smiles at the stranger who walks past. It is, perhaps, the hardest kind &mdash; because nobody makes films about it and nobody gives you a medal. The world rewards boldness. It ignores the small, daily bravery of choosing kindness when it would be easier not to.
+      </div>
+      <ol class="q-list">
+        <li>According to the writer, what type of courage is being described in this passage?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">The writer describes a <strong>quiet, everyday type of courage</strong> &mdash; not physical bravery, but the courage of small acts like speaking up when nervous, or showing kindness when it is difficult.</div>
+        </li>
+        <li>What two examples does the writer give of this quiet courage?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">(1) Raising your hand in a silent room even though your voice might shake. (2) Sitting alone at lunch and still smiling at a stranger who walks past.</div>
+        </li>
+        <li>Why does the writer say this is &ldquo;perhaps the hardest kind&rdquo; of courage?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">Because it goes <strong>unrecognised</strong> &mdash; &ldquo;nobody makes films about it and nobody gives you a medal.&rdquo; The writer suggests it may be harder precisely because there is <strong>no external reward</strong> to motivate you.</div>
+        </li>
+        <li>How does the writer use sentence structure to build the argument in this passage?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The writer uses <strong>anaphora</strong> &mdash; repeated sentence openings &ldquo;It is the courage of&hellip;&rdquo; &mdash; to build a cumulative argument. The short punchy sentences at the end (&ldquo;The world rewards boldness. It ignores&hellip;&rdquo;) contrast with the longer examples and land with more force, creating a sense of judgement or conclusion.</div>
+        </li>
+        <li>Do you agree with the writer&rsquo;s view? Write 3&ndash;4 sentences giving your opinion with a reason.
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">Example: <em>&ldquo;I agree with the writer that everyday courage is undervalued. It takes real strength to be kind when others are not, or to speak when you are afraid &mdash; and yet these acts happen every day without recognition. However, I think both types of courage matter and they are not necessarily in competition.&rdquo;</em></div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short piece (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;Write your own short persuasive or reflective paragraph about a quality you admire &mdash; it could be courage, kindness, curiosity, patience, or any other.&rdquo;</p>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:8px">Try to use: <strong>anaphora</strong> (repeated sentence openings), at least one <strong>rhetorical question</strong>, and a <strong>strong final sentence</strong> that lands with impact.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer (on curiosity):</strong><br>
+        <em>There is a quality rarer than intelligence and more valuable than talent. It is curiosity. It is the child who asks why the sky is blue and is not satisfied with &ldquo;just because.&rdquo; It is the student who reads the footnotes when everyone else has closed the book. It is the scientist who, after thirty years, still finds wonder in the same experiment. We teach children to find the right answers. But do we teach them to love the questions? Curiosity is not a gift you are born with or without &mdash; it is a habit, a choice, a way of moving through the world with your eyes fully open. Without it, we stop learning long before we stop living.</em><br><br>
+        <strong>Check for:</strong> (1) anaphora: &ldquo;It is the child&hellip; It is the student&hellip; It is the scientist&hellip;&rdquo; (2) rhetorical question: &ldquo;But do we teach them to love the questions?&rdquo; (3) strong final sentence with contrast and impact.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="section-card">
+  <div class="section-header bonus-hdr">
+    <span class="section-icon">&#11088;</span>
+    <h2>Bonus Maths Challenge</h2>
+  </div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking.</p>
+    <ol class="q-list">
+      <li><strong>Cube numbers:</strong> The first five cube numbers are 1, 8, 27, 64, 125. Without a calculator, find the difference between the 5th and 6th cube numbers.
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">6&sup3; = 6 &times; 6 &times; 6 = 36 &times; 6 = 216. 5th cube = 125. Difference = 216 &minus; 125 = <strong>91</strong>.</div>
+      </li>
+      <li><strong>Volume &amp; ratio:</strong> Two cylinders have the same height. Cylinder A has radius 3 cm, Cylinder B has radius 6 cm. What is the ratio of their volumes? (Hint: V = &pi; &times; r&sup2; &times; h. You don&rsquo;t need to calculate a number &mdash; use algebra.)
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">V_A = &pi; &times; 9 &times; h. V_B = &pi; &times; 36 &times; h. Ratio = 9:36 = <strong>1:4</strong>. Doubling the radius quadruples the volume (because radius is squared).</div>
+      </li>
+      <li><strong>Multi-step problem:</strong> A school survey of 240 pupils finds that 40% prefer maths and 35% prefer English. Of those who prefer maths, 1/4 also attend maths club. How many pupils attend maths club?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">Prefer maths: 40% of 240 = 96. Attend maths club: 1/4 of 96 = <strong>24 pupils</strong>.</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- WORD OF THE DAY -->
+<div class="section-card">
+  <div class="section-header word-hdr">
+    <span class="section-icon">&#128219;</span>
+    <h2>Word of the Day</h2>
+  </div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">audacious</div>
+      <div class="word-pron">/ aw-DAY-shus / &nbsp;&mdash;&nbsp; adjective</div>
+      <div class="word-def">Showing a willingness to take bold risks; daring in a way that might surprise or shock others. An audacious act is one that others might consider too daring or presumptuous to attempt.</div>
+      <div class="word-eg">&ldquo;It was an audacious argument: that the small, daily choice to be kind was harder &mdash; and more admirable &mdash; than any act of physical bravery.&rdquo;</div>
+      <div class="word-task">
+        <strong>Your turn:</strong> Write a sentence using <em>audacious</em> to describe either a plan, a person, or an idea. Is being audacious always a good thing? Can you think of a time when it might not be?
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-09.html">&#8592; Day 9</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn disabled">Day 11 &rarr;</a>
+</div>
+
+</div><!-- .main -->
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 10 of 28 &nbsp;|&nbsp; Keep going &mdash; you&rsquo;re a third of the way there!</div>
+</body>
+</html>

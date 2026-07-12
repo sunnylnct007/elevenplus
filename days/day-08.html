@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 8 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}
+    .eng-hdr{background:#f0fdf4}
+    .bonus-hdr{background:#fef9ec}
+    .word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;color:var(--text)}
+    .section-icon{font-size:1.4rem}
+    .section-body{padding:16px 20px}
+    .task-block{margin-bottom:20px}
+    .task-block h3{font-size:1rem;font-weight:bold;color:var(--blue);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+    ol.q-list{padding-left:20px}
+    ol.q-list li{margin-bottom:12px;line-height:1.6}
+    .help-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:6px;padding:2px 10px;font-size:0.8rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:#d0dff5}
+    .answer{display:none;background:#f8fafc;border-left:3px solid var(--blue);border-radius:4px;padding:10px 14px;margin-top:8px;font-size:0.9rem;color:#334}
+    .passage{background:#f8fafc;border-left:4px solid var(--green);border-radius:6px;padding:14px 18px;margin-bottom:16px;font-style:italic;line-height:1.75;font-size:0.95rem}
+    .vis-box{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0;text-align:center}
+    .vis-label{font-size:0.78rem;color:var(--muted);margin-bottom:10px;font-weight:bold;text-transform:uppercase;letter-spacing:.04em}
+    .seq-strip{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap}
+    .seq-tile{border:2px solid var(--blue);border-radius:8px;padding:8px 14px;background:var(--blue-light);font-weight:bold;color:var(--blue);font-size:1rem;min-width:48px;text-align:center}
+    .seq-arrow{color:var(--muted);font-size:1.1rem;font-weight:bold}
+    .nav-row{display:flex;gap:12px;justify-content:center;margin:20px 0}
+    .nav-btn{background:#fff;border:2px solid var(--blue);color:var(--blue);border-radius:8px;padding:8px 20px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;transition:background .15s}
+    .nav-btn:hover{background:var(--blue-light)}
+    .nav-btn.disabled{border-color:var(--border);color:var(--muted);cursor:default;pointer-events:none}
+    .footer{text-align:center;color:var(--muted);font-size:0.82rem;padding:24px 16px 40px}
+    .word-card{background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:18px}
+    .word-card .word-title{font-size:1.6rem;font-weight:bold;color:var(--purple);margin-bottom:2px}
+    .word-card .word-pron{color:var(--muted);font-size:0.88rem;margin-bottom:8px}
+    .word-card .word-def{margin-bottom:8px;font-size:0.95rem}
+    .word-card .word-eg{font-style:italic;color:#4c1d95;font-size:0.92rem;border-left:3px solid var(--purple);padding-left:10px;margin-bottom:10px}
+    .word-card .word-task{background:#fff;border-radius:6px;padding:10px 14px;font-size:0.88rem;color:var(--text)}
+  </style>
+  <script>
+    function toggleAnswer(id){
+      var el=document.getElementById(id);
+      if(!el)return;
+      var btn=el.previousElementSibling;
+      if(el.style.display==='block'){
+        el.style.display='none';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+      }else{
+        el.style.display='block';
+        if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Sutton Grammar 11+ Daily Practice</span>
+  <span>Day 8 of 28</span>
+</div>
+
+<div class="page-header">
+  <div class="day-chip">Day 8</div>
+  <h1>Square Numbers, Sequences &amp; Grandmother Rosa</h1>
+  <p>Maths &middot; English &middot; Bonus Challenge &middot; Word of the Day</p>
+</div>
+
+<div class="timer-bar">
+  <span class="timer-pill">&#128337; Maths: 20 min</span>
+  <span class="timer-pill green">&#128337; English: 20 min</span>
+  <span class="timer-pill">&#9733; Bonus: 10 min</span>
+</div>
+
+<div class="main">
+
+<!-- MATHS -->
+<div class="section-card">
+  <div class="section-header math-hdr">
+    <span class="section-icon">&#9998;</span>
+    <h2>Maths (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. Core skills warm-up</h3>
+      <ol class="q-list">
+        <li>What is 14 &times; 14?
+          <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+          <div id="a1" class="answer">Answer: <strong>196</strong>. Use (14 &times; 10) + (14 &times; 4) = 140 + 56 = 196. Remember: 14&sup2; = 196 is a useful square number to know.</div>
+        </li>
+        <li>What is 5/8 of 200?
+          <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+          <div id="a2" class="answer">Answer: <strong>125</strong>. Find 1/8: 200 &divide; 8 = 25. Multiply by 5: 25 &times; 5 = 125.</div>
+        </li>
+        <li>Write 45% as a fraction in its simplest form.
+          <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+          <div id="a3" class="answer">Answer: <strong>9/20</strong>. 45% = 45/100. Divide top and bottom by 5: 9/20.</div>
+        </li>
+        <li>What is the perimeter of a regular hexagon with sides of 7 cm?
+          <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+          <div id="a4" class="answer">Answer: <strong>42 cm</strong>. A regular hexagon has 6 equal sides. Perimeter = 6 &times; 7 = 42 cm.</div>
+        </li>
+        <li>What are the first five square numbers?
+          <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+          <div id="a5" class="answer">Answer: <strong>1, 4, 9, 16, 25</strong>. These are 1&sup2;, 2&sup2;, 3&sup2;, 4&sup2;, 5&sup2;.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Word problems &amp; exam-style practice</h3>
+      <ol class="q-list">
+        <li>A school trip costs &pound;15 per child. 28 children go on the trip. What is the total cost?
+          <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+          <div id="a6" class="answer">Answer: <strong>&pound;420</strong>. 15 &times; 28 = (15 &times; 20) + (15 &times; 8) = 300 + 120 = 420.</div>
+        </li>
+        <li>The temperature at midnight is &minus;6&deg;C. By noon it has risen by 14&deg;C. What is the temperature at noon?
+          <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+          <div id="a7" class="answer">Answer: <strong>8&deg;C</strong>. &minus;6 + 14 = 8&deg;C.</div>
+        </li>
+        <li>A pie chart shows how a class spends its school day. The school day is 6 hours and 30% of time is spent on Maths. How many minutes are spent on Maths?
+          <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+          <div id="a8" class="answer">Answer: <strong>108 minutes</strong>. Total time = 6 hours = 360 minutes. 30% of 360 = 360 &divide; 10 &times; 3 = 108 minutes.</div>
+        </li>
+        <li>A number pattern: 2, 6, 18, 54, &hellip; What is the rule? What are the next two terms?
+          <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+          <div id="a9" class="answer">Rule: <strong>multiply by 3</strong> each time. Next two terms: 54 &times; 3 = <strong>162</strong>, 162 &times; 3 = <strong>486</strong>.</div>
+        </li>
+        <li>A car park charges &pound;1.20 for the first hour and 80p for each additional hour. How much does it cost to park for 4 hours?
+          <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+          <div id="a10" class="answer">Answer: <strong>&pound;3.60</strong>. First hour: &pound;1.20. Additional 3 hours: 3 &times; 80p = &pound;2.40. Total = &pound;1.20 + &pound;2.40 = &pound;3.60.</div>
+        </li>
+      </ol>
+
+      <!-- Sequence visual -->
+      <div class="vis-box">
+        <div class="vis-label">Geometric sequence: &times;3 each time</div>
+        <div class="seq-strip">
+          <div class="seq-tile">2</div>
+          <div class="seq-arrow">&times;3</div>
+          <div class="seq-tile">6</div>
+          <div class="seq-arrow">&times;3</div>
+          <div class="seq-tile">18</div>
+          <div class="seq-arrow">&times;3</div>
+          <div class="seq-tile">54</div>
+          <div class="seq-arrow">&times;3</div>
+          <div class="seq-tile">162</div>
+          <div class="seq-arrow">&times;3</div>
+          <div class="seq-tile">486</div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:8px">Each term = previous term &times; 3 &nbsp;&rarr;&nbsp; this is called a <strong>geometric sequence</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ENGLISH -->
+<div class="section-card">
+  <div class="section-header eng-hdr">
+    <span class="section-icon">&#128218;</span>
+    <h2>English (about 20 minutes)</h2>
+  </div>
+  <div class="section-body">
+    <div class="task-block">
+      <h3>1. SPaG &amp; vocabulary</h3>
+      <ol class="q-list">
+        <li>Which is the correct spelling?<br>A) recieve &nbsp;&nbsp; B) receive &nbsp;&nbsp; C) receve
+          <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+          <div id="e1" class="answer">Answer: <strong>B) receive</strong>. Remember: &ldquo;i before e except after c&rdquo; &mdash; re-C-eive has the e before i. Other words: <em>perceive, deceive, conceive</em>.</div>
+        </li>
+        <li>Punctuate this sentence correctly:<br><em>after the match which lasted two hours the exhausted players collapsed on the grass</em>
+          <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+          <div id="e2" class="answer">Answer: <em>After the match, which lasted two hours, the exhausted players collapsed on the grass.</em> The relative clause &ldquo;which lasted two hours&rdquo; needs commas either side. The sentence starts with a subordinate clause, so a comma follows it too.</div>
+        </li>
+        <li>Expand this noun phrase with at least three extra words:<br><em>the house</em>
+          <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+          <div id="e3" class="answer">Example: <em>&ldquo;the crumbling, ivy-covered house at the end of the lane.&rdquo;</em> A noun phrase can be expanded with adjectives, prepositional phrases, and determiners.</div>
+        </li>
+        <li>What does <strong>ambiguous</strong> mean? Use it in a sentence.
+          <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+          <div id="e4" class="answer"><strong>Ambiguous</strong> means open to more than one interpretation &mdash; unclear or having more than one possible meaning. Example: <em>&ldquo;The instruction was ambiguous, so nobody was sure whether to turn left or right.&rdquo;</em></div>
+        </li>
+        <li>What is the difference between <strong>first person</strong> and <strong>third person</strong> narrative? Give an example of each.
+          <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+          <div id="e5" class="answer"><strong>First person</strong> uses &ldquo;I/we&rdquo; &mdash; the narrator is a character: e.g. <em>&ldquo;I crept through the doorway.&rdquo;</em> <strong>Third person</strong> uses &ldquo;he/she/they&rdquo; &mdash; the narrator is outside the story: e.g. <em>&ldquo;She crept through the doorway.&rdquo;</em> Third person can be limited (one character&rsquo;s viewpoint) or omniscient (all-knowing).</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>2. Short comprehension</h3>
+      <div class="passage">
+        Nobody in our village had ever left and come back. That was the unspoken rule &mdash; leave if you must, but don&rsquo;t return and expect things to be the same. So when Grandmother Rosa stepped off the bus after forty years away, dragging a battered suitcase and wearing a yellow hat that nobody recognised, the whole street went quiet. My mother gripped my hand tightly. I looked up at her face and saw something I had never seen there before: uncertainty. Grandmother Rosa looked at each house in turn, slowly, as if taking inventory. Then her eyes settled on us. She smiled &mdash; a slow, deliberate smile &mdash; and said: &ldquo;Well. I see you kept the garden.&rdquo;
+      </div>
+      <ol class="q-list">
+        <li>How long had Grandmother Rosa been away?
+          <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+          <div id="e6" class="answer">Answer: <strong>Forty years.</strong></div>
+        </li>
+        <li>What does the narrator notice on the mother&rsquo;s face? Why is this significant?
+          <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+          <div id="e7" class="answer">The narrator notices <strong>uncertainty</strong> &mdash; an emotion they have never seen before. This is significant because it suggests the mother is usually confident or in control, so this moment tells us how unsettling Rosa&rsquo;s return is, even for adults.</div>
+        </li>
+        <li>What is &ldquo;the unspoken rule&rdquo; and why do you think such a rule exists in the village?
+          <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+          <div id="e8" class="answer">The unspoken rule is that people who leave should not return expecting things to be unchanged. It likely exists because communities change, relationships fade, and returning stirs up the past. It may also suggest the village is <strong>close-knit or traditional</strong>, where change is resisted.</div>
+        </li>
+        <li>What is the effect of Rosa&rsquo;s final line: &ldquo;Well. I see you kept the garden.&rdquo;?
+          <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+          <div id="e9" class="answer">The line is <strong>understated and mysterious</strong> &mdash; after forty years away, her first comment is about the garden, not the family. This could suggest she is guarded, humorous, or hiding deeper emotion. The brevity of &ldquo;Well.&rdquo; creates a <strong>dramatic pause</strong>. The remark implies she has been observing carefully and that she remembers specific details from before she left.</div>
+        </li>
+        <li>This story is told in the first person. What effect does this have on the reader?
+          <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+          <div id="e10" class="answer">First-person narration creates <strong>intimacy</strong> &mdash; we experience the scene through a child&rsquo;s eyes, which makes adult emotions seem more powerful because the narrator doesn&rsquo;t fully understand them. It also <strong>limits what we know</strong>: we only see what the narrator sees, which creates mystery around Rosa&rsquo;s feelings and intentions.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="task-block">
+      <h3>3. Short writing task</h3>
+      <p style="margin-bottom:8px">Write a short paragraph or story opening (about 8&ndash;10 sentences):</p>
+      <p style="background:var(--green-light);border-radius:6px;padding:10px 14px;font-style:italic;margin-bottom:10px">&ldquo;Later that evening, Grandmother Rosa sits with the family for the first time. Write the scene. What is said? What is left unsaid? How does the atmosphere feel?&rdquo;</p>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:8px">Try to use: <strong>first person narrator (I/we)</strong>, <strong>actions and body language</strong> to show how characters feel (not just telling us), and a <strong>mix of dialogue and description</strong>.</p>
+      <button class="help-btn" onclick="toggleAnswer('e11')">help</button>
+      <div id="e11" class="answer">
+        <strong>Example answer:</strong><br>
+        <em>We sat around the kitchen table with the good china out, which Mum only brought down for funerals and Christmas. Nobody had said as much, but we were all trying. Grandmother Rosa held her cup with both hands and looked at the photographs on the wall &mdash; slowly, one by one, without commenting. &ldquo;Your father was a good man,&rdquo; she said at last. Mum made a small sound that wasn&rsquo;t quite agreement. I kept my eyes on my plate. Outside, the garden was dark, and somewhere a fox was calling. Rosa set down her cup precisely in the centre of its saucer. &ldquo;You&rsquo;ve all grown,&rdquo; she said, and it sounded less like a compliment and more like a verdict.</em><br><br>
+        <strong>Check for:</strong> (1) first-person narration: &ldquo;I&rdquo;, &ldquo;we&rdquo;, &ldquo;Mum&rdquo; (2) show don&rsquo;t tell: &ldquo;made a small sound that wasn&rsquo;t quite agreement&rdquo; (3) dialogue mixed with description.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="section-card">
+  <div class="section-header bonus-hdr">
+    <span class="section-icon">&#11088;</span>
+    <h2>Bonus Maths Challenge</h2>
+  </div>
+  <div class="section-body">
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:14px">Three harder problems to stretch your thinking.</p>
+    <ol class="q-list">
+      <li><strong>Percentages:</strong> A jacket originally costs &pound;80. It is reduced by 15% in a sale. A week later, the sale price is reduced by a further 10%. What is the final price?
+        <button class="help-btn" onclick="toggleAnswer('b1')">help</button>
+        <div id="b1" class="answer">First reduction: 15% of &pound;80 = &pound;12. Sale price = &pound;68. Second reduction: 10% of &pound;68 = &pound;6.80. Final price = &pound;68 &minus; &pound;6.80 = <strong>&pound;61.20</strong>. (Note: this is NOT the same as a 25% reduction!)</div>
+      </li>
+      <li><strong>Square numbers pattern:</strong> The sum of the first <em>n</em> odd numbers always equals <em>n</em>&sup2;. Verify this for n = 4 and n = 5. Then find the sum of the first 10 odd numbers without adding them all up.
+        <button class="help-btn" onclick="toggleAnswer('b2')">help</button>
+        <div id="b2" class="answer">n=4: 1+3+5+7 = 16 = 4&sup2; &#10003;. n=5: 1+3+5+7+9 = 25 = 5&sup2; &#10003;. First 10 odd numbers: sum = 10&sup2; = <strong>100</strong>. (No need to add them all!)</div>
+      </li>
+      <li><strong>Geometric sequence:</strong> A culture of bacteria doubles every hour. At 9 am there are 50 bacteria. How many are there at 2 pm?
+        <button class="help-btn" onclick="toggleAnswer('b3')">help</button>
+        <div id="b3" class="answer">From 9 am to 2 pm = 5 hours. Bacteria doubles 5 times: 50 &times; 2&sup5; = 50 &times; 32 = <strong>1,600 bacteria</strong>.</div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- WORD OF THE DAY -->
+<div class="section-card">
+  <div class="section-header word-hdr">
+    <span class="section-icon">&#128219;</span>
+    <h2>Word of the Day</h2>
+  </div>
+  <div class="section-body">
+    <div class="word-card">
+      <div class="word-title">poignant</div>
+      <div class="word-pron">/ POY-nyent / &nbsp;&mdash;&nbsp; adjective</div>
+      <div class="word-def">Evoking a keen sense of sadness or regret, often mixed with tenderness or beauty. Something poignant touches the emotions in a quiet, deep way &mdash; not loud grief, but a feeling that lingers.</div>
+      <div class="word-eg">&ldquo;There was something poignant about Rosa&rsquo;s first comment being about the garden &mdash; as if forty years could be contained in the simple fact of its survival.&rdquo;</div>
+      <div class="word-task">
+        <strong>Your turn:</strong> Write a sentence using <em>poignant</em> to describe a moment between two people who haven&rsquo;t seen each other in a long time. What makes a reunion poignant rather than simply happy?
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="day-07.html">&#8592; Day 7</a>
+  <a class="nav-btn" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-09.html">Day 9 &rarr;</a>
+</div>
+
+</div><!-- .main -->
+<div class="footer">Sutton Grammar 11+ Daily Practice &mdash; Day 8 of 28 &nbsp;|&nbsp; Keep going!</div>
+</body>
+</html>
