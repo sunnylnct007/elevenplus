@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 28 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root{
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}
+    .eng-hdr{background:#f0fdf4}
+    .bonus-hdr{background:#fef9ec}
+    .word-hdr{background:#f5f3ff}
+    .congrats-hdr{background:#f0fdf4}
+    .section-header h2{font-size:1.1rem;font-weight:700;color:var(--text)}
+    .section-icon{font-size:1.3rem}
+    .section-body{padding:20px}
+    .sub-section{margin-bottom:22px}
+    .sub-section:last-child{margin-bottom:0}
+    .sub-title{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px}
+    ol{margin-left:20px}
+    li{margin-bottom:10px;line-height:1.55}
+    .help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:6px;padding:1px 8px;font-size:0.78rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:var(--blue);color:#fff}
+    .answer{display:none;margin-top:8px;padding:10px 14px;background:var(--blue-light);border-left:3px solid var(--blue);border-radius:6px;font-size:0.9rem;line-height:1.55}
+    .answer b{color:var(--blue)}
+    .passage-box{background:#f8f7f2;border-left:4px solid var(--amber);border-radius:8px;padding:16px 18px;margin:12px 0 16px;font-style:italic;line-height:1.75;font-size:0.97rem}
+    .writing-box{background:var(--amber-light);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:0.95rem}
+    .word-box{background:var(--purple-light);border-radius:10px;padding:16px 20px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .word-term{font-size:1.5rem;font-weight:700;color:var(--purple);min-width:140px}
+    .word-body{flex:1;font-size:0.93rem;line-height:1.6}
+    .word-body em{color:var(--purple)}
+    .visual-box{background:#f1f5ff;border:1px solid #c7d7f5;border-radius:10px;padding:16px;margin:12px 0;text-align:center}
+    .visual-box svg{max-width:100%;height:auto}
+    .visual-caption{font-size:0.8rem;color:var(--muted);margin-top:8px}
+    .proof-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px;margin:12px 0;font-family:monospace;font-size:0.95rem;line-height:2}
+    .features-list{margin:10px 0;display:flex;flex-direction:column;gap:8px}
+    .feature-item{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;background:var(--green-light);border-radius:8px;font-size:0.9rem}
+    .feature-num{font-weight:700;color:var(--green);min-width:22px}
+    .congrats-box{background:linear-gradient(135deg,#1a7a4a 0%,#1c4c96 100%);color:#fff;border-radius:14px;padding:28px 28px 24px;text-align:center;margin-bottom:24px}
+    .congrats-box h2{font-size:1.6rem;margin-bottom:10px}
+    .congrats-box p{opacity:0.92;line-height:1.6;max-width:540px;margin:0 auto}
+    .nav-bar{background:#fff;border-top:1px solid var(--border);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+    .nav-btn:hover{background:#163d7a}
+    .nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+    .nav-btn.secondary:hover{background:var(--blue-light)}
+    @media(max-width:600px){.word-box{flex-direction:column}.word-term{font-size:1.2rem}}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Day 28 of 28 — Sutton Grammar 11+ Prep</span>
+</div>
+
+<div class="page-header">
+  <div class="day-chip">Day 28 — Final Day</div>
+  <h1>Quadratics, Venn Diagrams &amp; Writing Your Name</h1>
+  <p>Algebra · Sets · Intertextuality · Stream of Consciousness · Final Writing</p>
+</div>
+
+<div class="timer-bar">
+  <span class="timer-pill">&#x23F1; Maths ~20 min</span>
+  <span class="timer-pill green">&#x23F1; English ~20 min</span>
+</div>
+
+<div class="main">
+
+  <!-- MATHS -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <span class="section-icon">&#x1F4D0;</span>
+      <h2>Maths</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-title">Part 1 — Core skills warm-up</div>
+        <ol>
+          <li>Solve: x² − x − 12 = 0.
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer"><b>x = 4 or x = −3.</b> Factorise: (x − 4)(x + 3) = 0 → x = 4 or x = −3.</div>
+          </li>
+          <li>What is 2⁰ + 2¹ + 2² + 2³ + 2⁴?
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer"><b>31.</b> 1 + 2 + 4 + 8 + 16 = <b>31</b>.</div>
+          </li>
+          <li>A line is perpendicular to y = 3x + 1. What is its gradient?
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer"><b>−1/3.</b> Perpendicular gradients multiply to −1. m × 3 = −1 → m = −1/3.</div>
+          </li>
+          <li>Expand: (2x + 3)².
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer"><b>4x² + 12x + 9.</b> (2x + 3)(2x + 3) = 4x² + 6x + 6x + 9 = 4x² + 12x + 9.</div>
+          </li>
+          <li>Express 3/7 as a decimal to 3 significant figures.
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer"><b>0.429.</b> 3 ÷ 7 = 0.42857… ≈ 0.429 (3 s.f.).</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 2 — Word problems &amp; exam-style practice</div>
+        <ol>
+          <li>A square-based pyramid has a 10 × 10 cm base and a height of 12 cm. Find its volume.
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer"><b>400 cm³.</b> V = ⅓ × base area × height = ⅓ × 100 × 12 = <b>400 cm³</b>.</div>
+          </li>
+          <li>A train travels 196 km in 2 hours 20 minutes. What is its average speed in km/h?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer"><b>84 km/h.</b> 2h 20min = 7/3 hours. Speed = 196 ÷ (7/3) = 196 × 3/7 = <b>84 km/h</b>.</div>
+          </li>
+          <li>In a class of 120 pupils: 45 like art, 60 like sport, 20 like both. How many like neither?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer"><b>35.</b> Union = 45 + 60 − 20 = 85. Neither = 120 − 85 = <b>35</b>.</div>
+          </li>
+        </ol>
+
+        <div class="visual-box">
+          <svg width="280" height="160" viewBox="0 0 280 160" aria-label="Venn diagram: art 45, sport 60, both 20, neither 35">
+            <!-- outer box -->
+            <rect x="10" y="10" width="260" height="140" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+            <!-- art circle -->
+            <circle cx="110" cy="80" r="55" fill="#dbeafe" fill-opacity="0.7" stroke="#1c4c96" stroke-width="1.5"/>
+            <!-- sport circle -->
+            <circle cx="170" cy="80" r="55" fill="#dcfce7" fill-opacity="0.7" stroke="#1a7a4a" stroke-width="1.5"/>
+            <!-- labels -->
+            <text x="85" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#1c4c96">Art</text>
+            <text x="85" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1c4c96">25</text>
+            <text x="140" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#555">Both</text>
+            <text x="140" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#555">20</text>
+            <text x="196" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a7a4a">Sport</text>
+            <text x="196" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a7a4a">40</text>
+            <!-- neither -->
+            <text x="248" y="24" text-anchor="end" font-size="10" fill="#64748b">Neither: 35</text>
+          </svg>
+          <div class="visual-caption">Union = 45 + 60 − 20 = 85 → Neither = 120 − 85 = 35</div>
+        </div>
+
+        <ol start="4">
+          <li>A price increases by 10%, then by a further 10%. What is the total percentage increase?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer"><b>21%.</b> 1.1 × 1.1 = 1.21 → a 21% increase. NOT 20% — compound percentage growth means each rise acts on the new total.</div>
+          </li>
+          <li>Prove that (n + 1)² − n² = 2n + 1 for all integers n.
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <div class="proof-box">
+                (n+1)² − n²<br>
+                = n² + 2n + 1 − n²<br>
+                = 2n + 1  ✓ QED
+              </div>
+              This proves consecutive square numbers always differ by successive odd numbers (1, 3, 5, 7…).
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <span class="section-icon">&#x1F4D6;</span>
+      <h2>English</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-title">Part 1 — SPaG &amp; vocabulary</div>
+        <ol>
+          <li>What is <b>intertextuality</b>? Give an example.
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer"><b>Intertextuality</b> is when a text deliberately references or echoes another text. E.g. Shakespeare references Greek mythology; modern novels echo Dickens. It creates layers of meaning and rewards readers with wider knowledge.</div>
+          </li>
+          <li>What is the difference between <b>theme</b> and <b>subject</b> in a text?
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer"><b>Subject</b> = what the text is literally about (a war, a family). <b>Theme</b> = the abstract idea explored through the subject (cost of loyalty, loss of innocence). E.g. Subject: a boy at boarding school. Theme: the loss of childhood freedom.</div>
+          </li>
+          <li>What is <b>stream of consciousness</b> as a narrative technique?
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">It captures the continuous, unfiltered flow of a character's thoughts — fragmented and associative, without formal punctuation. Associated with Virginia Woolf and James Joyce. E.g. <em>'She walked to the window — the curtains were blue — James used to hate blue — where was he now — the tea had gone cold.'</em></div>
+          </li>
+          <li>What does <b>ineffable</b> mean? Use it in a sentence.
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer"><b>Ineffable</b> means too great or extreme to be expressed in words; beyond description. E.g. <em>'There was something ineffable about standing at the summit — a feeling beyond language, beyond the word magnificent.'</em></div>
+          </li>
+          <li>Describe five key features of excellent 11+ writing.
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <div class="features-list">
+                <div class="feature-item"><span class="feature-num">1</span><span><b>Varied sentence structure:</b> short for impact, complex for depth — contrast is powerful.</span></div>
+                <div class="feature-item"><span class="feature-num">2</span><span><b>Precise vocabulary:</b> choose the exact word, not a vague one. 'Crept' beats 'walked quietly'.</span></div>
+                <div class="feature-item"><span class="feature-num">3</span><span><b>Show, don't tell:</b> concrete details imply emotions rather than stating them.</span></div>
+                <div class="feature-item"><span class="feature-num">4</span><span><b>Original imagery:</b> fresh metaphors, not clichés. Avoid 'as quiet as a mouse'.</span></div>
+                <div class="feature-item"><span class="feature-num">5</span><span><b>Strong opening and closing:</b> first and last sentences carry disproportionate weight — make them count.</span></div>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 2 — Comprehension: Just There. Just Certain.</div>
+        <div class="passage-box">
+          On the last day of term, the school gave us each a sheet of paper and asked us to write our name on it. That was all. Just our name. We were told to fold it and put it in our pocket. At the time I thought it was a strange and pointless exercise, the sort of thing teachers invent when they have run out of ideas. I have thought about it many times since. The act of writing your own name — full name, carefully — is an odd one. You are asserting something. You exist, you have a name, and today, for no particular reason, you have been asked to confirm it. I still have the paper, somewhere in a box, aged now, the ink faded. My name, fourteen years old, not sure yet what it would become. Just there. Just certain.
+        </div>
+        <ol>
+          <li>What were the pupils asked to do?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">Write their own name on a sheet of paper, fold it, and put it in their pocket.</div>
+          </li>
+          <li>How did the narrator feel about the exercise at the time?
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">Strange and pointless — <em>'the sort of thing teachers invent when they have run out of ideas.'</em></div>
+          </li>
+          <li>What does the narrator say writing your name involves?
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">An assertion: <em>'You exist, you have a name... you have been asked to confirm it.'</em> A quiet, deliberate act of self-declaration.</div>
+          </li>
+          <li>What is the effect of 'aged now, the ink faded'?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">Time has passed; the paper has changed just as the narrator has. The fading ink makes memory feel fragile and physical — contrasting with the certainty of the final two sentences.</div>
+          </li>
+          <li>Analyse the final two sentences: 'Just there. Just certain.'
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">Short declarative fragments echo the simplicity of the original act. The parallelism (<em>'Just… Just'</em>) creates quiet, rhythmic balance. 'Certain' is the key word: the fourteen-year-old did not know what they would become — but the fact of existing was certain. Clean, complete, and resonant.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 3 — Final writing challenge</div>
+        <div class="writing-box">
+          <b>Choose ONE:</b><br><br>
+          <b>Option A (Narrative):</b> Write the opening of a story where a small, ordinary object turns out to be unexpectedly significant.<br><br>
+          <b>Option B (Reflective):</b> Write a short reflective piece about a small moment or gesture that has stayed with you. Show why it mattered through specific detail — do not state it directly.
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('w1')">help / example answer</button>
+        <div id="w1" class="answer"><em>Option B example: When I was nine, a stranger on a bus gave me her window seat without being asked. I had been standing for twenty minutes and she must have noticed. She just stood up and moved to an aisle seat, without looking at me, without expecting thanks. I did not say thank you. I was nine and did not yet know how. I have thought about it ever since — not because it was a large kindness, but because it was completely unprompted. She gained nothing. She did not need me to notice. It was, I think, the first time I understood that goodness could be this quiet: private, unannounced, requiring nothing in return.</em></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORD OF THE DAY -->
+  <div class="section-card">
+    <div class="section-header word-hdr">
+      <span class="section-icon">&#x1F4AC;</span>
+      <h2>Word of the Day</h2>
+    </div>
+    <div class="section-body">
+      <div class="word-box">
+        <div class="word-term">indelible</div>
+        <div class="word-body">
+          <b>Meaning:</b> making marks that cannot be removed or forgotten; leaving a permanent impression.<br>
+          <b>Example:</b> <em>'The act of writing her name had left an indelible mark — not on the paper, which had faded, but on the person she had become.'</em><br>
+          <b>Challenge:</b> Describe an indelible memory of your own in one sentence, without using the words 'remember', 'forget', or 'memory'.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONGRATULATIONS -->
+  <div class="congrats-box">
+    <h2>&#x1F393; Programme Complete!</h2>
+    <p>You have completed all 28 days of Sutton Grammar 11+ preparation — covering every major topic tested in the exam. You have practised algebra, geometry, statistics, probability, comprehension, creative writing, SPaG, and a new word every single day. Keep reading, keep writing, and trust your preparation. <b>Good luck.</b></p>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="nav-btn secondary" href="day-27.html">&#8592; Day 27</a>
+  <a class="nav-btn secondary" href="../index.html">All Days</a>
+  <span style="font-size:0.85rem;color:var(--muted)">Final day &#x1F3C1;</span>
+</div>
+
+<script>
+function toggleAnswer(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var btn=el.previousElementSibling;
+  if(el.style.display==='block'){
+    el.style.display='none';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+  }else{
+    el.style.display='block';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+  }
+}
+</script>
+</body>
+</html>

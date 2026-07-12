@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 26 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root{
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}
+    .eng-hdr{background:#f0fdf4}
+    .bonus-hdr{background:#fef9ec}
+    .word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;font-weight:700;color:var(--text)}
+    .section-icon{font-size:1.3rem}
+    .section-body{padding:20px}
+    .sub-section{margin-bottom:22px}
+    .sub-section:last-child{margin-bottom:0}
+    .sub-title{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px}
+    ol{margin-left:20px}
+    li{margin-bottom:10px;line-height:1.55}
+    .help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:6px;padding:1px 8px;font-size:0.78rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:var(--blue);color:#fff}
+    .answer{display:none;margin-top:8px;padding:10px 14px;background:var(--blue-light);border-left:3px solid var(--blue);border-radius:6px;font-size:0.9rem;line-height:1.55}
+    .answer b{color:var(--blue)}
+    .passage-box{background:#f8f7f2;border-left:4px solid var(--amber);border-radius:8px;padding:16px 18px;margin:12px 0 16px;font-style:italic;line-height:1.75;font-size:0.97rem}
+    .writing-box{background:var(--amber-light);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:0.95rem}
+    .word-box{background:var(--purple-light);border-radius:10px;padding:16px 20px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .word-term{font-size:1.5rem;font-weight:700;color:var(--purple);min-width:140px}
+    .word-body{flex:1;font-size:0.93rem;line-height:1.6}
+    .word-body em{color:var(--purple)}
+    .visual-box{background:#f1f5ff;border:1px solid #c7d7f5;border-radius:10px;padding:16px;margin:12px 0;text-align:center}
+    .visual-box svg{max-width:100%;height:auto}
+    .visual-caption{font-size:0.8rem;color:var(--muted);margin-top:8px}
+    .chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+    .chip{background:var(--blue-light);border:1px solid #bfdbfe;color:var(--blue);border-radius:6px;padding:4px 10px;font-size:0.82rem;font-weight:600}
+    .chip.green{background:var(--green-light);border-color:#bbf7d0;color:var(--green)}
+    .chip.amber{background:var(--amber-light);border-color:#fde68a;color:var(--amber)}
+    .chip.purple{background:var(--purple-light);border-color:#ddd6fe;color:var(--purple)}
+    .congrats-box{background:#e8f4e8;border-left:4px solid #1a7a4a;border-radius:8px;padding:16px 20px;margin-top:24px;font-size:0.97rem}
+    .nav-bar{background:#fff;border-top:1px solid var(--border);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+    .nav-btn:hover{background:#163d7a}
+    .nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+    .nav-btn.secondary:hover{background:var(--blue-light)}
+    @media(max-width:600px){.word-box{flex-direction:column}.word-term{font-size:1.2rem}}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Day 26 of 28 — Sutton Grammar 11+ Prep</span>
+</div>
+
+<div class="page-header">
+  <div class="day-chip">Day 26</div>
+  <h1>Quadratics, Tree Networks &amp; Equivocal Language</h1>
+  <p>Algebra · Probability · Pythagoras · Wood Wide Web · Bathos · Writing</p>
+</div>
+
+<div class="timer-bar">
+  <span class="timer-pill">&#x23F1; Maths ~20 min</span>
+  <span class="timer-pill green">&#x23F1; English ~20 min</span>
+</div>
+
+<div class="main">
+
+  <!-- MATHS -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <span class="section-icon">&#x1F4D0;</span>
+      <h2>Maths</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-title">Part 1 — Core skills warm-up</div>
+        <ol>
+          <li>If y = x² − 3x + 2, what is y when x = 4?
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer"><b>y = 6.</b> y = 16 − 12 + 2 = 6.</div>
+          </li>
+          <li>What is 7/12 + 5/8? Give your answer as a mixed number.
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer"><b>1 5/24.</b> LCM of 12 and 8 = 24. 14/24 + 15/24 = 29/24 = 1 5/24.</div>
+          </li>
+          <li>A ratio is 4 : 9. If the larger part is 63, what is the smaller part?
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer"><b>28.</b> 1 part = 63 ÷ 9 = 7. Smaller part = 4 × 7 = 28.</div>
+          </li>
+          <li>Solve: x² = 81. Give both solutions.
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer"><b>x = 9 or x = −9.</b> Always remember the negative root when solving x² = k.</div>
+          </li>
+          <li>Find the median of: 8, 15, 3, 22, 7, 19, 11.
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer"><b>11.</b> Ordered: 3, 7, 8, 11, 15, 19, 22. The middle (4th of 7) = <b>11</b>.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 2 — Word problems &amp; exam-style practice</div>
+        <ol>
+          <li>A rectangle has a perimeter of 54 cm and its length is twice its width. Find the area.
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer"><b>162 cm².</b> Let width = w, length = 2w. Perimeter: 2(2w + w) = 54 → 6w = 54 → w = 9 cm, l = 18 cm. Area = 9 × 18 = <b>162 cm²</b>.</div>
+          </li>
+          <li>There are 100 lottery tickets and you buy 5. What is the probability of winning?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer"><b>1/20 (= 0.05).</b> P = 5/100 = 1/20.</div>
+          </li>
+          <li>At noon the temperature is 14°C. By midnight it has dropped 19°C. What is the temperature at midnight?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer"><b>−5°C.</b> 14 − 19 = −5°C.</div>
+          </li>
+          <li>Maya reads 40 pages on day 1, increasing by 5 pages per day. Her book has 360 pages. On which day does she finish?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer"><b>Day 7.</b> Cumulative totals: Day 1: 40, Day 2: 85, Day 3: 135, Day 4: 190, Day 5: 250, Day 6: 315, Day 7: 385. She reaches 360 during day 7. ✓</div>
+          </li>
+          <li>A 10 m ladder rests against a wall with its base 6 m from the wall. How high up the wall does it reach?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer"><b>8 m.</b> h² = 10² − 6² = 100 − 36 = 64. h = √64 = <b>8 m</b>.</div>
+          </li>
+        </ol>
+
+        <div class="visual-box">
+          <svg width="220" height="160" viewBox="0 0 220 160" aria-label="Pythagoras: ladder 10m, base 6m, height 8m">
+            <!-- wall -->
+            <line x1="60" y1="10" x2="60" y2="140" stroke="#64748b" stroke-width="3"/>
+            <!-- ground -->
+            <line x1="55" y1="140" x2="190" y2="140" stroke="#64748b" stroke-width="3"/>
+            <!-- ladder -->
+            <line x1="60" y1="30" x2="160" y2="140" stroke="#1c4c96" stroke-width="3" stroke-linecap="round"/>
+            <!-- right angle -->
+            <rect x="60" y="126" width="14" height="14" fill="none" stroke="#b45309" stroke-width="1.5"/>
+            <!-- labels -->
+            <text x="38" y="90" font-size="13" fill="#1a7a4a" font-weight="bold">8 m</text>
+            <text x="100" y="158" font-size="13" fill="#1a7a4a" font-weight="bold">6 m</text>
+            <text x="95" y="78" font-size="13" fill="#1c4c96" font-weight="bold" transform="rotate(-47,95,78)">10 m</text>
+          </svg>
+          <div class="visual-caption">h² = 10² − 6² = 64 → h = 8 m</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <span class="section-icon">&#x1F4D6;</span>
+      <h2>English</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-title">Part 1 — SPaG &amp; vocabulary</div>
+        <ol>
+          <li>What is <b>bathos</b>? Give an example.
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer"><b>Bathos</b> is an abrupt, jarring drop from the grand or serious to the trivial — used for comic or ironic effect. E.g. <em>'She had survived war, famine, and the collapse of three marriages — but she could not open the jar of pickles.'</em> The fall to the mundane is deliberately deflating.</div>
+          </li>
+          <li>What is the difference between <b>implicit</b> and <b>explicit</b> meaning?
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer"><b>Explicit</b> = stated directly in the text (you can quote it exactly). <b>Implicit</b> = implied — you must infer it from word choices or what is left unsaid. E.g. <em>'He was terrified'</em> is explicit; <em>'His hands were shaking'</em> implies fear.</div>
+          </li>
+          <li>Improve this weak opener: <em>It was a cold day and Sarah walked to school.</em>
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">Example improvement: <em>'The cold that morning was the kind that gets into your coat before you have even left the house.'</em> Show the cold rather than state it; avoid opening with <em>'It was'</em> and weak conjunctions.</div>
+          </li>
+          <li>What does <b>equivocal</b> mean? Use it in a sentence.
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer"><b>Equivocal</b> means having more than one possible meaning; deliberately ambiguous or uncommitted. E.g. <em>'The minister gave an equivocal answer that satisfied nobody and committed him to nothing.'</em></div>
+          </li>
+          <li>What is the purpose and effect of a <b>cliffhanger</b> ending?
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">A cliffhanger ends a section at a moment of unresolved tension — a sudden revelation, threat, or shift. It compels the reader to continue, creates suspense, and gives the writer control over pace and reader engagement.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 2 — Comprehension: The Wood Wide Web</div>
+        <div class="passage-box">
+          Scientists have recently confirmed what many people have long suspected: trees communicate. Not with words, of course, but through a vast underground network of fungi — sometimes called the 'wood wide web' — through which they exchange water, carbon, and chemical signals. Older, larger trees ('mother trees') appear to support younger saplings by sending them nutrients. When a tree is attacked by insects, it can release chemical warnings that neighbouring trees detect and respond to by producing defensive compounds. Whether this constitutes 'language' in any meaningful sense is debated. But it raises uncomfortable questions about where we draw the line between a living system that responds and one that thinks.
+        </div>
+        <ol>
+          <li>What is the 'wood wide web'?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">A vast underground network of fungi through which trees exchange water, carbon, and chemical signals.</div>
+          </li>
+          <li>What do 'mother trees' do?
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">They support younger saplings by sending them nutrients through the fungal network.</div>
+          </li>
+          <li>How do trees respond when attacked by insects?
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">They release chemical warnings; neighbouring trees detect these and produce defensive compounds in response.</div>
+          </li>
+          <li>Why does the writer say this raises 'uncomfortable questions'?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">It blurs the boundary between a system that responds mechanically and one that 'thinks' — challenging the assumption that only animals with nervous systems can communicate meaningfully.</div>
+          </li>
+          <li>What is the tone, and how does the writer avoid overstating the claim?
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer"><b>Careful and measured.</b> Hedging language — <em>'appear to'</em>, <em>'whether this constitutes… is debated'</em> — keeps the writer from claiming more than can be proved. The final sentence is an open question, not a declaration.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 3 — Writing task</div>
+        <div class="writing-box">
+          Write a short piece that begins with a scientific fact about the natural world and develops it into a reflection on what it means for us. Use: precise scientific language, a moment where you move beyond facts into meaning, and a question or reflection as your final line.
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('w1')">help / example answer</button>
+        <div id="w1" class="answer"><em>The giant sequoia cannot reproduce without fire. Its cones are sealed with resin and will only open after the intense heat of a forest blaze melts the seal and clears the ground of competing plants. To survive, it must first survive destruction. There are people like this — who do not flourish in comfortable conditions, who need the clearing, the stripping away, the thing that most organisms cannot survive. We tend to think of resilience as endurance: holding on. But for the sequoia, resilience is release: letting the fire come, and trusting that what follows will be growth. Whether that is comfort or challenge depends, I think, on where you are in the cycle.</em></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORD OF THE DAY -->
+  <div class="section-card">
+    <div class="section-header word-hdr">
+      <span class="section-icon">&#x1F4AC;</span>
+      <h2>Word of the Day</h2>
+    </div>
+    <div class="section-body">
+      <div class="word-box">
+        <div class="word-term">sentient</div>
+        <div class="word-body">
+          <b>Meaning:</b> able to feel, perceive, and experience — conscious of one's surroundings.<br>
+          <b>Example:</b> <em>'The passage raises a troubling question: could trees, through their chemical signals, be considered sentient in some minimal sense?'</em><br>
+          <b>Challenge:</b> Write two sentences — one where you use <em>sentient</em> to describe a human, and one where you apply it provocatively to a non-human thing.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="nav-btn secondary" href="day-25.html">&#8592; Day 25</a>
+  <a class="nav-btn secondary" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-27.html">Day 27 &#8594;</a>
+</div>
+
+<script>
+function toggleAnswer(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var btn=el.previousElementSibling;
+  if(el.style.display==='block'){
+    el.style.display='none';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+  }else{
+    el.style.display='block';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+  }
+}
+</script>
+</body>
+</html>
