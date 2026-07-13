@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 20 — Sutton 11+ Daily Practice</title>
+  <style>
+    :root{
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold;font-size:0.95rem}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .page-header{background:#fff;border-bottom:2px solid var(--border);padding:20px;text-align:center}
+    .day-chip{display:inline-block;background:var(--blue);color:#fff;border-radius:20px;padding:4px 16px;font-size:0.85rem;font-weight:bold;margin-bottom:8px}
+    .page-header h1{font-size:1.5rem;color:var(--blue);margin-bottom:4px}
+    .page-header p{color:var(--muted);font-size:0.95rem}
+    .timer-bar{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .timer-pill{background:var(--blue-light);color:var(--blue);border-radius:12px;padding:4px 14px;font-size:0.85rem;font-weight:bold}
+    .timer-pill.green{background:var(--green-light);color:var(--green)}
+    .main{max-width:860px;margin:24px auto;padding:0 16px}
+    .section-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .section-header{padding:14px 20px;display:flex;align-items:center;gap:10px}
+    .math-hdr{background:#eff6ff}
+    .eng-hdr{background:#f0fdf4}
+    .word-hdr{background:#f5f3ff}
+    .section-header h2{font-size:1.1rem;font-weight:700;color:var(--text)}
+    .section-icon{font-size:1.3rem}
+    .section-body{padding:20px}
+    .sub-section{margin-bottom:22px}
+    .sub-section:last-child{margin-bottom:0}
+    .sub-title{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px}
+    ol{margin-left:20px}
+    li{margin-bottom:10px;line-height:1.55}
+    .help-btn{background:none;border:1px solid var(--blue);color:var(--blue);border-radius:6px;padding:1px 8px;font-size:0.78rem;cursor:pointer;margin-left:6px;vertical-align:middle}
+    .help-btn:hover{background:var(--blue);color:#fff}
+    .answer{display:none;margin-top:8px;padding:10px 14px;background:var(--blue-light);border-left:3px solid var(--blue);border-radius:6px;font-size:0.9rem;line-height:1.55}
+    .answer b{color:var(--blue)}
+    .passage-box{background:#f8f7f2;border-left:4px solid var(--amber);border-radius:8px;padding:16px 18px;margin:12px 0 16px;font-style:italic;line-height:1.75;font-size:0.97rem}
+    .writing-box{background:var(--amber-light);border-radius:8px;padding:14px 18px;margin:10px 0;font-size:0.95rem}
+    .word-box{background:var(--purple-light);border-radius:10px;padding:16px 20px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .word-term{font-size:1.5rem;font-weight:700;color:var(--purple);min-width:140px}
+    .word-body{flex:1;font-size:0.93rem;line-height:1.6}
+    .word-body em{color:var(--purple)}
+    .visual-box{background:#f1f5ff;border:1px solid #c7d7f5;border-radius:10px;padding:16px;margin:12px 0;text-align:center}
+    .visual-box svg{max-width:100%;height:auto}
+    .visual-caption{font-size:0.8rem;color:var(--muted);margin-top:8px}
+    .proof-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:14px 18px;margin:12px 0;font-family:monospace;font-size:0.95rem;line-height:2}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+    .concept-card{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:0.9rem}
+    .concept-card b{display:block;margin-bottom:4px;color:var(--blue)}
+    .concept-card em{color:var(--muted)}
+    .nav-bar{background:#fff;border-top:1px solid var(--border);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .nav-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:0.9rem;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+    .nav-btn:hover{background:#163d7a}
+    .nav-btn.secondary{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+    .nav-btn.secondary:hover{background:var(--blue-light)}
+    @media(max-width:600px){.word-box{flex-direction:column}.word-term{font-size:1.2rem}.two-col{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span>Day 20 of 28 — Sutton Grammar 11+ Prep</span>
+</div>
+
+<div class="page-header">
+  <div class="day-chip">Day 20</div>
+  <h1>Quadratics, Bearings &amp; Miss Osei Burns the Fears</h1>
+  <p>Factorising · Spheres · Polysyndeton · Zeugma · Catharsis</p>
+</div>
+
+<div class="timer-bar">
+  <span class="timer-pill">&#x23F1; Maths ~20 min</span>
+  <span class="timer-pill green">&#x23F1; English ~20 min</span>
+</div>
+
+<div class="main">
+
+  <!-- MATHS -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <span class="section-icon">&#x1F4D0;</span>
+      <h2>Maths</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-title">Part 1 — Core skills warm-up</div>
+        <ol>
+          <li>Solve: x² − 5x + 6 = 0.
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer"><b>x = 2 or x = 3.</b> Factorise: (x − 2)(x − 3) = 0. Check: 4 − 10 + 6 = 0 ✓ and 9 − 15 + 6 = 0 ✓.</div>
+          </li>
+          <li>What is the gradient and y-intercept of the line y = 3x − 7?
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer"><b>Gradient = 3; y-intercept = −7.</b> The line is in the form y = mx + c. m = 3 (steepness), c = −7 (where the line crosses the y-axis).</div>
+          </li>
+          <li>A bag has red and blue counters in the ratio 5 : 3. There are 40 counters in total. How many are red?
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer"><b>25 red counters.</b> Total parts = 5 + 3 = 8. One part = 40 ÷ 8 = 5. Red = 5 × 5 = <b>25</b>.</div>
+          </li>
+          <li>What is 3.6 × 10⁴ + 2.4 × 10³? Give your answer in standard form.
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer"><b>3.84 × 10⁴.</b> 3.6 × 10⁴ = 36,000. 2.4 × 10³ = 2,400. Sum = 38,400 = <b>3.84 × 10⁴</b>.</div>
+          </li>
+          <li>P(A) = 0.3; P(B) = 0.45; A and B are mutually exclusive. What is P(A or B)?
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer"><b>0.75.</b> Mutually exclusive means they cannot both happen at once, so P(A or B) = P(A) + P(B) = 0.3 + 0.45 = <b>0.75</b>.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 2 — Word problems &amp; exam-style practice</div>
+        <ol>
+          <li>A sphere has a radius of 3 cm. Find its volume. (V = 4/3 × π × r³, use π = 3.14)
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer"><b>113.04 cm³.</b> V = 4/3 × 3.14 × 3³ = 4/3 × 3.14 × 27 = 4/3 × 84.78 = <b>113.04 cm³</b>.</div>
+          </li>
+        </ol>
+
+        <div class="visual-box">
+          <svg width="200" height="200" viewBox="0 0 200 200" aria-label="Sphere of radius 3cm">
+            <defs>
+              <radialGradient id="sphereGrad" cx="38%" cy="35%" r="60%">
+                <stop offset="0%" stop-color="#bfdbfe"/>
+                <stop offset="100%" stop-color="#1c4c96"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="72" fill="url(#sphereGrad)" opacity="0.9"/>
+            <!-- equator ellipse -->
+            <ellipse cx="100" cy="100" rx="72" ry="20" fill="none" stroke="#fff" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.6"/>
+            <!-- radius line -->
+            <line x1="100" y1="100" x2="163" y2="76" stroke="#fff" stroke-width="1.8"/>
+            <circle cx="100" cy="100" r="3" fill="#fff"/>
+            <text x="128" y="82" font-size="13" fill="#fff" font-weight="bold">r = 3 cm</text>
+            <!-- formula -->
+            <text x="100" y="185" text-anchor="middle" font-size="11" fill="#1c4c96" font-weight="bold">V = 4/3 × π × 3³ = 113.04 cm³</text>
+          </svg>
+          <div class="visual-caption">Sphere: V = 4/3 πr³</div>
+        </div>
+
+        <ol start="2">
+          <li>A company's profit is £120,000 in Year 1. It grows at 8% compound interest per year. What is the profit in Year 3?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer"><b>£139,968.</b> Year 2: £120,000 × 1.08 = £129,600. Year 3: £129,600 × 1.08 = <b>£139,968</b>.</div>
+          </li>
+          <li>A parallelogram has base 11 cm and perpendicular height 7 cm. What is its area?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer"><b>77 cm².</b> Area = base × perpendicular height = 11 × 7 = <b>77 cm²</b>.</div>
+          </li>
+          <li>The bearing from Town A to Town B is 065°. What is the bearing from Town B back to Town A?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer"><b>245°.</b> The back bearing = 065° + 180° = 245°. (Add 180°; if the result exceeds 360°, subtract 360°.)</div>
+          </li>
+        </ol>
+
+        <div class="visual-box">
+          <svg width="220" height="220" viewBox="0 0 220 220" aria-label="Bearing compass: 065 degrees from A to B">
+            <!-- compass circle -->
+            <circle cx="110" cy="110" r="80" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+            <!-- N/S/E/W -->
+            <line x1="110" y1="30" x2="110" y2="190" stroke="#e2e8f0" stroke-width="1"/>
+            <line x1="30" y1="110" x2="190" y2="110" stroke="#e2e8f0" stroke-width="1"/>
+            <text x="107" y="22" font-size="13" font-weight="bold" fill="#64748b">N</text>
+            <text x="107" y="205" font-size="13" font-weight="bold" fill="#64748b">S</text>
+            <text x="196" y="114" font-size="13" font-weight="bold" fill="#64748b">E</text>
+            <text x="18" y="114" font-size="13" font-weight="bold" fill="#64748b">W</text>
+            <!-- bearing 065 from A (centre) to B -->
+            <!-- 065° clockwise from N: dx = sin(65°)=0.906, dy = -cos(65°)=-0.423 -->
+            <line x1="110" y1="110" x2="182" y2="76" stroke="#1c4c96" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="182" cy="76" r="5" fill="#1c4c96"/>
+            <text x="187" y="72" font-size="11" fill="#1c4c96" font-weight="bold">B</text>
+            <!-- arc for 065 angle -->
+            <path d="M 110 64 A 46 46 0 0 1 152 71" fill="none" stroke="#1c4c96" stroke-width="1.2" stroke-dasharray="3,2"/>
+            <text x="124" y="60" font-size="10" fill="#1c4c96">065°</text>
+            <!-- A label -->
+            <circle cx="110" cy="110" r="4" fill="#b45309"/>
+            <text x="116" y="125" font-size="11" fill="#b45309" font-weight="bold">A</text>
+            <!-- back bearing arrow from B -->
+            <line x1="182" y1="76" x2="110" y2="110" stroke="#1a7a4a" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <text x="128" y="102" font-size="10" fill="#1a7a4a">245°</text>
+          </svg>
+          <div class="visual-caption">Back bearing = 065° + 180° = 245°</div>
+        </div>
+
+        <ol start="5">
+          <li>Prove algebraically that the sum of any three consecutive integers is always a multiple of 3.
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <div class="proof-box">
+                Let the integers be n, n+1, n+2.<br>
+                Sum = n + (n+1) + (n+2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;= 3n + 3<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;= 3(n+1)
+              </div>
+              Since 3(n+1) is divisible by 3 for all integers n, the sum is always a multiple of 3. ✓ QED
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <span class="section-icon">&#x1F4D6;</span>
+      <h2>English</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-title">Part 1 — SPaG &amp; vocabulary</div>
+        <ol>
+          <li>What is <b>polysyndeton</b>? What is <b>asyndeton</b>? Give one example of each.
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <div class="two-col">
+                <div class="concept-card"><b>Polysyndeton</b> Using more conjunctions than necessary. <em>'She ran and jumped and laughed and shouted.'</em> — the repeated 'and' builds breathless, accumulating energy.</div>
+                <div class="concept-card"><b>Asyndeton</b> Omitting conjunctions for speed. <em>'She ran, jumped, laughed, shouted.'</em> — the absence creates rapid, urgent pace.</div>
+              </div>
+              Both are deliberate rhetorical choices — not errors.
+            </div>
+          </li>
+          <li>What is a <b>litotes</b>? Give two examples.
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer"><b>Litotes</b> = understatement using a double negative or mild affirmative to convey the opposite. Examples: <em>'Not bad at all'</em> (= very good). <em>'It's not the warmest day'</em> (= it's very cold). <em>'He's no fool'</em> (= he is quite clever). Common in British understatement and irony.</div>
+          </li>
+          <li>What is a <b>zeugma</b>? Give an example.
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer"><b>Zeugma</b> uses one word (usually a verb) to govern two different objects in a surprising way, creating a comic or sharp effect. E.g. <em>'She left the party and all my hopes behind.'</em> The verb 'left' governs 'the party' (literal) and 'my hopes' (figurative). Another: <em>'He lost his keys and his temper.'</em> Often used for wit.</div>
+          </li>
+          <li>What does <b>inimitable</b> mean? Use it in a sentence.
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer"><b>Inimitable</b> means so distinctive or excellent as to be impossible to copy; utterly unique. E.g. <em>'The author's inimitable style — combining dark humour with profound sadness — has never been successfully replicated.'</em></div>
+          </li>
+          <li>What does <b>catharsis</b> mean in the context of literature or drama?
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer"><b>Catharsis</b> (from Greek: 'purging') is the emotional release or relief experienced by an audience at the end of a powerful piece of drama or literature — particularly tragedy. Aristotle described it as the purging of pity and fear through watching tragedy. After a cathartic ending, the audience feels emotionally spent and yet somehow cleansed. Shakespeare's tragedies often aim for this effect.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 2 — Comprehension: The Burning of the Fears</div>
+        <div class="passage-box">
+          On the last day of term, Miss Osei did something she had never done before: she asked each pupil to write down, on a piece of paper, one thing they were afraid of. Not a spider or a thunderstorm — something real. Something that kept them awake. She collected the papers, unread, and placed them in a tin. Then she lit a candle and burned them, one by one, in the fireproof tray on her desk. Nobody spoke. The papers curled and blackened and were gone in less than a minute. Some children cried. Some watched very carefully. When the last one was ash, she looked up and said: "You are not your fears. They are just weather — they come and they go." Then she dismissed the class and nobody spoke in the corridor. They were all thinking about the smoke.
+        </div>
+        <ol>
+          <li>What unusual thing does Miss Osei do, and what are the pupils asked to write?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">She asks each pupil to write down something genuinely frightening — not a trivial fear but something 'real' that keeps them awake. She then collects the papers unread and burns them one by one.</div>
+          </li>
+          <li>Why is the detail that she read the papers 'unread' significant?
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">It means the fears remained private — the act was for the pupils' benefit, not for Miss Osei's knowledge. The trust implied (she will not read or judge) is what makes the gesture powerful. It creates a space of genuine vulnerability without exposure.</div>
+          </li>
+          <li>Analyse the metaphor 'They are just weather — they come and they go.'
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">The metaphor compares fears to weather — unpredictable, beyond our control, but impermanent. Like weather, fears cannot always be prevented or reasoned away, yet they pass. The metaphor is comforting without being dismissive: it acknowledges that fears are real while insisting they are not permanent. The simplicity of the language suits the audience of children.</div>
+          </li>
+          <li>What is the effect of 'They were all thinking about the smoke' as the final sentence?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">The sentence is understated and resonant. The smoke is literal (from the burning papers) and symbolic — the remnant of something destroyed. The children's collective, unspoken thought creates a moment of shared contemplation. It ends on a concrete image rather than an emotion, leaving the feeling implicit and trusting the reader to feel the weight without being told.</div>
+          </li>
+          <li>How does the writer create a sense of ceremony and significance?
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">Through the unusual, deliberate act (burning fears is ritualistic); collective silence ('Nobody spoke'); careful description of papers curling and blackening; Miss Osei only looking up after the last paper is ash; varied responses ('some cried, some watched carefully'); the quiet aftermath in the corridor. The measured prose mirrors the solemnity — the scene is made to feel almost sacred.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Part 3 — Writing task</div>
+        <div class="writing-box">
+          <b>Choose ONE:</b><br><br>
+          <b>Option A (Narrative):</b> Write the opening of a story set in an unusual or unexpected place. Establish character, atmosphere, and a sense of what might happen next — all within 10–12 sentences.<br><br>
+          <b>Option B (Reflective):</b> Write a short piece about something you have changed your mind about. Use: anaphora, tricolon, rhetorical questions, contrast, and a strong final line.
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('w1')">help / example answers</button>
+        <div id="w1" class="answer">
+          <b>Option A</b> (a waiting room):<br>
+          <em>The waiting room had been there longer than anyone could remember. Its chairs were a shade of green that had once had a name but no longer did. A notice on the wall said "Please take a number" but there were no numbers, and there was no counter to take them to. In the corner, a plant had been growing so long it had reached the ceiling and begun to grow back down. The people waiting did not speak to one another. They read old magazines and looked at their watches and waited. What they were waiting for was unclear. When you asked, they looked at you with mild surprise — as if waiting was simply what one did here, and asking why was slightly embarrassing. I had come to find my grandfather. I had been told he was in the waiting room. I sat down and picked up a magazine. It was dated 1987.</em>
+          <br><br>
+          <b>Option B</b> (on silence):<br>
+          <em>I used to think silence was empty. I used to fill it immediately — with music, with talk, with the blue light of a screen. I was afraid of what silence might contain. I know now that I had it exactly wrong. It is the silence that contains everything: the thought you have been avoiding, the feeling you have been running from, the idea that has been waiting quietly for the noise to stop. Silence is not absence. It is the fullest thing there is. How strange, that we spend so much effort filling the one thing that could teach us the most. I have changed my mind about silence. I am still learning to change my habits.</em>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORD OF THE DAY -->
+  <div class="section-card">
+    <div class="section-header word-hdr">
+      <span class="section-icon">&#x1F4AC;</span>
+      <h2>Word of the Day</h2>
+    </div>
+    <div class="section-body">
+      <div class="word-box">
+        <div class="word-term">tacit</div>
+        <div class="word-body">
+          <b>Meaning:</b> understood or implied without being directly stated; silent but real.<br>
+          <b>Example:</b> <em>'There was a tacit agreement among the children not to speak about what had happened in the classroom — some things are understood without words.'</em><br>
+          <b>Challenge:</b> Think of a rule or understanding in your own life that is tacit — something everyone follows but nobody has ever said aloud. Describe it in one sentence without naming it directly.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="nav-btn secondary" href="day-19.html">&#8592; Day 19</a>
+  <a class="nav-btn secondary" href="../index.html">All Days</a>
+  <a class="nav-btn" href="day-21.html">Day 21 &#8594;</a>
+</div>
+
+<script>
+function toggleAnswer(id){
+  var el=document.getElementById(id);
+  if(!el)return;
+  var btn=el.previousElementSibling;
+  if(el.style.display==='block'){
+    el.style.display='none';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='help';
+  }else{
+    el.style.display='block';
+    if(btn&&btn.classList.contains('help-btn'))btn.textContent='hide';
+  }
+}
+</script>
+</body>
+</html>
