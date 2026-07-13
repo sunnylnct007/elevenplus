@@ -105,6 +105,11 @@
       pointer-events: none;
     }
     .day-card.locked .num { color: #94a3b8; }
+    .day-card.done {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+    .day-card.done .num { color: var(--green); }
     .pill {
       position: absolute;
       top: 8px; right: 8px;
@@ -117,6 +122,76 @@
       background: var(--green);
       color: #fff;
     }
+    .done-tick {
+      position: absolute;
+      top: 8px; right: 8px;
+      font-size: 0.75rem;
+      color: var(--green);
+      font-weight: 700;
+    }
+    /* progress bar */
+    .progress-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .progress-top span { font-size: 0.85rem; color: var(--muted); }
+    .progress-top strong { color: var(--green); }
+    .prog-track {
+      background: var(--border);
+      border-radius: 99px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .prog-fill {
+      background: linear-gradient(90deg, var(--green), #22c55e);
+      height: 100%;
+      border-radius: 99px;
+      transition: width .5s;
+    }
+    .reset-link {
+      font-size: 0.75rem;
+      color: var(--muted);
+      cursor: pointer;
+      text-decoration: underline;
+      border: none;
+      background: none;
+      margin-top: 6px;
+      display: inline-block;
+    }
+    /* tools strip */
+    .tools-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .tool-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 14px 12px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      transition: all .15s;
+    }
+    .tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(28,76,150,.1);
+      border-color: var(--blue);
+    }
+    .tool-card .tool-icon { font-size: 1.5rem; margin-bottom: 5px; }
+    .tool-card .tool-name { font-weight: 700; font-size: 0.88rem; }
+    .tool-card .tool-desc { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
     footer {
       text-align: center;
       padding: 24px;
@@ -142,6 +217,35 @@
 <main>
   <div class="intro">
     Each session takes about 40–45 minutes. Work through the questions on your own, then use the <strong>[help]</strong> links to check answers. Aim for one session every day!
+  </div>
+
+  <!-- Progress tracker -->
+  <div class="progress-section">
+    <div class="progress-top">
+      <span>Your progress: <strong id="doneCount">0</strong> of 28 days complete</span>
+      <button class="reset-link" onclick="resetProgress()">Reset</button>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Study tools -->
+  <div class="week-label" style="margin-top:0">Study Tools</div>
+  <div class="tools-strip">
+    <a class="tool-card" href="vocab-quiz.html">
+      <div class="tool-icon">&#x1F4AC;</div>
+      <div class="tool-name">Vocabulary Quiz</div>
+      <div class="tool-desc">Test all 28 Words of the Day with interactive flashcards</div>
+    </a>
+    <a class="tool-card" href="topics.html">
+      <div class="tool-icon">&#x1F4CB;</div>
+      <div class="tool-name">Topic Index</div>
+      <div class="tool-desc">Find every maths and English topic covered — with links to each day</div>
+    </a>
+    <a class="tool-card" href="formula-sheet.html">
+      <div class="tool-icon">&#x1F4C4;</div>
+      <div class="tool-name">Formula Sheet</div>
+      <div class="tool-desc">Every key formula and literary technique. Printable.</div>
+    </a>
   </div>
 
   <div class="week-label">Week 1 — Days 1–7</div>
@@ -195,31 +299,71 @@
     { day: 28, title: "Quadratics, Venn Diagrams & Writing Your Name", available: true },
   ];
 
-  days.forEach(function(d) {
-    var weekId = "week" + Math.ceil(d.day / 7);
-    var container = document.getElementById(weekId);
-    if (!container) return;
-    var num = String(d.day).padStart(2, "0");
-    if (d.available) {
-      var a = document.createElement("a");
-      a.href = "days/day-" + num + ".html";
-      a.className = "day-card available";
-      a.innerHTML =
-        '<span class="pill">Ready</span>' +
-        '<div class="num">' + d.day + '</div>' +
-        '<div class="label">Day ' + d.day + '</div>' +
-        '<div class="topics">' + d.title + '</div>';
-      container.appendChild(a);
-    } else {
-      var div = document.createElement("div");
-      div.className = "day-card locked";
-      div.innerHTML =
-        '<div class="num">' + d.day + '</div>' +
-        '<div class="label">Day ' + d.day + '</div>' +
-        '<div class="topics">' + d.title + '</div>';
-      container.appendChild(div);
+  function getDone() {
+    try { return JSON.parse(localStorage.getItem('11p_done') || '{}'); } catch(e){ return {}; }
+  }
+  function saveDone(obj) {
+    try { localStorage.setItem('11p_done', JSON.stringify(obj)); } catch(e){}
+  }
+  function updateProgress() {
+    var done = getDone();
+    var count = Object.keys(done).filter(function(k){ return done[k]; }).length;
+    document.getElementById('doneCount').textContent = count;
+    document.getElementById('progFill').style.width = Math.round(count / 28 * 100) + '%';
+  }
+  function toggleDone(dayNum, event) {
+    event.preventDefault();
+    var done = getDone();
+    done[dayNum] = !done[dayNum];
+    saveDone(done);
+    renderCards();
+  }
+  function resetProgress() {
+    if (confirm('Reset all progress? This cannot be undone.')) {
+      saveDone({});
+      renderCards();
     }
-  });
+  }
+
+  function renderCards() {
+    var done = getDone();
+    ['week1','week2','week3','week4'].forEach(function(id){
+      document.getElementById(id).innerHTML = '';
+    });
+    days.forEach(function(d) {
+      var weekId = "week" + Math.ceil(d.day / 7);
+      var container = document.getElementById(weekId);
+      if (!container) return;
+      var num = String(d.day).padStart(2, "0");
+      var isDone = !!done[d.day];
+      if (d.available) {
+        var a = document.createElement("a");
+        a.href = "days/day-" + num + ".html";
+        a.className = "day-card available" + (isDone ? " done" : "");
+        a.innerHTML =
+          (isDone
+            ? '<span class="done-tick">&#x2713; Done</span>'
+            : '<span class="pill">Ready</span>') +
+          '<div class="num">' + d.day + '</div>' +
+          '<div class="label">Day ' + d.day + '</div>' +
+          '<div class="topics">' + d.title + '</div>' +
+          '<div style="margin-top:8px;font-size:0.7rem;color:' + (isDone ? 'var(--green)' : 'var(--muted)') + ';cursor:pointer" onclick="toggleDone(' + d.day + ',event)">' +
+          (isDone ? '↩ Mark undone' : '&#x2713; Mark done') + '</div>';
+        container.appendChild(a);
+      } else {
+        var div = document.createElement("div");
+        div.className = "day-card locked";
+        div.innerHTML =
+          '<div class="num">' + d.day + '</div>' +
+          '<div class="label">Day ' + d.day + '</div>' +
+          '<div class="topics">' + d.title + '</div>';
+        container.appendChild(div);
+      }
+    });
+    updateProgress();
+  }
+
+  renderCards();
 </script>
 </body>
 </html>

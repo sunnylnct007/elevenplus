@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formula &amp; Technique Sheet — 11+ Prep</title>
+  <style>
+    :root{
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold}
+    .topbar-right{display:flex;gap:12px;align-items:center}
+    .print-btn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:5px 14px;font-size:0.85rem;cursor:pointer}
+    .print-btn:hover{background:rgba(255,255,255,.35)}
+    .hero{background:linear-gradient(135deg,#b45309 0%,#d97706 100%);color:#fff;padding:24px 20px 20px;text-align:center}
+    .hero h1{font-size:1.6rem;font-weight:700;margin-bottom:6px}
+    .hero p{opacity:0.9;font-size:0.92rem}
+    .main{max-width:960px;margin:0 auto;padding:24px 16px 60px}
+    .tab-bar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    .tab{border:2px solid var(--border);background:#fff;border-radius:10px;padding:7px 16px;font-size:0.88rem;cursor:pointer;color:var(--muted);font-weight:600;transition:all .15s}
+    .tab.active{border-color:var(--amber);color:var(--amber);background:var(--amber-light)}
+    .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+    .card-title{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px}
+    .formula{font-family:monospace;font-size:1rem;font-weight:700;color:var(--blue);margin:4px 0;padding:6px 10px;background:var(--blue-light);border-radius:6px;display:inline-block}
+    .formula.green{color:var(--green);background:var(--green-light)}
+    .formula.purple{color:var(--purple);background:var(--purple-light)}
+    .formula.amber{color:var(--amber);background:var(--amber-light)}
+    .note{font-size:0.82rem;color:var(--muted);margin-top:3px;line-height:1.4}
+    .note b{color:var(--text)}
+    .technique{margin:6px 0;padding:8px 12px;background:#f8fafc;border-left:3px solid var(--green);border-radius:6px;font-size:0.88rem}
+    .technique b{color:var(--green);display:block;margin-bottom:2px;font-size:0.83rem}
+    .technique.blue{border-color:var(--blue)}
+    .technique.blue b{color:var(--blue)}
+    .technique.purple{border-color:var(--purple)}
+    .technique.purple b{color:var(--purple)}
+    .technique.amber{border-color:var(--amber)}
+    .technique.amber b{color:var(--amber)}
+    .section-lbl{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--border)}
+    .section-lbl.math{color:var(--blue);border-color:var(--blue)}
+    .section-lbl.eng{color:var(--green);border-color:var(--green)}
+    .hidden{display:none}
+    @media(max-width:600px){.cols{grid-template-columns:1fr}}
+    @media print{
+      .topbar,.tab-bar,.hero{display:none}
+      .main{padding:0;max-width:100%}
+      body{background:#fff}
+      .card{break-inside:avoid;border:1px solid #ccc}
+      .hidden{display:block!important}
+    }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html">&#8592; All Days</a>
+  <div class="topbar-right">
+    <button class="print-btn" onclick="window.print()">&#x1F5A8; Print / Save PDF</button>
+  </div>
+</div>
+<div class="hero">
+  <h1>&#x1F4C4; Formula &amp; Technique Sheet</h1>
+  <p>Key maths formulas and literary techniques from all 28 days. Print this and keep it at your desk.</p>
+</div>
+
+<div class="main">
+  <div class="tab-bar">
+    <button class="tab active" onclick="setTab('all')">All</button>
+    <button class="tab" onclick="setTab('math')">&#x1F4D0; Maths</button>
+    <button class="tab" onclick="setTab('eng')">&#x1F4D6; English</button>
+  </div>
+
+  <!-- MATHS -->
+  <div id="mathContent">
+    <div class="section-lbl math">Maths — Number</div>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-title">Fractions</div>
+          <div class="formula">a/b + c/d = (ad+bc)/bd</div>
+          <div class="note">Find a common denominator first. Simplify by dividing numerator and denominator by their HCF.</div>
+          <div class="formula" style="margin-top:8px">a/b × c/d = ac/bd</div>
+          <div class="formula">a/b ÷ c/d = a/b × d/c</div>
+          <div class="note">To divide by a fraction, multiply by its reciprocal.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Percentages</div>
+          <div class="formula">x% of n = n × x/100</div>
+          <div class="formula green">% increase = (change ÷ original) × 100</div>
+          <div class="formula green">Compound: A = P × (1 + r/100)ⁿ</div>
+          <div class="note"><b>P</b> = principal, <b>r</b> = rate %, <b>n</b> = years</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Standard Form</div>
+          <div class="formula">a × 10ⁿ (where 1 ≤ a &lt; 10)</div>
+          <div class="note">E.g. 36,000 = 3.6 × 10⁴ &nbsp;·&nbsp; 0.0042 = 4.2 × 10⁻³</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Ratio</div>
+          <div class="formula">Parts: total ÷ (a+b) × each part</div>
+          <div class="note">E.g. ratio 3:5, total 40 → 1 part = 5 → shares = 15 and 25.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">LCM &amp; HCF</div>
+          <div class="formula">LCM = smallest common multiple</div>
+          <div class="formula green">HCF = largest common factor</div>
+          <div class="note">Use prime factor trees to find both efficiently. LCM × HCF = product of the two numbers.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Probability</div>
+          <div class="formula">P(event) = favourable ÷ total</div>
+          <div class="formula green">P(A or B) = P(A) + P(B) [if mutually exclusive]</div>
+          <div class="formula purple">P(A and B) = P(A) × P(B) [if independent]</div>
+          <div class="formula amber">P(not A) = 1 − P(A)</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Statistics</div>
+          <div class="formula">Mean = sum ÷ count</div>
+          <div class="formula green">Median = middle value (ordered)</div>
+          <div class="formula purple">Mode = most frequent value</div>
+          <div class="formula amber">Range = max − min</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-lbl math">Maths — Algebra</div>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-title">Linear Equations</div>
+          <div class="formula">y = mx + c</div>
+          <div class="note"><b>m</b> = gradient, <b>c</b> = y-intercept. Gradient = rise ÷ run = (y₂−y₁)/(x₂−x₁).</div>
+          <div class="formula green" style="margin-top:8px">y − y₁ = m(x − x₁)</div>
+          <div class="note">Equation of a line through (x₁, y₁) with gradient m.</div>
+          <div class="formula purple" style="margin-top:8px">Perpendicular gradient = −1/m</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Quadratics</div>
+          <div class="formula">ax² + bx + c = 0</div>
+          <div class="note">Factorise: find two numbers that multiply to <b>c</b> and add to <b>b</b>.</div>
+          <div class="formula green" style="margin-top:8px">x = (−b ± √(b²−4ac)) / 2a</div>
+          <div class="note">Quadratic formula — use when factorising doesn't work.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Sequences</div>
+          <div class="formula">nth term = dn + (a − d)</div>
+          <div class="note"><b>d</b> = common difference, <b>a</b> = first term. E.g. 3,7,11… → d=4, nth term = 4n−1.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Simultaneous Equations</div>
+          <div class="note" style="font-size:0.9rem;padding:4px 0"><b>Method 1 (Substitution):</b> rearrange one equation, substitute into the other.<br><b>Method 2 (Elimination):</b> make coefficients equal, then add/subtract to cancel one variable.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Expanding &amp; Factorising</div>
+          <div class="formula">a(b+c) = ab + ac</div>
+          <div class="formula green">(a+b)² = a² + 2ab + b²</div>
+          <div class="formula purple">(a+b)(a−b) = a² − b²</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-lbl math">Maths — Geometry</div>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-title">Areas</div>
+          <div class="formula">Rectangle = l × w</div>
+          <div class="formula green">Triangle = ½ × b × h</div>
+          <div class="formula purple">Parallelogram = b × h</div>
+          <div class="formula amber">Trapezium = ½(a+b) × h</div>
+          <div class="formula" style="margin-top:4px">Circle = π r²</div>
+          <div class="formula green">Sector = (θ/360) × π r²</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Circumference &amp; Perimeter</div>
+          <div class="formula">Circumference = 2πr = πd</div>
+          <div class="formula green">Arc length = (θ/360) × 2πr</div>
+          <div class="formula purple">Semicircle perimeter = πr + 2r</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Volumes</div>
+          <div class="formula">Cuboid = l × w × h</div>
+          <div class="formula green">Cylinder = π r² h</div>
+          <div class="formula purple">Cone = ⅓ π r² h</div>
+          <div class="formula amber">Sphere = 4/3 π r³</div>
+          <div class="formula">Pyramid = ⅓ × base area × h</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Pythagoras &amp; Trigonometry</div>
+          <div class="formula">a² + b² = c²</div>
+          <div class="note"><b>c</b> = hypotenuse (longest side, opposite right angle).</div>
+          <div class="formula green" style="margin-top:8px">sin θ = opp/hyp</div>
+          <div class="formula green">cos θ = adj/hyp</div>
+          <div class="formula green">tan θ = opp/adj</div>
+          <div class="note">Remember: <b>SOH CAH TOA</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-lbl math">Maths — Other Key Facts</div>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-title">Speed, Distance, Time</div>
+          <div class="formula">Speed = Distance ÷ Time</div>
+          <div class="formula green">Distance = Speed × Time</div>
+          <div class="formula purple">Time = Distance ÷ Speed</div>
+          <div class="note">Cover the variable you want with your thumb — the remaining two show the operation.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Bearings</div>
+          <div class="formula">Always measured clockwise from North</div>
+          <div class="formula green">Back bearing = bearing + 180°</div>
+          <div class="note">(If result &gt; 360°, subtract 360°.)</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Angle Facts</div>
+          <div class="formula">Angles in triangle = 180°</div>
+          <div class="formula green">Angles on a straight line = 180°</div>
+          <div class="formula purple">Angles around a point = 360°</div>
+          <div class="formula amber">Interior angle of regular n-gon = (n−2)×180/n</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Useful Number Facts</div>
+          <div class="note"><b>Squares:</b> 1,4,9,16,25,36,49,64,81,100,121,144,169,196,225</div>
+          <div class="note" style="margin-top:6px"><b>Cubes:</b> 1,8,27,64,125,216</div>
+          <div class="note" style="margin-top:6px"><b>Primes to 50:</b> 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47</div>
+          <div class="formula" style="margin-top:8px">π ≈ 3.14159</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div id="engContent">
+    <div class="section-lbl eng">Literary Techniques</div>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-title">Figurative Language</div>
+          <div class="technique"><b>Simile</b> Comparison using 'like' or 'as'. <em>'Her laugh was like a bell.'</em></div>
+          <div class="technique"><b>Metaphor</b> Direct comparison; states one thing IS another. <em>'He was a lion in battle.'</em></div>
+          <div class="technique"><b>Personification</b> Giving human qualities to non-human things. <em>'The wind whispered.'</em></div>
+          <div class="technique"><b>Hyperbole</b> Deliberate, dramatic exaggeration. <em>'I've told you a million times.'</em></div>
+          <div class="technique"><b>Zoomorphism</b> Giving animal qualities to humans/objects.</div>
+          <div class="technique"><b>Oxymoron</b> Contradictory words together. <em>'Deafening silence.'</em></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sound Devices</div>
+          <div class="technique blue"><b>Alliteration</b> Repetition of initial consonant sounds. <em>'Silent silver streams.'</em></div>
+          <div class="technique blue"><b>Sibilance</b> Repetition of 's'/'sh' sounds — can suggest stealth, calm, or menace.</div>
+          <div class="technique blue"><b>Onomatopoeia</b> Words that sound like their meaning. <em>Crash, buzz, hiss.</em></div>
+          <div class="technique blue"><b>Assonance</b> Repetition of vowel sounds. <em>'Hear the mellow wedding bells.'</em></div>
+          <div class="technique blue"><b>Consonance</b> Repetition of consonant sounds within/end of words.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Structural &amp; Rhetorical Devices</div>
+          <div class="technique purple"><b>Anaphora</b> Repetition of a word/phrase at the start of successive clauses. <em>'We shall fight… we shall never surrender.'</em></div>
+          <div class="technique purple"><b>Tricolon</b> Three parallel phrases in a row for rhythm and emphasis.</div>
+          <div class="technique purple"><b>Chiasmus</b> Reversed grammatical structures. <em>'Ask not what your country can do for you…'</em></div>
+          <div class="technique purple"><b>Zeugma</b> One verb governing two very different objects. <em>'He lost his keys and his temper.'</em></div>
+          <div class="technique purple"><b>Polysyndeton</b> Extra conjunctions for accumulating effect. <em>'She ran and jumped and laughed.'</em></div>
+          <div class="technique purple"><b>Asyndeton</b> Omitting conjunctions for speed. <em>'She ran, jumped, laughed.'</em></div>
+          <div class="technique purple"><b>Bathos</b> Abrupt drop from serious to trivial, for comic/ironic effect.</div>
+          <div class="technique purple"><b>Litotes</b> Understatement via double negative. <em>'Not bad at all.'</em></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Narrative Techniques</div>
+          <div class="technique amber"><b>1st person</b> 'I' — intimate; we see through one character's eyes.</div>
+          <div class="technique amber"><b>3rd person limited</b> 'He/she' — one character's perspective, from outside.</div>
+          <div class="technique amber"><b>3rd person omniscient</b> All-knowing narrator; can enter any character's mind.</div>
+          <div class="technique amber"><b>Unreliable narrator</b> A narrator whose account we cannot fully trust.</div>
+          <div class="technique amber"><b>Stream of consciousness</b> Unfiltered, fragmented flow of a character's thoughts.</div>
+          <div class="technique amber"><b>Dramatic irony</b> When the reader knows something a character doesn't.</div>
+          <div class="technique amber"><b>Prolepsis</b> Hinting at future events; foreshadowing.</div>
+          <div class="technique amber"><b>Cliffhanger</b> Ending a section at an unresolved moment of tension.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Poetry Terms</div>
+          <div class="technique blue"><b>Iambic pentameter</b> 10 syllables per line: da-DUM da-DUM da-DUM da-DUM da-DUM. Used by Shakespeare.</div>
+          <div class="technique blue"><b>Enjambment</b> A sentence running over a line break without a pause.</div>
+          <div class="technique blue"><b>Caesura</b> A strong pause in the middle of a line.</div>
+          <div class="technique blue"><b>Rhyme scheme</b> Pattern of end-rhymes. ABAB, AABB, etc.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Grammar Techniques</div>
+          <div class="technique"><b>Subordinate clause</b> A clause that depends on a main clause to make sense. Introduced by: because, although, when, if, since…</div>
+          <div class="technique"><b>Parenthetical clause</b> Extra information inserted into a sentence, marked by brackets, dashes, or commas.</div>
+          <div class="technique"><b>Passive voice</b> The subject receives the action. <em>'The book was read by Maya'</em> (vs. active: 'Maya read the book').</div>
+          <div class="technique"><b>Subjunctive mood</b> Expresses wishes, hypotheticals, demands. <em>'If I were you…'</em> <em>'I suggest that he be told.'</em></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Analytical Writing (PEA)</div>
+          <div class="technique green"><b>Point</b> State your argument clearly in one sentence.</div>
+          <div class="technique green"><b>Evidence</b> Quote from the text. Use inverted commas.</div>
+          <div class="technique green"><b>Analysis</b> Explain the technique used and its effect on the reader. Use: <em>'This suggests…'</em> / <em>'The writer uses X to convey…'</em> / <em>'The effect of this is…'</em></div>
+          <div style="margin-top:10px;padding:8px 10px;background:var(--green-light);border-radius:6px;font-size:0.82rem">
+            <b>Useful analysis phrases:</b><br>
+            'The word "…" suggests…'<br>
+            'The use of [technique] creates a sense of…'<br>
+            'This implies that…'<br>
+            'The reader is made to feel…'<br>
+            'The contrast between… and… highlights…'
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-lbl eng">Key Vocabulary Distinctions</div>
+    <div class="cols">
+      <div>
+        <div class="card">
+          <div class="card-title">Easily Confused Terms</div>
+          <div class="technique"><b>Explicit</b> Stated directly in the text (you can quote it). <b>Implicit</b> Implied — you must infer it.</div>
+          <div class="technique"><b>Theme</b> The abstract idea (loyalty, loss). <b>Subject</b> What the text is literally about (a war, a family).</div>
+          <div class="technique"><b>Sympathy</b> Feeling sorry for a character from outside. <b>Empathy</b> Feeling what the character feels from inside.</div>
+          <div class="technique"><b>Tone</b> The writer's attitude (ironic, solemn). <b>Mood</b> The atmosphere created for the reader (tense, melancholy).</div>
+          <div class="technique"><b>Denotation</b> The literal meaning of a word. <b>Connotation</b> The associations and feelings it carries.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">5 Features of Excellent 11+ Writing</div>
+          <div class="technique green"><b>1. Varied sentences</b> Short for impact. Complex for depth. Contrast is powerful.</div>
+          <div class="technique green"><b>2. Precise vocabulary</b> 'Crept' beats 'walked quietly'. Choose the exact word.</div>
+          <div class="technique green"><b>3. Show, don't tell</b> Concrete details imply emotions rather than stating them.</div>
+          <div class="technique green"><b>4. Original imagery</b> Fresh metaphors. Avoid: 'as quiet as a mouse', 'heart of gold'.</div>
+          <div class="technique green"><b>5. Strong opening &amp; closing</b> First and last sentences carry disproportionate weight — make them count.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function setTab(tab){
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.getElementById('mathContent').style.display = (tab==='eng') ? 'none' : 'block';
+  document.getElementById('engContent').style.display = (tab==='math') ? 'none' : 'block';
+}
+</script>
+</body>
+</html>

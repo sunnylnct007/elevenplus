@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vocabulary Quiz — 11+ Prep</title>
+  <style>
+    :root{
+      --blue:#1c4c96;--blue-light:#e8eef8;
+      --green:#1a7a4a;--green-light:#e6f4ed;
+      --purple:#6d28d9;--purple-light:#ede9fe;
+      --amber:#b45309;--amber-light:#fef3c7;
+      --text:#1a1a2e;--muted:#64748b;
+      --border:#e2e8f0;--bg:#f8fafc;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    .topbar{background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .topbar a{color:#fff;text-decoration:none;font-weight:bold}
+    .topbar span{font-size:0.85rem;opacity:0.85}
+    .hero{background:linear-gradient(135deg,var(--purple) 0%,#4c1d95 100%);color:#fff;padding:28px 20px 24px;text-align:center}
+    .hero h1{font-size:1.6rem;font-weight:700;margin-bottom:6px}
+    .hero p{opacity:0.88;font-size:0.95rem}
+    .main{max-width:640px;margin:0 auto;padding:24px 16px 60px}
+
+    /* stats bar */
+    .stats-bar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+    .stat-pill{background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px 18px;text-align:center;min-width:90px}
+    .stat-pill .num{font-size:1.4rem;font-weight:700;color:var(--purple)}
+    .stat-pill .lbl{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
+
+    /* progress */
+    .progress-wrap{background:var(--border);border-radius:99px;height:8px;margin-bottom:24px;overflow:hidden}
+    .progress-bar{background:linear-gradient(90deg,var(--purple),#7c3aed);height:100%;border-radius:99px;transition:width .4s}
+
+    /* card */
+    .card-area{perspective:1000px;min-height:280px;cursor:pointer;margin-bottom:20px}
+    .card{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform 0.55s cubic-bezier(.4,0,.2,1)}
+    .card.flipped{transform:rotateY(180deg)}
+    .card-face{position:absolute;width:100%;min-height:260px;backface-visibility:hidden;border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;justify-content:center}
+    .card-front{background:#fff;border:2px solid var(--purple-light);box-shadow:0 4px 20px rgba(109,40,217,.1)}
+    .card-back{background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);border:2px solid var(--purple);transform:rotateY(180deg);box-shadow:0 4px 20px rgba(109,40,217,.15)}
+    .card-hint{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+    .card-word{font-size:2.2rem;font-weight:700;color:var(--purple);margin-bottom:8px;letter-spacing:-0.5px}
+    .card-day{font-size:0.78rem;color:var(--muted);background:var(--purple-light);display:inline-block;padding:2px 10px;border-radius:99px}
+    .card-def{font-size:1.05rem;font-weight:600;color:var(--purple);margin-bottom:10px;line-height:1.45}
+    .card-eg{font-size:0.88rem;color:#4c1d95;font-style:italic;line-height:1.5;border-left:3px solid var(--purple);padding-left:12px}
+    .tap-hint{font-size:0.78rem;color:var(--muted);text-align:center;margin-top:-8px;margin-bottom:16px}
+
+    /* controls */
+    .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+    .btn{border:none;border-radius:10px;padding:10px 22px;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all .15s}
+    .btn-wrong{background:#fee2e2;color:#dc2626}
+    .btn-wrong:hover{background:#fca5a5}
+    .btn-right{background:var(--green-light);color:var(--green)}
+    .btn-right:hover{background:#bbf7d0}
+    .btn-skip{background:#f1f5f9;color:var(--muted)}
+    .btn-skip:hover{background:var(--border)}
+    .btn-primary{background:var(--purple);color:#fff}
+    .btn-primary:hover{background:#5b21b6}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-blue:hover{background:#163d7a}
+
+    /* mode bar */
+    .mode-bar{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+    .mode-btn{border:2px solid var(--border);background:#fff;border-radius:8px;padding:6px 16px;font-size:0.85rem;cursor:pointer;color:var(--muted);font-weight:600}
+    .mode-btn.active{border-color:var(--purple);color:var(--purple);background:var(--purple-light)}
+
+    /* result screen */
+    .result-screen{display:none;text-align:center;padding:32px 20px}
+    .result-screen.show{display:block}
+    .result-score{font-size:3.5rem;font-weight:700;color:var(--purple);margin-bottom:8px}
+    .result-msg{font-size:1.1rem;color:var(--muted);margin-bottom:24px}
+    .missed-list{text-align:left;background:#fff;border-radius:12px;padding:16px 20px;margin-bottom:24px}
+    .missed-list h3{font-size:0.85rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
+    .missed-item{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--border);font-size:0.9rem}
+    .missed-item:last-child{border-bottom:none}
+    .missed-word{font-weight:700;color:var(--purple);min-width:130px}
+
+    /* quiz area toggle */
+    .quiz-area{display:block}
+    .hidden{display:none}
+
+    /* keyboard hint */
+    .kbd-hint{font-size:0.75rem;color:var(--muted);text-align:center;margin-top:8px}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html">&#8592; All Days</a>
+  <span>Vocabulary Quiz — 28 Words</span>
+</div>
+
+<div class="hero">
+  <h1>&#x1F4AC; Vocabulary Quiz</h1>
+  <p>All 28 Words of the Day. Flip each card to reveal the definition.</p>
+</div>
+
+<div class="main">
+
+  <div class="mode-bar">
+    <button class="mode-btn active" id="modeAll" onclick="setMode('all')">All Words (28)</button>
+    <button class="mode-btn" id="modeMissed" onclick="setMode('missed')">Missed Only</button>
+    <button class="mode-btn" id="modeShuffle" onclick="shuffle()">&#x1F500; Shuffle</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-pill"><div class="num" id="statTotal">28</div><div class="lbl">Total</div></div>
+    <div class="stat-pill"><div class="num" id="statRight" style="color:var(--green)">0</div><div class="lbl">Got it</div></div>
+    <div class="stat-pill"><div class="num" id="statWrong" style="color:#dc2626">0</div><div class="lbl">Review</div></div>
+    <div class="stat-pill"><div class="num" id="statLeft">28</div><div class="lbl">Left</div></div>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+
+  <div class="quiz-area" id="quizArea">
+    <div class="card-area" id="cardArea" onclick="flipCard()">
+      <div class="card" id="card">
+        <div class="card-face card-front">
+          <div class="card-hint">What does this word mean?</div>
+          <div class="card-word" id="frontWord">—</div>
+          <div style="margin-top:10px"><span class="card-day" id="frontDay">Day —</span></div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-hint">Definition</div>
+          <div class="card-def" id="backDef">—</div>
+          <div class="card-eg" id="backEg">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="tap-hint" id="tapHint">Tap the card to reveal the definition</div>
+
+    <div class="controls" id="controls" style="display:none">
+      <button class="btn btn-wrong" onclick="markCard(false)">&#x2717; Still learning</button>
+      <button class="btn btn-right" onclick="markCard(true)">&#x2713; Got it!</button>
+    </div>
+    <div class="controls">
+      <button class="btn btn-skip" onclick="skipCard()">Skip &#8594;</button>
+    </div>
+    <div class="kbd-hint">Keyboard: ← Still learning &nbsp;·&nbsp; → Got it &nbsp;·&nbsp; Space = flip</div>
+  </div>
+
+  <div class="result-screen" id="resultScreen">
+    <div class="result-score" id="resultScore">0/28</div>
+    <div class="result-msg" id="resultMsg">—</div>
+    <div class="missed-list" id="missedList" style="display:none">
+      <h3>&#x26A0; Words to review again</h3>
+      <div id="missedItems"></div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-primary" onclick="retryMissed()">Retry missed words</button>
+      <button class="btn btn-blue" onclick="restartAll()">Start over</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var WORDS = [
+  { day:1,  word:'sentient',       def:'Able to feel, perceive and experience things consciously; having awareness and sensation.',                                         eg:'"The passage asks whether trees, through chemical signals, might be sentient in some minimal sense."' },
+  { day:2,  word:'tenacious',      def:'Not giving up; holding firmly to a belief, purpose, or position despite difficulty.',                                              eg:'"Her tenacious refusal to quit, even after three failures, was what eventually made her great."' },
+  { day:3,  word:'foreboding',     def:'A feeling of anxiety or worry that something bad will happen; a dark premonition.',                                                eg:'"A sense of foreboding settled over the village as the storm clouds gathered on the horizon."' },
+  { day:4,  word:'clamour',        def:'A loud, confused noise; or to demand something loudly and insistently.',                                                           eg:'"The clamour of the market — a hundred voices, a hundred languages — washed over her like a wave."' },
+  { day:5,  word:'indomitable',    def:'Impossible to subdue or defeat; refusing to be conquered by difficulty.',                                                          eg:'"Her indomitable spirit carried her through three years of training that would have broken most people."' },
+  { day:6,  word:'uncanny',        def:'Strange or mysterious in a way that is unsettling; beyond what is normal or expected.',                                            eg:'"There was an uncanny resemblance between the twins — not just in appearance, but in the way they moved."' },
+  { day:7,  word:'poignant',       def:'Evoking a keen sense of sadness, regret, or tenderness; deeply moving.',                                                          eg:'"The final scene, where he returned to find everything changed, was quietly poignant."' },
+  { day:8,  word:'poignant',       def:'Evoking a keen sense of sadness, regret, or tenderness; deeply moving.',                                                          eg:'"The last letter, written in fading ink, was unexpectedly poignant."' },
+  { day:9,  word:'ephemeral',      def:'Lasting for only a very short time; fleeting and transient.',                                                                     eg:'"The cherry blossom is beautiful precisely because it is ephemeral — gone in a week."' },
+  { day:10, word:'audacious',      def:'Showing a willingness to take bold or daring risks; daringly original.',                                                          eg:'"It was an audacious plan — most people would have dismissed it as impossible."' },
+  { day:11, word:'meticulous',     def:'Showing great attention to detail and care; very precise and thorough.',                                                          eg:'"Mr Okafor\'s meticulous care of each plant — touching a leaf here, inspecting the soil there — set him apart."' },
+  { day:12, word:'stoic',          def:'Enduring pain, hardship or difficulty without complaint; calm and unemotional.',                                                   eg:'"She faced each setback with a stoic composure that others mistook for indifference."' },
+  { day:13, word:'resonant',       def:'Having a deep, rich sound that echoes; evoking strong feelings or memories; meaningful and lasting.',                             eg:'"The final note hung in the air, resonant and full, long after the bow left the string."' },
+  { day:14, word:'indefatigable',  def:'Never tiring; showing sustained energy and persistence despite difficulty; untiring.',                                             eg:'"The arctic tern\'s indefatigable migration — 70,000 km without rest — remains one of nature\'s wonders."' },
+  { day:15, word:'cartography',    def:'The science or practice of drawing maps; the art of representing geographic information.',                                         eg:'"Cartography is never neutral — every map makes choices about what to show and what to leave out."' },
+  { day:16, word:'resilient',      def:'Able to recover quickly from difficulty, trauma or setback; tough and flexible.',                                                  eg:'"The leaf clung to the branch through October — a small, resilient defiance of the season."' },
+  { day:17, word:'fortitude',      def:'Courage in enduring pain, adversity or difficult situations; mental and emotional strength.',                                      eg:'"It took great fortitude to keep practising after the disappointment of yet another defeat."' },
+  { day:18, word:'liminal',        def:'Relating to a threshold or transitional state; occupying a position at a boundary between two states.',                           eg:'"The night market existed in a liminal space — neither fully the day\'s world nor the night\'s."' },
+  { day:19, word:'empirical',      def:'Based on observation, experiment and evidence rather than theory or assumption.',                                                  eg:'"The scientist\'s empirical approach meant she trusted data over intuition."' },
+  { day:20, word:'tacit',          def:'Understood or implied without being directly stated; silent but real.',                                                           eg:'"There was a tacit agreement among the children not to speak about what they had seen."' },
+  { day:21, word:'sagacious',      def:'Having or showing good judgement and wisdom; shrewd and discerning.',                                                             eg:'"The old woman\'s advice was sagacious: simple on the surface, profound underneath."' },
+  { day:22, word:'prodigy',        def:'A person, especially a child, with exceptional natural ability or talent.',                                                       eg:'"At twelve she was already a prodigy — not because she practised less, but because she heard what others missed."' },
+  { day:23, word:'solace',         def:'Comfort received or given in sorrow or distress; a source of relief or consolation.',                                             eg:'"The library offered a kind of solace — a place where every time she walked in, she became slightly more herself."' },
+  { day:24, word:'contemplative',  def:'Expressing or involving long, thoughtful and quiet consideration; given to deep reflection.',                                     eg:'"The passage has a contemplative tone — unhurried, turning each idea over as if examining a stone."' },
+  { day:25, word:'legacy',         def:'Something handed down from an ancestor or predecessor; a lasting influence or gift to the future.',                                eg:'"She planted the apple tree knowing she would never eat its fruit. That was legacy."' },
+  { day:26, word:'arboreal',       def:'Relating to trees; living in or among trees.',                                                                                    eg:'"The wood wide web is an arboreal communication system — invisible beneath the forest floor."' },
+  { day:27, word:'assiduous',      def:'Showing great care, attention and dedication; working with constant, persistent effort.',                                          eg:'"Mia\'s assiduous habit of sending a postcard each week was, in its quiet way, a form of love."' },
+  { day:28, word:'indelible',      def:'Making marks that cannot be removed or forgotten; leaving a permanent impression.',                                                eg:'"The act of writing her name had left an indelible mark — not on the paper, but on who she became."' },
+];
+
+// Remove duplicates keeping first occurrence per word
+var seen = {};
+var DECK_ALL = WORDS.filter(function(w){
+  var key = w.word.toLowerCase();
+  if(seen[key]) return false;
+  seen[key] = true;
+  return true;
+});
+
+var deck = DECK_ALL.slice();
+var current = 0;
+var rightCount = 0;
+var wrongCount = 0;
+var missedWords = [];
+var flipped = false;
+var mode = 'all';
+
+function init(){
+  current = 0; rightCount = 0; wrongCount = 0; missedWords = []; flipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('tapHint').style.display = 'block';
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('resultScreen').classList.remove('show');
+  updateStats();
+  showCard();
+}
+
+function setMode(m){
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(function(b){ b.classList.remove('active'); });
+  if(m==='all'){ deck = DECK_ALL.slice(); document.getElementById('modeAll').classList.add('active'); }
+  else if(m==='missed'){ deck = missedWords.slice(); document.getElementById('modeMissed').classList.add('active'); if(!deck.length){ alert('No missed words yet — complete a round first!'); deck = DECK_ALL.slice(); mode='all'; document.getElementById('modeAll').classList.add('active'); } }
+  init();
+}
+
+function shuffle(){
+  deck = deck.slice().sort(function(){ return Math.random()-.5; });
+  current = 0; flipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('tapHint').style.display = 'block';
+  showCard();
+}
+
+function showCard(){
+  if(current >= deck.length){ showResult(); return; }
+  var w = deck[current];
+  document.getElementById('frontWord').textContent = w.word;
+  document.getElementById('frontDay').textContent = 'Day ' + w.day;
+  document.getElementById('backDef').textContent = w.def;
+  document.getElementById('backEg').textContent = w.eg;
+  flipped = false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('controls').style.display = 'none';
+  document.getElementById('tapHint').style.display = 'block';
+  updateStats();
+}
+
+function flipCard(){
+  if(flipped) return;
+  flipped = true;
+  document.getElementById('card').classList.add('flipped');
+  document.getElementById('tapHint').style.display = 'none';
+  document.getElementById('controls').style.display = 'flex';
+}
+
+function markCard(correct){
+  if(!flipped) return;
+  if(correct){ rightCount++; }
+  else{ wrongCount++; if(!missedWords.find(function(x){ return x.word===deck[current].word; })) missedWords.push(deck[current]); }
+  current++;
+  showCard();
+}
+
+function skipCard(){
+  current++;
+  showCard();
+}
+
+function updateStats(){
+  var left = deck.length - current;
+  document.getElementById('statTotal').textContent = deck.length;
+  document.getElementById('statRight').textContent = rightCount;
+  document.getElementById('statWrong').textContent = wrongCount;
+  document.getElementById('statLeft').textContent = left;
+  var pct = deck.length ? Math.round((current / deck.length) * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+function showResult(){
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('resultScreen').classList.add('show');
+  var total = rightCount + wrongCount;
+  document.getElementById('resultScore').textContent = rightCount + '/' + total;
+  var pct = total ? Math.round(rightCount/total*100) : 0;
+  var msgs = ['Keep practising — you\'ll get there!','Good effort — review the missed words and try again.','Well done! A solid score.','Great work! Nearly there.','Outstanding — you know your vocabulary!'];
+  document.getElementById('resultMsg').textContent = pct < 40 ? msgs[0] : pct < 60 ? msgs[1] : pct < 75 ? msgs[2] : pct < 90 ? msgs[3] : msgs[4];
+  var ml = document.getElementById('missedList');
+  var mi = document.getElementById('missedItems');
+  mi.innerHTML = '';
+  if(missedWords.length){
+    ml.style.display = 'block';
+    missedWords.forEach(function(w){
+      var d = document.createElement('div');
+      d.className = 'missed-item';
+      d.innerHTML = '<span class="missed-word">' + w.word + '</span><span style="color:var(--muted);font-size:0.85rem">' + w.def.split(';')[0] + '</span>';
+      mi.appendChild(d);
+    });
+  } else { ml.style.display = 'none'; }
+  updateStats();
+}
+
+function retryMissed(){ setMode('missed'); }
+function restartAll(){ setMode('all'); }
+
+// keyboard
+document.addEventListener('keydown', function(e){
+  if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); if(!flipped) flipCard(); }
+  else if(e.key === 'ArrowRight'){ if(flipped) markCard(true); else skipCard(); }
+  else if(e.key === 'ArrowLeft'){ if(flipped) markCard(false); }
+});
+
+init();
+</script>
+</body>
+</html>
