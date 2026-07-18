@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Paper 2 — 11+ Practice Test</title>
+  <style>
+    :root {
+      --blue: #1c4c96; --blue-light: #e8eef8;
+      --green: #1a7a4a; --green-light: #e6f4ed;
+      --red: #b91c1c; --red-light: #fee2e2;
+      --amber: #b45309; --amber-light: #fef3c7;
+      --text: #1a1a2e; --muted: #64748b;
+      --border: #cbd5e1; --bg: #f8fafc; --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Times New Roman", Times, serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .exam-header { background: var(--card); border-bottom: 3px double #000; padding: 24px 32px 20px; max-width: 860px; margin: 24px auto 0; border-radius: 8px 8px 0 0; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+    .exam-header h1 { font-size: 1.55rem; font-weight: 700; text-align: center; border-bottom: 1.5px solid #000; padding-bottom: 10px; margin-bottom: 14px; }
+    .exam-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; font-size: 0.92rem; }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .instructions { margin-top: 16px; border: 1.5px solid #000; padding: 12px 16px; font-size: 0.88rem; background: #fffde7; }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar { max-width: 860px; margin: 0 auto; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; font-family: -apple-system, sans-serif; font-size: 0.92rem; }
+    .timer-bar #timer { font-size: 1.4rem; font-weight: 700; font-family: monospace; letter-spacing: 2px; }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button { font-family: -apple-system, sans-serif; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 5px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; }
+    .passage-box { background: #fffef5; border: 1.5px solid #d1c96a; border-radius: 8px; padding: 20px 24px; margin-bottom: 24px; font-size: 0.93rem; line-height: 1.9; }
+    .passage-box h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+    .passage-box .byline { font-style: italic; font-size: 0.88rem; color: var(--muted); margin-bottom: 14px; }
+    .passage-box .intro { font-size: 0.85rem; color: #555; margin-bottom: 14px; border-left: 3px solid #d1c96a; padding-left: 10px; }
+    .poem-stanza { margin-bottom: 12px; padding-left: 20px; }
+    .poem-stanza .stanza-label { font-size: 0.78rem; color: #aaa; font-family: monospace; display: block; margin-bottom: 2px; }
+    .poem-line { display: block; }
+    .passage-para { margin-bottom: 10px; }
+    .paper { max-width: 860px; margin: 0 auto 40px; background: var(--card); border: 1.5px solid #aaa; border-top: none; padding: 28px 32px 36px; box-shadow: 0 4px 16px rgba(0,0,0,0.07); border-radius: 0 0 8px 8px; }
+    .section-heading { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 6px; margin: 28px 0 16px; font-family: -apple-system, sans-serif; }
+    .section-heading:first-child { margin-top: 0; }
+    .question { margin-bottom: 22px; padding: 14px 16px 12px; border: 1px solid var(--border); border-radius: 8px; background: #fafcff; }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    /* write-in */
+    .write-area { margin: 10px 0 0 42px; }
+    .write-area textarea { width: 100%; min-height: 80px; font-family: "Times New Roman", Times, serif; font-size: 0.95rem; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; resize: vertical; outline: none; }
+    .write-area textarea:focus { border-color: var(--blue); }
+    .reveal-btn { font-family: -apple-system, sans-serif; background: var(--blue); color: #fff; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; margin-top: 6px; }
+    .reveal-btn:hover { background: #163d7d; }
+    /* MCQ options */
+    .options { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0 42px; }
+    .opt-btn { font-family: -apple-system, sans-serif; padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.88rem; text-align: left; transition: background 0.12s, border-color 0.12s; }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    /* answer box */
+    .answer-box { margin: 10px 0 0 42px; font-family: -apple-system, sans-serif; font-size: 0.88rem; padding: 10px 14px; border-radius: 6px; display: none; line-height: 1.6; }
+    .answer-box.model-ans { background: var(--amber-light); color: #7c4a00; border-left: 3px solid var(--amber); }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .show-link { font-family: -apple-system, sans-serif; font-size: 0.78rem; color: var(--blue); cursor: pointer; margin-left: 42px; display: inline-block; margin-top: 6px; text-decoration: underline; background: none; border: none; padding: 0; }
+    /* results */
+    #results-panel { display: none; max-width: 860px; margin: 0 auto 40px; background: var(--card); border: 2px solid var(--blue); border-radius: 12px; padding: 28px 32px; font-family: -apple-system, sans-serif; box-shadow: 0 4px 20px rgba(28,76,150,0.12); }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar { max-width: 860px; margin: 0 auto 16px; display: flex; justify-content: space-between; font-family: -apple-system, sans-serif; font-size: 0.88rem; }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn { font-family: -apple-system, sans-serif; background: var(--green); color: #fff; border: none; padding: 12px 36px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .submit-btn:hover { background: #155d38; }
+    .section-note { font-family: -apple-system, sans-serif; font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; background: var(--blue-light); padding: 10px 14px; border-radius: 6px; border-left: 3px solid var(--blue); }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="../index.html">← Back to Home</a>
+  <a href="english-paper-01.html">English Paper 1 ←</a>
+</div>
+
+<div class="exam-header">
+  <h1>11+ Practice Test &mdash; English Paper 2</h1>
+  <div class="exam-meta">
+    <p><strong>Time allowed:</strong> 40 minutes</p>
+    <p><strong>Total marks:</strong> 50</p>
+    <p><strong>Paper:</strong> English Paper 2</p>
+    <p><strong>Source:</strong> ElevenPlusMock.org.uk style</p>
+  </div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Read both passages carefully. You may look back at any time.</li>
+      <li>For written questions: type your answer, then click <strong>Show model answer</strong> to check.</li>
+      <li>For word-choice questions (Section 3): click the correct word.</li>
+      <li>Use full sentences when answering, and quote from the text to support your points.</li>
+      <li>Press <strong>Submit Paper</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">40:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 30 attempted</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== SECTION 1: POEM ===== -->
+  <div class="section-heading">Section 1 &mdash; Poetry Comprehension &nbsp;[20 marks]</div>
+
+  <div class="section-note">
+    The poem below is based on a true story about Alexander Selkirk, who was marooned on a deserted island for several years. Read it carefully, then answer Questions 1–10. Each question is worth <strong>2 marks</strong> — 1 for a correct point, 1 for expressing it in a full sentence.
+  </div>
+
+  <div class="passage-box">
+    <h3>The Solitude of Alexander Selkirk</h3>
+    <div class="byline">by William Cowper</div>
+
+    <div class="poem-stanza">
+      <span class="stanza-label">Stanza 1</span>
+      <span class="poem-line">I am monarch of all I survey;</span>
+      <span class="poem-line">My right there is none to dispute;</span>
+      <span class="poem-line">From the centre all round to the sea</span>
+      <span class="poem-line">I am lord of the fowl and the brute.</span>
+      <span class="poem-line">O Solitude! where are the charms</span>
+      <span class="poem-line">That sages have seen in thy face?</span>
+      <span class="poem-line">Better dwell in the midst of alarms,</span>
+      <span class="poem-line">Than reign in this horrible place.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="stanza-label">Stanza 2</span>
+      <span class="poem-line">I am out of humanity's reach;</span>
+      <span class="poem-line">I must finish my journey alone;</span>
+      <span class="poem-line">Never hear the sweet music of speech —</span>
+      <span class="poem-line">I start at the sound of my own;</span>
+      <span class="poem-line">The beasts that roam over the plain</span>
+      <span class="poem-line">My form with indifference see —</span>
+      <span class="poem-line">They are so unacquainted with man,</span>
+      <span class="poem-line">Their tameness is shocking to me.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="stanza-label">Stanza 3</span>
+      <span class="poem-line">Society, Friendship, and Love</span>
+      <span class="poem-line">Divinely bestow'd upon man,</span>
+      <span class="poem-line">Oh had I the wings of a dove</span>
+      <span class="poem-line">How soon would I taste you again!</span>
+      <span class="poem-line">My sorrows I then might assuage</span>
+      <span class="poem-line">In the ways of religion and truth,</span>
+      <span class="poem-line">Might learn from the wisdom of age,</span>
+      <span class="poem-line">And be cheer'd by the sallies of youth.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="stanza-label">Stanza 4</span>
+      <span class="poem-line">Ye winds that have made me your sport,</span>
+      <span class="poem-line">Convey to this desolate shore</span>
+      <span class="poem-line">Some cordial endearing report</span>
+      <span class="poem-line">Of a land I shall visit no more.</span>
+      <span class="poem-line">My friends, do they now and then send</span>
+      <span class="poem-line">A wish or a thought after me?</span>
+      <span class="poem-line">O tell me I yet have a friend,</span>
+      <span class="poem-line">Though a friend I am never to see.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="stanza-label">Stanza 5</span>
+      <span class="poem-line">How fleet is a glance of the mind!</span>
+      <span class="poem-line">Compared with the speed of its flight,</span>
+      <span class="poem-line">The tempest itself lags behind,</span>
+      <span class="poem-line">And the swift-wing&egrave;d arrows of light.</span>
+      <span class="poem-line">When I think of my own native land,</span>
+      <span class="poem-line">In a moment I seem to be there;</span>
+      <span class="poem-line">But, alas! recollection at hand</span>
+      <span class="poem-line">Soon hurries me back to despair.</span>
+    </div>
+
+    <div class="poem-stanza">
+      <span class="stanza-label">Stanza 6</span>
+      <span class="poem-line">But the sea-fowl is gone to her nest,</span>
+      <span class="poem-line">The beast is laid down in his lair;</span>
+      <span class="poem-line">Even here is a season of rest,</span>
+      <span class="poem-line">And I to my cabin repair.</span>
+      <span class="poem-line">There's mercy in every place;</span>
+      <span class="poem-line">And mercy — encouraging thought! —</span>
+      <span class="poem-line">Gives even affliction a grace,</span>
+      <span class="poem-line">And reconciles man to his lot.</span>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">From the first stanza, how do we know that Selkirk is on an island?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q1-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(1)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q1-ans">&#9432; <strong>Model answer:</strong> We know Selkirk is on an island because the poet writes &ldquo;from the centre all round to the sea&rdquo;, suggesting that wherever you stand on the land, the sea surrounds you completely.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">Give one example from the poem that shows Selkirk is the only person on the island.</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q2-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(2)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q2-ans">&#9432; <strong>Model answer:</strong> In stanza 2 the poet writes &ldquo;I am out of humanity's reach&rdquo;, which tells us that Selkirk is completely cut off from all other human beings and is entirely alone on the island.</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">What is meant by &ldquo;I must finish my journey alone&rdquo;?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q3-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(3)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q3-ans">&#9432; <strong>Model answer:</strong> This phrase means that Selkirk believes he will spend the rest of his life on the island without any human company, and that he must face his fate — and even death — without anyone beside him.</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">What effect does Selkirk's own voice have on him?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q4-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(4)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q4-ans">&#9432; <strong>Model answer:</strong> Selkirk's own voice startles him when he hears it, as stated in &ldquo;I start at the sound of my own&rdquo;. This shows how eerie and unnerving the silence on the island is — he has become so unused to human speech that even his own voice surprises him.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">If Selkirk had &ldquo;the wings of a dove&rdquo;, what would he do?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q5-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(5)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q5-ans">&#9432; <strong>Model answer:</strong> If he had wings, Selkirk would fly away to rejoin society, friendship and love as quickly as possible. He longs to experience human companionship again and to find comfort through religion and the company of both old and young people.</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text">In stanza 4, which word means &ldquo;bleak&rdquo; or &ldquo;barren&rdquo;?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q6-ta" placeholder="Write the word and use it in a sentence..." style="min-height:56px;"></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(6)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q6-ans">&#9432; <strong>Model answer:</strong> The word is <strong>desolate</strong> (&ldquo;Convey to this desolate shore&rdquo;). It means that the shore is empty, bare, and utterly lifeless — emphasising how isolated and dreary Selkirk's surroundings are.</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text">What does Selkirk wonder about his friends?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q7-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(7)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q7-ans">&#9432; <strong>Model answer:</strong> Selkirk wonders whether his friends back home ever spare a thought for him, asking &ldquo;My friends, do they now and then send / a wish or a thought after me?&rdquo; He longs to know whether he is still remembered by those he loves.</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text">Why do you think the poet repeats the word &ldquo;friend/s&rdquo; in stanza 4?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q8-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(8)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q8-ans">&#9432; <strong>Model answer:</strong> The poet repeats &ldquo;friend/s&rdquo; to emphasise how desperately Selkirk longs for human companionship. The repetition highlights the cruel irony of his situation: he is crying out for a friend, yet he knows he will never see one. It gives the stanza a sense of sadness and yearning.</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text">What causes Selkirk to &ldquo;despair&rdquo; at the end of stanza 5?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q9-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(9)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q9-ans">&#9432; <strong>Model answer:</strong> When Selkirk thinks of his native land, his mind flies there in an instant and for a moment he feels as if he is home. However, the memory quickly brings him back to his grim reality on the island, and this contrast between his imagination and the truth fills him with despair.</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text">What do you think is the overall tone (feel) of the poem?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q10-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(10)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q10-ans">&#9432; <strong>Model answer:</strong> The overall tone of the poem is one of deep loneliness and longing, mixed with a faint thread of resignation and hope. Selkirk laments his isolation but by the final stanza accepts his situation, finding small comfort in the idea that &ldquo;there's mercy in every place.&rdquo;</div>
+  </div>
+
+  <!-- ===== SECTION 2: PROSE ===== -->
+  <div class="section-heading">Section 2 &mdash; Prose Comprehension &nbsp;[20 marks]</div>
+
+  <div class="section-note">
+    Read the extract below carefully and answer Questions 11–20. Each question is worth <strong>2 marks</strong>. Use evidence from the text in your answers.
+  </div>
+
+  <div class="passage-box">
+    <h3>Birds Every Child Should Know</h3>
+    <div class="byline">by Neltje Blanchan</div>
+
+    <div class="passage-para">If all his lessons were as joyful as learning to know the birds in the fields and woods, there would be no <em>&ldquo;&hellip;whining Schoole-boy with his Satchell / And shining morning face creeping like Snaile / Unwillingly to schoole.&rdquo;</em></div>
+
+    <div class="passage-para">Long before his nine o'clock headache appears, lessons have begun. Nature herself is the teacher who rouses him from his bed with an outburst of song under the window and sets his sleepy brain to wondering whether it was a robin's clear, ringing call that startled him from his dreams, or the chipping sparrow's wiry tremulo, or the gushing little wren's tripping cadenza. Interest in the birds trains the ear quite unconsciously. A keen, intelligent listener is rare, even among grown-ups, but a child who is becoming acquainted with the birds about him hears every sound and puzzles out its meaning with a cleverness that amazes those with ears who hear not. He responds to the first alarm note from the nesting blue birds in the orchard and dashes out of the house to chase away a prowling cat. He knows from afar the distress caws of a company of crows and away he goes to be sure that their persecutor is a hawk. A faint tattoo in the woods sends him climbing up a tall straight tree with the confident expectation of finding a woodpecker's nest within the hole in its side.</div>
+
+    <div class="passage-para">While training his ears, Nature is also training every muscle in his body, sending him on long tramps across the fields in pursuit of a new bird to be identified, making him run and jump fences and wade brooks and climb trees with the zest that produces an appetite like a saw-mill's and deep sleep at the close of a happy day.</div>
+
+    <div class="passage-para">When President Roosevelt was a boy he was far from strong, and his anxious father and mother naturally encouraged every interest that he showed in out-of-door pleasures. Among these, perhaps the keenest that he had was in birds. He knew the haunts of every species within a wide radius of his home and made a large collection of eggs and skins that he presented to the Smithsonian Museum when he could no longer endure the evidences of his &ldquo;youthful indiscretion.&rdquo; But those bird hunts that had kept him happily employed in the open air all day long, helped to make him the strong, manly man he became. No one abhors the killing of birds and the robbing of nests more than he; few men, not specialists, know so much about bird life.</div>
+
+    <div class="passage-para">Nature, the best teacher of us all, trains the child's eyes through study of the birds to quickness and precision, which are the first requisites for all intelligent observation. What does the study of birds do for the imagination, that high power possessed by humans alone, that lifts them upward step by step into new realms of discovery and joy? If the thought of a tiny hummingbird migrating from New England to Central America will not stimulate a child's imagination, then all the tales of fairies and giants and beautiful princesses and wicked witches will not cause his sluggish fancy to roam. Poetry and music, too, would fail to stir it out of the deadly commonplace.</div>
+
+    <div class="passage-para">Interest in bird life exercises the sympathies. The child reflects something of the joy of the oriole whose ecstasy of song from the elm on the lawn tells the whereabouts of a deeply hidden nest. He takes to heart the tragedy of a robin's nest in the apple tree that was washed apart by a storm, and experiences something akin to remorse when he takes a mother bird from the jaws of his pet cat. He listens for the return of the bluebirds and is strangely excited and happy that bleak day in March when they re-appear. It is nature sympathy, the growth of the heart, not nature study, the training of the brain, that does most for us.</div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">Give one example of a simile from the extract and explain why it is effective.</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q11-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(11)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q11-ans">&#9432; <strong>Model answer:</strong> One simile is &ldquo;creeping like Snaile / Unwillingly to schoole&rdquo;, which compares a reluctant schoolboy to a snail. It is effective because it humorously exaggerates the child's slowness and unwillingness to go to school, making the contrast with joyful nature lessons all the stronger.</div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">What does the author mean by saying that &ldquo;lessons begin before nine o'clock&rdquo;?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q12-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(12)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q12-ans">&#9432; <strong>Model answer:</strong> The author means that a child who is interested in birds begins learning naturally long before school starts. As soon as the birds wake him with their songs at dawn, he is already using his ears and brain to identify different species — Nature is the teacher, not the classroom.</div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text">What does &ldquo;unconsciously&rdquo; mean in the phrase &ldquo;trains the ear quite unconsciously&rdquo;?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q13-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(13)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q13-ans">&#9432; <strong>Model answer:</strong> &ldquo;Unconsciously&rdquo; means that the child is not aware that learning is happening. He is not deliberately trying to improve his listening skills — he is simply enjoying the birds — yet his ears are being trained without him realising it.</div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text">Why do you think the author personifies Nature throughout the extract?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q14-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(14)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q14-ans">&#9432; <strong>Model answer:</strong> By giving Nature the qualities of a teacher — she &ldquo;rouses him from his bed&rdquo; and is &ldquo;training every muscle&rdquo; — the author suggests that the natural world is the most effective educator of all. Personification makes Nature seem caring and purposeful, elevating it above any classroom teacher.</div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text">Why did President Roosevelt's parents encourage him to pursue outdoor activities when he was a child?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q15-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(15)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q15-ans">&#9432; <strong>Model answer:</strong> Roosevelt &ldquo;was far from strong&rdquo; as a boy, so his parents were anxious about his health and encouraged any interest in outdoor activities, hoping the fresh air and exercise would make him physically stronger. Bird-watching in particular kept him active all day.</div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text">Give an example of personification from the extract and explain its effect.</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q16-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(16)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q16-ans">&#9432; <strong>Model answer:</strong> &ldquo;Nature herself is the teacher who rouses him from his bed&rdquo; personifies Nature as a schoolteacher who actively wakes the child. This is effective because it makes natural learning seem as intentional and valuable as formal education, whilst also suggesting it is far more enjoyable.</div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text">&ldquo;Many there are who have eyes and see not.&rdquo; What does this mean?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q17-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(17)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q17-ans">&#9432; <strong>Model answer:</strong> This means that although most people have the ability to see, they do not truly observe or notice the world around them. Unlike a child trained by watching birds, most people look but do not pay real attention to what is in front of them.</div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text">According to the author, what do humans possess that no other living thing does?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q18-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(18)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q18-ans">&#9432; <strong>Model answer:</strong> The author states that humans alone possess &ldquo;the imagination, that high power&hellip; that lifts them upward step by step into new realms of discovery and joy.&rdquo; The ability to imagine is presented as uniquely human.</div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text">How does studying birds benefit a child's physical fitness, according to the extract?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q19-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(19)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q19-ans">&#9432; <strong>Model answer:</strong> Following birds forces a child to go on &ldquo;long tramps across the fields&rdquo;, run, jump fences, wade streams and climb trees. This vigorous exercise trains &ldquo;every muscle in his body&rdquo; and gives him a healthy appetite and deep sleep — as shown by Roosevelt, who became physically strong through his outdoor bird-watching.</div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text">What is the main point made in the final paragraph?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q20-ta" placeholder="Write your answer here in full sentences..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(20)">Show model answer</button></div>
+    <div class="answer-box model-ans" id="q20-ans">&#9432; <strong>Model answer:</strong> The final paragraph argues that studying birds develops a child's emotional life — their sympathy and capacity for feeling. The author concludes that &ldquo;nature sympathy, the growth of the heart&rdquo; is more valuable than mere intellectual &ldquo;nature study.&rdquo; It is caring about the natural world, not just knowing facts about it, that truly benefits us.</div>
+  </div>
+
+  <!-- ===== SECTION 3: WORD CHOICE ===== -->
+  <div class="section-heading">Section 3 &mdash; Word Choice &nbsp;[10 marks]</div>
+
+  <div class="section-note">
+    For each sentence below, choose the most appropriate word from the options given. Click the correct word. Each question is worth <strong>1 mark</strong>.
+  </div>
+
+  <!-- Q21 -->
+  <div class="question" id="q21">
+    <div class="q-row"><span class="q-num">21.</span><span class="q-text">The boy waited ___ for his mother to finish talking.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(21,'D',this)">A &nbsp; important</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'D',this)">B &nbsp; impatient</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'D',this)">C &nbsp; patient</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'D',this)">D &nbsp; patiently</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'D',this)">E &nbsp; never</button>
+    </div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealMCQ(21,'D','An adverb (<strong>patiently</strong>) is needed to modify the verb &ldquo;waited&rdquo;.')">Show answer</button>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question" id="q22">
+    <div class="q-row"><span class="q-num">22.</span><span class="q-text">The girl's arm was ___ in two places.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">A &nbsp; fractured</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">B &nbsp; fraction</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">C &nbsp; fracture</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">D &nbsp; broke</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">E &nbsp; breakage</button>
+    </div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealMCQ(22,'A','The past participle adjective <strong>fractured</strong> is needed after the verb &ldquo;was&rdquo;.')">Show answer</button>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question" id="q23">
+    <div class="q-row"><span class="q-num">23.</span><span class="q-text">The ___ was described as luxurious in the brochure.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(23,'D',this)">A &nbsp; accompany</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'D',this)">B &nbsp; accompanying</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'D',this)">C &nbsp; commodore</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'D',this)">D &nbsp; accommodation</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'D',this)">E &nbsp; accompaniment</button>
+    </div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealMCQ(23,'D','<strong>Accommodation</strong> means a place to stay — the correct noun here.')">Show answer</button>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question" id="q24">
+    <div class="q-row"><span class="q-num">24.</span><span class="q-text">The ___ of the soldier was recognised at the ceremony.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(24,'D',this)">A &nbsp; fort</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'D',this)">B &nbsp; cowardly</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'D',this)">C &nbsp; brevity</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'D',this)">D &nbsp; fortitude</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'D',this)">E &nbsp; bravely</button>
+    </div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealMCQ(24,'D','<strong>Fortitude</strong> means courage/bravery — the correct noun for this sentence.')">Show answer</button>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question" id="q25">
+    <div class="q-row"><span class="q-num">25.</span><span class="q-text">The chef's ___ is couscous.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(25,'A',this)">A &nbsp; speciality</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'A',this)">B &nbsp; carriage</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'A',this)">C &nbsp; bill</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'A',this)">D &nbsp; scrumptiously</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'A',this)">E &nbsp; mained</button>
+    </div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealMCQ(25,'A','<strong>Speciality</strong> = a dish someone is particularly known for.')">Show answer</button>
+  </div>
+
+  <!-- Q26 -->
+  <div class="question" id="q26">
+    <div class="q-row"><span class="q-num">26.</span><span class="q-text">The obituary section announced the ___ of Captain Hartley.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(26,'D',this)">A &nbsp; die</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'D',this)">B &nbsp; autobiography</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'D',this)">C &nbsp; biography</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'D',this)">D &nbsp; decease</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'D',this)">E &nbsp; deadly</button>
+    </div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealMCQ(26,'D','<strong>Decease</strong> is a formal noun meaning death — fitting for an obituary.')">Show answer</button>
+  </div>
+
+  <!-- Q27 -->
+  <div class="question" id="q27">
+    <div class="q-row"><span class="q-num">27.</span><span class="q-text">The student's work was of an ___ standard.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">A &nbsp; brilliant</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">B &nbsp; high</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">C &nbsp; exceptional</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">D &nbsp; amazingly</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">E &nbsp; praiseworthy</button>
+    </div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealMCQ(27,'C','&ldquo;an ___ standard&rdquo; needs an adjective beginning with a vowel sound: <strong>exceptional</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question" id="q28">
+    <div class="q-row"><span class="q-num">28.</span><span class="q-text">The father measured his sons Andrew and Mark and concluded that Andrew was ___.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">A &nbsp; tallest</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">B &nbsp; taller</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">C &nbsp; more taller</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">D &nbsp; most tallest</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">E &nbsp; talliest</button>
+    </div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealMCQ(28,'B','Comparing two people needs the comparative form: <strong>taller</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q29 -->
+  <div class="question" id="q29">
+    <div class="q-row"><span class="q-num">29.</span><span class="q-text">The meat was ___ with ants.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">A &nbsp; spoiling</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">B &nbsp; badly</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">C &nbsp; contaminated</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">D &nbsp; ghastliness</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">E &nbsp; edible</button>
+    </div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealMCQ(29,'C','<strong>Contaminated</strong> (adjective) fits grammatically and means tainted/infested.')">Show answer</button>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question" id="q30">
+    <div class="q-row"><span class="q-num">30.</span><span class="q-text">The jury ___ agreed that the prisoner was guilty.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(30,'A',this)">A &nbsp; unanimously</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'A',this)">B &nbsp; laterally</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'A',this)">C &nbsp; judge</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'A',this)">D &nbsp; talked</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'A',this)">E &nbsp; total</button>
+    </div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealMCQ(30,'A','<strong>Unanimously</strong> = all agreed as one — the correct adverb here.')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Paper &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results — English Paper 2</h2>
+  <div class="result-score" id="res-score">— / 30</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div style="margin-top:14px;font-family:-apple-system,sans-serif;font-size:0.88rem;background:#e8eef8;padding:12px 16px;border-radius:8px;color:#1c4c96;">
+    <strong>Note on marking:</strong> Questions 1–20 are open-ended written responses. Your score above counts only the word-choice questions (21–30). For the written sections, compare your answers to the model answers shown and award yourself marks honestly.
+  </div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Word-choice correct (Q21–30)</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Word-choice incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Word-choice score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted);font-family:-apple-system,sans-serif;">
+    Scroll up to review your written answers against the model answers. Sections 1 &amp; 2 are worth 20 marks each — self-mark honestly!
+  </p>
+  <div style="margin-top:18px;font-family:-apple-system,sans-serif;display:flex;gap:16px;">
+    <a href="../index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Home</a>
+    <a href="english-paper-01.html" style="color:var(--blue);font-size:0.9rem;">English Paper 1</a>
+    <a href="maths-paper-01.html" style="color:var(--blue);font-size:0.9rem;">Maths Paper 1</a>
+  </div>
+</div>
+
+<script>
+  var answers = {};
+  var writtenDone = 0;
+  var totalMCQ = 10; // Q21-Q30
+  var totalSecs = 40 * 60;
+  var timerRunning = true;
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    var el = document.getElementById('timer');
+    el.textContent = pad(m) + ':' + pad(s);
+    el.className = rem <= 300 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  function updateLiveScore() {
+    var done = writtenDone + Object.keys(answers).filter(function(k){ return k > 20; }).length;
+    document.getElementById('live-score').textContent = done + ' / 30 attempted';
+  }
+
+  function revealWrite(qNum) {
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.style.display = 'block';
+    if (!answers[qNum]) {
+      answers[qNum] = { submitted: true };
+      writtenDone++;
+      document.getElementById('q' + qNum).classList.add('answered');
+      updateLiveScore();
+    }
+  }
+
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box model-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+    var correct = 0;
+    for (var q in answers) {
+      if (parseInt(q) > 20 && answers[q].correct) correct++;
+    }
+    var wrong = totalMCQ - correct;
+    var pct = Math.round((correct / totalMCQ) * 100);
+    var grade = pct >= 90 ? 'Excellent on word-choice!' :
+                pct >= 70 ? 'Good — check answers you missed.' :
+                pct >= 50 ? 'Developing — review the grammar rules.' :
+                            'Keep practising — revisit the word-choice questions.';
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+    document.getElementById('res-score').textContent = correct + ' / 10 (word-choice)';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
