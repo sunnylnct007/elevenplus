@@ -64,6 +64,17 @@
     .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
     .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
     .show-link { font-family: -apple-system, sans-serif; font-size: 0.78rem; color: var(--blue); cursor: pointer; margin-left: 42px; display: inline-block; margin-top: 6px; text-decoration: underline; background: none; border: none; padding: 0; }
+    /* mark scheme + self-score */
+    .mark-scheme { margin: 8px 0 0 42px; font-family: -apple-system, sans-serif; font-size: 0.85rem; background: var(--blue-light); border-left: 3px solid var(--blue); border-radius: 6px; padding: 10px 14px; color: #1c3f7a; line-height: 1.55; }
+    .mark-scheme strong { color: var(--blue); }
+    .mark-scheme ul { margin: 6px 0 0 18px; padding: 0; }
+    .mark-scheme li { margin: 3px 0; }
+    .self-score { margin: 8px 0 0 42px; font-family: -apple-system, sans-serif; font-size: 0.85rem; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .self-score .ss-label { color: var(--muted); }
+    .ss-btn { font-family: -apple-system, sans-serif; min-width: 34px; padding: 5px 10px; border: 1.5px solid var(--border); border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 700; color: var(--text); transition: background 0.12s, border-color 0.12s, color 0.12s; }
+    .ss-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .ss-btn.selected { background: var(--green); border-color: var(--green); color: #fff; }
+    .ss-done { font-size: 0.82rem; color: var(--green); font-weight: 700; margin-left: 4px; }
     /* results */
     #results-panel { display: none; max-width: 860px; margin: 0 auto 40px; background: var(--card); border: 2px solid var(--blue); border-radius: 12px; padding: 28px 32px; font-family: -apple-system, sans-serif; box-shadow: 0 4px 20px rgba(28,76,150,0.12); }
     #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
@@ -122,7 +133,7 @@
     <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
     <div id="timer">40:00</div>
   </div>
-  <div style="font-size:0.88rem;" id="live-score">0 / 30 attempted</div>
+  <div style="font-size:0.88rem;" id="live-score">0 self-scored (/40) · 0/10 word-choice</div>
   <button onclick="toggleTimer()" id="timer-btn">Pause</button>
 </div>
 
@@ -551,23 +562,31 @@
 <!-- Results panel -->
 <div id="results-panel">
   <h2>Your Results — English Paper 2</h2>
-  <div class="result-score" id="res-score">— / 30</div>
+  <div class="result-score" id="res-score">— / 50</div>
   <div class="result-grade" id="res-grade"></div>
   <div style="margin-top:14px;font-family:-apple-system,sans-serif;font-size:0.88rem;background:#e8eef8;padding:12px 16px;border-radius:8px;color:#1c4c96;">
-    <strong>Note on marking:</strong> Questions 1–20 are open-ended written responses. Your score above counts only the word-choice questions (21–30). For the written sections, compare your answers to the model answers shown and award yourself marks honestly.
+    <strong>Note on marking:</strong> Section 3 (Q21–30) is <strong>auto-scored</strong> out of 10. Sections 1 &amp; 2 (Q1–20) are <strong>self-assessed</strong> using the mark schemes and self-score buttons, out of 40. The combined total is out of 50.
   </div>
   <div class="result-breakdown">
     <div class="rb-item g">
-      <div class="val" id="res-correct">0</div>
-      <div class="lbl">Word-choice correct (Q21–30)</div>
+      <div class="val" id="res-auto">0 / 10</div>
+      <div class="lbl">Section 3 word-choice (auto-scored)</div>
     </div>
-    <div class="rb-item r">
-      <div class="val" id="res-wrong">0</div>
-      <div class="lbl">Word-choice incorrect / unanswered</div>
+    <div class="rb-item">
+      <div class="val" id="res-self">0 / 40</div>
+      <div class="lbl">Sections 1 &amp; 2 written (self-assessed)</div>
+    </div>
+    <div class="rb-item g">
+      <div class="val" id="res-combined">0 / 50</div>
+      <div class="lbl">Combined total</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-selfbreak">S1 0 · S2 0</div>
+      <div class="lbl">Self-score by section (/20 each)</div>
     </div>
     <div class="rb-item">
       <div class="val" id="res-pct">0%</div>
-      <div class="lbl">Word-choice score</div>
+      <div class="lbl">Overall percentage</div>
     </div>
     <div class="rb-item">
       <div class="val" id="res-time">—</div>
@@ -575,7 +594,7 @@
     </div>
   </div>
   <p style="margin-top:20px;font-size:0.88rem;color:var(--muted);font-family:-apple-system,sans-serif;">
-    Scroll up to review your written answers against the model answers. Sections 1 &amp; 2 are worth 20 marks each — self-mark honestly!
+    Scroll up to review your written answers against the model answers and mark schemes. Sections 1 &amp; 2 are worth 20 marks each — use the self-score buttons and mark honestly!
   </p>
   <div style="margin-top:18px;font-family:-apple-system,sans-serif;display:flex;gap:16px;">
     <a href="../index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Home</a>
@@ -589,6 +608,46 @@
   var writtenDone = 0;
   var totalMCQ = 10; // Q21-Q30
   var totalSecs = 40 * 60;
+
+  // ---- Written questions: max marks + mark schemes (Q1-Q20) ----
+  // Every written question is worth 2 marks. Section 1 (Q1-10) = 20, Section 2 (Q11-20) = 20.
+  var written = {
+    1:  { max:2, scheme:['<strong>1 mark:</strong> identifies that the island is surrounded by sea.','<strong>1 mark:</strong> supports it with a reference, e.g. &ldquo;from the centre all round to the sea&rdquo;.'] },
+    2:  { max:2, scheme:['<strong>1 mark:</strong> gives a valid example showing he is completely alone.','<strong>1 mark:</strong> quotes the text, e.g. &ldquo;out of humanity&rsquo;s reach&rdquo;.'] },
+    3:  { max:2, scheme:['<strong>1 mark:</strong> explains he will spend the rest of his life alone.','<strong>1 mark:</strong> notes he must face his fate / death with no companion.'] },
+    4:  { max:2, scheme:['<strong>1 mark:</strong> says his own voice startles/surprises him (&ldquo;I start at the sound of my own&rdquo;).','<strong>1 mark:</strong> explains the effect &ndash; the eerie silence / being unused to speech.'] },
+    5:  { max:2, scheme:['<strong>1 mark:</strong> says he would fly away / return to society.','<strong>1 mark:</strong> refers to his longing for friendship, love or comfort.'] },
+    6:  { max:2, scheme:['<strong>1 mark:</strong> correct word &ndash; <em>desolate</em>.','<strong>1 mark:</strong> uses it in a sentence or explains its meaning (bleak/barren/empty).'] },
+    7:  { max:2, scheme:['<strong>1 mark:</strong> wonders whether his friends still think of him.','<strong>1 mark:</strong> supports with a quote, e.g. &ldquo;a wish or a thought after me&rdquo;.'] },
+    8:  { max:2, scheme:['<strong>1 mark:</strong> identifies that the repetition emphasises his longing / loneliness.','<strong>1 mark:</strong> comments on the effect (irony &ndash; he cries for a friend he&rsquo;ll never see).'] },
+    9:  { max:2, scheme:['<strong>1 mark:</strong> the memory of his native land makes him briefly feel at home.','<strong>1 mark:</strong> explains the contrast with reality is what causes despair.'] },
+    10: { max:2, scheme:['<strong>1 mark:</strong> names a sensible tone (loneliness, longing, sadness).','<strong>1 mark:</strong> supports it with a reference, or notes the resignation/hope at the end.'] },
+    11: { max:2, scheme:['<strong>1 mark:</strong> identifies and quotes a valid simile (e.g. &ldquo;creeping like Snaile&rdquo;).','<strong>1 mark:</strong> explains why it is effective.'] },
+    12: { max:2, scheme:['<strong>1 mark:</strong> learning begins before the school day starts.','<strong>1 mark:</strong> explains Nature teaches him through the birds at dawn.'] },
+    13: { max:2, scheme:['<strong>1 mark:</strong> gives the meaning &ndash; without being aware of it.','<strong>1 mark:</strong> applies it: the child learns while simply enjoying the birds.'] },
+    14: { max:2, scheme:['<strong>1 mark:</strong> identifies Nature is presented as a caring teacher.','<strong>1 mark:</strong> explains the effect &ndash; it elevates natural learning above the classroom.'] },
+    15: { max:2, scheme:['<strong>1 mark:</strong> he &ldquo;was far from strong&rdquo; / weak as a boy.','<strong>1 mark:</strong> his parents hoped outdoor activity would make him stronger.'] },
+    16: { max:2, scheme:['<strong>1 mark:</strong> quotes a valid personification of Nature (e.g. &ldquo;rouses him from his bed&rdquo;).','<strong>1 mark:</strong> explains its effect.'] },
+    17: { max:2, scheme:['<strong>1 mark:</strong> people can see but do not truly notice/observe.','<strong>1 mark:</strong> contrasts with the trained, attentive observer.'] },
+    18: { max:2, scheme:['<strong>1 mark:</strong> identifies imagination.','<strong>1 mark:</strong> supports with the quote &ldquo;that high power possessed by humans alone&rdquo;.'] },
+    19: { max:2, scheme:['<strong>1 mark:</strong> lists physical activity &ndash; long tramps, running, climbing, wading.','<strong>1 mark:</strong> links it to training the muscles / appetite / Roosevelt&rsquo;s strength.'] },
+    20: { max:2, scheme:['<strong>1 mark:</strong> identifies the main point &ndash; birds develop sympathy / the heart.','<strong>1 mark:</strong> notes &ldquo;nature sympathy&rdquo; matters more than &ldquo;nature study&rdquo;.'] }
+  };
+  var awarded = {}; // qNum -> marks self-scored
+
+  // ---- MCQ explanations (Q21-Q30): why the best word fits + why a tempting one is weaker ----
+  var mcqExpl = {
+    21: '<strong>patiently</strong> is an adverb, so it correctly modifies the verb &ldquo;waited&rdquo;. The adjective &ldquo;patient&rdquo; (C) describes a noun, not an action, so it cannot follow &ldquo;waited&rdquo; here.',
+    22: '<strong>fractured</strong> is a past-participle adjective that fits after &ldquo;was&rdquo;. &ldquo;broke&rdquo; (D) is tempting but ungrammatical after &ldquo;was&rdquo; &ndash; it would need to be &ldquo;broken&rdquo;.',
+    23: '<strong>accommodation</strong> is the noun for a place to stay, exactly what a brochure describes. &ldquo;accompaniment&rdquo; (E) sounds similar but means something added alongside &ndash; the wrong meaning.',
+    24: '<strong>fortitude</strong> is a noun meaning courage, which can be &ldquo;recognised at the ceremony&rdquo;. &ldquo;bravely&rdquo; (E) is an adverb and cannot follow &ldquo;The&rdquo;.',
+    25: '<strong>speciality</strong> is the dish a chef is especially known for &ndash; the natural collocation. &ldquo;carriage&rdquo; (B) is unrelated to food.',
+    26: '<strong>decease</strong> is a formal noun for death, matching the serious register of an obituary. &ldquo;biography&rdquo; (C) is a life story, not a death.',
+    27: '<strong>exceptional</strong> is an adjective beginning with a vowel sound, which is why the article &ldquo;an&rdquo; is used. &ldquo;high&rdquo; (B) is tempting but would need &ldquo;a high standard&rdquo;.',
+    28: '<strong>taller</strong> is the comparative form, correct when comparing exactly two people. &ldquo;tallest&rdquo; (A) is the superlative, used only for three or more.',
+    29: '<strong>contaminated</strong> is an adjective meaning tainted/infested and collocates with &ldquo;with ants&rdquo;. &ldquo;spoiling&rdquo; (A) does not fit the &ldquo;___ with&rdquo; structure naturally.',
+    30: '<strong>unanimously</strong> is an adverb meaning &ldquo;all in complete agreement&rdquo;, ideal for a jury verdict. &ldquo;laterally&rdquo; (B) means sideways &ndash; the wrong meaning.'
+  };
   var timerRunning = true;
   var startTime = Date.now();
   var elapsed = 0;
@@ -617,9 +676,16 @@
     }
   }
 
+  function writtenTotal() {
+    var t = 0;
+    for (var q in awarded) { t += awarded[q]; }
+    return t;
+  }
+
   function updateLiveScore() {
-    var done = writtenDone + Object.keys(answers).filter(function(k){ return k > 20; }).length;
-    document.getElementById('live-score').textContent = done + ' / 30 attempted';
+    var mcqDone = Object.keys(answers).filter(function(k){ return k > 20; }).length;
+    document.getElementById('live-score').textContent =
+      writtenTotal() + ' self-scored (/40) · ' + mcqDone + '/10 word-choice';
   }
 
   function revealWrite(qNum) {
@@ -629,8 +695,41 @@
       answers[qNum] = { submitted: true };
       writtenDone++;
       document.getElementById('q' + qNum).classList.add('answered');
-      updateLiveScore();
     }
+    // Inject mark scheme + self-score row once.
+    if (!document.getElementById('q' + qNum + '-scheme')) {
+      var info = written[qNum];
+      var q = document.getElementById('q' + qNum);
+      var ms = document.createElement('div');
+      ms.className = 'mark-scheme';
+      ms.id = 'q' + qNum + '-scheme';
+      ms.innerHTML = '<strong>Mark scheme (' + info.max + ' mark' + (info.max > 1 ? 's' : '') +
+        '):</strong><ul><li>' + info.scheme.join('</li><li>') + '</li></ul>';
+      q.appendChild(ms);
+      var ss = document.createElement('div');
+      ss.className = 'self-score';
+      ss.id = 'q' + qNum + '-selfscore';
+      var html = '<span class="ss-label">How many marks did you earn?</span>';
+      for (var m = 0; m <= info.max; m++) {
+        html += '<button class="ss-btn" id="q' + qNum + '-ss' + m +
+          '" onclick="selfScore(' + qNum + ',' + m + ',' + info.max + ',this)">' + m + '</button>';
+      }
+      html += '<span class="ss-done" id="q' + qNum + '-ssdone"></span>';
+      ss.innerHTML = html;
+      q.appendChild(ss);
+    }
+    updateLiveScore();
+  }
+
+  function selfScore(qNum, marks, maxMarks, btn) {
+    awarded[qNum] = marks;
+    var wrap = document.getElementById('q' + qNum + '-selfscore');
+    wrap.querySelectorAll('.ss-btn').forEach(function(b) { b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    document.getElementById('q' + qNum + '-ssdone').textContent =
+      '✓ ' + marks + ' / ' + maxMarks + ' recorded';
+    document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
   }
 
   function checkMCQ(qNum, correct, btn) {
@@ -647,7 +746,10 @@
     answers[qNum] = { correct: isCorrect, submitted: true };
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
-    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    var lead = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.innerHTML = lead + '<div style="margin-top:6px;">&#9432; ' + mcqExpl[qNum] + '</div>';
     box.style.display = 'block';
     if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
     updateLiveScore();
@@ -660,7 +762,7 @@
     btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box model-ans';
-    box.innerHTML = '&#9432; ' + html;
+    box.innerHTML = '&#9432; The best answer is <strong>' + correct + '</strong>. ' + mcqExpl[qNum];
     box.style.display = 'block';
     updateLiveScore();
   }
@@ -673,18 +775,28 @@
     for (var q in answers) {
       if (parseInt(q) > 20 && answers[q].correct) correct++;
     }
-    var wrong = totalMCQ - correct;
-    var pct = Math.round((correct / totalMCQ) * 100);
-    var grade = pct >= 90 ? 'Excellent on word-choice!' :
-                pct >= 70 ? 'Good — check answers you missed.' :
-                pct >= 50 ? 'Developing — review the grammar rules.' :
-                            'Keep practising — revisit the word-choice questions.';
+    // Self-scored written marks.
+    var s1 = 0, s2 = 0;
+    for (var qn in awarded) {
+      var n = parseInt(qn);
+      if (n <= 10) s1 += awarded[qn];
+      else if (n <= 20) s2 += awarded[qn];
+    }
+    var selfTotal = s1 + s2;          // out of 40
+    var combined = correct + selfTotal; // out of 50
+    var pct = Math.round((combined / 50) * 100);
+    var grade = pct >= 80 ? 'Excellent overall!' :
+                pct >= 65 ? 'Good work — review the marks you dropped.' :
+                pct >= 50 ? 'Developing — study the mark schemes and grammar rules.' :
+                            'Keep practising — revisit the passages and mark schemes.';
     var usedSecs = Math.min(elapsed, totalSecs);
     var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
-    document.getElementById('res-score').textContent = correct + ' / 10 (word-choice)';
-    document.getElementById('res-grade').textContent = grade;
-    document.getElementById('res-correct').textContent = correct;
-    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-score').textContent = combined + ' / 50';
+    document.getElementById('res-grade').textContent = grade + ' (Section 3 auto-scored; Sections 1 & 2 self-assessed)';
+    document.getElementById('res-auto').textContent = correct + ' / 10';
+    document.getElementById('res-self').textContent = selfTotal + ' / 40';
+    document.getElementById('res-combined').textContent = combined + ' / 50';
+    document.getElementById('res-selfbreak').textContent = 'S1 ' + s1 + ' · S2 ' + s2;
     document.getElementById('res-pct').textContent = pct + '%';
     document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
     document.getElementById('results-panel').style.display = 'block';

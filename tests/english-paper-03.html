@@ -180,6 +180,13 @@
     .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
     .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
     .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .answer-box .explain {
+      margin-top: 5px;
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
     .show-link {
       font-family: -apple-system, sans-serif;
       font-size: 0.78rem;
@@ -900,11 +907,11 @@
   <!-- Q40 -->
   <div class="question" id="q40">
     <div class="q-row"><span class="q-num">40.</span><span class="q-text">Find the section containing the punctuation error.</span><span class="q-marks">[1]</span></div>
-    <div class="sent-sentence">The lighthouse was built in the Victorian era, and <u>Still stands</u> on the headland to this day.</div>
+    <div class="sent-sentence">The lighthouse was built in the Victorian era and <u>Still stands</u> on the headland to this day.</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(40,'C',this)">A &nbsp; The lighthouse was built</button>
-      <button class="sent-part" onclick="checkSpell(40,'C',this)">B &nbsp; in the Victorian era,</button>
-      <button class="sent-part" onclick="checkSpell(40,'C',this)">C &nbsp; and Still stands on</button>
+      <button class="sent-part" onclick="checkSpell(40,'C',this)">B &nbsp; in the Victorian era and</button>
+      <button class="sent-part" onclick="checkSpell(40,'C',this)">C &nbsp; Still stands on</button>
       <button class="sent-part" onclick="checkSpell(40,'C',this)">D &nbsp; the headland to this day</button>
     </div>
     <div class="answer-box" id="q40-ans"></div>
@@ -1093,6 +1100,63 @@
 
 <script>
   var answers = {};
+
+  // Explanation for every question: justifies the keyed answer against the
+  // passage, and for inference/vocabulary/language items notes why the most
+  // tempting wrong option is wrong.
+  var EX = {
+    1: 'Line 1: &ldquo;her family rented a cottage at the edge of Dunmore Cove.&rdquo;',
+    2: 'Lines 3&ndash;4: &ldquo;restless while her parents slept, Maya followed a gull along the clifftop path.&rdquo;',
+    3: 'The comparison to a whisper &mdash; something very thin and slight &mdash; conveys that the streets were extremely <strong>narrow</strong>. It is not about quiet (A): the image describes width, not sound.',
+    4: 'It uses &ldquo;than&rdquo; to compare the streets to a whisper &mdash; a <strong>simile</strong>. It is not a metaphor (D): a metaphor would state the streets <em>were</em> a whisper, with no comparing word.',
+    5: 'Lines 4&ndash;5: &ldquo;the path ended abruptly at a rusted iron gate.&rdquo;',
+    6: '<em>Blotched</em> means marked with irregular patches or stains &mdash; not evenly spread. So &ldquo;covered evenly&rdquo; (B) is the opposite of what the word means.',
+    7: 'The lighthouse still stands tall and dignified (&ldquo;proud&rdquo;) but the lichen, old mortar and tarnished lantern show it is no longer cared for (&ldquo;neglected&rdquo;). It is not that it was recently repaired (B): the passage shows only decay, no repair.',
+    8: 'Lines 10&ndash;11: &ldquo;She pushed the gate, which swung open with a groan of protest.&rdquo;',
+    9: 'It uses &ldquo;like&rdquo; to compare the voice to gravel &mdash; a <strong>simile</strong>. It is not personification (A): nothing non-human is given human qualities here.',
+    10: 'Lines 14&ndash;16: &ldquo;The old man sitting by the window&hellip; wrapped around a mug of tea.&rdquo;',
+    11: 'Lines 16&ndash;17: &ldquo;keeper of the light for forty-seven years.&rdquo;',
+    12: '<em>Redundant</em> means no longer required because something else has taken over the same role. It does not mean &ldquo;retired and content&rdquo; (E): redundancy is about being made unnecessary, not a feeling.',
+    13: 'Lines 21&ndash;22: &ldquo;In November of 1987, a container vessel named the <em>Calliope</em>&hellip;&rdquo;',
+    14: 'Line 25: &ldquo;rotating it by hand when the mechanism failed.&rdquo;',
+    15: 'Lines 25&ndash;26: &ldquo;The captain told me afterwards that my beam was the only fixed point in a world of chaos.&rdquo;',
+    16: 'A <em>gale</em> is a very strong wind. &ldquo;Force-nine&rdquo; refers to the Beaufort scale, indicating a severe gale. It is not a wave (A) or fog (D): a gale is specifically wind.',
+    17: 'The phrase &ldquo;without being invited&rdquo; suggests she was so captivated by the conversation that she forgot herself and sat down instinctively. It does not show rudeness (A): the passage presents her as absorbed, not ill-mannered.',
+    18: 'The image of pressing something between book pages to preserve it suggests the memories are precious and carefully kept. So it is not that they were forgotten or faded (B/D): they are treasured, not lost.',
+    19: '<em>Peculiar</em> means strange or unusual &mdash; the silence was remarkable precisely because the sea was normally so noisy. It is not &ldquo;peaceful and expected&rdquo; (D): the word stresses how unusual the calm felt.',
+    20: 'Lines 30&ndash;31: &ldquo;crewed by three brothers from this very village.&rdquo;',
+    21: 'Fog cannot literally have weight; this is an exaggeration for effect &mdash; <strong>hyperbole</strong>. It is not a simile (A): there is no &ldquo;like&rdquo; or &ldquo;than&rdquo; comparison.',
+    22: 'Lines 35&ndash;36: &ldquo;as if surprised to be understood&rdquo; &mdash; Arthur was pleased and a little astonished that a young girl genuinely grasped what he was saying. It is not that he found her naive (A): he is impressed, not amused.',
+    23: 'Lines 37&ndash;38: &ldquo;When her mother&rsquo;s voice finally drifted up from the village path below, Maya rose reluctantly.&rdquo;',
+    24: 'The metaphor of the sea carrying stories implies Maya sees each vessel as bringing a new adventure &mdash; she is hungry to hear more from Arthur. It is not about literal ships and goods (B): &ldquo;stories&rdquo; makes the phrase figurative.',
+    25: 'The short, emphatic sentence placed alone gives it great weight. Maya&rsquo;s immediate, unconditional promise shows she has been deeply moved. It is not simply politeness (A): the isolated line signals lasting emotional impact.',
+    26: '<strong>their</strong> should be <strong>there</strong> (an adverb of place, not the possessive pronoun).',
+    27: '<strong>sence</strong> should be <strong>sense</strong>.',
+    28: '<strong>misrable</strong> should be <strong>miserable</strong> (three syllables: mis-er-able).',
+    29: '<strong>promissed</strong> should be <strong>promised</strong> (only one s; the double-s is a common error).',
+    30: '<strong>gratefull</strong> should be <strong>grateful</strong> (only one l).',
+    31: '<strong>visable</strong> should be <strong>visible</strong> (&ndash;ible, not &ndash;able).',
+    32: '<strong>fourty</strong> should be <strong>forty</strong> (no &ldquo;u&rdquo; in forty, unlike &ldquo;four&rdquo;).',
+    33: '<strong>nieghbours</strong> should be <strong>neighbours</strong> (ei, not ie; it follows the &ldquo;eigh&rdquo; pattern).',
+    34: '<strong>renouned</strong> should be <strong>renowned</strong> (remember the silent &ldquo;w&rdquo;: re-known-ed).',
+    35: '<strong>Arthurs</strong> should be <strong>Arthur&rsquo;s</strong> &mdash; a possessive apostrophe is required.',
+    36: 'A comma is needed after the introductory phrase: &ldquo;Standing at the top of the lighthouse<strong>,</strong> Maya could see&hellip;&rdquo;',
+    37: '<strong>Its</strong> should be <strong>It&rsquo;s</strong> &mdash; this is a contraction of &ldquo;it is&rdquo; and requires an apostrophe.',
+    38: 'The direct question requires a question mark, not a full stop: &ldquo;the same sea day after day<strong>?</strong>&rdquo;',
+    39: 'This is a comma splice &mdash; two independent clauses joined with only a comma. A semi-colon or full stop is needed: &ldquo;with a loud groan<strong>;</strong> Maya stepped&hellip;&rdquo;',
+    40: '<strong>Still</strong> should be lower case <strong>still</strong> &mdash; it is not the start of a new sentence and is not a proper noun.',
+    41: '&ldquo;However&rdquo; used as a parenthetical adverb must be enclosed in commas: &ldquo;The storm<strong>,</strong> however, had already driven&hellip;&rdquo;',
+    42: 'The quotation marks are mismatched &mdash; it opens with a single inverted comma ( &lsquo; ) but closes with a double ( &rdquo; ). They should match: either &ldquo;Tell me another story,&rdquo; or &lsquo;Tell me another story,&rsquo;',
+    43: '<strong>keepers</strong> should be <strong>keeper&rsquo;s</strong> &mdash; the log belongs to the keeper, so a possessive apostrophe is needed.',
+    44: '&ldquo;Cut <strong>through</strong> the darkness&rdquo; is the standard collocation &mdash; a beam penetrates or cuts through. &ldquo;Across&rdquo; (A) suggests moving over a surface, not piercing the dark.',
+    45: '<strong>Reverence</strong> means deep respect and awe, which fits describing something powerful as if it were alive. Not &ldquo;anxiety&rdquo; (B): he speaks admiringly, not fearfully.',
+    46: 'The passage shows Maya is deeply moved and returns every day &mdash; <strong>memorable</strong> (worth remembering) best fits. &ldquo;Forgettable&rdquo; (A) is its opposite.',
+    47: '<em>Proudly</em> modifies the verb &ldquo;stood&rdquo; &mdash; it tells us <em>how</em> the lighthouse stood, making it an <strong>adverb</strong>. It is not an adjective (A): the &ndash;ly form modifying a verb marks an adverb.',
+    48: '&ldquo;Maya and her friend&rdquo; is a plural subject, so it takes the plural verb <strong>were</strong>. &ldquo;Was&rdquo; (A) is singular and does not agree.',
+    49: '<em>Tarnished</em> means discoloured and having lost its shine &mdash; closest to <strong>dulled</strong>. &ldquo;Polished&rdquo; (A) is the opposite.',
+    50: '<em>Neglected</em> means left uncared for. The opposite is <strong>cherished</strong> &mdash; lovingly looked after. &ldquo;Forgotten&rdquo; (C) is a synonym, not an antonym.'
+  };
+
   var totalQ = 50;
   var totalSecs = 50 * 60;
   var remaining = totalSecs;
@@ -1142,10 +1206,14 @@
     answers[qNum] = { correct: isCorrect, submitted: true };
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
-    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + explainHTML(qNum);
     box.style.display = 'block';
     if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
     updateLiveScore();
+  }
+
+  function explainHTML(qNum) {
+    return EX[qNum] ? '<div class="explain">' + EX[qNum] + '</div>' : '';
   }
 
   function checkSpell(qNum, correct, btn) {
@@ -1162,7 +1230,7 @@
     answers[qNum] = { correct: isCorrect, submitted: true };
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
-    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + explainHTML(qNum);
     box.style.display = 'block';
     if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
     updateLiveScore();
@@ -1175,7 +1243,7 @@
     btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box reveal-ans';
-    box.innerHTML = '&#9432; ' + html;
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.' + explainHTML(qNum);
     box.style.display = 'block';
     updateLiveScore();
   }
@@ -1187,7 +1255,7 @@
     btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box reveal-ans';
-    box.innerHTML = '&#9432; ' + html;
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.' + explainHTML(qNum);
     box.style.display = 'block';
     updateLiveScore();
   }

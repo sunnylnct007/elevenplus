@@ -184,6 +184,7 @@
     .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
     .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
     .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .answer-box .explain { display: block; margin-top: 5px; color: var(--muted); font-weight: 400; font-style: normal; font-size: 0.85rem; line-height: 1.5; }
     .show-link {
       font-family: -apple-system, sans-serif;
       font-size: 0.78rem;
@@ -759,9 +760,9 @@
     <div class="q-row"><span class="q-num">29.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">The local county's superior players dominated the tennis <u>tornament</u>.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(29,'C',this)">A &nbsp; county's superior</button>
-      <button class="sent-part" onclick="checkSpell(29,'C',this)">B &nbsp; players dominated</button>
-      <button class="sent-part" onclick="checkSpell(29,'C',this)">C &nbsp; tennis tornament</button>
+      <button class="sent-part" onclick="checkSpell(29,'C',this)">A &nbsp; The local county's</button>
+      <button class="sent-part" onclick="checkSpell(29,'C',this)">B &nbsp; superior players dominated</button>
+      <button class="sent-part" onclick="checkSpell(29,'C',this)">C &nbsp; the tennis tornament</button>
       <button class="sent-part" onclick="checkSpell(29,'C',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q29-ans"></div>
@@ -773,9 +774,9 @@
     <div class="q-row"><span class="q-num">30.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">I <u>recieved</u> an elaborate invitation to an exclusive party next week.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(30,'A',this)">A &nbsp; I recieved an</button>
-      <button class="sent-part" onclick="checkSpell(30,'A',this)">B &nbsp; elaborate invitation</button>
-      <button class="sent-part" onclick="checkSpell(30,'A',this)">C &nbsp; exclusive party</button>
+      <button class="sent-part" onclick="checkSpell(30,'A',this)">A &nbsp; I recieved an elaborate</button>
+      <button class="sent-part" onclick="checkSpell(30,'A',this)">B &nbsp; invitation to an exclusive</button>
+      <button class="sent-part" onclick="checkSpell(30,'A',this)">C &nbsp; party next week</button>
       <button class="sent-part" onclick="checkSpell(30,'A',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q30-ans"></div>
@@ -787,7 +788,7 @@
     <div class="q-row"><span class="q-num">31.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">The telephone company <u>persued</u> the customers that did not pay.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(31,'B',this)">A &nbsp; telephone company</button>
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">A &nbsp; The telephone company</button>
       <button class="sent-part" onclick="checkSpell(31,'B',this)">B &nbsp; persued the customers</button>
       <button class="sent-part" onclick="checkSpell(31,'B',this)">C &nbsp; that did not pay</button>
       <button class="sent-part" onclick="checkSpell(31,'B',this)">N &nbsp; No mistake</button>
@@ -802,7 +803,7 @@
     <div class="sent-sentence">Oli asked his mum for <u>permision</u> to attend the charity concert.</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(32,'B',this)">A &nbsp; Oli asked his mum</button>
-      <button class="sent-part" onclick="checkSpell(32,'B',this)">B &nbsp; for permision to</button>
+      <button class="sent-part" onclick="checkSpell(32,'B',this)">B &nbsp; for permision to attend</button>
       <button class="sent-part" onclick="checkSpell(32,'B',this)">C &nbsp; the charity concert</button>
       <button class="sent-part" onclick="checkSpell(32,'B',this)">N &nbsp; No mistake</button>
     </div>
@@ -815,9 +816,9 @@
     <div class="q-row"><span class="q-num">33.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">Yulia regretted postponing her annual expedition to Norway.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(33,'N',this)">A &nbsp; regretted postponing</button>
-      <button class="sent-part" onclick="checkSpell(33,'N',this)">B &nbsp; her annual</button>
-      <button class="sent-part" onclick="checkSpell(33,'N',this)">C &nbsp; expedition to Norway</button>
+      <button class="sent-part" onclick="checkSpell(33,'N',this)">A &nbsp; Yulia regretted postponing</button>
+      <button class="sent-part" onclick="checkSpell(33,'N',this)">B &nbsp; her annual expedition</button>
+      <button class="sent-part" onclick="checkSpell(33,'N',this)">C &nbsp; to Norway</button>
       <button class="sent-part" onclick="checkSpell(33,'N',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q33-ans"></div>
@@ -829,8 +830,8 @@
     <div class="q-row"><span class="q-num">34.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">Attendance at the secret meeting was <u>compulsery</u> and critical.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(34,'B',this)">A &nbsp; Attendance at</button>
-      <button class="sent-part" onclick="checkSpell(34,'B',this)">B &nbsp; was compulsery and</button>
+      <button class="sent-part" onclick="checkSpell(34,'B',this)">A &nbsp; Attendance at the secret</button>
+      <button class="sent-part" onclick="checkSpell(34,'B',this)">B &nbsp; meeting was compulsery and</button>
       <button class="sent-part" onclick="checkSpell(34,'B',this)">C &nbsp; critical</button>
       <button class="sent-part" onclick="checkSpell(34,'B',this)">N &nbsp; No mistake</button>
     </div>
@@ -843,8 +844,8 @@
     <div class="q-row"><span class="q-num">35.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">Ezra's adorable new puppy was obedient but also enthusiastic and <u>playfull</u>.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(35,'C',this)">A &nbsp; adorable new puppy</button>
-      <button class="sent-part" onclick="checkSpell(35,'C',this)">B &nbsp; obedient but also</button>
+      <button class="sent-part" onclick="checkSpell(35,'C',this)">A &nbsp; Ezra's adorable new puppy</button>
+      <button class="sent-part" onclick="checkSpell(35,'C',this)">B &nbsp; was obedient but also</button>
       <button class="sent-part" onclick="checkSpell(35,'C',this)">C &nbsp; enthusiastic and playfull</button>
       <button class="sent-part" onclick="checkSpell(35,'C',this)">N &nbsp; No mistake</button>
     </div>
@@ -857,8 +858,8 @@
     <div class="q-row"><span class="q-num">36.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">Sam enjoyed <u>climing</u> mountains and spending time in the countryside.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(36,'A',this)">A &nbsp; enjoyed climing</button>
-      <button class="sent-part" onclick="checkSpell(36,'A',this)">B &nbsp; mountains and</button>
+      <button class="sent-part" onclick="checkSpell(36,'A',this)">A &nbsp; Sam enjoyed climing</button>
+      <button class="sent-part" onclick="checkSpell(36,'A',this)">B &nbsp; mountains and spending</button>
       <button class="sent-part" onclick="checkSpell(36,'A',this)">C &nbsp; time in the countryside</button>
       <button class="sent-part" onclick="checkSpell(36,'A',this)">N &nbsp; No mistake</button>
     </div>
@@ -890,8 +891,8 @@
     <div class="sent-sentence">Mention the word hippo and you will probably think of a cute but robust animal</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(38,'C',this)">A &nbsp; Mention the word hippo</button>
-      <button class="sent-part" onclick="checkSpell(38,'C',this)">B &nbsp; you will probably</button>
-      <button class="sent-part" onclick="checkSpell(38,'C',this)">C &nbsp; robust animal [missing full stop]</button>
+      <button class="sent-part" onclick="checkSpell(38,'C',this)">B &nbsp; and you will probably think</button>
+      <button class="sent-part" onclick="checkSpell(38,'C',this)">C &nbsp; of a cute but robust animal [missing full stop]</button>
       <button class="sent-part" onclick="checkSpell(38,'C',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q38-ans"></div>
@@ -904,8 +905,8 @@
     <div class="sent-sentence">But how accurate is this. Hippos look like they have tough skin when, in fact, their</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(39,'A',this)">A &nbsp; But how accurate is this.</button>
-      <button class="sent-part" onclick="checkSpell(39,'A',this)">B &nbsp; tough skin when, in fact,</button>
-      <button class="sent-part" onclick="checkSpell(39,'A',this)">C &nbsp; their</button>
+      <button class="sent-part" onclick="checkSpell(39,'A',this)">B &nbsp; Hippos look like they have tough skin</button>
+      <button class="sent-part" onclick="checkSpell(39,'A',this)">C &nbsp; when, in fact, their</button>
       <button class="sent-part" onclick="checkSpell(39,'A',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q39-ans"></div>
@@ -918,8 +919,8 @@
     <div class="sent-sentence">skin is highly sensitive and susceptible to burn in the sun. Hippo sweat even has special</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(40,'N',this)">A &nbsp; skin is highly sensitive</button>
-      <button class="sent-part" onclick="checkSpell(40,'N',this)">B &nbsp; burn in the sun.</button>
-      <button class="sent-part" onclick="checkSpell(40,'N',this)">C &nbsp; Hippo sweat even has</button>
+      <button class="sent-part" onclick="checkSpell(40,'N',this)">B &nbsp; and susceptible to burn in the sun.</button>
+      <button class="sent-part" onclick="checkSpell(40,'N',this)">C &nbsp; Hippo sweat even has special</button>
       <button class="sent-part" onclick="checkSpell(40,'N',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q40-ans"></div>
@@ -931,13 +932,13 @@
     <div class="q-row"><span class="q-num">41.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">properties to protect the skin from the suns harmful rays. The same fluid, red in</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(41,'A',this)">A &nbsp; from the suns harmful</button>
-      <button class="sent-part" onclick="checkSpell(41,'A',this)">B &nbsp; rays. The same fluid,</button>
-      <button class="sent-part" onclick="checkSpell(41,'A',this)">C &nbsp; red in</button>
-      <button class="sent-part" onclick="checkSpell(41,'A',this)">N &nbsp; No mistake</button>
+      <button class="sent-part" onclick="checkSpell(41,'B',this)">A &nbsp; properties to protect the skin</button>
+      <button class="sent-part" onclick="checkSpell(41,'B',this)">B &nbsp; from the suns harmful rays.</button>
+      <button class="sent-part" onclick="checkSpell(41,'B',this)">C &nbsp; The same fluid, red in</button>
+      <button class="sent-part" onclick="checkSpell(41,'B',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q41-ans"></div>
-    <button class="show-link" onclick="revealSpell(41,'A','<strong>suns</strong> should be <strong>sun&rsquo;s</strong> (possessive apostrophe needed).')">Show answer</button>
+    <button class="show-link" onclick="revealSpell(41,'B','<strong>suns</strong> should be <strong>sun&rsquo;s</strong> (possessive apostrophe needed).')">Show answer</button>
   </div>
 
   <!-- Q42 -->
@@ -946,7 +947,7 @@
     <div class="sent-sentence">colour also moisturises and serves as an antibiotic. Imagine using hippo sweat</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(42,'A',this)">A &nbsp; colour also moisturises [missing comma after &lsquo;colour&rsquo;]</button>
-      <button class="sent-part" onclick="checkSpell(42,'A',this)">B &nbsp; serves as an antibiotic.</button>
+      <button class="sent-part" onclick="checkSpell(42,'A',this)">B &nbsp; and serves as an antibiotic.</button>
       <button class="sent-part" onclick="checkSpell(42,'A',this)">C &nbsp; Imagine using hippo sweat</button>
       <button class="sent-part" onclick="checkSpell(42,'A',this)">N &nbsp; No mistake</button>
     </div>
@@ -960,7 +961,7 @@
     <div class="sent-sentence">as a cosmetic or a medicine! Its true that hippos are omnivores but don't let yourself</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(43,'B',this)">A &nbsp; as a cosmetic or a medicine!</button>
-      <button class="sent-part" onclick="checkSpell(43,'B',this)">B &nbsp; Its true that hippos</button>
+      <button class="sent-part" onclick="checkSpell(43,'B',this)">B &nbsp; Its true that hippos are omnivores</button>
       <button class="sent-part" onclick="checkSpell(43,'B',this)">C &nbsp; but don't let yourself</button>
       <button class="sent-part" onclick="checkSpell(43,'B',this)">N &nbsp; No mistake</button>
     </div>
@@ -973,9 +974,9 @@
     <div class="q-row"><span class="q-num">44.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
     <div class="sent-sentence">be fooled they are not gentle creatures and can be quite dangerous, especially given the</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(44,'A',this)">A &nbsp; be fooled they are [missing comma after &lsquo;fooled&rsquo;]</button>
-      <button class="sent-part" onclick="checkSpell(44,'A',this)">B &nbsp; not gentle creatures</button>
-      <button class="sent-part" onclick="checkSpell(44,'A',this)">C &nbsp; dangerous, especially given the</button>
+      <button class="sent-part" onclick="checkSpell(44,'A',this)">A &nbsp; be fooled they are not gentle creatures [missing comma after &lsquo;fooled&rsquo;]</button>
+      <button class="sent-part" onclick="checkSpell(44,'A',this)">B &nbsp; and can be quite dangerous,</button>
+      <button class="sent-part" onclick="checkSpell(44,'A',this)">C &nbsp; especially given the</button>
       <button class="sent-part" onclick="checkSpell(44,'A',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q44-ans"></div>
@@ -1002,8 +1003,8 @@
     <div class="sent-sentence">running at night whilst hunting for food. During the day, they stay in the water.</div>
     <div class="sent-options">
       <button class="sent-part" onclick="checkSpell(46,'N',this)">A &nbsp; running at night</button>
-      <button class="sent-part" onclick="checkSpell(46,'N',this)">B &nbsp; hunting for food.</button>
-      <button class="sent-part" onclick="checkSpell(46,'N',this)">C &nbsp; During the day, they stay</button>
+      <button class="sent-part" onclick="checkSpell(46,'N',this)">B &nbsp; whilst hunting for food.</button>
+      <button class="sent-part" onclick="checkSpell(46,'N',this)">C &nbsp; During the day, they stay in the water.</button>
       <button class="sent-part" onclick="checkSpell(46,'N',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q46-ans"></div>
@@ -1172,6 +1173,71 @@
   var startTime = Date.now();
   var elapsed = 0;
 
+  // Grounded explanations for every question (single source of truth for both
+  // the instant-feedback and the "Show answer" reveal). Each justifies the keyed
+  // answer against the passage/rule, and for inference/vocab/language items also
+  // notes why the most tempting wrong option is wrong.
+  var EXPLAIN = {
+    1: "The passage says directly &ldquo;spring had come&rdquo; (line 1), once the winds calmed and the rain stopped.",
+    2: "Like &ldquo;prisoners set free&rdquo;, the family had been shut inside their winter home by the storms, so stepping out felt like release. D is tempting, but it was being trapped by the weather &mdash; not just a passing shower &mdash; that made them feel imprisoned.",
+    3: "&ldquo;Lulled&rdquo; means soothed into stillness, so &lsquo;calmed&rsquo; fits. &lsquo;Weakened&rsquo; (B) is tempting, but the winds died away completely rather than merely easing.",
+    4: "The water references (&ldquo;the rain ceased to fall&rdquo;, line 1) show the heavy winter rain had just stopped. C is tempting, but the detail marks the end of the storms, not simply a peaceful mood.",
+    5: "Three adjectives: &lsquo;pleasant&rsquo; (greenery), &lsquo;merry&rsquo; (songs) and &lsquo;happy&rsquo; (birds).",
+    6: "&lsquo;Habitable&rsquo; means fit to live in, so after repairs the family could live there again. B (a luxury home) overstates it &mdash; it was simply liveable.",
+    7: "Lines 9&ndash;11 say the tent was destroyed and &ldquo;the provisions soaked&rdquo;, so the stores had been kept in the tent.",
+    8: "Line 11: they &ldquo;spread the things&hellip; in the sun to dry&rdquo;.",
+    9: "&lsquo;Irreparable&rsquo; means impossible to repair. C is tempting, but the prefix &lsquo;ir-&rsquo; means &lsquo;not at all&rsquo;, not merely &lsquo;difficult&rsquo;.",
+    10: "&lsquo;Winter-quarters&rsquo; means winter lodgings. A (sections) is the everyday meaning of &lsquo;quarters&rsquo;, but here it means a place to live.",
+    11: "Line 13 mentions &ldquo;the next rainy season&rdquo;, showing the island has a distinct rainy season.",
+    12: "Lines 12&ndash;13: the father resolved to find safer &lsquo;winter-quarters&rsquo; before the next rainy season.",
+    13: "Lines 16&ndash;17: at the least he hoped to make &ldquo;a cellar for the more valuable and perishable of our stores&rdquo;.",
+    14: "Line 15: the difficulties seemed &ldquo;almost insurmountable&rdquo;, yet he was determined. E (completely impossible) is too strong &mdash; &lsquo;almost&rsquo; leaves a chance.",
+    15: "&ldquo;Minds bent on success&rdquo; shows they were fully resolved. D misreads it &mdash; they were determined, not already certain of victory.",
+    16: "&lsquo;Incessant&rsquo; means ceaseless, without pause. A (difficult) describes the toil but not what &lsquo;incessant&rsquo; specifically means.",
+    17: "Here &ldquo;made little impression&rdquo; is physical &mdash; barely a dent in the rock. A (impact) suits the figurative sense, but the passage means a physical mark.",
+    18: "Lines 24&ndash;25: they reached a &ldquo;softer&hellip; yielding substance&rdquo; and &ldquo;work progressed&rdquo;, so the relief came from finally making progress.",
+    19: "&lsquo;Persevering&rsquo; describes the noun &lsquo;blows&rsquo;, so it works as an adjective, not a verb.",
+    20: "All five end in -ly and describe how the actions were done (falling heavily, working hard, and so on), so they are adverbs.",
+    21: "Lines 27&ndash;29: Jack shouts eagerly (&ldquo;Oh, do come and see!&rdquo;); the bar breaking through hinted at a hollow cavern beyond.",
+    22: "&lsquo;Vigorously&rsquo; means with force and energy. D (carefully) is the opposite of battering hard at rock.",
+    23: "Lines 34&ndash;35: Jack &ldquo;thundered away to Falconhurst to bear the great&hellip; news to his mother&rdquo;.",
+    24: "&lsquo;resolve&rsquo;, &lsquo;sprang&rsquo;, &lsquo;thrust&rsquo;, &lsquo;enlarged&rsquo; and &lsquo;thundered&rsquo; are all action words, so they are verbs.",
+    25: "Lines 40&ndash;44: they marched in silently, &ldquo;overawed with the grandeur and beauty&rdquo;. A is tempting, but they did decide to live there (line 46).",
+    26: "Line 42 calls it &ldquo;a vast chamber of glittering crystal&rdquo;, used in place of &lsquo;diamonds&rsquo;. D (stars) is only a comparison for brightness, not another word for the crystal.",
+    27: "It compares the pillars to trees using &lsquo;like&rsquo;, which makes it a simile. A metaphor (A) would say they were trees, without &lsquo;like&rsquo; or &lsquo;as&rsquo;.",
+    28: "Lines 45&ndash;46: the floor was &ldquo;hard, dry sand, so dry&rdquo; that he judged they could safely live there &mdash; dryness guards against damp.",
+    29: "&lsquo;tornament&rsquo; is misspelt; the correct spelling is &lsquo;tournament&rsquo;. The apostrophe in &lsquo;county&rsquo;s&rsquo; is correct.",
+    30: "&lsquo;recieved&rsquo; breaks the rule &lsquo;i before e except after c&rsquo;; it should be &lsquo;received&rsquo;.",
+    31: "&lsquo;persued&rsquo; should be &lsquo;pursued&rsquo; (spelt &lsquo;pur-&rsquo;).",
+    32: "&lsquo;permision&rsquo; needs a double s: &lsquo;permission&rsquo;.",
+    33: "Every word is spelt correctly, so the answer is N (no mistake).",
+    34: "&lsquo;compulsery&rsquo; should end in -ory: &lsquo;compulsory&rsquo;.",
+    35: "The suffix -ful takes only one l, so &lsquo;playfull&rsquo; should be &lsquo;playful&rsquo;. &lsquo;Ezra&rsquo;s&rsquo; is correctly punctuated.",
+    36: "&lsquo;climing&rsquo; is missing its silent b: &lsquo;climbing&rsquo;.",
+    37: "&lsquo;Consistant&rsquo; should end in -ent: &lsquo;consistent&rsquo;.",
+    38: "A statement must end with a full stop, so a full stop is needed after &lsquo;robust animal&rsquo;.",
+    39: "&lsquo;But how accurate is this&rsquo; is a question, so it needs a question mark, not a full stop.",
+    40: "The punctuation here is all correct, so the answer is N (no mistake).",
+    41: "&lsquo;suns&rsquo; is possessive (the rays belonging to the sun), so it needs an apostrophe: &lsquo;sun&rsquo;s&rsquo;.",
+    42: "The phrase &lsquo;red in colour&rsquo; describes the fluid and must be closed with a comma after &lsquo;colour&rsquo;.",
+    43: "&lsquo;Its&rsquo; meaning &lsquo;it is&rsquo; is a contraction and needs an apostrophe: &lsquo;It&rsquo;s&rsquo;. Without the apostrophe, &lsquo;its&rsquo; is possessive.",
+    44: "Two clauses are run together, so a comma is needed after &lsquo;fooled&rsquo;: &lsquo;be fooled, they are not gentle creatures&rsquo;.",
+    45: "An opening bracket &lsquo;(&rsquo; must be closed; add &lsquo;)&rsquo; after &lsquo;per hour&rsquo;.",
+    46: "The punctuation is all correct, so the answer is N (no mistake).",
+    47: "&lsquo;excited&rsquo; is an adjective describing &lsquo;whispers&rsquo;. C (&lsquo;exciting&rsquo;) is tempting, but that would mean the whispers caused excitement, whereas they come from excited people.",
+    48: "&lsquo;their&rsquo; is the possessive determiner (friends and family belonging to them). A (&lsquo;there&rsquo;) refers to a place and B (&lsquo;they&rsquo;re&rsquo;) means &lsquo;they are&rsquo;.",
+    49: "The hypothetical sense &mdash; &lsquo;not what you would consider a normal show&rsquo; &mdash; needs the conditional &lsquo;would consider&rsquo;. A (&lsquo;considered&rsquo;) wrongly puts it in the simple past.",
+    50: "In this past narrative &lsquo;would open slightly&rsquo; shows a repeated action. B (&lsquo;was opened&rsquo;) implies someone opened it, which clashes with &lsquo;slammed it shut&rsquo;.",
+    51: "&lsquo;was getting&rsquo; needs a comparative adjective, so &lsquo;louder&rsquo; fits. B (&lsquo;loud&rsquo;) is not comparative and C (&lsquo;loudest&rsquo;) is superlative.",
+    52: "The present continuous &lsquo;is missing&rsquo; suits the urgent, immediate moment. A (&lsquo;has missed&rsquo;) would change the meaning to failing to attend.",
+    53: "&lsquo;the ropes to which three students were harnessed&rsquo; is the correct relative clause. A (&lsquo;next to&rsquo;) does not link the harnessing to the ropes.",
+    54: "&lsquo;Even as the teacher nodded&rsquo; shows the actions happening at the same moment for dramatic effect. B (&lsquo;Because&rsquo;) would wrongly imply cause and C (&lsquo;Although&rsquo;) implies contrast."
+  };
+
+  function explainSpan(qNum) {
+    return EXPLAIN[qNum] ? '<span class="explain">' + EXPLAIN[qNum] + '</span>' : '';
+  }
+
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
   function updateTimer() {
@@ -1214,7 +1280,7 @@
     answers[qNum] = { correct: isCorrect, submitted: true };
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
-    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + explainSpan(qNum);
     box.style.display = 'block';
     if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
     updateLiveScore();
@@ -1234,7 +1300,7 @@
     answers[qNum] = { correct: isCorrect, submitted: true };
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
-    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + explainSpan(qNum);
     box.style.display = 'block';
     if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
     updateLiveScore();
@@ -1247,7 +1313,7 @@
     btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box reveal-ans';
-    box.innerHTML = '&#9432; ' + html;
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.' + (EXPLAIN[qNum] ? explainSpan(qNum) : '<span class="explain">' + html + '</span>');
     box.style.display = 'block';
     updateLiveScore();
   }
@@ -1259,7 +1325,7 @@
     btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box reveal-ans';
-    box.innerHTML = '&#9432; ' + html;
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.' + (EXPLAIN[qNum] ? explainSpan(qNum) : '<span class="explain">' + html + '</span>');
     box.style.display = 'block';
     updateLiveScore();
   }

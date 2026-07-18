@@ -180,6 +180,8 @@
     .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
     .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
     .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .answer-box .explain { display: block; margin-top: 5px; color: var(--muted); font-weight: 400; font-size: 0.85rem; line-height: 1.5; }
+    .answer-box.reveal-ans .explain { color: var(--amber); }
     .show-link {
       font-family: -apple-system, sans-serif;
       font-size: 0.78rem;
@@ -746,15 +748,15 @@
   <!-- Q30 -->
   <div class="question" id="q30">
     <div class="q-row"><span class="q-num">30.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
-    <div class="sent-sentence">The whether was unpredictable throughout the entire field trip.</div>
+    <div class="sent-sentence">The pupils were told to seperate into small groups for the activity.</div>
     <div class="sent-options">
-      <button class="sent-part" onclick="checkSpell(30,'A',this)">A &nbsp; The whether was</button>
-      <button class="sent-part" onclick="checkSpell(30,'A',this)">B &nbsp; unpredictable throughout</button>
-      <button class="sent-part" onclick="checkSpell(30,'A',this)">C &nbsp; the entire field trip</button>
-      <button class="sent-part" onclick="checkSpell(30,'A',this)">N &nbsp; No mistake</button>
+      <button class="sent-part" onclick="checkSpell(30,'B',this)">A &nbsp; The pupils were told</button>
+      <button class="sent-part" onclick="checkSpell(30,'B',this)">B &nbsp; to seperate into</button>
+      <button class="sent-part" onclick="checkSpell(30,'B',this)">C &nbsp; small groups for the activity</button>
+      <button class="sent-part" onclick="checkSpell(30,'B',this)">N &nbsp; No mistake</button>
     </div>
     <div class="answer-box" id="q30-ans"></div>
-    <button class="show-link" onclick="revealSpell(30,'A','<strong>whether</strong> is a conjunction; the word needed here is <strong>weather</strong> (atmospheric conditions).')">Show answer</button>
+    <button class="show-link" onclick="revealSpell(30,'B','<strong>seperate</strong> should be <strong>separate</strong> (there is &ldquo;a rat&rdquo; in sep-a-rate).')">Show answer</button>
   </div>
 
   <!-- Q31 -->
@@ -1084,6 +1086,58 @@
 
 <script>
   var answers = {};
+  var explanations = {
+    1: 'Line 1: Theo considered science club &ldquo;the most tedious option available&rdquo; — tedious means boring. Options such as &ldquo;excited&rdquo; or &ldquo;curious&rdquo; contradict this.',
+    2: 'Line 2: &ldquo;exactly <strong>one</strong> remaining space&rdquo;.',
+    3: '<em>Fixedly</em> means with a steady, unmoving gaze. &ldquo;Firmly&rdquo; is tempting but describes strength or pressure, not the direction of a stare.',
+    4: 'Lines 2&ndash;3: &ldquo;willing himself invisible&rdquo; shows he hoped no one would notice him and put him forward.',
+    5: 'Lines 7&ndash;8: &ldquo;down the muddy path that led to <strong>Crestfield Wood</strong>.&rdquo;',
+    6: '<em>Strides</em> are long, confident steps, matching &ldquo;long, enthusiastic&rdquo;. They are walking movements, not jumps or runs.',
+    7: 'Lines 11&ndash;12: &ldquo;He had expected experiments with beakers and Bunsen burners&rdquo; — i.e. laboratory work.',
+    8: 'Lines 9&ndash;10: Mr Osei called &ldquo;<strong>Keep your eyes open</strong>&rdquo;.',
+    9: 'Calling nature &ldquo;she&rdquo; is <strong>personification</strong>, giving it human qualities so it seems alive and purposeful. It does not imply danger or fragility.',
+    10: '<em>Soggy</em> means saturated with water — <strong>wet and soft</strong>.',
+    11: 'He had expected lab experiments, so trudging through &ldquo;soggy leaves&rdquo; disappointed him. Nothing shows he disliked Mr Osei personally.',
+    12: 'Lines 13&ndash;14: &ldquo;a <strong>flash of vivid colour</strong> caught his eye&rdquo; — it was sight, not sound, that alerted him.',
+    13: '<em>Intricate</em> means <strong>detailed and complex</strong>. &ldquo;Colourful&rdquo; also describes the pattern, but that is not what <em>intricate</em> means.',
+    14: 'The phrase shows intense concentration — he was so absorbed that he instinctively held his breath, not that he was frightened or unwell.',
+    15: '&ldquo;Blazed&rdquo; suggests fire-like brightness, emphasising fierce, intense colour. It is figurative, not a claim that the butterfly was really on fire.',
+    16: 'Lines 16&ndash;17: &ldquo;Two <strong>deep-purple</strong> eyespots&rdquo;. Burnt orange and ivory describe the background, not the eyespots.',
+    17: 'The short, simple sentence stresses how extraordinary the butterfly was — unlike anything Theo had seen, rather than that he was confused.',
+    18: '<em>Hushed</em> means <strong>quiet and soft</strong> — Mr Osei spoke low out of awe.',
+    19: 'Lines 21&ndash;22: Mr Osei identifies it as a &ldquo;<strong>Purple Emperor</strong>&rdquo;.',
+    20: 'Mr Osei&rsquo;s voice was &ldquo;hushed with wonder&rdquo;, so both were struck silent by awe — not because they feared scaring it or could not identify it.',
+    21: 'He whispered to avoid startling the rare butterfly; a loud voice might have made it fly away. It was not shyness.',
+    22: 'Lines 22&ndash;23: &ldquo;three careful photographs with <strong>the school tablet</strong>&rdquo;.',
+    23: 'The trembling reflects excitement at the significance of the find, not cold or fear of being stung.',
+    24: 'The ending contrasts sharply with his initial reluctance, showing his transformation. It does not say he always felt proud or wanted a science career.',
+    25: 'Start: &ldquo;most tedious option&rdquo;; end: &ldquo;pure, exhilarating pride&rdquo; — a complete reversal from thinking it worthless to feeling genuine pride.',
+    26: '<strong>beleive</strong> should be <strong>believe</strong> (i before e except after c).',
+    27: '<strong>responsable</strong> should be <strong>responsible</strong> (-ible, not -able).',
+    28: '<strong>ocurred</strong> should be <strong>occurred</strong> (double c and double r).',
+    29: '<strong>knowlege</strong> should be <strong>knowledge</strong> (silent d: know-l-edge).',
+    30: '<strong>seperate</strong> should be <strong>separate</strong> (there is &ldquo;a rat&rdquo; in sep-a-rate).',
+    31: '<strong>incredable</strong> should be <strong>incredible</strong> (-ible, not -able).',
+    32: '<strong>dissapear</strong> should be <strong>disappear</strong> (one s, double p: dis-ap-pear).',
+    33: 'Every word is spelled correctly, so the answer is <strong>N, no mistake</strong>.',
+    34: '<strong>necesary</strong> should be <strong>necessary</strong> (one c, double s: ne-c-ess-ary).',
+    35: '&ldquo;Children&rdquo; is already plural, so the apostrophe goes before the s: <strong>children&rsquo;s</strong>, not childrens&rsquo;.',
+    36: 'A colon is needed to introduce the list: &ldquo;they would <strong>need:</strong> notebooks, magnifying glasses&hellip;&rdquo;.',
+    37: 'Direct speech must be closed with a comma and speech marks: <strong>&ldquo;Look over there,&rdquo;</strong> said Mr Osei.',
+    38: 'A semicolon cannot follow the subordinate opener &ldquo;Although&rdquo;; a <strong>comma</strong> is needed: &ldquo;Although Theo was exhausted,&rdquo;.',
+    39: 'Two complete sentences are fused together; a semicolon or full stop is needed: &ldquo;photographs<strong>;</strong> his hands&rdquo;.',
+    40: 'The semicolon correctly joins two independent clauses, so the answer is <strong>N, no mistake</strong>.',
+    41: 'Here &ldquo;Its&rdquo; means &ldquo;it is&rdquo;, so it needs an apostrophe: <strong>It&rsquo;s</strong>.',
+    42: '&ldquo;photo&rsquo;s&rdquo; is a plural, not a possessive, so it needs no apostrophe: <strong>photos</strong>.',
+    43: 'The first word of direct speech must be capitalised: <strong>&ldquo;We</strong> should report this&hellip;&rdquo;.',
+    44: '<strong>Reluctance</strong> (unwillingness) fits &ldquo;Despite his initial ___&rdquo;, contrasting with &ldquo;soon found himself fascinated&rdquo;. Positive words like enthusiasm or excitement would not contrast.',
+    45: '<strong>Stationary</strong> means staying still, so Theo could photograph it. &ldquo;Agitated&rdquo; is the opposite of settling calmly on the bramble.',
+    46: '<strong>Elation</strong> means great joy and pride, matching the &ldquo;pure, exhilarating pride&rdquo; he feels. Negative words like regret contradict the moment.',
+    47: 'A subordinate clause starts with a subordinating conjunction and cannot stand alone: <strong>&ldquo;Although he had not wanted to join&rdquo;</strong>. &ldquo;Theo was glad he had signed up&rdquo; is the main clause.',
+    48: '<strong>Cautiously</strong> is an adverbial telling us <em>how</em> Theo stepped. &ldquo;Stepped off the path&rdquo; is the verb phrase, not the adverbial.',
+    49: '<em>Reluctant</em> means unwilling, so its opposite is <strong>eager</strong>. &ldquo;Unwilling&rdquo; and &ldquo;hesitant&rdquo; are synonyms, not antonyms.',
+    50: '<em>Exhilarating</em> means thrilling and invigorating, so the synonym is <strong>thrilling</strong>. &ldquo;Exhausting&rdquo; sounds similar but means tiring.'
+  };
   var totalQ = 50;
   var totalSecs = 50 * 60;
   var remaining = totalSecs;
@@ -1133,7 +1187,8 @@
     answers[qNum] = { correct: isCorrect, submitted: true };
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
-    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    var exp = explanations[qNum] ? '<span class="explain">' + explanations[qNum] + '</span>' : '';
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + exp;
     box.style.display = 'block';
     if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
     updateLiveScore();
@@ -1153,7 +1208,8 @@
     answers[qNum] = { correct: isCorrect, submitted: true };
     var box = document.getElementById('q' + qNum + '-ans');
     box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
-    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    var exp = explanations[qNum] ? '<span class="explain">' + explanations[qNum] + '</span>' : '';
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + exp;
     box.style.display = 'block';
     if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
     updateLiveScore();
