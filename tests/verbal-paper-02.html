@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verbal Reasoning Paper 2 — 11+ Practice Test</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .exam-sub { text-align: center; font-size: 0.9rem; color: var(--muted); margin-bottom: 14px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 0.92rem;
+    }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .badge {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 2px 12px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+    }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    .section-example {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.84rem;
+      color: #334155;
+      background: var(--blue-light);
+      border-left: 3px solid var(--blue);
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 16px;
+    }
+    .section-example strong { color: var(--blue); }
+    .question {
+      margin-bottom: 20px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .options { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0 42px; }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    /* write-in */
+    .write-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0 0 42px;
+    }
+    .write-row input {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 0.97rem;
+      border: none;
+      border-bottom: 2px solid #555;
+      padding: 3px 6px;
+      width: 160px;
+      background: transparent;
+      outline: none;
+    }
+    .write-row input:focus { border-bottom-color: var(--blue); }
+    .check-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .check-btn:hover { background: #163d7d; }
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .show-link {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar {
+      max-width: 860px;
+      margin: 24px auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn {
+      font-family: -apple-system, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="../index.html">&larr; Back to Home</a>
+  <a href="verbal-paper-01.html">Verbal Paper 1 &rarr;</a>
+</div>
+
+<div class="exam-header">
+  <h1>11+ Practice Test &mdash; Verbal Reasoning Paper 2</h1>
+  <div class="exam-sub"><span class="badge">V2</span> &nbsp; 45 questions &middot; 45 minutes &middot; GL Assessment style</div>
+  <div class="exam-meta">
+    <p><strong>Time allowed:</strong> 45 minutes</p>
+    <p><strong>Total marks:</strong> 45</p>
+    <p><strong>Paper:</strong> Verbal Reasoning Paper 2</p>
+    <p><strong>Source:</strong> GL Assessment style</p>
+  </div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Each section begins with a short worked example. Read it before you start.</li>
+      <li>For multiple-choice questions, click the letter of your chosen answer.</li>
+      <li>For write-in questions, type your answer and click <strong>Check</strong>.</li>
+      <li>Where two letters are asked for, type them in any order (e.g. <em>B,D</em> or <em>d b</em>).</li>
+      <li>Click <em>Show answer</em> to reveal the correct answer at any time.</li>
+      <li>Press <strong>Submit Paper</strong> at the end to see your score out of 45.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">45:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 45 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== SECTION A ===== -->
+  <div class="section-heading">Section A &mdash; Two Odd Ones Out (Questions 1&ndash;5)</div>
+  <div class="section-example">
+    In each row, <strong>three</strong> words go together and <strong>two</strong> do not. Find the two odd ones out and type their letters.<br>
+    <strong>Example:</strong> (A cod &nbsp; B shark &nbsp; C eagle &nbsp; D trout &nbsp; E robin) &rarr; cod, shark and trout are fish; the odd two are <strong>C</strong> and <strong>E</strong> (birds), so the answer is <strong>C,E</strong>.
+  </div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">A&nbsp; rose &nbsp;&nbsp; B&nbsp; tulip &nbsp;&nbsp; C&nbsp; table &nbsp;&nbsp; D&nbsp; daisy &nbsp;&nbsp; E&nbsp; chair</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q1-inp" placeholder="e.g. C,E" />
+      <button class="check-btn" onclick="checkPair(1,'CE')">Check</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealAns(1,'Rose, tulip and daisy are flowers. The odd two are <strong>C</strong> (table) and <strong>E</strong> (chair) &mdash; furniture. Answer: <strong>C,E</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">A&nbsp; apple &nbsp;&nbsp; B&nbsp; banana &nbsp;&nbsp; C&nbsp; carrot &nbsp;&nbsp; D&nbsp; grape &nbsp;&nbsp; E&nbsp; potato</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q2-inp" placeholder="e.g. C,E" />
+      <button class="check-btn" onclick="checkPair(2,'CE')">Check</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealAns(2,'Apple, banana and grape are fruits. The odd two are <strong>C</strong> (carrot) and <strong>E</strong> (potato) &mdash; vegetables. Answer: <strong>C,E</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">A&nbsp; spider &nbsp;&nbsp; B&nbsp; shirt &nbsp;&nbsp; C&nbsp; beetle &nbsp;&nbsp; D&nbsp; jacket &nbsp;&nbsp; E&nbsp; coat</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q3-inp" placeholder="e.g. A,C" />
+      <button class="check-btn" onclick="checkPair(3,'AC')">Check</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealAns(3,'Shirt, jacket and coat are clothes. The odd two are <strong>A</strong> (spider) and <strong>C</strong> (beetle) &mdash; minibeasts. Answer: <strong>A,C</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">A&nbsp; Monday &nbsp;&nbsp; B&nbsp; June &nbsp;&nbsp; C&nbsp; Tuesday &nbsp;&nbsp; D&nbsp; Friday &nbsp;&nbsp; E&nbsp; March</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q4-inp" placeholder="e.g. B,E" />
+      <button class="check-btn" onclick="checkPair(4,'BE')">Check</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealAns(4,'Monday, Tuesday and Friday are days of the week. The odd two are <strong>B</strong> (June) and <strong>E</strong> (March) &mdash; months. Answer: <strong>B,E</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">A&nbsp; dog &nbsp;&nbsp; B&nbsp; cat &nbsp;&nbsp; C&nbsp; rose &nbsp;&nbsp; D&nbsp; horse &nbsp;&nbsp; E&nbsp; oak</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q5-inp" placeholder="e.g. C,E" />
+      <button class="check-btn" onclick="checkPair(5,'CE')">Check</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealAns(5,'Dog, cat and horse are animals. The odd two are <strong>C</strong> (rose) and <strong>E</strong> (oak) &mdash; plants. Answer: <strong>C,E</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION B ===== -->
+  <div class="section-heading">Section B &mdash; Related Words / Analogies (Questions 6&ndash;10)</div>
+  <div class="section-example">
+    Complete the pair so the second relationship matches the first.<br>
+    <strong>Example:</strong> Hot is to Cold as Up is to ___ &rarr; the answer is <strong>Down</strong> (opposites).
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text"><strong>Big</strong> is to <strong>Small</strong> as <strong>Tall</strong> is to ___</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(6,'B',this)">A &nbsp; Long</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'B',this)">B &nbsp; Short</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'B',this)">C &nbsp; High</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'B',this)">D &nbsp; Wide</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'B',this)">E &nbsp; Large</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealMCQ(6,'B','Big/Small are opposites, so Tall pairs with its opposite <strong>Short</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text"><strong>Puppy</strong> is to <strong>Dog</strong> as <strong>Kitten</strong> is to ___</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(7,'A',this)">A &nbsp; Cat</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'A',this)">B &nbsp; Mouse</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'A',this)">C &nbsp; Cow</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'A',this)">D &nbsp; Foal</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'A',this)">E &nbsp; Cub</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealMCQ(7,'A','A puppy is a young dog, so a kitten is a young <strong>cat</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text"><strong>Hand</strong> is to <strong>Glove</strong> as <strong>Foot</strong> is to ___</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(8,'B',this)">A &nbsp; Toe</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'B',this)">B &nbsp; Sock</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'B',this)">C &nbsp; Leg</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'B',this)">D &nbsp; Ankle</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'B',this)">E &nbsp; Heel</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealMCQ(8,'B','A glove is worn directly on the hand, so a <strong>sock</strong> is worn directly on the foot.')">Show answer</button>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text"><strong>Author</strong> is to <strong>Book</strong> as <strong>Composer</strong> is to ___</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">A &nbsp; Orchestra</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">B &nbsp; Painting</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">C &nbsp; Symphony</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">D &nbsp; Instrument</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">E &nbsp; Stage</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealMCQ(9,'C','An author writes a book; a composer writes a <strong>symphony</strong> (a musical work).')">Show answer</button>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text"><strong>Herd</strong> is to <strong>Cattle</strong> as <strong>Flock</strong> is to ___</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(10,'C',this)">A &nbsp; Fish</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'C',this)">B &nbsp; Wolves</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'C',this)">C &nbsp; Sheep</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'C',this)">D &nbsp; Lions</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'C',this)">E &nbsp; Bees</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealMCQ(10,'C','A herd is a group of cattle; a flock is a group of <strong>sheep</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION C ===== -->
+  <div class="section-heading">Section C &mdash; Complete the Word (Questions 11&ndash;15)</div>
+  <div class="section-example">
+    A pair of letters is missing from each word. Use the clue to find them and type the two letters.<br>
+    <strong>Example:</strong> Fruit: BAN( _ _ )A &rarr; the missing letters are <strong>AN</strong>, making BANANA.
+  </div>
+
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">A large animal with a trunk: &nbsp; ELEP( _ _ )NT</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q11-inp" placeholder="two letters" />
+      <button class="check-btn" onclick="checkWrite(11,'HA',['HA'])">Check</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealAns(11,'The missing letters are <strong>HA</strong>, making ELEP-HA-NT = <strong>ELEPHANT</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">A sour yellow fruit: &nbsp; LEM( _ _ )</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q12-inp" placeholder="two letters" />
+      <button class="check-btn" onclick="checkWrite(12,'ON',['ON'])">Check</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealAns(12,'The missing letters are <strong>ON</strong>, making LEM-ON = <strong>LEMON</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text">A day of the week: &nbsp; FRI( _ _ )Y</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q13-inp" placeholder="two letters" />
+      <button class="check-btn" onclick="checkWrite(13,'DA',['DA'])">Check</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealAns(13,'The missing letters are <strong>DA</strong>, making FRI-DA-Y = <strong>FRIDAY</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text">A large body of salt water: &nbsp; OC( _ _ )N</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q14-inp" placeholder="two letters" />
+      <button class="check-btn" onclick="checkWrite(14,'EA',['EA'])">Check</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealAns(14,'The missing letters are <strong>EA</strong>, making OC-EA-N = <strong>OCEAN</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text">The season after summer: &nbsp; AUT( _ _ )N</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q15-inp" placeholder="two letters" />
+      <button class="check-btn" onclick="checkWrite(15,'UM',['UM'])">Check</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealAns(15,'The missing letters are <strong>UM</strong>, making AUT-UM-N = <strong>AUTUMN</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION D ===== -->
+  <div class="section-heading">Section D &mdash; Move a Letter (Questions 16&ndash;20)</div>
+  <div class="section-example">
+    Move <strong>one</strong> letter from the first word to the second so that both become new, correctly spelled words. Type the letter you move.<br>
+    <strong>Example:</strong> CLAMP / HAT &rarr; move <strong>C</strong>: CLAMP becomes LAMP and HAT becomes CHAT.
+  </div>
+
+  <!-- Q16 -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text">SPORT &nbsp;/&nbsp; HAT</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q16-inp" placeholder="one letter" />
+      <button class="check-btn" onclick="checkWrite(16,'R',['R'])">Check</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealAns(16,'Move <strong>R</strong>: SPORT becomes SPOT and HAT becomes HART (a male deer).')">Show answer</button>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text">FEAST &nbsp;/&nbsp; LOWER</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q17-inp" placeholder="one letter" />
+      <button class="check-btn" onclick="checkWrite(17,'F',['F'])">Check</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealAns(17,'Move <strong>F</strong>: FEAST becomes EAST and LOWER becomes FLOWER.')">Show answer</button>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text">WHEAT &nbsp;/&nbsp; SORE</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q18-inp" placeholder="one letter" />
+      <button class="check-btn" onclick="checkWrite(18,'W',['W'])">Check</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealAns(18,'Move <strong>W</strong>: WHEAT becomes HEAT and SORE becomes SWORE.')">Show answer</button>
+  </div>
+
+  <!-- Q19 -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text">GLOVE &nbsp;/&nbsp; RAVE</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q19-inp" placeholder="one letter" />
+      <button class="check-btn" onclick="checkWrite(19,'G',['G'])">Check</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealAns(19,'Move <strong>G</strong>: GLOVE becomes LOVE and RAVE becomes GRAVE.')">Show answer</button>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text">BREAD &nbsp;/&nbsp; RUSH</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q20-inp" placeholder="one letter" />
+      <button class="check-btn" onclick="checkWrite(20,'B',['B'])">Check</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealAns(20,'Move <strong>B</strong>: BREAD becomes READ and RUSH becomes BRUSH.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION E ===== -->
+  <div class="section-heading">Section E &mdash; Same Meaning (Questions 21&ndash;25)</div>
+  <div class="section-example">
+    Choose the word that is closest in meaning to the word in capitals.<br>
+    <strong>Example:</strong> HAPPY &rarr; (A sad &nbsp; B angry &nbsp; C joyful &nbsp; D tired &nbsp; E quiet) &rarr; the answer is <strong>C</strong> (joyful).
+  </div>
+
+  <!-- Q21 -->
+  <div class="question" id="q21">
+    <div class="q-row"><span class="q-num">21.</span><span class="q-text">Closest in meaning to <strong>BRAVE</strong></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">A &nbsp; cruel</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">B &nbsp; fearful</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">C &nbsp; courageous</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">D &nbsp; calm</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">E &nbsp; clever</button>
+    </div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealMCQ(21,'C','<strong>Courageous</strong> means the same as brave.')">Show answer</button>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question" id="q22">
+    <div class="q-row"><span class="q-num">22.</span><span class="q-text">Closest in meaning to <strong>RAPID</strong></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">A &nbsp; slow</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">B &nbsp; quick</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">C &nbsp; loud</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">D &nbsp; late</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">E &nbsp; early</button>
+    </div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealMCQ(22,'B','<strong>Quick</strong> means the same as rapid.')">Show answer</button>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question" id="q23">
+    <div class="q-row"><span class="q-num">23.</span><span class="q-text">Closest in meaning to <strong>BEGIN</strong></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">A &nbsp; finish</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">B &nbsp; start</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">C &nbsp; stop</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">D &nbsp; pause</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">E &nbsp; wait</button>
+    </div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealMCQ(23,'B','To <strong>start</strong> means the same as to begin.')">Show answer</button>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question" id="q24">
+    <div class="q-row"><span class="q-num">24.</span><span class="q-text">Closest in meaning to <strong>ENORMOUS</strong></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">A &nbsp; tiny</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">B &nbsp; ancient</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">C &nbsp; huge</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">D &nbsp; empty</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">E &nbsp; narrow</button>
+    </div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealMCQ(24,'C','<strong>Huge</strong> means the same as enormous.')">Show answer</button>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question" id="q25">
+    <div class="q-row"><span class="q-num">25.</span><span class="q-text">Closest in meaning to <strong>WEALTHY</strong></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">A &nbsp; poor</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">B &nbsp; rich</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">C &nbsp; healthy</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">D &nbsp; generous</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">E &nbsp; lucky</button>
+    </div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealMCQ(25,'B','<strong>Rich</strong> means the same as wealthy.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION F ===== -->
+  <div class="section-heading">Section F &mdash; Word Connections (Questions 26&ndash;30)</div>
+  <div class="section-example">
+    Find the single word that joins with both of the given words to make two new words.<br>
+    <strong>Example:</strong> Which word goes before both SHINE and SET? &rarr; <strong>SUN</strong> (sunshine, sunset).
+  </div>
+
+  <!-- Q26 -->
+  <div class="question" id="q26">
+    <div class="q-row"><span class="q-num">26.</span><span class="q-text">Which word goes before both <strong>BALL</strong> and <strong>FLAKE</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(26,'B',this)">A &nbsp; RAIN</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'B',this)">B &nbsp; SNOW</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'B',this)">C &nbsp; FOOT</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'B',this)">D &nbsp; BASE</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'B',this)">E &nbsp; ICE</button>
+    </div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealMCQ(26,'B','<strong>SNOW</strong> gives snowball and snowflake.')">Show answer</button>
+  </div>
+
+  <!-- Q27 -->
+  <div class="question" id="q27">
+    <div class="q-row"><span class="q-num">27.</span><span class="q-text">Which word goes before both <strong>LIGHT</strong> and <strong>FLOWER</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">A &nbsp; MOON</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">B &nbsp; DAY</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">C &nbsp; SUN</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">D &nbsp; STAR</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">E &nbsp; SKY</button>
+    </div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealMCQ(27,'C','<strong>SUN</strong> gives sunlight and sunflower.')">Show answer</button>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question" id="q28">
+    <div class="q-row"><span class="q-num">28.</span><span class="q-text">Which word goes before both <strong>TIME</strong> and <strong>LIGHT</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">A &nbsp; NIGHT</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">B &nbsp; DAY</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">C &nbsp; NOON</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">D &nbsp; SUN</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">E &nbsp; HOUR</button>
+    </div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealMCQ(28,'B','<strong>DAY</strong> gives daytime and daylight.')">Show answer</button>
+  </div>
+
+  <!-- Q29 -->
+  <div class="question" id="q29">
+    <div class="q-row"><span class="q-num">29.</span><span class="q-text">Which word goes before both <strong>BOW</strong> and <strong>DROP</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">A &nbsp; SNOW</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">B &nbsp; SUN</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">C &nbsp; RAIN</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">D &nbsp; WATER</button>
+      <button class="opt-btn" onclick="checkMCQ(29,'C',this)">E &nbsp; DEW</button>
+    </div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealMCQ(29,'C','<strong>RAIN</strong> gives rainbow and raindrop.')">Show answer</button>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question" id="q30">
+    <div class="q-row"><span class="q-num">30.</span><span class="q-text">Which word goes after both <strong>BED</strong> and <strong>BATH</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(30,'C',this)">A &nbsp; HOUSE</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'C',this)">B &nbsp; SIDE</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'C',this)">C &nbsp; ROOM</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'C',this)">D &nbsp; TIME</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'C',this)">E &nbsp; MAT</button>
+    </div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealMCQ(30,'C','<strong>ROOM</strong> gives bedroom and bathroom.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION G ===== -->
+  <div class="section-heading">Section G &mdash; Letter Codes (Questions 31&ndash;35)</div>
+  <div class="section-example">
+    Work out the coding rule described in each question, then type the answer in capitals.<br>
+    <strong>Example:</strong> With a <strong>+2 shift</strong> (each letter moves 2 forward), BAT becomes DCV and MAP becomes OCR.
+  </div>
+
+  <!-- Q31 -->
+  <div class="question" id="q31">
+    <div class="q-row"><span class="q-num">31.</span><span class="q-text">Each letter moves <strong>2 forward</strong>. If CAT is coded as ECV, what is the code for <strong>DOG</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q31-inp" placeholder="code" />
+      <button class="check-btn" onclick="checkWrite(31,'FQI',['FQI'])">Check</button>
+    </div>
+    <div class="answer-box" id="q31-ans"></div>
+    <button class="show-link" onclick="revealAns(31,'D&rarr;F, O&rarr;Q, G&rarr;I, so DOG becomes <strong>FQI</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q32 -->
+  <div class="question" id="q32">
+    <div class="q-row"><span class="q-num">32.</span><span class="q-text">Each letter moves <strong>1 backward</strong>. If BEST is coded as ADRS, what is the code for <strong>WORD</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q32-inp" placeholder="code" />
+      <button class="check-btn" onclick="checkWrite(32,'VNQC',['VNQC'])">Check</button>
+    </div>
+    <div class="answer-box" id="q32-ans"></div>
+    <button class="show-link" onclick="revealAns(32,'W&rarr;V, O&rarr;N, R&rarr;Q, D&rarr;C, so WORD becomes <strong>VNQC</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q33 -->
+  <div class="question" id="q33">
+    <div class="q-row"><span class="q-num">33.</span><span class="q-text">In a <strong>mirror code</strong> A=Z, B=Y, C=X and so on. What is the code for <strong>CAB</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q33-inp" placeholder="code" />
+      <button class="check-btn" onclick="checkWrite(33,'XZY',['XZY'])">Check</button>
+    </div>
+    <div class="answer-box" id="q33-ans"></div>
+    <button class="show-link" onclick="revealAns(33,'C&rarr;X, A&rarr;Z, B&rarr;Y, so CAB becomes <strong>XZY</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q34 -->
+  <div class="question" id="q34">
+    <div class="q-row"><span class="q-num">34.</span><span class="q-text">Each letter moves <strong>3 forward</strong>. If FROG is coded as IURJ, what is the code for <strong>TREE</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q34-inp" placeholder="code" />
+      <button class="check-btn" onclick="checkWrite(34,'WUHH',['WUHH'])">Check</button>
+    </div>
+    <div class="answer-box" id="q34-ans"></div>
+    <button class="show-link" onclick="revealAns(34,'T&rarr;W, R&rarr;U, E&rarr;H, E&rarr;H, so TREE becomes <strong>WUHH</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q35 -->
+  <div class="question" id="q35">
+    <div class="q-row"><span class="q-num">35.</span><span class="q-text">Each letter moves <strong>2 forward</strong>, wrapping round the alphabet (Y&rarr;A, Z&rarr;B). What is the code for <strong>ZOO</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q35-inp" placeholder="code" />
+      <button class="check-btn" onclick="checkWrite(35,'BQQ',['BQQ'])">Check</button>
+    </div>
+    <div class="answer-box" id="q35-ans"></div>
+    <button class="show-link" onclick="revealAns(35,'Z&rarr;B (wrapping round), O&rarr;Q, O&rarr;Q, so ZOO becomes <strong>BQQ</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION H ===== -->
+  <div class="section-heading">Section H &mdash; Related Numbers (Questions 36&ndash;40)</div>
+  <div class="section-example">
+    In each group the middle number is made from the two outer numbers by the same rule. Work out the rule from the completed groups, then find the missing number.<br>
+    <strong>Example:</strong> (2 [10] 5) and (3 [12] 4) &rarr; the middle is the two outer numbers multiplied, so (4 [ ? ] 2) gives <strong>8</strong>.
+  </div>
+
+  <!-- Q36 -->
+  <div class="question" id="q36">
+    <div class="q-row"><span class="q-num">36.</span><span class="q-text">(4 [12] 3) &nbsp;&nbsp; (5 [10] 2) &nbsp;&nbsp; (6 [ ? ] 3)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q36-inp" placeholder="number" />
+      <button class="check-btn" onclick="checkWrite(36,'18',['18'])">Check</button>
+    </div>
+    <div class="answer-box" id="q36-ans"></div>
+    <button class="show-link" onclick="revealAns(36,'The middle equals the outer numbers multiplied: 6 &times; 3 = <strong>18</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q37 -->
+  <div class="question" id="q37">
+    <div class="q-row"><span class="q-num">37.</span><span class="q-text">(3 [8] 5) &nbsp;&nbsp; (6 [10] 4) &nbsp;&nbsp; (7 [ ? ] 2)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q37-inp" placeholder="number" />
+      <button class="check-btn" onclick="checkWrite(37,'9',['9'])">Check</button>
+    </div>
+    <div class="answer-box" id="q37-ans"></div>
+    <button class="show-link" onclick="revealAns(37,'The middle equals the outer numbers added: 7 + 2 = <strong>9</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q38 -->
+  <div class="question" id="q38">
+    <div class="q-row"><span class="q-num">38.</span><span class="q-text">(9 [4] 5) &nbsp;&nbsp; (10 [3] 7) &nbsp;&nbsp; (12 [ ? ] 4)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q38-inp" placeholder="number" />
+      <button class="check-btn" onclick="checkWrite(38,'8',['8'])">Check</button>
+    </div>
+    <div class="answer-box" id="q38-ans"></div>
+    <button class="show-link" onclick="revealAns(38,'The middle equals the first minus the second: 12 &minus; 4 = <strong>8</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q39 -->
+  <div class="question" id="q39">
+    <div class="q-row"><span class="q-num">39.</span><span class="q-text">(2 [6] 1) &nbsp;&nbsp; (3 [10] 2) &nbsp;&nbsp; (4 [ ? ] 2)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q39-inp" placeholder="number" />
+      <button class="check-btn" onclick="checkWrite(39,'12',['12'])">Check</button>
+    </div>
+    <div class="answer-box" id="q39-ans"></div>
+    <button class="show-link" onclick="revealAns(39,'The middle equals the outer numbers added then doubled: (4 + 2) &times; 2 = <strong>12</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q40 -->
+  <div class="question" id="q40">
+    <div class="q-row"><span class="q-num">40.</span><span class="q-text">(3 [7] 2) &nbsp;&nbsp; (4 [10] 3) &nbsp;&nbsp; (5 [ ? ] 4)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q40-inp" placeholder="number" />
+      <button class="check-btn" onclick="checkWrite(40,'13',['13'])">Check</button>
+    </div>
+    <div class="answer-box" id="q40-ans"></div>
+    <button class="show-link" onclick="revealAns(40,'The middle equals the first plus double the second: 5 + (2 &times; 4) = <strong>13</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION I ===== -->
+  <div class="section-heading">Section I &mdash; Reading Information / Logic (Questions 41&ndash;45)</div>
+  <div class="section-example">
+    Read each short statement carefully and use the facts to work out the answer.<br>
+    <strong>Example:</strong> "Anna is older than Ben. Ben is older than Carl. Who is the youngest?" &rarr; <strong>Carl</strong>.
+  </div>
+
+  <!-- Q41 -->
+  <div class="question" id="q41">
+    <div class="q-row"><span class="q-num">41.</span><span class="q-text">Tom is taller than Sam but shorter than Ben. Who is the <strong>tallest</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(41,'C',this)">A &nbsp; Tom</button>
+      <button class="opt-btn" onclick="checkMCQ(41,'C',this)">B &nbsp; Sam</button>
+      <button class="opt-btn" onclick="checkMCQ(41,'C',this)">C &nbsp; Ben</button>
+      <button class="opt-btn" onclick="checkMCQ(41,'C',this)">D &nbsp; Cannot tell</button>
+    </div>
+    <div class="answer-box" id="q41-ans"></div>
+    <button class="show-link" onclick="revealMCQ(41,'C','Tom is shorter than Ben, and taller than Sam, so the order is Ben &gt; Tom &gt; Sam. <strong>Ben</strong> is tallest.')">Show answer</button>
+  </div>
+
+  <!-- Q42 -->
+  <div class="question" id="q42">
+    <div class="q-row"><span class="q-num">42.</span><span class="q-text">In a race Amy finished before Beth, Beth before Cara, and Cara before Dan. Who came <strong>last</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(42,'D',this)">A &nbsp; Amy</button>
+      <button class="opt-btn" onclick="checkMCQ(42,'D',this)">B &nbsp; Beth</button>
+      <button class="opt-btn" onclick="checkMCQ(42,'D',this)">C &nbsp; Cara</button>
+      <button class="opt-btn" onclick="checkMCQ(42,'D',this)">D &nbsp; Dan</button>
+    </div>
+    <div class="answer-box" id="q42-ans"></div>
+    <button class="show-link" onclick="revealMCQ(42,'D','The order is Amy, Beth, Cara, Dan, so <strong>Dan</strong> came last.')">Show answer</button>
+  </div>
+
+  <!-- Q43 -->
+  <div class="question" id="q43">
+    <div class="q-row"><span class="q-num">43.</span><span class="q-text">Today is Wednesday. The party is in three days' time. On which day is the party?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(43,'B',this)">A &nbsp; Friday</button>
+      <button class="opt-btn" onclick="checkMCQ(43,'B',this)">B &nbsp; Saturday</button>
+      <button class="opt-btn" onclick="checkMCQ(43,'B',this)">C &nbsp; Sunday</button>
+      <button class="opt-btn" onclick="checkMCQ(43,'B',this)">D &nbsp; Thursday</button>
+    </div>
+    <div class="answer-box" id="q43-ans"></div>
+    <button class="show-link" onclick="revealMCQ(43,'B','Wednesday + 3 days: Thursday, Friday, <strong>Saturday</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q44 -->
+  <div class="question" id="q44">
+    <div class="q-row"><span class="q-num">44.</span><span class="q-text">All cats have whiskers. Tom is a cat. Which statement <strong>must</strong> be true?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">A &nbsp; Tom has no whiskers.</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">B &nbsp; Tom has whiskers.</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">C &nbsp; All animals with whiskers are cats.</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">D &nbsp; Tom is a dog.</button>
+    </div>
+    <div class="answer-box" id="q44-ans"></div>
+    <button class="show-link" onclick="revealMCQ(44,'B','If all cats have whiskers and Tom is a cat, then <strong>Tom has whiskers</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q45 -->
+  <div class="question" id="q45">
+    <div class="q-row"><span class="q-num">45.</span><span class="q-text">John is older than Mary. Mary is older than Sue. Peter is younger than Sue. Who is the <strong>youngest</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(45,'D',this)">A &nbsp; John</button>
+      <button class="opt-btn" onclick="checkMCQ(45,'D',this)">B &nbsp; Mary</button>
+      <button class="opt-btn" onclick="checkMCQ(45,'D',this)">C &nbsp; Sue</button>
+      <button class="opt-btn" onclick="checkMCQ(45,'D',this)">D &nbsp; Peter</button>
+    </div>
+    <div class="answer-box" id="q45-ans"></div>
+    <button class="show-link" onclick="revealMCQ(45,'D','The order from oldest is John &gt; Mary &gt; Sue &gt; Peter, so <strong>Peter</strong> is youngest.')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Paper &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results — Verbal Reasoning Paper 2</h2>
+  <div class="result-score" id="res-score">— / 45</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any you got wrong.
+  </p>
+  <div style="margin-top:18px;display:flex;gap:16px;">
+    <a href="../index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Home</a>
+    <a href="verbal-paper-01.html" style="color:var(--blue);font-size:0.9rem;">Verbal Paper 1 →</a>
+  </div>
+</div>
+
+<script>
+  var answers = {};
+  var totalQ = 45;
+  var totalSecs = 45 * 60;
+  var remaining = totalSecs;
+  var timerRunning = true;
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    var el = document.getElementById('timer');
+    el.textContent = pad(m) + ':' + pad(s);
+    el.className = rem <= 300 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  function updateLiveScore() {
+    document.getElementById('live-score').textContent = Object.keys(answers).length + ' / ' + totalQ + ' answered';
+  }
+
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function checkWrite(qNum, correct, alts) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var val = inp.value.trim().toLowerCase().replace(/\s+/g,'');
+    var normAlts = alts.map(function(a){ return a.toLowerCase().replace(/\s+/g,''); });
+    var isCorrect = normAlts.indexOf(val) !== -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // Two-letter answer: order- and space-insensitive (e.g. "d,b" == "B, D")
+  function checkPair(qNum, correct) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var norm = function(s){ return s.toUpperCase().replace(/[^A-Z]/g,'').split('').sort().join(''); };
+    var isCorrect = norm(inp.value) === norm(correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    var display = correct.split('').join(',');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + display + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealAns(qNum, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — on track for grammar school!' :
+                pct >= 70 ? 'Good — keep practising to reach the top band.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the paper again after revision.';
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+    document.getElementById('res-score').textContent = correct + ' / 45';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
