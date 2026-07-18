@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maths Paper 3 — 11+ Practice Test</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    /* --- exam header --- */
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 0.92rem;
+    }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    /* --- timer bar --- */
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .score-display { font-size: 0.88rem; }
+    /* --- paper body --- */
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    /* --- question --- */
+    .question {
+      margin-bottom: 22px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+      page-break-inside: avoid;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .q-num {
+      font-weight: 700;
+      font-size: 1rem;
+      min-width: 32px;
+      color: var(--blue);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding-top: 1px;
+    }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding-top: 3px;
+    }
+    /* MCQ options */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 0 42px;
+    }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 5px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    /* write-in */
+    .write-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0 0 42px;
+    }
+    .write-row input {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 0.97rem;
+      border: none;
+      border-bottom: 2px solid #555;
+      padding: 3px 6px;
+      width: 160px;
+      background: transparent;
+      outline: none;
+    }
+    .write-row input:focus { border-bottom-color: var(--blue); }
+    .check-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .check-btn:hover { background: #163d7d; }
+    /* answer reveal */
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    /* show answer link */
+    .show-link {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    /* results panel */
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    /* nav */
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a {
+      color: var(--blue);
+      text-decoration: none;
+      background: var(--blue-light);
+      padding: 7px 18px;
+      border-radius: 8px;
+    }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .submit-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .options { flex-direction: column; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="../index.html">← Back to Home</a>
+  <span style="padding:7px 0;color:var(--muted)">Test Papers</span>
+</div>
+
+<div class="exam-header">
+  <h1>11+ Practice Test &mdash; Maths Paper 3</h1>
+  <div class="exam-meta">
+    <p><strong>Time allowed:</strong> 50 minutes</p>
+    <p><strong>Total marks:</strong> 50</p>
+    <p><strong>Equipment:</strong> Pencil, ruler (no calculator)</p>
+    <p><strong>Paper:</strong> M3</p>
+  </div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Answer <strong>all 50 questions</strong>.</li>
+      <li>For multiple-choice questions, click the letter of your chosen answer.</li>
+      <li>For written-answer questions, type your answer and press <strong>Check</strong>.</li>
+      <li>Click <em>Show answer</em> at any time to reveal the correct answer.</li>
+      <li>Press <strong>Submit Paper</strong> at the end to see your score.</li>
+      <li>No calculator. Show working on paper where needed.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">50:00</div>
+  </div>
+  <div class="score-display" id="live-score">0 / 50 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== SECTION A: NUMBER ===== -->
+  <div class="section-heading">Section A &mdash; Number (Squares, Cubes, Powers &amp; Order of Operations)</div>
+
+  <!-- Q1 write-in -->
+  <div class="question" id="q1">
+    <div class="q-row">
+      <span class="q-num">1.</span>
+      <span class="q-text">What is <strong>13&sup2;</strong> (13 squared)?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q1-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(1,'169',['169'])">Check</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealAns(1,'13 &times; 13 = <strong>169</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q2 write-in -->
+  <div class="question" id="q2">
+    <div class="q-row">
+      <span class="q-num">2.</span>
+      <span class="q-text">What is the <strong>cube root</strong> of <strong>125</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q2-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(2,'5',['5'])">Check</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealAns(2,'5 &times; 5 &times; 5 = 125, so the cube root of 125 = <strong>5</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q3 MCQ -->
+  <div class="question" id="q3">
+    <div class="q-row">
+      <span class="q-num">3.</span>
+      <span class="q-text">Which of the following is <strong>NOT</strong> a perfect square?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(3,'A',this)">A &nbsp; 49</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'B',this)">B &nbsp; 64</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">C &nbsp; 81</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'D',this)">D &nbsp; 90</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'E',this)">E &nbsp; 100</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealMCQ(3,'D','49=7&sup2;, 64=8&sup2;, 81=9&sup2;, 100=10&sup2;. <strong>90</strong> is not a perfect square.')">Show answer</button>
+  </div>
+
+  <!-- Q4 MCQ -->
+  <div class="question" id="q4">
+    <div class="q-row">
+      <span class="q-num">4.</span>
+      <span class="q-text">What is the value of <strong>2<sup>5</sup></strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(4,'A',this)">A &nbsp; 10</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">B &nbsp; 16</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'C',this)">C &nbsp; 25</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'D',this)">D &nbsp; 32</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'E',this)">E &nbsp; 64</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealMCQ(4,'D','2&times;2&times;2&times;2&times;2 = <strong>32</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q5 write-in -->
+  <div class="question" id="q5">
+    <div class="q-row">
+      <span class="q-num">5.</span>
+      <span class="q-text">Calculate &nbsp;<strong>5&sup3; &minus; 6&sup2;</strong></span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q5-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(5,'89',['89'])">Check</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealAns(5,'5&sup3; = 125; 6&sup2; = 36; 125 &minus; 36 = <strong>89</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q6 MCQ -->
+  <div class="question" id="q6">
+    <div class="q-row">
+      <span class="q-num">6.</span>
+      <span class="q-text">Using the correct order of operations, calculate: &nbsp;<strong>3 + 4 &times; 5 &minus; 2</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(6,'A',this)">A &nbsp; 33</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'B',this)">B &nbsp; 21</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">C &nbsp; 25</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'D',this)">D &nbsp; 17</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'E',this)">E &nbsp; 15</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealMCQ(6,'B','Multiplication first: 4&times;5=20; then 3+20&minus;2 = <strong>21</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q7 MCQ -->
+  <div class="question" id="q7">
+    <div class="q-row">
+      <span class="q-num">7.</span>
+      <span class="q-text">What number does the Roman numeral <strong>XLVII</strong> represent?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(7,'A',this)">A &nbsp; 37</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'B',this)">B &nbsp; 47</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'C',this)">C &nbsp; 57</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'D',this)">D &nbsp; 52</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'E',this)">E &nbsp; 42</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealMCQ(7,'B','XL = 40; VII = 7; 40 + 7 = <strong>47</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q8 write-in -->
+  <div class="question" id="q8">
+    <div class="q-row">
+      <span class="q-num">8.</span>
+      <span class="q-text">Write the number <strong>2,025</strong> in Roman numerals.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q8-inp" placeholder="Roman numerals" />
+      <button class="check-btn" onclick="checkWrite(8,'MMXXV',['MMXXV','mmxxv'])">Check</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealAns(8,'MM = 2000, XX = 20, V = 5; 2025 = <strong>MMXXV</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION B: FRACTIONS & DECIMALS ===== -->
+  <div class="section-heading">Section B &mdash; Fractions &amp; Decimals</div>
+
+  <!-- Q9 write-in -->
+  <div class="question" id="q9">
+    <div class="q-row">
+      <span class="q-num">9.</span>
+      <span class="q-text">Calculate &nbsp;<strong>2&frac13; &div; &frac78;</strong> &nbsp; Give your answer as a mixed number in its simplest form.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q9-inp" placeholder="e.g. 2 2/3" style="width:180px" />
+      <button class="check-btn" onclick="checkWrite(9,'2 2/3',['2 2/3','2⅔','8/3','2⅔','2 2/3'])">Check</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealAns(9,'2&frac13; = 7/3; dividing by 7/8 means &times; 8/7; (7/3) &times; (8/7) = 8/3 = <strong>2&frac23;</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q10 MCQ -->
+  <div class="question" id="q10">
+    <div class="q-row">
+      <span class="q-num">10.</span>
+      <span class="q-text">Which of these fractions gives a <strong>recurring decimal</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(10,'A',this)">A &nbsp; 1/4</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">B &nbsp; 1/5</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'C',this)">C &nbsp; 1/8</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'D',this)">D &nbsp; 1/6</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'E',this)">E &nbsp; 1/2</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealMCQ(10,'D','1/6 = 0.16666&hellip; (the 6 recurs). The others terminate: 1/4=0.25, 1/5=0.2, 1/8=0.125, 1/2=0.5.')">Show answer</button>
+  </div>
+
+  <!-- Q11 MCQ -->
+  <div class="question" id="q11">
+    <div class="q-row">
+      <span class="q-num">11.</span>
+      <span class="q-text">Round <strong>0.08473</strong> to <strong>3 significant figures</strong>.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(11,'A',this)">A &nbsp; 0.0847</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">B &nbsp; 0.085</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'C',this)">C &nbsp; 0.0848</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'D',this)">D &nbsp; 0.08</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'E',this)">E &nbsp; 0.084</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealMCQ(11,'A','The first significant figure is 8, second is 4, third is 7. The next digit is 3 (&lt;5), so round down: <strong>0.0847</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q12 write-in -->
+  <div class="question" id="q12">
+    <div class="q-row">
+      <span class="q-num">12.</span>
+      <span class="q-text">Express <strong>5/6</strong> as a decimal, giving your answer to <strong>3 decimal places</strong>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q12-inp" placeholder="0.___" />
+      <button class="check-btn" onclick="checkWrite(12,'0.833',['0.833'])">Check</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealAns(12,'5 &div; 6 = 0.8333&hellip;; rounded to 3 dp = <strong>0.833</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q13 MCQ -->
+  <div class="question" id="q13">
+    <div class="q-row">
+      <span class="q-num">13.</span>
+      <span class="q-text">Calculate &nbsp;<strong>&frac38; of 480</strong>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(13,'A',this)">A &nbsp; 160</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'B',this)">B &nbsp; 180</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'C',this)">C &nbsp; 200</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'D',this)">D &nbsp; 120</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'E',this)">E &nbsp; 240</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealMCQ(13,'B','480 &div; 8 = 60; 60 &times; 3 = <strong>180</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q14 write-in -->
+  <div class="question" id="q14">
+    <div class="q-row">
+      <span class="q-num">14.</span>
+      <span class="q-text">A laptop costs <strong>&pound;720</strong> after a <strong>10% discount</strong>. What was the <strong>original price</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q14-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(14,'800',['800','£800'])">Check</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealAns(14,'&pound;720 = 90% of original; 10% = &pound;80; original = &pound;80 &times; 10 = <strong>&pound;800</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q15 MCQ -->
+  <div class="question" id="q15">
+    <div class="q-row">
+      <span class="q-num">15.</span>
+      <span class="q-text">Calculate &nbsp;<strong>1&frac34; &times; 2&frac25;</strong></span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(15,'A',this)">A &nbsp; 3.5</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'B',this)">B &nbsp; 4.0</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">C &nbsp; 4.2</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'D',this)">D &nbsp; 4.5</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'E',this)">E &nbsp; 3.8</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealMCQ(15,'C','1&frac34; = 7/4; 2&frac25; = 12/5; (7/4) &times; (12/5) = 84/20 = 21/5 = <strong>4.2</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION C: ALGEBRA ===== -->
+  <div class="section-heading">Section C &mdash; Algebra</div>
+
+  <!-- Q16 MCQ -->
+  <div class="question" id="q16">
+    <div class="q-row">
+      <span class="q-num">16.</span>
+      <span class="q-text">Solve &nbsp;<strong>3x &minus; 7 = 2x + 5</strong></span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(16,'A',this)">A &nbsp; x = 9</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'B',this)">B &nbsp; x = 12</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">C &nbsp; x = 7</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'D',this)">D &nbsp; x = &minus;2</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'E',this)">E &nbsp; x = 2</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealMCQ(16,'B','3x&minus;2x = 5+7 &rarr; x = <strong>12</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q17 write-in -->
+  <div class="question" id="q17">
+    <div class="q-row">
+      <span class="q-num">17.</span>
+      <span class="q-text">A function machine performs: <em>input</em> &rarr; <strong>&times;3</strong> &rarr; <strong>&minus;7</strong> &rarr; <em>output</em>. The output is <strong>14</strong>. What was the input?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q17-inp" placeholder="Your answer" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(17,'7',['7'])">Check</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealAns(17,'Work backwards: 14+7=21; 21&div;3 = <strong>7</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q18 MCQ -->
+  <div class="question" id="q18">
+    <div class="q-row">
+      <span class="q-num">18.</span>
+      <span class="q-text">List all the <strong>integer values</strong> of <em>n</em> that satisfy &nbsp;<strong>&minus;2 &lt; n &le; 3</strong>.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(18,'A',this)">A &nbsp; &minus;1, 0, 1, 2, 3</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">B &nbsp; &minus;2, &minus;1, 0, 1, 2, 3</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'C',this)">C &nbsp; &minus;1, 0, 1, 2</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'D',this)">D &nbsp; 0, 1, 2, 3</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'E',this)">E &nbsp; &minus;2, &minus;1, 0, 1, 2</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealMCQ(18,'A','&minus;2 is NOT included (strict inequality &lt;), but 3 IS included (&le;). Integers: <strong>&minus;1, 0, 1, 2, 3</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q19 MCQ -->
+  <div class="question" id="q19">
+    <div class="q-row">
+      <span class="q-num">19.</span>
+      <span class="q-text">Expand and simplify &nbsp;<strong>4(2x &minus; 3) + 3(x + 5)</strong></span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(19,'A',this)">A &nbsp; 11x + 3</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">B &nbsp; 11x &minus; 3</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'C',this)">C &nbsp; 5x + 3</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'D',this)">D &nbsp; 8x + 3</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'E',this)">E &nbsp; 11x + 5</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealMCQ(19,'A','8x &minus; 12 + 3x + 15 = <strong>11x + 3</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q20 write-in -->
+  <div class="question" id="q20">
+    <div class="q-row">
+      <span class="q-num">20.</span>
+      <span class="q-text">Two numbers have a <strong>sum of 47</strong> and a <strong>difference of 13</strong>. What is the <strong>larger</strong> number?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q20-inp" placeholder="Your answer" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(20,'30',['30'])">Check</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealAns(20,'Let the numbers be a and b. a+b=47, a&minus;b=13. Adding: 2a=60, a=<strong>30</strong>; b=17.')">Show answer</button>
+  </div>
+
+  <!-- Q21 MCQ -->
+  <div class="question" id="q21">
+    <div class="q-row">
+      <span class="q-num">21.</span>
+      <span class="q-text">A function machine: <em>input</em> &rarr; <strong>square it</strong> &rarr; <strong>&minus;11</strong> &rarr; output = <strong>53</strong>. What was the (positive) input?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(21,'A',this)">A &nbsp; 5</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'B',this)">B &nbsp; 6</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">C &nbsp; 7</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'D',this)">D &nbsp; 8</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'E',this)">E &nbsp; 9</button>
+    </div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealMCQ(21,'D','Work backwards: 53+11=64; &radic;64 = <strong>8</strong>. Check: 8&sup2;&minus;11=64&minus;11=53 &check;')">Show answer</button>
+  </div>
+
+  <!-- Q22 write-in -->
+  <div class="question" id="q22">
+    <div class="q-row">
+      <span class="q-num">22.</span>
+      <span class="q-text">Solve the simultaneous equations: &nbsp;<strong>x + y = 10</strong> &nbsp;and&nbsp; <strong>x &minus; y = 4</strong>. Find the value of <em>x</em>.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <span style="font-family:'Times New Roman',serif;font-size:0.97rem;">x =</span>
+      <input type="text" id="q22-inp" placeholder="value" style="width:80px" />
+      <button class="check-btn" onclick="checkWrite(22,'7',['7'])">Check</button>
+    </div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealAns(22,'Add the equations: 2x = 14 &rarr; x = <strong>7</strong> (and y = 3)')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION D: SEQUENCES ===== -->
+  <div class="section-heading">Section D &mdash; Sequences</div>
+
+  <!-- Q23 write-in -->
+  <div class="question" id="q23">
+    <div class="q-row">
+      <span class="q-num">23.</span>
+      <span class="q-text">What is the next term in the sequence: &nbsp;<strong>3, 5, 8, 13, 21, ___</strong> &nbsp;? (Each term is the sum of the two before it.)</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q23-inp" placeholder="Your answer" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(23,'34',['34'])">Check</button>
+    </div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealAns(23,'13 + 21 = <strong>34</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q24 MCQ -->
+  <div class="question" id="q24">
+    <div class="q-row">
+      <span class="q-num">24.</span>
+      <span class="q-text">The geometric sequence <strong>2, 6, 18, 54, &hellip;</strong> multiplies by 3 each time. What is the <strong>6th term</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(24,'A',this)">A &nbsp; 108</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">B &nbsp; 162</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">C &nbsp; 486</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'D',this)">D &nbsp; 324</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'E',this)">E &nbsp; 972</button>
+    </div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealMCQ(24,'C','Terms: 2, 6, 18, 54, 162, <strong>486</strong>. (5th=162, 6th=162&times;3=486)')">Show answer</button>
+  </div>
+
+  <!-- Q25 MCQ -->
+  <div class="question" id="q25">
+    <div class="q-row">
+      <span class="q-num">25.</span>
+      <span class="q-text">A sequence is defined by the rule: <em>each term = previous term &times; 2 &minus; 1</em>. The <strong>first term is 3</strong>. What is the <strong>4th term</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(25,'A',this)">A &nbsp; 15</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">B &nbsp; 17</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'C',this)">C &nbsp; 21</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'D',this)">D &nbsp; 23</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'E',this)">E &nbsp; 31</button>
+    </div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealMCQ(25,'B','T1=3; T2=3&times;2&minus;1=5; T3=5&times;2&minus;1=9; T4=9&times;2&minus;1=<strong>17</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION E: GEOMETRY ===== -->
+  <div class="section-heading">Section E &mdash; Geometry (Pythagoras Reasoning, Symmetry, Coordinates &amp; Transformations)</div>
+
+  <!-- Q26 MCQ -->
+  <div class="question" id="q26">
+    <div class="q-row">
+      <span class="q-num">26.</span>
+      <span class="q-text">A right-angled triangle has legs of <strong>3 cm</strong> and <strong>4 cm</strong>. What is the length of the <strong>hypotenuse</strong>? (Hint: use the 3-4-5 right triangle.)</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(26,'A',this)">A &nbsp; 5 cm</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'B',this)">B &nbsp; 6 cm</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'C',this)">C &nbsp; 7 cm</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'D',this)">D &nbsp; 4.5 cm</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'E',this)">E &nbsp; 3.5 cm</button>
+    </div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealMCQ(26,'A','This is a 3-4-5 Pythagorean triple. 3&sup2;+4&sup2;=9+16=25=5&sup2;, so hypotenuse = <strong>5 cm</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q27 write-in -->
+  <div class="question" id="q27">
+    <div class="q-row">
+      <span class="q-num">27.</span>
+      <span class="q-text">Point A is at <strong>(2, 3)</strong>. It is <strong>reflected in the x-axis</strong>. Write the coordinates of the image.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q27-inp" placeholder="(x, y)" style="width:120px" />
+      <button class="check-btn" onclick="checkWrite(27,'(2,-3)',['(2,-3)','2,-3','(2, -3)'])">Check</button>
+    </div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealAns(27,'Reflection in the x-axis: y-coordinate changes sign. A&prime; = <strong>(2, &minus;3)</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q28 MCQ -->
+  <div class="question" id="q28">
+    <div class="q-row">
+      <span class="q-num">28.</span>
+      <span class="q-text">Point P is at <strong>(4, 1)</strong>. It is rotated <strong>90&deg; clockwise</strong> about the origin. What are the new coordinates?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(28,'A',this)">A &nbsp; (1, 4)</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'B',this)">B &nbsp; (&minus;1, 4)</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'C',this)">C &nbsp; (1, &minus;4)</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'D',this)">D &nbsp; (&minus;4, 1)</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'E',this)">E &nbsp; (4, &minus;1)</button>
+    </div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealMCQ(28,'C','90&deg; clockwise rotation: (x, y) &rarr; (y, &minus;x). So (4, 1) &rarr; <strong>(1, &minus;4)</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q29 write-in -->
+  <div class="question" id="q29">
+    <div class="q-row">
+      <span class="q-num">29.</span>
+      <span class="q-text">A triangle has a vertex at <strong>(3, 4)</strong>. It is <strong>translated</strong> by the vector <strong>(&minus;3, +2)</strong>. What are the new coordinates of this vertex?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q29-inp" placeholder="(x, y)" style="width:120px" />
+      <button class="check-btn" onclick="checkWrite(29,'(0,6)',['(0,6)','0,6','(0, 6)'])">Check</button>
+    </div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealAns(29,'(3+(&minus;3), 4+2) = <strong>(0, 6)</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q30 MCQ -->
+  <div class="question" id="q30">
+    <div class="q-row">
+      <span class="q-num">30.</span>
+      <span class="q-text">How many <strong>lines of symmetry</strong> does a regular <strong>pentagon</strong> have?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(30,'A',this)">A &nbsp; 4</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'B',this)">B &nbsp; 5</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'C',this)">C &nbsp; 6</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'D',this)">D &nbsp; 3</button>
+      <button class="opt-btn" onclick="checkMCQ(30,'E',this)">E &nbsp; 10</button>
+    </div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealMCQ(30,'B','A regular polygon has the same number of lines of symmetry as it has sides. A pentagon has <strong>5</strong> sides, so <strong>5</strong> lines of symmetry.')">Show answer</button>
+  </div>
+
+  <!-- Q31 MCQ -->
+  <div class="question" id="q31">
+    <div class="q-row">
+      <span class="q-num">31.</span>
+      <span class="q-text">The interior angles of a quadrilateral are <strong>70&deg;, 95&deg;, 110&deg;</strong> and <em>x</em>&deg;. Find <em>x</em>.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(31,'A',this)">A &nbsp; 75&deg;</button>
+      <button class="opt-btn" onclick="checkMCQ(31,'B',this)">B &nbsp; 80&deg;</button>
+      <button class="opt-btn" onclick="checkMCQ(31,'C',this)">C &nbsp; 85&deg;</button>
+      <button class="opt-btn" onclick="checkMCQ(31,'D',this)">D &nbsp; 90&deg;</button>
+      <button class="opt-btn" onclick="checkMCQ(31,'E',this)">E &nbsp; 95&deg;</button>
+    </div>
+    <div class="answer-box" id="q31-ans"></div>
+    <button class="show-link" onclick="revealMCQ(31,'C','Angles in a quadrilateral sum to 360&deg;: 360&minus;70&minus;95&minus;110 = <strong>85&deg;</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q32 write-in -->
+  <div class="question" id="q32">
+    <div class="q-row">
+      <span class="q-num">32.</span>
+      <span class="q-text">A right-angled triangle has a hypotenuse of <strong>13 cm</strong> and one shorter side of <strong>5 cm</strong>. What is the length of the other shorter side? (Hint: 5-12-13 triple.)</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q32-inp" placeholder="cm" />
+      <button class="check-btn" onclick="checkWrite(32,'12',['12','12cm','12 cm'])">Check</button>
+    </div>
+    <div class="answer-box" id="q32-ans"></div>
+    <button class="show-link" onclick="revealAns(32,'5&sup2; + x&sup2; = 13&sup2; &rarr; 25 + x&sup2; = 169 &rarr; x&sup2; = 144 &rarr; x = <strong>12 cm</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q33 MCQ -->
+  <div class="question" id="q33">
+    <div class="q-row">
+      <span class="q-num">33.</span>
+      <span class="q-text">What is the <strong>order of rotational symmetry</strong> of a regular <strong>hexagon</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(33,'A',this)">A &nbsp; 3</button>
+      <button class="opt-btn" onclick="checkMCQ(33,'B',this)">B &nbsp; 4</button>
+      <button class="opt-btn" onclick="checkMCQ(33,'C',this)">C &nbsp; 5</button>
+      <button class="opt-btn" onclick="checkMCQ(33,'D',this)">D &nbsp; 6</button>
+      <button class="opt-btn" onclick="checkMCQ(33,'E',this)">E &nbsp; 2</button>
+    </div>
+    <div class="answer-box" id="q33-ans"></div>
+    <button class="show-link" onclick="revealMCQ(33,'D','A regular hexagon looks identical after each 60&deg; rotation (360 &div; 6 = 60), so order of rotational symmetry = <strong>6</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q34 write-in -->
+  <div class="question" id="q34">
+    <div class="q-row">
+      <span class="q-num">34.</span>
+      <span class="q-text">A circle has a <strong>diameter of 10 cm</strong>. Calculate its <strong>circumference</strong>. Use &pi; = 3.14.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q34-inp" placeholder="cm" />
+      <button class="check-btn" onclick="checkWrite(34,'31.4',['31.4','31.4cm','31.4 cm'])">Check</button>
+    </div>
+    <div class="answer-box" id="q34-ans"></div>
+    <button class="show-link" onclick="revealAns(34,'C = &pi; &times; d = 3.14 &times; 10 = <strong>31.4 cm</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION F: RATIO, PROPORTION & UNITS ===== -->
+  <div class="section-heading">Section F &mdash; Ratio, Proportion &amp; Units</div>
+
+  <!-- Q35 MCQ -->
+  <div class="question" id="q35">
+    <div class="q-row">
+      <span class="q-num">35.</span>
+      <span class="q-text">A car travels <strong>180 km</strong> in <strong>2.5 hours</strong>. What is its average speed?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(35,'A',this)">A &nbsp; 60 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(35,'B',this)">B &nbsp; 65 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(35,'C',this)">C &nbsp; 70 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(35,'D',this)">D &nbsp; 72 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(35,'E',this)">E &nbsp; 80 km/h</button>
+    </div>
+    <div class="answer-box" id="q35-ans"></div>
+    <button class="show-link" onclick="revealMCQ(35,'D','Speed = distance &div; time = 180 &div; 2.5 = <strong>72 km/h</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q36 write-in -->
+  <div class="question" id="q36">
+    <div class="q-row">
+      <span class="q-num">36.</span>
+      <span class="q-text">Three friends share a prize of <strong>&pound;800</strong> in the ratio <strong>2 : 3 : 5</strong>. How much does the person with the <strong>largest share</strong> receive?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q36-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(36,'400',['400','£400'])">Check</button>
+    </div>
+    <div class="answer-box" id="q36-ans"></div>
+    <button class="show-link" onclick="revealAns(36,'Total parts = 10; 1 part = &pound;80; largest share = 5 &times; &pound;80 = <strong>&pound;400</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q37 MCQ -->
+  <div class="question" id="q37">
+    <div class="q-row">
+      <span class="q-num">37.</span>
+      <span class="q-text">A map has a scale of <strong>1 : 50,000</strong>. Two towns are <strong>8 cm apart</strong> on the map. How far apart are they in <strong>km</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(37,'A',this)">A &nbsp; 2 km</button>
+      <button class="opt-btn" onclick="checkMCQ(37,'B',this)">B &nbsp; 4 km</button>
+      <button class="opt-btn" onclick="checkMCQ(37,'C',this)">C &nbsp; 8 km</button>
+      <button class="opt-btn" onclick="checkMCQ(37,'D',this)">D &nbsp; 6 km</button>
+      <button class="opt-btn" onclick="checkMCQ(37,'E',this)">E &nbsp; 10 km</button>
+    </div>
+    <div class="answer-box" id="q37-ans"></div>
+    <button class="show-link" onclick="revealMCQ(37,'B','8 &times; 50,000 = 400,000 cm = 4,000 m = <strong>4 km</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q38 MCQ -->
+  <div class="question" id="q38">
+    <div class="q-row">
+      <span class="q-num">38.</span>
+      <span class="q-text">Which pack of rice is the <strong>best value for money</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(38,'A',this)">A &nbsp; 400 g for £1.60</button>
+      <button class="opt-btn" onclick="checkMCQ(38,'B',this)">B &nbsp; 500 g for £2.00</button>
+      <button class="opt-btn" onclick="checkMCQ(38,'C',this)">C &nbsp; 750 g for £2.85</button>
+      <button class="opt-btn" onclick="checkMCQ(38,'D',this)">D &nbsp; 1 kg for £3.60</button>
+      <button class="opt-btn" onclick="checkMCQ(38,'E',this)">E &nbsp; 300 g for £1.20</button>
+    </div>
+    <div class="answer-box" id="q38-ans"></div>
+    <button class="show-link" onclick="revealMCQ(38,'D','Price per 100 g: A=40p, B=40p, C=38p, D=<strong>36p</strong>, E=40p. D is cheapest per gram.')">Show answer</button>
+  </div>
+
+  <!-- Q39 write-in -->
+  <div class="question" id="q39">
+    <div class="q-row">
+      <span class="q-num">39.</span>
+      <span class="q-text">A car uses <strong>6 litres of petrol per 100 km</strong>. How many litres are needed for a journey of <strong>350 km</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q39-inp" placeholder="litres" />
+      <button class="check-btn" onclick="checkWrite(39,'21',['21','21 litres','21l'])">Check</button>
+    </div>
+    <div class="answer-box" id="q39-ans"></div>
+    <button class="show-link" onclick="revealAns(39,'350 &div; 100 = 3.5; 3.5 &times; 6 = <strong>21 litres</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q40 MCQ -->
+  <div class="question" id="q40">
+    <div class="q-row">
+      <span class="q-num">40.</span>
+      <span class="q-text">The exchange rate is <strong>&pound;1 = &euro;1.15</strong>. How many <strong>pounds (&pound;)</strong> is <strong>&euro;230</strong> worth?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(40,'A',this)">A &nbsp; £180</button>
+      <button class="opt-btn" onclick="checkMCQ(40,'B',this)">B &nbsp; £185</button>
+      <button class="opt-btn" onclick="checkMCQ(40,'C',this)">C &nbsp; £200</button>
+      <button class="opt-btn" onclick="checkMCQ(40,'D',this)">D &nbsp; £210</button>
+      <button class="opt-btn" onclick="checkMCQ(40,'E',this)">E &nbsp; £230</button>
+    </div>
+    <div class="answer-box" id="q40-ans"></div>
+    <button class="show-link" onclick="revealMCQ(40,'C','&euro;230 &div; 1.15 = <strong>&pound;200</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q41 write-in -->
+  <div class="question" id="q41">
+    <div class="q-row">
+      <span class="q-num">41.</span>
+      <span class="q-text">A worker is paid <strong>&pound;12.50 per hour</strong>. Any hours over <strong>40 hours per week</strong> are paid at <strong>time-and-a-half</strong>. They work <strong>44 hours</strong> in one week. Calculate their <strong>total earnings</strong>.</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q41-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(41,'575',['575','£575','£575.00'])">Check</button>
+    </div>
+    <div class="answer-box" id="q41-ans"></div>
+    <button class="show-link" onclick="revealAns(41,'Normal pay: 40 &times; &pound;12.50 = &pound;500. Overtime rate: &pound;12.50 &times; 1.5 = &pound;18.75. Overtime pay: 4 &times; &pound;18.75 = &pound;75. Total = &pound;500 + &pound;75 = <strong>&pound;575</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q42 MCQ -->
+  <div class="question" id="q42">
+    <div class="q-row">
+      <span class="q-num">42.</span>
+      <span class="q-text">A recipe for <strong>6 people</strong> uses <strong>450 g</strong> of flour. How much flour is needed for <strong>10 people</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(42,'A',this)">A &nbsp; 700 g</button>
+      <button class="opt-btn" onclick="checkMCQ(42,'B',this)">B &nbsp; 720 g</button>
+      <button class="opt-btn" onclick="checkMCQ(42,'C',this)">C &nbsp; 750 g</button>
+      <button class="opt-btn" onclick="checkMCQ(42,'D',this)">D &nbsp; 780 g</button>
+      <button class="opt-btn" onclick="checkMCQ(42,'E',this)">E &nbsp; 800 g</button>
+    </div>
+    <div class="answer-box" id="q42-ans"></div>
+    <button class="show-link" onclick="revealMCQ(42,'C','Per person: 450 &div; 6 = 75 g; for 10: 75 &times; 10 = <strong>750 g</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q43 write-in -->
+  <div class="question" id="q43">
+    <div class="q-row">
+      <span class="q-num">43.</span>
+      <span class="q-text">In a class, the ratio of boys to girls is <strong>3 : 4</strong>. There are <strong>16 girls</strong>. How many <strong>boys</strong> are there?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q43-inp" placeholder="boys" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(43,'12',['12'])">Check</button>
+    </div>
+    <div class="answer-box" id="q43-ans"></div>
+    <button class="show-link" onclick="revealAns(43,'4 parts = 16 girls; 1 part = 4; boys = 3 parts = 3 &times; 4 = <strong>12</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q44 MCQ -->
+  <div class="question" id="q44">
+    <div class="q-row">
+      <span class="q-num">44.</span>
+      <span class="q-text">A train journey of <strong>240 km</strong> takes <strong>1 hour 36 minutes</strong>. What is the average speed in <strong>km/h</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(44,'A',this)">A &nbsp; 120 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">B &nbsp; 140 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'C',this)">C &nbsp; 150 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'D',this)">D &nbsp; 160 km/h</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'E',this)">E &nbsp; 180 km/h</button>
+    </div>
+    <div class="answer-box" id="q44-ans"></div>
+    <button class="show-link" onclick="revealMCQ(44,'C','1 hr 36 min = 1.6 hours; 240 &div; 1.6 = <strong>150 km/h</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q45 write-in -->
+  <div class="question" id="q45">
+    <div class="q-row">
+      <span class="q-num">45.</span>
+      <span class="q-text">A water tank is <strong>&frac34; full</strong> and contains <strong>270 litres</strong>. What is the <strong>full capacity</strong> of the tank?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q45-inp" placeholder="litres" />
+      <button class="check-btn" onclick="checkWrite(45,'360',['360','360 litres','360l'])">Check</button>
+    </div>
+    <div class="answer-box" id="q45-ans"></div>
+    <button class="show-link" onclick="revealAns(45,'&frac34; of capacity = 270 litres; 1/4 = 90 litres; full capacity = 90 &times; 4 = <strong>360 litres</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION G: DATA HANDLING ===== -->
+  <div class="section-heading">Section G &mdash; Data Handling, Probability &amp; Statistics</div>
+
+  <!-- Q46 MCQ -->
+  <div class="question" id="q46">
+    <div class="q-row">
+      <span class="q-num">46.</span>
+      <span class="q-text">A frequency table shows marks in a test:<br>
+        <span style="display:inline-block;margin:8px 0 4px 0;font-size:0.9rem">
+          <strong>Mark:</strong> &nbsp; 4 &nbsp;&nbsp; 5 &nbsp;&nbsp; 6 &nbsp;&nbsp; 7 &nbsp;&nbsp; 8<br>
+          <strong>Freq:</strong> &nbsp;&nbsp; 3 &nbsp;&nbsp; 7 &nbsp;&nbsp; 10 &nbsp; 6 &nbsp;&nbsp; 4
+        </span><br>
+        What is the <strong>modal mark</strong>?
+      </span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(46,'A',this)">A &nbsp; 4</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'B',this)">B &nbsp; 5</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'C',this)">C &nbsp; 6</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'D',this)">D &nbsp; 7</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'E',this)">E &nbsp; 8</button>
+    </div>
+    <div class="answer-box" id="q46-ans"></div>
+    <button class="show-link" onclick="revealMCQ(46,'C','The mode is the value with the highest frequency. Frequency 10 is highest, at mark <strong>6</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q47 write-in -->
+  <div class="question" id="q47">
+    <div class="q-row">
+      <span class="q-num">47.</span>
+      <span class="q-text">Using the same frequency table from Q46 (total 30 students), what is the <strong>median mark</strong>?<br><small style="color:var(--muted)">(Cumulative frequencies: mark 4 &rarr; 3, mark 5 &rarr; 10, mark 6 &rarr; 20, mark 7 &rarr; 26, mark 8 &rarr; 30)</small></span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q47-inp" placeholder="Your answer" style="width:80px" />
+      <button class="check-btn" onclick="checkWrite(47,'6',['6'])">Check</button>
+    </div>
+    <div class="answer-box" id="q47-ans"></div>
+    <button class="show-link" onclick="revealAns(47,'30 values; median = average of 15th and 16th. Cumulative frequency reaches 10 at mark 5 and 20 at mark 6, so both the 15th and 16th values are <strong>6</strong>. Median = <strong>6</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q48 MCQ -->
+  <div class="question" id="q48">
+    <div class="q-row">
+      <span class="q-num">48.</span>
+      <span class="q-text">A stem-and-leaf diagram has:<br>
+        <span style="font-family:monospace;display:inline-block;margin:6px 0;font-size:0.93rem">
+          Stem &nbsp;| Leaves<br>
+          &nbsp; 2 &nbsp;&nbsp;&nbsp;| 1 3 5 7 9<br>
+          &nbsp; 3 &nbsp;&nbsp;&nbsp;| 0 2 4
+        </span><br>
+        What is the <strong>range</strong> of the data?
+      </span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(48,'A',this)">A &nbsp; 13</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'B',this)">B &nbsp; 23</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'C',this)">C &nbsp; 33</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'D',this)">D &nbsp; 3</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'E',this)">E &nbsp; 18</button>
+    </div>
+    <div class="answer-box" id="q48-ans"></div>
+    <button class="show-link" onclick="revealMCQ(48,'A','Smallest value = 21, largest = 34. Range = 34 &minus; 21 = <strong>13</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q49 MCQ -->
+  <div class="question" id="q49">
+    <div class="q-row">
+      <span class="q-num">49.</span>
+      <span class="q-text">A bag contains <strong>4 red</strong>, <strong>3 blue</strong> and <strong>5 green</strong> balls. Two balls are drawn <strong>without replacement</strong>. What is the probability that <strong>both are red</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(49,'A',this)">A &nbsp; 1/11</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">B &nbsp; 1/9</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'C',this)">C &nbsp; 4/33</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'D',this)">D &nbsp; 2/11</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'E',this)">E &nbsp; 1/3</button>
+    </div>
+    <div class="answer-box" id="q49-ans"></div>
+    <button class="show-link" onclick="revealMCQ(49,'A','P(1st red) = 4/12 = 1/3; P(2nd red | 1st red) = 3/11; Combined = (1/3) &times; (3/11) = 3/33 = <strong>1/11</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q50 MCQ -->
+  <div class="question" id="q50">
+    <div class="q-row">
+      <span class="q-num">50.</span>
+      <span class="q-text">A fair spinner is numbered <strong>1 to 6</strong> (one of each). It is spun <strong>twice</strong>. What is the probability of getting an <strong>even number on both spins</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(50,'A',this)">A &nbsp; 1/2</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'B',this)">B &nbsp; 1/3</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">C &nbsp; 1/4</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'D',this)">D &nbsp; 2/3</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'E',this)">E &nbsp; 1/6</button>
+    </div>
+    <div class="answer-box" id="q50-ans"></div>
+    <button class="show-link" onclick="revealMCQ(50,'C','Even numbers on a 1–6 spinner: 2, 4, 6 &rarr; P(even) = 3/6 = 1/2. P(even twice) = 1/2 &times; 1/2 = <strong>1/4</strong>')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Paper &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results &mdash; Maths Paper 3</h2>
+  <div class="result-score" id="res-score">— / 50</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any question you got wrong.
+  </p>
+  <div style="margin-top:18px;">
+    <a href="../index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Home</a>
+  </div>
+</div>
+
+<script>
+  // ---- State ----
+  var answers = {}; // qNum -> {correct: bool, submitted: bool}
+  var totalQ = 50;
+  // correct answers for MCQ questions
+  var mcqAnswers = {
+    3:'D', 4:'D', 6:'B', 7:'B', 10:'D', 11:'A', 13:'B', 15:'C',
+    16:'B', 18:'A', 19:'A', 21:'D', 24:'C', 25:'B', 26:'A',
+    28:'C', 30:'B', 31:'C', 33:'D', 35:'D', 37:'B', 38:'D',
+    40:'C', 42:'C', 44:'C', 46:'C', 48:'A', 49:'A', 50:'C'
+  };
+
+  // ---- Timer ----
+  var totalSecs = 50 * 60;
+  var remaining = totalSecs;
+  var timerRunning = true;
+  var timerEl = document.getElementById('timer');
+  var startTime = Date.now();
+  var pausedAt = 0;
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    timerEl.textContent = pad(m) + ':' + pad(s);
+    timerEl.className = rem <= 300 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  // ---- Score display ----
+  function updateLiveScore() {
+    var done = Object.keys(answers).length;
+    document.getElementById('live-score').textContent = done + ' / ' + totalQ + ' answered';
+  }
+
+  // ---- MCQ check ----
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0]; // letter
+    optBtns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Write-in check ----
+  function checkWrite(qNum, correct, alts) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var val = inp.value.trim().toLowerCase().replace(/\s+/g,'');
+    var normAlts = alts.map(function(a){ return a.toLowerCase().replace(/\s+/g,''); });
+    var isCorrect = normAlts.indexOf(val) !== -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + alts[0] + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Show answer (reveal without grading) ----
+  function revealAns(qNum, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    optBtns.forEach(function(b) {
+      if (b.textContent.trim()[0] === correct) b.classList.add('correct');
+    });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  // ---- Submit ----
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — on track for grammar school!' :
+                pct >= 70 ? 'Good — keep practising to reach the top band.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the paper again after revision.';
+
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+
+    document.getElementById('res-score').textContent = correct + ' / 50';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
