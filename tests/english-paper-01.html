@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Paper 1 — 11+ Practice Test</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 0.92rem;
+    }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    /* passage box */
+    .passage-box {
+      background: #fffef5;
+      border: 1.5px solid #d1c96a;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      font-size: 0.93rem;
+      line-height: 1.8;
+    }
+    .passage-box h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .passage-box .byline { font-style: italic; font-size: 0.88rem; color: var(--muted); margin-bottom: 14px; }
+    .passage-box .intro { font-size: 0.87rem; color: #555; margin-bottom: 12px; border-left: 3px solid #d1c96a; padding-left: 10px; }
+    .line-num {
+      display: inline-block;
+      min-width: 28px;
+      font-size: 0.75rem;
+      color: #aaa;
+      font-family: monospace;
+      vertical-align: top;
+      margin-right: 4px;
+      margin-top: 2px;
+    }
+    .passage-para { margin-bottom: 10px; }
+    /* paper */
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    .question {
+      margin-bottom: 20px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-ref { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-left: 42px; margin-top: 3px; font-family: -apple-system, sans-serif; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .options { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0 42px; }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .show-link {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    /* spelling/grammar inline sentence */
+    .sent-options { margin: 10px 0 4px 42px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .sent-part {
+      font-family: -apple-system, sans-serif;
+      padding: 5px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: background 0.12s;
+    }
+    .sent-part:hover { border-color: var(--blue); background: var(--blue-light); }
+    .sent-part.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .sent-part.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .sent-part.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .sent-sentence { font-size: 0.93rem; margin: 8px 0 0 42px; font-style: italic; }
+    /* results */
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn {
+      font-family: -apple-system, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="../index.html">← Back to Home</a>
+  <a href="maths-paper-01.html">Maths Paper 1 →</a>
+</div>
+
+<div class="exam-header">
+  <h1>11+ Practice Test &mdash; English Paper 1</h1>
+  <div class="exam-meta">
+    <p><strong>Time allowed:</strong> 50 minutes</p>
+    <p><strong>Total marks:</strong> 54</p>
+    <p><strong>Paper:</strong> English Paper 1</p>
+    <p><strong>Source:</strong> GL Assessment style</p>
+  </div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Read the passage carefully before answering the questions. You may look back at any time.</li>
+      <li>For each question, click the letter of your chosen answer.</li>
+      <li>For spelling &amp; punctuation questions, click the section of the sentence that contains the mistake (or N for no mistake).</li>
+      <li>Click <em>Show answer</em> to reveal the correct answer at any time.</li>
+      <li>Press <strong>Submit Paper</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">50:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 54 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== PASSAGE ===== -->
+  <div class="section-heading">Reading Passage — Read carefully before answering</div>
+
+  <div class="passage-box">
+    <h3>The Swiss Family Robinson</h3>
+    <div class="byline">by Johann David Wyss</div>
+    <div class="intro">
+      This story is told by a father who has been shipwrecked on an island along with his wife and sons, Jack and Fritz, and their pet dogs. They have spent the winter safely in Falconhurst — the home they built. The weather has recently improved, and it is time to find out what effect the winter storms have had on their tree house and tents.
+    </div>
+
+    <div class="passage-para">
+      <span class="line-num">1.</span>The winds at length were lulled, the sun shot his brilliant rays through the clouds, the rain ceased to fall – spring had come. No prisoners set free could have felt more joy than we did as we stepped out from our winter home. We refreshed our eyes with the pleasant greenery around us, and our ears with the merry songs of a thousand happy birds, and
+      <span class="line-num">5.</span>drank in the pure air of spring.
+    </div>
+    <div class="passage-para">
+      Our tree house was our first care: filled with leaves and broken and torn by the wind, it looked indeed dilapidated. We worked hard, and in a few days it was again habitable. I was anxious to visit the tent, for I feared that much of our precious stores might have suffered. The damage done to Falconhurst was nothing compared to the scene that
+      <span class="line-num">10.</span>awaited us. The tent was blown to the ground, the canvas torn to rags, and the provisions soaked. We immediately spread the things that we hoped to preserve in the sun to dry.
+    </div>
+    <div class="passage-para">
+      The irreparable damage we had suffered made me resolve to find some safer and more stable winter-quarters before the arrival of the next rainy season. Fritz proposed that we should hollow out a cave in the rock. The difficulties such a task would present appeared
+      <span class="line-num">15.</span>almost insurmountable, yet I was determined to make the attempt. We might not, I thought, cut out a cavern of sufficient size to serve as a room, but we might at least make a cellar for the more valuable and perishable of our stores.
+    </div>
+    <div class="passage-para">
+      Some days afterwards we left Falconhurst with the cart laden with a cargo of spades, hammers, chisels, pickaxes and crowbars, and began the work. On the smooth face of the
+      <span class="line-num">20.</span>rock I drew out in chalk the size of the proposed entrance, and then, with minds bent on success, we battered away.
+    </div>
+    <div class="passage-para">
+      Six days of hard and incessant toil made little impression; I do not think that the hole would have been a satisfactory shelter for even our smallest dog. But we still did not despair, and were soon rewarded by coming to a softer and more yielding substance; our
+      <span class="line-num">25.</span>work progressed, and our minds were relieved.
+    </div>
+    <div class="passage-para">
+      On the tenth day, as our persevering blows were falling heavily, Jack, who was working hard with a hammer and crowbar, shouted:
+    </div>
+    <div class="passage-para">
+      'Gone, father! Fritz, my bar has gone through the mountain! It went right through the rock; I heard it crash down inside. Oh, do come and see!'
+      <span class="line-num">30.</span>We sprang to his side, and I thrust the handle of my hammer into the hole. I could turn it in any direction I chose. Fritz handed me a long pole; I tried the depth with that. Nothing could I feel. A thin wall, then, was all that stood between us and a great cavern.
+    </div>
+    <div class="passage-para">
+      With a shout of joy, we battered vigorously at the rock; piece by piece fell, and soon the hole was large enough for us to enter. Fritz and I enlarged the opening, while Jack,
+      <span class="line-num">35.</span>springing on his horse, thundered away to Falconhurst to bear the great and astonishing news to his mother.
+    </div>
+    <div class="passage-para">
+      He soon returned, quickly followed by the rest of our party in the cart. All were in the highest state of excitement.
+    </div>
+    <div class="passage-para">
+      Jack had stowed in the cart all the candles he could find, and we now, lighting these,
+      <span class="line-num">40.</span>entered. I led the way. Silently we marched – my wife, the boys, and even the dogs seeming overawed with the grandeur and beauty of the scene. We were in a cave of diamonds – a vast chamber of glittering crystal. The candles reflected on the walls a golden light, bright as the stars, while great crystal pillars rose from the floor like mighty trees, mingling their branches which sparkled and glittered with all the colours of the rainbow.
+      <span class="line-num">45.</span>The floor of this magnificent palace was formed of hard, dry sand, so dry that I saw at once that we might safely make our home inside it.
+    </div>
+  </div>
+
+  <!-- ===== SECTION A: COMPREHENSION ===== -->
+  <div class="section-heading">Section A &mdash; Reading Comprehension (Questions 1–28)</div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">At what time of year is the passage set?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">A &nbsp; winter</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">B &nbsp; spring</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">C &nbsp; rainy season</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">D &nbsp; mid-summer</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">E &nbsp; autumn</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealMCQ(1,'B','&ldquo;spring had come&rdquo; (line 1) tells us directly.')">Show answer</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">The father compares himself and his family to prisoners set free. Why? <em>(lines 2–3)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">A &nbsp; They had been held hostage by pirates.</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">B &nbsp; They had been trapped in their cave.</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">C &nbsp; They had been trapped in their house due to stormy weather.</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">D &nbsp; They had been caught in heavy rain which had finally stopped.</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">E &nbsp; They had been unfairly accused of crimes.</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealMCQ(2,'C','The winter storms had kept them confined to their winter home (Falconhurst).')">Show answer</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">&ldquo;The winds at length were lulled&rdquo; (line 1). What is another way of saying <em>lulled</em>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(3,'E',this)">A &nbsp; rhythmic</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'E',this)">B &nbsp; weakened</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'E',this)">C &nbsp; welcomed</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'E',this)">D &nbsp; rocked</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'E',this)">E &nbsp; calmed</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealMCQ(3,'E','To be &ldquo;lulled&rdquo; means to be soothed or <strong>calmed</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">Why might the author have decided to include water references in the first paragraph? <em>(lines 1–5)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(4,'A',this)">A &nbsp; The heavy rain had recently stopped.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'A',this)">B &nbsp; Rain was still falling heavily.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'A',this)">C &nbsp; Water makes the setting seem more peaceful.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'A',this)">D &nbsp; The family hadn't had a drink for a long time.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'A',this)">E &nbsp; The family have found themselves on an island.</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealMCQ(4,'A','The passage mentions rain ceasing and the family drinking in the air — reflecting the end of the storms.')">Show answer</button>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">How many adjectives can you count in the sentence beginning &ldquo;We refreshed our eyes&hellip;&rdquo;? <em>(lines 3–5)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">A &nbsp; 1</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">B &nbsp; 2</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">C &nbsp; 3</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">D &nbsp; 4</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">E &nbsp; 5</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealMCQ(5,'C','Three adjectives: <em>pleasant</em> (greenery), <em>merry</em> (songs), <em>happy</em> (birds).')">Show answer</button>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text">&ldquo;in a few days it [the tree-house] was again habitable&rdquo; (line 7). What does this mean?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">A &nbsp; The family soon got used to the damage to the tree-house.</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">B &nbsp; The tree-house was rapidly transformed into a luxury home.</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">C &nbsp; The family were soon able to live in the tree-house again.</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">D &nbsp; The tree-house was destroyed again within a few days.</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">E &nbsp; The tree-house quickly dried out by itself.</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealMCQ(6,'C','<em>Habitable</em> means fit to live in — they could live there again.')">Show answer</button>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text">Where had the family kept their supplies over the winter?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(7,'C',this)">A &nbsp; in a cellar</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'C',this)">B &nbsp; in their tree-house</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'C',this)">C &nbsp; in their tent</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'C',this)">D &nbsp; in a cave</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'C',this)">E &nbsp; outside, in barrels</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealMCQ(7,'C','Lines 9–10: &ldquo;the tent was blown to the ground&hellip; the provisions soaked&rdquo; — their stores were in the tent.')">Show answer</button>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text">How did the family attempt to rescue their supplies?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(8,'E',this)">A &nbsp; They shook all of the water off them.</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'E',this)">B &nbsp; They fetched new materials to mend them.</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'E',this)">C &nbsp; They took them to the tree-house instead of the tent.</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'E',this)">D &nbsp; They made a fire to dry them out.</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'E',this)">E &nbsp; They placed them out in the sun to dry.</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealMCQ(8,'E','Line 11: &ldquo;We immediately spread the things&hellip; in the sun to dry.&rdquo;')">Show answer</button>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text">The father considered the damage &ldquo;irreparable&rdquo; (line 12). What does this word suggest he thought about the damage?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(9,'D',this)">A &nbsp; It would be easy to repair the damage.</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'D',this)">B &nbsp; The damage was likely to be repeated.</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'D',this)">C &nbsp; The damage could be repaired but it would be difficult.</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'D',this)">D &nbsp; It would be impossible to repair all of the damage.</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'D',this)">E &nbsp; The father had never seen damage like it before.</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealMCQ(9,'D','<em>Irreparable</em> = cannot be repaired — impossible to fix.')">Show answer</button>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text">What is meant by &ldquo;quarters&rdquo; (line 13)?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">A &nbsp; sections</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">B &nbsp; lodgings</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">C &nbsp; storerooms</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">D &nbsp; stables</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">E &nbsp; beds</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealMCQ(10,'B','&ldquo;Winter-quarters&rdquo; means winter <strong>lodgings</strong> — a place to live.')">Show answer</button>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">What do we know about the climate on the island?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">A &nbsp; The island is protected from heavy winds.</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">B &nbsp; There is a rainy season.</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">C &nbsp; The climate is very consistent.</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">D &nbsp; Despite being warm, there is not much sun.</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">E &nbsp; It rains all the time.</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealMCQ(11,'B','Line 13: &ldquo;before the arrival of the next rainy season.&rdquo;')">Show answer</button>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">Based on the passage, what was the main goal of hollowing out a cave in the rock?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(12,'E',this)">A &nbsp; to provide a look-out point to watch for enemies</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'E',this)">B &nbsp; to provide a space for their animals</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'E',this)">C &nbsp; to test how much water had got into the rock</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'E',this)">D &nbsp; to provide an extra room in case they had visitors</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'E',this)">E &nbsp; to provide accommodation for the winter season</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealMCQ(12,'E','Lines 12–13: the father wanted safer &ldquo;winter-quarters&rdquo;.')">Show answer</button>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text">If they only managed to carve out a smaller cave, what did the father hope to use it as?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(13,'D',this)">A &nbsp; a shelter for emergencies</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'D',this)">B &nbsp; a house for their dog</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'D',this)">C &nbsp; a playroom for the children</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'D',this)">D &nbsp; a storage space for supplies</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'D',this)">E &nbsp; a shelter for rain showers</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealMCQ(13,'D','Lines 16–17: &ldquo;a cellar for the more valuable and perishable of our stores.&rdquo;')">Show answer</button>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text">How easy did the father think it would be to carve out a cave?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(14,'D',this)">A &nbsp; very easy</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'D',this)">B &nbsp; easy as long as they set their minds to it</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'D',this)">C &nbsp; quite difficult, with no guarantee of success</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'D',this)">D &nbsp; so difficult it was nearly impossible</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'D',this)">E &nbsp; completely impossible</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealMCQ(14,'D','Line 15: &ldquo;almost insurmountable&rdquo; — nearly impossible but he was still determined.')">Show answer</button>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text">&ldquo;with minds bent on success&rdquo; (lines 20–21). What does this imply about their attitude to the work?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">A &nbsp; They were indifferent as to whether they succeeded.</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">B &nbsp; They wanted to succeed but struggled to believe they could.</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">C &nbsp; They were absolutely determined to see it through.</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">D &nbsp; They were so confident they felt they had already succeeded.</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">E &nbsp; They worked cautiously because there was a high chance they wouldn't succeed.</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealMCQ(15,'C','&ldquo;Minds bent on success&rdquo; = fully focused and determined.')">Show answer</button>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text">&ldquo;incessant toil&rdquo; (line 22). What does the word <em>incessant</em> say about the work they were doing?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(16,'B',this)">A &nbsp; The work they were doing was very difficult.</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'B',this)">B &nbsp; They kept working without a break.</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'B',this)">C &nbsp; They worked hard but it was having no effect.</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'B',this)">D &nbsp; They worked on and off, taking frequent breaks.</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'B',this)">E &nbsp; The work was uninspiring and monotonous.</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealMCQ(16,'B','<em>Incessant</em> = non-stop, without pause.')">Show answer</button>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text">What would be another word for &ldquo;impression&rdquo; on line 22?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">A &nbsp; impact</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">B &nbsp; dent</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">C &nbsp; consequence</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">D &nbsp; trouble</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">E &nbsp; achievement</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealMCQ(17,'B','In the physical sense: the work made no <strong>dent</strong> in the rock.')">Show answer</button>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text">Why did the family feel &ldquo;relieved&rdquo; after they had started their work? (line 25)</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">A &nbsp; They knew they couldn't get any further and could stop working.</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">B &nbsp; They had finally begun to make progress.</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">C &nbsp; Somebody rewarded them for their six days of work.</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">D &nbsp; They realised they could fit their dog in the hole.</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">E &nbsp; They had learned from the experience so it hadn't been a complete waste of time.</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealMCQ(18,'B','Lines 24–25: they hit softer rock and progress began, relieving the worry that nothing would work.')">Show answer</button>
+  </div>
+
+  <!-- Q19 -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text">What type of word is <em>persevering</em> on line 26?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(19,'C',this)">A &nbsp; noun</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'C',this)">B &nbsp; verb</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'C',this)">C &nbsp; adjective</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'C',this)">D &nbsp; adverb</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'C',this)">E &nbsp; preposition</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealMCQ(19,'C','It modifies the noun &ldquo;blows&rdquo; — describing the blows as persevering, so it is an <strong>adjective</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text">What type of words are the following: <em>heavily</em> (line 26), <em>hard</em> (line 27), <em>vigorously</em> (line 33), <em>quickly</em> (line 37), <em>safely</em> (line 46)?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">A &nbsp; nouns</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">B &nbsp; verbs</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">C &nbsp; adjectives</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">D &nbsp; adverbs</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">E &nbsp; prepositions</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealMCQ(20,'D','All five modify verbs — they are <strong>adverbs</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q21 -->
+  <div class="question" id="q21">
+    <div class="q-row"><span class="q-num">21.</span><span class="q-text">What was the reaction when Jack lost his crowbar?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">A &nbsp; Jack's father was angry because Jack had lost one of their tools.</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">B &nbsp; Jack was embarrassed because he looked incompetent.</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">C &nbsp; Jack was excited because of what it implied about the rock.</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">D &nbsp; Jack and his father were relieved because it meant they could stop work.</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">E &nbsp; Jack and his father were nervous because they didn't know what to expect.</button>
+    </div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealMCQ(21,'C','Lines 27–29: Jack shouted excitedly — the bar going through meant a cavern was on the other side.')">Show answer</button>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question" id="q22">
+    <div class="q-row"><span class="q-num">22.</span><span class="q-text">&ldquo;we battered vigorously at the rock&rdquo; (line 33). Which word is closest in meaning to <em>vigorously</em>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(22,'C',this)">A &nbsp; painfully</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'C',this)">B &nbsp; rebelliously</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'C',this)">C &nbsp; energetically</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'C',this)">D &nbsp; carefully</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'C',this)">E &nbsp; powerlessly</button>
+    </div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealMCQ(22,'C','<em>Vigorously</em> means with great force and energy — <strong>energetically</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question" id="q23">
+    <div class="q-row"><span class="q-num">23.</span><span class="q-text">What did Jack do while Fritz and his father enlarged the opening of the cave?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">A &nbsp; Jack went for a ride on his horse to celebrate the work was over.</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">B &nbsp; Jack went to inform his mother.</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">C &nbsp; Jack shouted loudly.</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">D &nbsp; Jack went to collect more tools.</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">E &nbsp; Jack had a rest so that he could take over next.</button>
+    </div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealMCQ(23,'B','Lines 34–35: Jack rode back to Falconhurst to tell his mother the news.')">Show answer</button>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question" id="q24">
+    <div class="q-row"><span class="q-num">24.</span><span class="q-text">What type of words are these: <em>resolve</em> (line 12), <em>sprang</em> (line 30), <em>thrust</em> (line 30), <em>enlarged</em> (line 34), <em>thundered</em> (line 35)?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">A &nbsp; nouns</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">B &nbsp; verbs</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">C &nbsp; adjectives</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">D &nbsp; adverbs</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">E &nbsp; prepositions</button>
+    </div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealMCQ(24,'B','All five are action words — <strong>verbs</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question" id="q25">
+    <div class="q-row"><span class="q-num">25.</span><span class="q-text">What was the family's reaction to the cave?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(25,'E',this)">A &nbsp; They thought it was so beautiful they couldn't possibly make a home inside.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'E',this)">B &nbsp; They were excited but fearful about what was inside.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'E',this)">C &nbsp; They couldn't see much because it was so dark.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'E',this)">D &nbsp; The cave was as they had expected and they immediately felt at-home.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'E',this)">E &nbsp; They were overwhelmed at the dazzling appearance.</button>
+    </div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealMCQ(25,'E','Lines 40–44: the family marched in silently, overawed by the glittering crystal palace.')">Show answer</button>
+  </div>
+
+  <!-- Q26 -->
+  <div class="question" id="q26">
+    <div class="q-row"><span class="q-num">26.</span><span class="q-text">What other word is used interchangeably with &ldquo;diamonds&rdquo; in the description of the cave? (lines 41–44)</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(26,'E',this)">A &nbsp; gold</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'E',this)">B &nbsp; rainbow</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'E',this)">C &nbsp; silver</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'E',this)">D &nbsp; stars</button>
+      <button class="opt-btn" onclick="checkMCQ(26,'E',this)">E &nbsp; crystal</button>
+    </div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealMCQ(26,'E','Line 42: &ldquo;a vast chamber of glittering <strong>crystal</strong>&rdquo; — used interchangeably with diamonds.')">Show answer</button>
+  </div>
+
+  <!-- Q27 -->
+  <div class="question" id="q27">
+    <div class="q-row"><span class="q-num">27.</span><span class="q-text">&ldquo;crystal pillars rose from the floor like mighty trees&rdquo; (line 43). This is an example of&hellip;</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(27,'D',this)">A &nbsp; a metaphor</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'D',this)">B &nbsp; personification</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'D',this)">C &nbsp; exaggeration</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'D',this)">D &nbsp; a simile</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'D',this)">E &nbsp; alliteration</button>
+    </div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealMCQ(27,'D','It uses &ldquo;<strong>like</strong>&rdquo; to compare the pillars to trees — a <strong>simile</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question" id="q28">
+    <div class="q-row"><span class="q-num">28.</span><span class="q-text">Why was the cave considered suitable as a home?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(28,'D',this)">A &nbsp; because it resembled the family's previous home</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'D',this)">B &nbsp; because it was high and hidden from animals</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'D',this)">C &nbsp; because the crystal made it brighter inside</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'D',this)">D &nbsp; because the hard, dry sand would protect against damp</button>
+      <button class="opt-btn" onclick="checkMCQ(28,'D',this)">E &nbsp; because it was warm inside</button>
+    </div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealMCQ(28,'D','Lines 45–46: the hard, dry sand floor would keep things dry.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION B: SPELLING ===== -->
+  <div class="section-heading">Section B &mdash; Spelling (Questions 29–37)</div>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Each sentence has <strong>one spelling mistake or no mistake</strong>. Click the part of the sentence that contains the mistake, or click <strong>N</strong> for no mistake.</p>
+
+  <!-- Q29 -->
+  <div class="question" id="q29">
+    <div class="q-row"><span class="q-num">29.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">The local county's superior players dominated the tennis <u>tornament</u>.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(29,'C',this)">A &nbsp; county's superior</button>
+      <button class="sent-part" onclick="checkSpell(29,'C',this)">B &nbsp; players dominated</button>
+      <button class="sent-part" onclick="checkSpell(29,'C',this)">C &nbsp; tennis tornament</button>
+      <button class="sent-part" onclick="checkSpell(29,'C',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealSpell(29,'C','<strong>tornament</strong> should be <strong>tournament</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question" id="q30">
+    <div class="q-row"><span class="q-num">30.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">I <u>recieved</u> an elaborate invitation to an exclusive party next week.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(30,'A',this)">A &nbsp; I recieved an</button>
+      <button class="sent-part" onclick="checkSpell(30,'A',this)">B &nbsp; elaborate invitation</button>
+      <button class="sent-part" onclick="checkSpell(30,'A',this)">C &nbsp; exclusive party</button>
+      <button class="sent-part" onclick="checkSpell(30,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealSpell(30,'A','<strong>recieved</strong> should be <strong>received</strong> (i before e except after c).')">Show answer</button>
+  </div>
+
+  <!-- Q31 -->
+  <div class="question" id="q31">
+    <div class="q-row"><span class="q-num">31.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">The telephone company <u>persued</u> the customers that did not pay.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">A &nbsp; telephone company</button>
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">B &nbsp; persued the customers</button>
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">C &nbsp; that did not pay</button>
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q31-ans"></div>
+    <button class="show-link" onclick="revealSpell(31,'B','<strong>persued</strong> should be <strong>pursued</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q32 -->
+  <div class="question" id="q32">
+    <div class="q-row"><span class="q-num">32.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Oli asked his mum for <u>permision</u> to attend the charity concert.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(32,'B',this)">A &nbsp; Oli asked his mum</button>
+      <button class="sent-part" onclick="checkSpell(32,'B',this)">B &nbsp; for permision to</button>
+      <button class="sent-part" onclick="checkSpell(32,'B',this)">C &nbsp; the charity concert</button>
+      <button class="sent-part" onclick="checkSpell(32,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q32-ans"></div>
+    <button class="show-link" onclick="revealSpell(32,'B','<strong>permision</strong> should be <strong>permission</strong> (double s).')">Show answer</button>
+  </div>
+
+  <!-- Q33 -->
+  <div class="question" id="q33">
+    <div class="q-row"><span class="q-num">33.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Yulia regretted postponing her annual expedition to Norway.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(33,'N',this)">A &nbsp; regretted postponing</button>
+      <button class="sent-part" onclick="checkSpell(33,'N',this)">B &nbsp; her annual</button>
+      <button class="sent-part" onclick="checkSpell(33,'N',this)">C &nbsp; expedition to Norway</button>
+      <button class="sent-part" onclick="checkSpell(33,'N',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q33-ans"></div>
+    <button class="show-link" onclick="revealSpell(33,'N','All words are spelt correctly — <strong>N, no mistake</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q34 -->
+  <div class="question" id="q34">
+    <div class="q-row"><span class="q-num">34.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Attendance at the secret meeting was <u>compulsery</u> and critical.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(34,'B',this)">A &nbsp; Attendance at</button>
+      <button class="sent-part" onclick="checkSpell(34,'B',this)">B &nbsp; was compulsery and</button>
+      <button class="sent-part" onclick="checkSpell(34,'B',this)">C &nbsp; critical</button>
+      <button class="sent-part" onclick="checkSpell(34,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q34-ans"></div>
+    <button class="show-link" onclick="revealSpell(34,'B','<strong>compulsery</strong> should be <strong>compulsory</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q35 -->
+  <div class="question" id="q35">
+    <div class="q-row"><span class="q-num">35.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Ezra's adorable new puppy was obedient but also enthusiastic and <u>playfull</u>.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(35,'C',this)">A &nbsp; adorable new puppy</button>
+      <button class="sent-part" onclick="checkSpell(35,'C',this)">B &nbsp; obedient but also</button>
+      <button class="sent-part" onclick="checkSpell(35,'C',this)">C &nbsp; enthusiastic and playfull</button>
+      <button class="sent-part" onclick="checkSpell(35,'C',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q35-ans"></div>
+    <button class="show-link" onclick="revealSpell(35,'C','<strong>playfull</strong> should be <strong>playful</strong> (one l).')">Show answer</button>
+  </div>
+
+  <!-- Q36 -->
+  <div class="question" id="q36">
+    <div class="q-row"><span class="q-num">36.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Sam enjoyed <u>climing</u> mountains and spending time in the countryside.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(36,'A',this)">A &nbsp; enjoyed climing</button>
+      <button class="sent-part" onclick="checkSpell(36,'A',this)">B &nbsp; mountains and</button>
+      <button class="sent-part" onclick="checkSpell(36,'A',this)">C &nbsp; time in the countryside</button>
+      <button class="sent-part" onclick="checkSpell(36,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q36-ans"></div>
+    <button class="show-link" onclick="revealSpell(36,'A','<strong>climing</strong> should be <strong>climbing</strong> (silent b).')">Show answer</button>
+  </div>
+
+  <!-- Q37 -->
+  <div class="question" id="q37">
+    <div class="q-row"><span class="q-num">37.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence"><u>Consistant</u> hard work has contributed to significant improvements.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(37,'A',this)">A &nbsp; Consistant hard work</button>
+      <button class="sent-part" onclick="checkSpell(37,'A',this)">B &nbsp; has contributed to</button>
+      <button class="sent-part" onclick="checkSpell(37,'A',this)">C &nbsp; significant improvements</button>
+      <button class="sent-part" onclick="checkSpell(37,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q37-ans"></div>
+    <button class="show-link" onclick="revealSpell(37,'A','<strong>Consistant</strong> should be <strong>Consistent</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION C: PUNCTUATION ===== -->
+  <div class="section-heading">Section C &mdash; Punctuation (Questions 38–46)</div>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Each line has <strong>one punctuation mistake or no mistake</strong>. Click the group of words containing the error, or <strong>N</strong> for no mistake.</p>
+
+  <!-- Q38 -->
+  <div class="question" id="q38">
+    <div class="q-row"><span class="q-num">38.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Mention the word hippo and you will probably think of a cute but robust animal</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(38,'C',this)">A &nbsp; Mention the word hippo</button>
+      <button class="sent-part" onclick="checkSpell(38,'C',this)">B &nbsp; you will probably</button>
+      <button class="sent-part" onclick="checkSpell(38,'C',this)">C &nbsp; robust animal [missing full stop]</button>
+      <button class="sent-part" onclick="checkSpell(38,'C',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q38-ans"></div>
+    <button class="show-link" onclick="revealSpell(38,'C','The sentence needs a full stop at the end: <strong>animal.</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q39 -->
+  <div class="question" id="q39">
+    <div class="q-row"><span class="q-num">39.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">But how accurate is this. Hippos look like they have tough skin when, in fact, their</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(39,'A',this)">A &nbsp; But how accurate is this.</button>
+      <button class="sent-part" onclick="checkSpell(39,'A',this)">B &nbsp; tough skin when, in fact,</button>
+      <button class="sent-part" onclick="checkSpell(39,'A',this)">C &nbsp; their</button>
+      <button class="sent-part" onclick="checkSpell(39,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q39-ans"></div>
+    <button class="show-link" onclick="revealSpell(39,'A','&ldquo;How accurate is this?&rdquo; is a question — it needs a <strong>question mark</strong>, not a full stop.')">Show answer</button>
+  </div>
+
+  <!-- Q40 -->
+  <div class="question" id="q40">
+    <div class="q-row"><span class="q-num">40.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">skin is highly sensitive and susceptible to burn in the sun. Hippo sweat even has special</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(40,'N',this)">A &nbsp; skin is highly sensitive</button>
+      <button class="sent-part" onclick="checkSpell(40,'N',this)">B &nbsp; burn in the sun.</button>
+      <button class="sent-part" onclick="checkSpell(40,'N',this)">C &nbsp; Hippo sweat even has</button>
+      <button class="sent-part" onclick="checkSpell(40,'N',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q40-ans"></div>
+    <button class="show-link" onclick="revealSpell(40,'N','All punctuation on this line is correct — <strong>N, no mistake</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q41 -->
+  <div class="question" id="q41">
+    <div class="q-row"><span class="q-num">41.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">properties to protect the skin from the suns harmful rays. The same fluid, red in</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">A &nbsp; from the suns harmful</button>
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">B &nbsp; rays. The same fluid,</button>
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">C &nbsp; red in</button>
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q41-ans"></div>
+    <button class="show-link" onclick="revealSpell(41,'A','<strong>suns</strong> should be <strong>sun&rsquo;s</strong> (possessive apostrophe needed).')">Show answer</button>
+  </div>
+
+  <!-- Q42 -->
+  <div class="question" id="q42">
+    <div class="q-row"><span class="q-num">42.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">colour also moisturises and serves as an antibiotic. Imagine using hippo sweat</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(42,'A',this)">A &nbsp; colour also moisturises [missing comma after &lsquo;colour&rsquo;]</button>
+      <button class="sent-part" onclick="checkSpell(42,'A',this)">B &nbsp; serves as an antibiotic.</button>
+      <button class="sent-part" onclick="checkSpell(42,'A',this)">C &nbsp; Imagine using hippo sweat</button>
+      <button class="sent-part" onclick="checkSpell(42,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q42-ans"></div>
+    <button class="show-link" onclick="revealSpell(42,'A','A comma is needed after &ldquo;colour&rdquo; to separate it from the main clause.')">Show answer</button>
+  </div>
+
+  <!-- Q43 -->
+  <div class="question" id="q43">
+    <div class="q-row"><span class="q-num">43.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">as a cosmetic or a medicine! Its true that hippos are omnivores but don't let yourself</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(43,'B',this)">A &nbsp; as a cosmetic or a medicine!</button>
+      <button class="sent-part" onclick="checkSpell(43,'B',this)">B &nbsp; Its true that hippos</button>
+      <button class="sent-part" onclick="checkSpell(43,'B',this)">C &nbsp; but don't let yourself</button>
+      <button class="sent-part" onclick="checkSpell(43,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q43-ans"></div>
+    <button class="show-link" onclick="revealSpell(43,'B','<strong>Its</strong> should be <strong>It&rsquo;s</strong> (contraction of &ldquo;it is&rdquo; needs an apostrophe).')">Show answer</button>
+  </div>
+
+  <!-- Q44 -->
+  <div class="question" id="q44">
+    <div class="q-row"><span class="q-num">44.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">be fooled they are not gentle creatures and can be quite dangerous, especially given the</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(44,'A',this)">A &nbsp; be fooled they are [missing comma after &lsquo;fooled&rsquo;]</button>
+      <button class="sent-part" onclick="checkSpell(44,'A',this)">B &nbsp; not gentle creatures</button>
+      <button class="sent-part" onclick="checkSpell(44,'A',this)">C &nbsp; dangerous, especially given the</button>
+      <button class="sent-part" onclick="checkSpell(44,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q44-ans"></div>
+    <button class="show-link" onclick="revealSpell(44,'A','A comma is needed after &ldquo;fooled&rdquo;: &ldquo;be fooled, they are not gentle creatures.&rdquo;')">Show answer</button>
+  </div>
+
+  <!-- Q45 -->
+  <div class="question" id="q45">
+    <div class="q-row"><span class="q-num">45.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">speed they can run (up to 30 kilometres per hour. Hippos typically do their</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(45,'B',this)">A &nbsp; speed they can run</button>
+      <button class="sent-part" onclick="checkSpell(45,'B',this)">B &nbsp; (up to 30 kilometres per hour. [missing closing bracket]</button>
+      <button class="sent-part" onclick="checkSpell(45,'B',this)">C &nbsp; Hippos typically do their</button>
+      <button class="sent-part" onclick="checkSpell(45,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q45-ans"></div>
+    <button class="show-link" onclick="revealSpell(45,'B','The bracket opened with &ldquo;(&rdquo; is never closed — should be &ldquo;(up to 30 kilometres per hour)&rdquo;.')">Show answer</button>
+  </div>
+
+  <!-- Q46 -->
+  <div class="question" id="q46">
+    <div class="q-row"><span class="q-num">46.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">running at night whilst hunting for food. During the day, they stay in the water.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(46,'N',this)">A &nbsp; running at night</button>
+      <button class="sent-part" onclick="checkSpell(46,'N',this)">B &nbsp; hunting for food.</button>
+      <button class="sent-part" onclick="checkSpell(46,'N',this)">C &nbsp; During the day, they stay</button>
+      <button class="sent-part" onclick="checkSpell(46,'N',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q46-ans"></div>
+    <button class="show-link" onclick="revealSpell(46,'N','All punctuation on this line is correct — <strong>N, no mistake</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION D: GRAMMAR / CLOZE ===== -->
+  <div class="section-heading">Section D &mdash; Grammar &amp; Word Choice (Questions 47–54)</div>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Choose the best word or phrase to complete each sentence so that it makes sense and is written in correct English.</p>
+
+  <!-- Q47 -->
+  <div class="question" id="q47">
+    <div class="q-row"><span class="q-num">47.</span><span class="q-text">Waiting in the wings, the students' nerves soared as they listened to the ___ whispers from the audience.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(47,'D',this)">A &nbsp; excitement</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'D',this)">B &nbsp; excite</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'D',this)">C &nbsp; exciting</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'D',this)">D &nbsp; excited</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'D',this)">E &nbsp; excites</button>
+    </div>
+    <div class="answer-box" id="q47-ans"></div>
+    <button class="show-link" onclick="revealMCQ(47,'D','&ldquo;<strong>excited</strong> whispers&rdquo; — an adjective describing the noun whispers.')">Show answer</button>
+  </div>
+
+  <!-- Q48 -->
+  <div class="question" id="q48">
+    <div class="q-row"><span class="q-num">48.</span><span class="q-text">All of ___ friends and family had come to see them perform in the end-of-year show.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(48,'C',this)">A &nbsp; there</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'C',this)">B &nbsp; they're</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'C',this)">C &nbsp; their</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'C',this)">D &nbsp; those</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'C',this)">E &nbsp; them</button>
+    </div>
+    <div class="answer-box" id="q48-ans"></div>
+    <button class="show-link" onclick="revealMCQ(48,'C','The possessive pronoun <strong>their</strong> is needed (belonging to them).')">Show answer</button>
+  </div>
+
+  <!-- Q49 -->
+  <div class="question" id="q49">
+    <div class="q-row"><span class="q-num">49.</span><span class="q-text">But what they were about to see was not what you ___ a normal show.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">A &nbsp; considered</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">B &nbsp; would consider</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">C &nbsp; are considering</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">D &nbsp; considering</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">E &nbsp; wouldn't consider</button>
+    </div>
+    <div class="answer-box" id="q49-ans"></div>
+    <button class="show-link" onclick="revealMCQ(49,'B','The conditional <strong>would consider</strong> fits the hypothetical context.')">Show answer</button>
+  </div>
+
+  <!-- Q50 -->
+  <div class="question" id="q50">
+    <div class="q-row"><span class="q-num">50.</span><span class="q-text">One of the boxes ___ slightly so they hastily slammed it shut.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">A &nbsp; will open</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">B &nbsp; was opened</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">C &nbsp; would open</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">D &nbsp; won't open</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">E &nbsp; had opened</button>
+    </div>
+    <div class="answer-box" id="q50-ans"></div>
+    <button class="show-link" onclick="revealMCQ(50,'C','Past narrative context: &ldquo;<strong>would open</strong> slightly&rdquo; — one of the boxes kept opening on its own.')">Show answer</button>
+  </div>
+
+  <!-- Q51 -->
+  <div class="question" id="q51">
+    <div class="q-row"><span class="q-num">51.</span><span class="q-text">The noise from the audience was getting ___.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(51,'A',this)">A &nbsp; louder</button>
+      <button class="opt-btn" onclick="checkMCQ(51,'A',this)">B &nbsp; loud</button>
+      <button class="opt-btn" onclick="checkMCQ(51,'A',this)">C &nbsp; loudest</button>
+      <button class="opt-btn" onclick="checkMCQ(51,'A',this)">D &nbsp; increased</button>
+      <button class="opt-btn" onclick="checkMCQ(51,'A',this)">E &nbsp; increasing</button>
+    </div>
+    <div class="answer-box" id="q51-ans"></div>
+    <button class="show-link" onclick="revealMCQ(51,'A','&ldquo;was getting&rdquo; requires a comparative adjective: <strong>louder</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q52 -->
+  <div class="question" id="q52">
+    <div class="q-row"><span class="q-num">52.</span><span class="q-text">&ldquo;Who ___ their goggles?&rdquo; asked their teacher in an urgent whisper.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(52,'C',this)">A &nbsp; has missed</button>
+      <button class="opt-btn" onclick="checkMCQ(52,'C',this)">B &nbsp; misses</button>
+      <button class="opt-btn" onclick="checkMCQ(52,'C',this)">C &nbsp; is missing</button>
+      <button class="opt-btn" onclick="checkMCQ(52,'C',this)">D &nbsp; will miss</button>
+      <button class="opt-btn" onclick="checkMCQ(52,'C',this)">E &nbsp; does miss</button>
+    </div>
+    <div class="answer-box" id="q52-ans"></div>
+    <button class="show-link" onclick="revealMCQ(52,'C','Present progressive (<strong>is missing</strong>) fits the urgent, immediate situation.')">Show answer</button>
+  </div>
+
+  <!-- Q53 -->
+  <div class="question" id="q53">
+    <div class="q-row"><span class="q-num">53.</span><span class="q-text">Sara rushed forward to grab them and almost tripped on the ropes ___ three of the students were harnessed.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(53,'B',this)">A &nbsp; next to</button>
+      <button class="opt-btn" onclick="checkMCQ(53,'B',this)">B &nbsp; to which</button>
+      <button class="opt-btn" onclick="checkMCQ(53,'B',this)">C &nbsp; onto</button>
+      <button class="opt-btn" onclick="checkMCQ(53,'B',this)">D &nbsp; in between</button>
+      <button class="opt-btn" onclick="checkMCQ(53,'B',this)">E &nbsp; from</button>
+    </div>
+    <div class="answer-box" id="q53-ans"></div>
+    <button class="show-link" onclick="revealMCQ(53,'B','&ldquo;the ropes <strong>to which</strong> three students were harnessed&rdquo; — correct relative clause.')">Show answer</button>
+  </div>
+
+  <!-- Q54 -->
+  <div class="question" id="q54">
+    <div class="q-row"><span class="q-num">54.</span><span class="q-text">___ the teacher nodded, the three students rose into the air and the curtain lifted.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(54,'E',this)">A &nbsp; As</button>
+      <button class="opt-btn" onclick="checkMCQ(54,'E',this)">B &nbsp; Because</button>
+      <button class="opt-btn" onclick="checkMCQ(54,'E',this)">C &nbsp; Although</button>
+      <button class="opt-btn" onclick="checkMCQ(54,'E',this)">D &nbsp; Before</button>
+      <button class="opt-btn" onclick="checkMCQ(54,'E',this)">E &nbsp; Even as</button>
+    </div>
+    <div class="answer-box" id="q54-ans"></div>
+    <button class="show-link" onclick="revealMCQ(54,'E','&ldquo;<strong>Even as</strong> the teacher nodded&rdquo; — simultaneous action, adding dramatic effect.')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Paper &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results — English Paper 1</h2>
+  <div class="result-score" id="res-score">— / 54</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any you got wrong.
+  </p>
+  <div style="margin-top:18px;display:flex;gap:16px;">
+    <a href="../index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Home</a>
+    <a href="maths-paper-01.html" style="color:var(--blue);font-size:0.9rem;">Maths Paper 1 →</a>
+  </div>
+</div>
+
+<script>
+  var answers = {};
+  var totalQ = 54;
+  var totalSecs = 50 * 60;
+  var remaining = totalSecs;
+  var timerRunning = true;
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    var el = document.getElementById('timer');
+    el.textContent = pad(m) + ':' + pad(s);
+    el.className = rem <= 300 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  function updateLiveScore() {
+    document.getElementById('live-score').textContent = Object.keys(answers).length + ' / ' + totalQ + ' answered';
+  }
+
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function checkSpell(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .sent-part');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealSpell(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .sent-part');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — on track for grammar school!' :
+                pct >= 70 ? 'Good — keep practising to reach the top band.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the paper again after revision.';
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+    document.getElementById('res-score').textContent = correct + ' / 54';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
