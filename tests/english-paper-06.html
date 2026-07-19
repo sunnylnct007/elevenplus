@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Paper 6 — 11+ Practice Test</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 0.92rem;
+    }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    /* passage box */
+    .passage-box {
+      background: #fffef5;
+      border: 1.5px solid #d1c96a;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      font-size: 0.93rem;
+      line-height: 1.8;
+    }
+    .passage-box h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .passage-box .byline { font-style: italic; font-size: 0.88rem; color: var(--muted); margin-bottom: 14px; }
+    .passage-box .intro { font-size: 0.87rem; color: #555; margin-bottom: 12px; border-left: 3px solid #d1c96a; padding-left: 10px; }
+    .line-num {
+      display: inline-block;
+      min-width: 28px;
+      font-size: 0.75rem;
+      color: #aaa;
+      font-family: monospace;
+      vertical-align: top;
+      margin-right: 4px;
+      margin-top: 2px;
+    }
+    .passage-para { margin-bottom: 10px; }
+    /* paper */
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    .question {
+      margin-bottom: 20px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-ref { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-left: 42px; margin-top: 3px; font-family: -apple-system, sans-serif; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .options { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0 42px; }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .answer-box .explain { display: block; margin-top: 5px; color: var(--muted); font-weight: 400; font-style: normal; font-size: 0.85rem; line-height: 1.5; }
+    .show-link {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    /* spelling/grammar inline sentence */
+    .sent-options { margin: 10px 0 4px 42px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .sent-part {
+      font-family: -apple-system, sans-serif;
+      padding: 5px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: background 0.12s;
+    }
+    .sent-part:hover { border-color: var(--blue); background: var(--blue-light); }
+    .sent-part.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .sent-part.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .sent-part.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .sent-sentence { font-size: 0.93rem; margin: 8px 0 0 42px; font-style: italic; }
+    /* results */
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn {
+      font-family: -apple-system, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="../index.html">&#8592; Back to Home</a>
+  <a href="english-paper-05.html">English Paper 5 &#8594;</a>
+</div>
+
+<div class="exam-header">
+  <h1>11+ Practice Test &mdash; English Paper 6</h1>
+  <div class="exam-meta">
+    <p><strong>Time allowed:</strong> 50 minutes</p>
+    <p><strong>Total marks:</strong> 50</p>
+    <p><strong>Paper:</strong> English Paper 6 &nbsp;[E6]</p>
+    <p><strong>Source:</strong> GL Assessment style</p>
+  </div>
+  <p style="font-size:0.9rem;text-align:center;margin-top:10px;color:var(--muted);font-family:-apple-system,sans-serif;">50 questions &middot; 50 minutes &middot; GL Assessment style</p>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Read the passage carefully before answering the questions. You may look back at any time.</li>
+      <li>For each question, click the letter of your chosen answer.</li>
+      <li>For spelling &amp; punctuation questions, click the section of the sentence that contains the mistake (or N for no mistake).</li>
+      <li>Click <em>Show answer</em> to reveal the correct answer at any time.</li>
+      <li>Press <strong>Submit Paper</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">50:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 50 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== PASSAGE ===== -->
+  <div class="section-heading">Reading Passage &mdash; Read carefully before answering</div>
+
+  <div class="passage-box">
+    <h3>A New Page</h3>
+    <div class="byline">An original passage</div>
+
+    <div class="passage-para">
+      <span class="line-num">1</span>Sam pressed his forehead against the cold car window and watched the unfamiliar streets slide past. Everything about the new town felt wrong: the houses stood too close together, the sky seemed a duller shade of grey, and
+      <span class="line-num">3</span>not a single face belonged to anyone he knew. In three days he would walk through the gates of Ashcroft Primary, a school where he was certain he would be entirely, hopelessly alone.
+    </div>
+    <div class="passage-para">
+      <span class="line-num">5</span>&ldquo;You&rsquo;ll make friends in no time,&rdquo; his mother promised, catching his eye in the mirror. Sam said nothing. He had heard those words before, and he did not believe them.
+      <span class="line-num">7</span>Friends, he thought gloomily, were not something you could order like furniture from a catalogue.
+    </div>
+    <div class="passage-para">
+      <span class="line-num">9</span>Monday arrived far too quickly. Sam&rsquo;s stomach churned as he stepped into the noisy classroom, clutching his rucksack straps as though they might save him.
+      <span class="line-num">11</span>Thirty strangers turned to stare. The teacher, Mrs Okafor, gestured towards an empty seat beside a boy with wild curls and ink-stained fingers. Sam slid into the chair, staring hard at the desk, willing himself to disappear.
+    </div>
+    <div class="passage-para">
+      <span class="line-num">14</span>For most of the morning he barely moved. Then, during the quiet reading hour, the curly-haired boy leaned over. &ldquo;Is that a comic?&rdquo; he whispered, nodding at a battered notebook poking from Sam&rsquo;s bag.
+      <span class="line-num">16</span>Sam froze. Inside were his own drawings &mdash; a masked hero called Nighthawk that he had never shown anyone.
+    </div>
+    <div class="passage-para">
+      <span class="line-num">19</span>&ldquo;Um&hellip; sort of,&rdquo; Sam mumbled, sliding the notebook further into his bag. But the boy&rsquo;s eyes were already shining.
+      <span class="line-num">21</span>&ldquo;I draw too! I&rsquo;ve got about a hundred pages of mine at home. What&rsquo;s yours about?&rdquo; Before Sam could stop himself, he had opened the notebook and was explaining Nighthawk&rsquo;s secret origin.
+      <span class="line-num">23</span>The boy, whose name was Ravi, listened as though it were the most fascinating story in the world.
+    </div>
+    <div class="passage-para">
+      <span class="line-num">25</span>By lunchtime the two of them were huddled in a corner of the playground, swapping ideas for impossible villains and arguing cheerfully about which superpower was best.
+      <span class="line-num">27</span>Sam had forgotten, entirely, that he had ever dreaded this day. Perhaps, he thought as Ravi sketched a dragon across the back of his hand, the new town was not so grey after all.
+    </div>
+  </div>
+
+  <!-- ===== SECTION A: COMPREHENSION ===== -->
+  <div class="section-heading">Section A &mdash; Reading Comprehension (Questions 1&ndash;25)</div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">What is the name of the school Sam is about to start at? <em>(line 3)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">A &nbsp; Crestfield Primary</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">B &nbsp; Ashcroft Primary</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">C &nbsp; Oakfield Primary</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">D &nbsp; Ravenswood School</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">E &nbsp; Nighthawk Academy</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealMCQ(1,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">How long is it until Sam starts his new school? <em>(line 3)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(2,'D',this)">A &nbsp; one day</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'D',this)">B &nbsp; two days</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'D',this)">C &nbsp; a week</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'D',this)">D &nbsp; three days</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'D',this)">E &nbsp; a month</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealMCQ(2,'D','')">Show answer</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">&ldquo;the sky seemed a duller shade of grey&rdquo; (line 2). What does <em>duller</em> mean here?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">A &nbsp; brighter</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">B &nbsp; warmer</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">C &nbsp; less bright</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">D &nbsp; louder</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">E &nbsp; heavier</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealMCQ(3,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">Why does everything about the town feel &ldquo;wrong&rdquo; to Sam at the start? <em>(lines 1&ndash;4)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(4,'E',this)">A &nbsp; The town is genuinely ugly.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'E',this)">B &nbsp; It is raining heavily.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'E',this)">C &nbsp; He has been there before.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'E',this)">D &nbsp; The houses are dangerous.</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'E',this)">E &nbsp; He is unhappy about having to move.</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealMCQ(4,'E','')">Show answer</button>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">What does Sam&rsquo;s mother promise him? <em>(line 5)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(5,'A',this)">A &nbsp; that he will make friends quickly</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'A',this)">B &nbsp; that they will move back</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'A',this)">C &nbsp; that he can change schools</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'A',this)">D &nbsp; that she will drive him each day</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'A',this)">E &nbsp; that he will grow to like the town</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealMCQ(5,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text">&ldquo;Friends&hellip; were not something you could order like furniture from a catalogue&rdquo; (line 7). This comparison is an example of&hellip;</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(6,'D',this)">A &nbsp; a metaphor</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'D',this)">B &nbsp; personification</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'D',this)">C &nbsp; alliteration</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'D',this)">D &nbsp; a simile</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'D',this)">E &nbsp; onomatopoeia</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealMCQ(6,'D','')">Show answer</button>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text">What does &ldquo;he did not believe them&rdquo; (line 6) tell us about Sam&rsquo;s mood?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(7,'B',this)">A &nbsp; He is hopeful.</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'B',this)">B &nbsp; He is doubtful and pessimistic.</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'B',this)">C &nbsp; He is furious with his mother.</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'B',this)">D &nbsp; He is excited.</button>
+      <button class="opt-btn" onclick="checkMCQ(7,'B',this)">E &nbsp; He is confused.</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealMCQ(7,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text">&ldquo;Sam&rsquo;s stomach churned&rdquo; (line 9). What does <em>churned</em> suggest he felt?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(8,'C',this)">A &nbsp; calm</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'C',this)">B &nbsp; hungry</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'C',this)">C &nbsp; sick with nerves</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'C',this)">D &nbsp; joyfully excited</button>
+      <button class="opt-btn" onclick="checkMCQ(8,'C',this)">E &nbsp; sleepy</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealMCQ(8,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text">What is the name of Sam&rsquo;s new teacher? <em>(line 11)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(9,'E',this)">A &nbsp; Mrs Harding</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'E',this)">B &nbsp; Mr Osei</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'E',this)">C &nbsp; Miss Ravi</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'E',this)">D &nbsp; Mrs Ashcroft</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'E',this)">E &nbsp; Mrs Okafor</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealMCQ(9,'E','')">Show answer</button>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text">How is the boy Sam sits next to first described? <em>(line 11)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">A &nbsp; tall, wearing glasses</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">B &nbsp; with wild curls and ink-stained fingers</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">C &nbsp; wearing a bright red jumper</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">D &nbsp; holding a football</button>
+      <button class="opt-btn" onclick="checkMCQ(10,'B',this)">E &nbsp; sitting very quietly at the back</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealMCQ(10,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">&ldquo;willing himself to disappear&rdquo; (line 13) shows that Sam felt&hellip;</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(11,'D',this)">A &nbsp; confident</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'D',this)">B &nbsp; cheerful</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'D',this)">C &nbsp; sleepy</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'D',this)">D &nbsp; extremely self-conscious and shy</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'D',this)">E &nbsp; friendly and open</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealMCQ(11,'D','')">Show answer</button>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">&ldquo;clutching his rucksack straps as though they might save him&rdquo; (lines 10&ndash;11). What does this suggest?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(12,'C',this)">A &nbsp; The straps were broken.</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'C',this)">B &nbsp; The bag was extremely heavy.</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'C',this)">C &nbsp; Sam felt frightened and clung to his bag for comfort.</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'C',this)">D &nbsp; Sam was about to trip and fall.</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'C',this)">E &nbsp; Sam wanted to leave straight away.</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealMCQ(12,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text">What did the curly-haired boy notice poking out of Sam&rsquo;s bag? <em>(lines 14&ndash;15)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(13,'A',this)">A &nbsp; a notebook of comics</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'A',this)">B &nbsp; a football</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'A',this)">C &nbsp; a lunchbox</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'A',this)">D &nbsp; a pencil case</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'A',this)">E &nbsp; a mobile phone</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealMCQ(13,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text">Why did Sam &ldquo;freeze&rdquo; (line 16) when asked about the notebook?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(14,'B',this)">A &nbsp; He was cold.</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'B',this)">B &nbsp; He was afraid to share his private drawings.</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'B',this)">C &nbsp; He had lost the notebook.</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'B',this)">D &nbsp; He had not heard the question.</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'B',this)">E &nbsp; He was falling asleep.</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealMCQ(14,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text">What is the name of Sam&rsquo;s masked hero? <em>(line 16)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(15,'D',this)">A &nbsp; Ravi</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'D',this)">B &nbsp; Ashcroft</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'D',this)">C &nbsp; Okafor</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'D',this)">D &nbsp; Nighthawk</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'D',this)">E &nbsp; Dragon</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealMCQ(15,'D','')">Show answer</button>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text">&ldquo;he had never shown anyone&rdquo; (lines 16&ndash;17) suggests the drawings were&hellip;</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">A &nbsp; worthless</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">B &nbsp; copied from a book</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">C &nbsp; deeply personal and private to Sam</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">D &nbsp; unfinished</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">E &nbsp; for sale</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealMCQ(16,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text">&ldquo;Sam mumbled&rdquo; (line 19). What does <em>mumbled</em> mean?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(17,'E',this)">A &nbsp; shouted angrily</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'E',this)">B &nbsp; laughed loudly</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'E',this)">C &nbsp; sang softly</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'E',this)">D &nbsp; cried</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'E',this)">E &nbsp; spoke quietly and unclearly</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealMCQ(17,'E','')">Show answer</button>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text">What is the other boy&rsquo;s name? <em>(line 23)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">A &nbsp; Theo</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">B &nbsp; Ravi</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">C &nbsp; Sam</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">D &nbsp; Osei</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">E &nbsp; Nighthawk</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealMCQ(18,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q19 -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text">&ldquo;the boy&rsquo;s eyes were already shining&rdquo; (lines 19&ndash;20) shows that Ravi was&hellip;</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(19,'A',this)">A &nbsp; eager and excited</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'A',this)">B &nbsp; tearful and upset</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'A',this)">C &nbsp; very tired</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'A',this)">D &nbsp; unwell</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'A',this)">E &nbsp; angry</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealMCQ(19,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text">Ravi listened &ldquo;as though it were the most fascinating story in the world&rdquo; (line 23). This shows he was&hellip;</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">A &nbsp; only pretending to be polite</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">B &nbsp; bored but patient</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">C &nbsp; jealous of Sam</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">D &nbsp; genuinely interested in Sam&rsquo;s comic</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'D',this)">E &nbsp; confused by the story</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealMCQ(20,'D','')">Show answer</button>
+  </div>
+
+  <!-- Q21 -->
+  <div class="question" id="q21">
+    <div class="q-row"><span class="q-num">21.</span><span class="q-text">Where were the boys by lunchtime? <em>(line 25)</em></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">A &nbsp; in the canteen</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">B &nbsp; in the library</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">C &nbsp; in a corner of the playground</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">D &nbsp; on the sports field</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'C',this)">E &nbsp; at Sam&rsquo;s house</button>
+    </div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealMCQ(21,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question" id="q22">
+    <div class="q-row"><span class="q-num">22.</span><span class="q-text">&ldquo;huddled in a corner&rdquo; (line 25). What does <em>huddled</em> mean?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">A &nbsp; stood far apart</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">B &nbsp; gathered closely together</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">C &nbsp; ran quickly</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">D &nbsp; argued loudly</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'B',this)">E &nbsp; hid completely out of sight</button>
+    </div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealMCQ(22,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question" id="q23">
+    <div class="q-row"><span class="q-num">23.</span><span class="q-text">How has Sam&rsquo;s mood changed by the end of the passage?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(23,'E',this)">A &nbsp; from excited to bored</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'E',this)">B &nbsp; from angry to calm</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'E',this)">C &nbsp; it stays exactly the same</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'E',this)">D &nbsp; from tired to alert</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'E',this)">E &nbsp; from lonely dread to happiness</button>
+    </div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealMCQ(23,'E','')">Show answer</button>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question" id="q24">
+    <div class="q-row"><span class="q-num">24.</span><span class="q-text">&ldquo;the new town was not so grey after all&rdquo; (line 28). Here <em>grey</em> is used to mean&hellip;</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">A &nbsp; cold weather</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">B &nbsp; the colour of the buildings</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">C &nbsp; dull and miserable</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">D &nbsp; foggy</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'C',this)">E &nbsp; old and worn out</button>
+    </div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealMCQ(24,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question" id="q25">
+    <div class="q-row"><span class="q-num">25.</span><span class="q-text">Which statement best describes how the passage as a whole is organised?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">A &nbsp; It moves from a happy start to a sad ending.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">B &nbsp; It moves from dread and loneliness to friendship and hope.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">C &nbsp; It describes a single long argument.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">D &nbsp; It lists facts about a town.</button>
+      <button class="opt-btn" onclick="checkMCQ(25,'B',this)">E &nbsp; It jumps between many unrelated characters.</button>
+    </div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealMCQ(25,'B','')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION B: SPELLING ===== -->
+  <div class="section-heading">Section B &mdash; Spelling (Questions 26&ndash;34)</div>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Each sentence has <strong>one spelling mistake or no mistake</strong>. Click the part of the sentence that contains the mistake, or click <strong>N</strong> for no mistake.</p>
+
+  <!-- Q26 -->
+  <div class="question" id="q26">
+    <div class="q-row"><span class="q-num">26.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">I will <u>definately</u> finish reading the exciting adventure novel tonight.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(26,'A',this)">A &nbsp; I will definately finish</button>
+      <button class="sent-part" onclick="checkSpell(26,'A',this)">B &nbsp; reading the exciting</button>
+      <button class="sent-part" onclick="checkSpell(26,'A',this)">C &nbsp; adventure novel tonight</button>
+      <button class="sent-part" onclick="checkSpell(26,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealSpell(26,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q27 -->
+  <div class="question" id="q27">
+    <div class="q-row"><span class="q-num">27.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Try hard not to <u>embarass</u> your teammates during the important final match.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(27,'B',this)">A &nbsp; Try hard not to</button>
+      <button class="sent-part" onclick="checkSpell(27,'B',this)">B &nbsp; embarass your teammates</button>
+      <button class="sent-part" onclick="checkSpell(27,'B',this)">C &nbsp; during the important final match</button>
+      <button class="sent-part" onclick="checkSpell(27,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealSpell(27,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question" id="q28">
+    <div class="q-row"><span class="q-num">28.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">The new <u>goverment</u> promised to improve the crumbling local roads.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(28,'A',this)">A &nbsp; The new goverment promised</button>
+      <button class="sent-part" onclick="checkSpell(28,'A',this)">B &nbsp; to improve the</button>
+      <button class="sent-part" onclick="checkSpell(28,'A',this)">C &nbsp; crumbling local roads</button>
+      <button class="sent-part" onclick="checkSpell(28,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealSpell(28,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q29 -->
+  <div class="question" id="q29">
+    <div class="q-row"><span class="q-num">29.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">The drummer kept a steady <u>rythm</u> throughout the entire lively performance.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(29,'B',this)">A &nbsp; The drummer kept a</button>
+      <button class="sent-part" onclick="checkSpell(29,'B',this)">B &nbsp; steady rythm throughout</button>
+      <button class="sent-part" onclick="checkSpell(29,'B',this)">C &nbsp; the entire lively performance</button>
+      <button class="sent-part" onclick="checkSpell(29,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealSpell(29,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question" id="q30">
+    <div class="q-row"><span class="q-num">30.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">The curious children gathered around the ancient wooden chest.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(30,'N',this)">A &nbsp; The curious children</button>
+      <button class="sent-part" onclick="checkSpell(30,'N',this)">B &nbsp; gathered around the</button>
+      <button class="sent-part" onclick="checkSpell(30,'N',this)">C &nbsp; ancient wooden chest</button>
+      <button class="sent-part" onclick="checkSpell(30,'N',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealSpell(30,'N','')">Show answer</button>
+  </div>
+
+  <!-- Q31 -->
+  <div class="question" id="q31">
+    <div class="q-row"><span class="q-num">31.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Meeting the famous author was a genuine <u>priviledge</u> for the young writer.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">A &nbsp; Meeting the famous author</button>
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">B &nbsp; was a genuine priviledge</button>
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">C &nbsp; for the young writer</button>
+      <button class="sent-part" onclick="checkSpell(31,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q31-ans"></div>
+    <button class="show-link" onclick="revealSpell(31,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q32 -->
+  <div class="question" id="q32">
+    <div class="q-row"><span class="q-num">32.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">On this special <u>occassion</u> the whole family gathered for a feast.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(32,'A',this)">A &nbsp; On this special occassion</button>
+      <button class="sent-part" onclick="checkSpell(32,'A',this)">B &nbsp; the whole family</button>
+      <button class="sent-part" onclick="checkSpell(32,'A',this)">C &nbsp; gathered for a feast</button>
+      <button class="sent-part" onclick="checkSpell(32,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q32-ans"></div>
+    <button class="show-link" onclick="revealSpell(32,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q33 -->
+  <div class="question" id="q33">
+    <div class="q-row"><span class="q-num">33.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">With practice you can <u>acheive</u> almost anything you truly set your mind to.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(33,'B',this)">A &nbsp; With practice you can</button>
+      <button class="sent-part" onclick="checkSpell(33,'B',this)">B &nbsp; acheive almost anything</button>
+      <button class="sent-part" onclick="checkSpell(33,'B',this)">C &nbsp; you truly set your mind to</button>
+      <button class="sent-part" onclick="checkSpell(33,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q33-ans"></div>
+    <button class="show-link" onclick="revealSpell(33,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q34 -->
+  <div class="question" id="q34">
+    <div class="q-row"><span class="q-num">34.</span><span class="q-text">Find the spelling mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">A strange, <u>wierd</u> noise echoed down the empty corridor at dusk.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(34,'A',this)">A &nbsp; A strange, wierd noise</button>
+      <button class="sent-part" onclick="checkSpell(34,'A',this)">B &nbsp; echoed down the empty</button>
+      <button class="sent-part" onclick="checkSpell(34,'A',this)">C &nbsp; corridor at dusk</button>
+      <button class="sent-part" onclick="checkSpell(34,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q34-ans"></div>
+    <button class="show-link" onclick="revealSpell(34,'A','')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION C: PUNCTUATION ===== -->
+  <div class="section-heading">Section C &mdash; Punctuation (Questions 35&ndash;43)</div>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Each sentence has <strong>one punctuation mistake or no mistake</strong>. Click the group of words containing the error, or <strong>N</strong> for no mistake.</p>
+
+  <!-- Q35 -->
+  <div class="question" id="q35">
+    <div class="q-row"><span class="q-num">35.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">on Saturday, Sam visited the museum with his cousin.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(35,'A',this)">A &nbsp; on Saturday, Sam visited</button>
+      <button class="sent-part" onclick="checkSpell(35,'A',this)">B &nbsp; the museum with</button>
+      <button class="sent-part" onclick="checkSpell(35,'A',this)">C &nbsp; his cousin.</button>
+      <button class="sent-part" onclick="checkSpell(35,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q35-ans"></div>
+    <button class="show-link" onclick="revealSpell(35,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q36 -->
+  <div class="question" id="q36">
+    <div class="q-row"><span class="q-num">36.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">The dog wagged it's tail happily at the park.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(36,'B',this)">A &nbsp; The dog wagged</button>
+      <button class="sent-part" onclick="checkSpell(36,'B',this)">B &nbsp; it's tail happily</button>
+      <button class="sent-part" onclick="checkSpell(36,'B',this)">C &nbsp; at the park.</button>
+      <button class="sent-part" onclick="checkSpell(36,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q36-ans"></div>
+    <button class="show-link" onclick="revealSpell(36,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q37 -->
+  <div class="question" id="q37">
+    <div class="q-row"><span class="q-num">37.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">The rain finally stopped and the sun appeared again</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(37,'C',this)">A &nbsp; The rain finally stopped</button>
+      <button class="sent-part" onclick="checkSpell(37,'C',this)">B &nbsp; and the sun</button>
+      <button class="sent-part" onclick="checkSpell(37,'C',this)">C &nbsp; appeared again [missing full stop]</button>
+      <button class="sent-part" onclick="checkSpell(37,'C',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q37-ans"></div>
+    <button class="show-link" onclick="revealSpell(37,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q38 -->
+  <div class="question" id="q38">
+    <div class="q-row"><span class="q-num">38.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Sams notebook was crammed with detailed comic drawings.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(38,'A',this)">A &nbsp; Sams notebook was</button>
+      <button class="sent-part" onclick="checkSpell(38,'A',this)">B &nbsp; crammed with detailed</button>
+      <button class="sent-part" onclick="checkSpell(38,'A',this)">C &nbsp; comic drawings.</button>
+      <button class="sent-part" onclick="checkSpell(38,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q38-ans"></div>
+    <button class="show-link" onclick="revealSpell(38,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q39 -->
+  <div class="question" id="q39">
+    <div class="q-row"><span class="q-num">39.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">When the lesson ended i proudly showed Ravi my sketch.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(39,'B',this)">A &nbsp; When the lesson ended</button>
+      <button class="sent-part" onclick="checkSpell(39,'B',this)">B &nbsp; i proudly showed Ravi</button>
+      <button class="sent-part" onclick="checkSpell(39,'B',this)">C &nbsp; my sketch.</button>
+      <button class="sent-part" onclick="checkSpell(39,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q39-ans"></div>
+    <button class="show-link" onclick="revealSpell(39,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q40 -->
+  <div class="question" id="q40">
+    <div class="q-row"><span class="q-num">40.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">How many pages have you already drawn today</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(40,'C',this)">A &nbsp; How many pages</button>
+      <button class="sent-part" onclick="checkSpell(40,'C',this)">B &nbsp; have you already</button>
+      <button class="sent-part" onclick="checkSpell(40,'C',this)">C &nbsp; drawn today [missing question mark]</button>
+      <button class="sent-part" onclick="checkSpell(40,'C',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q40-ans"></div>
+    <button class="show-link" onclick="revealSpell(40,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q41 -->
+  <div class="question" id="q41">
+    <div class="q-row"><span class="q-num">41.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Sam grabbed pens paper and pencils before the bell rang.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">A &nbsp; Sam grabbed pens paper [missing comma]</button>
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">B &nbsp; and pencils before</button>
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">C &nbsp; the bell rang.</button>
+      <button class="sent-part" onclick="checkSpell(41,'A',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q41-ans"></div>
+    <button class="show-link" onclick="revealSpell(41,'A','')">Show answer</button>
+  </div>
+
+  <!-- Q42 -->
+  <div class="question" id="q42">
+    <div class="q-row"><span class="q-num">42.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">Ravi promised he wouldnt tell anyone the secret ending.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(42,'B',this)">A &nbsp; Ravi promised he</button>
+      <button class="sent-part" onclick="checkSpell(42,'B',this)">B &nbsp; wouldnt tell anyone</button>
+      <button class="sent-part" onclick="checkSpell(42,'B',this)">C &nbsp; the secret ending.</button>
+      <button class="sent-part" onclick="checkSpell(42,'B',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q42-ans"></div>
+    <button class="show-link" onclick="revealSpell(42,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q43 -->
+  <div class="question" id="q43">
+    <div class="q-row"><span class="q-num">43.</span><span class="q-text">Find the punctuation mistake (or N if there is none).</span><span class="q-marks">[1]</span></div>
+    <div class="sent-sentence">After school, the two friends walked home together, chatting cheerfully.</div>
+    <div class="sent-options">
+      <button class="sent-part" onclick="checkSpell(43,'N',this)">A &nbsp; After school,</button>
+      <button class="sent-part" onclick="checkSpell(43,'N',this)">B &nbsp; the two friends walked home together,</button>
+      <button class="sent-part" onclick="checkSpell(43,'N',this)">C &nbsp; chatting cheerfully.</button>
+      <button class="sent-part" onclick="checkSpell(43,'N',this)">N &nbsp; No mistake</button>
+    </div>
+    <div class="answer-box" id="q43-ans"></div>
+    <button class="show-link" onclick="revealSpell(43,'N','')">Show answer</button>
+  </div>
+
+  <!-- ===== SECTION D: GRAMMAR & VOCABULARY ===== -->
+  <div class="section-heading">Section D &mdash; Grammar &amp; Vocabulary (Questions 44&ndash;50)</div>
+  <p style="font-family:-apple-system,sans-serif;font-size:0.88rem;color:var(--muted);margin-bottom:16px;">Choose the best word or phrase to complete each sentence, or answer the grammar and vocabulary questions.</p>
+
+  <!-- Q44 -->
+  <div class="question" id="q44">
+    <div class="q-row"><span class="q-num">44.</span><span class="q-text">Despite his ___ start, Sam gradually began to relax and enjoy the day.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">A &nbsp; confident</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">B &nbsp; nervous</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">C &nbsp; cheerful</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">D &nbsp; eager</button>
+      <button class="opt-btn" onclick="checkMCQ(44,'B',this)">E &nbsp; proud</button>
+    </div>
+    <div class="answer-box" id="q44-ans"></div>
+    <button class="show-link" onclick="revealMCQ(44,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q45 -->
+  <div class="question" id="q45">
+    <div class="q-row"><span class="q-num">45.</span><span class="q-text">The two boys shared ___ love of drawing comics.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(45,'C',this)">A &nbsp; there</button>
+      <button class="opt-btn" onclick="checkMCQ(45,'C',this)">B &nbsp; they're</button>
+      <button class="opt-btn" onclick="checkMCQ(45,'C',this)">C &nbsp; their</button>
+      <button class="opt-btn" onclick="checkMCQ(45,'C',this)">D &nbsp; theirs</button>
+      <button class="opt-btn" onclick="checkMCQ(45,'C',this)">E &nbsp; them</button>
+    </div>
+    <div class="answer-box" id="q45-ans"></div>
+    <button class="show-link" onclick="revealMCQ(45,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q46 -->
+  <div class="question" id="q46">
+    <div class="q-row"><span class="q-num">46.</span><span class="q-text">By lunchtime Sam ___ almost forgotten his earlier fears.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(46,'C',this)">A &nbsp; has</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'C',this)">B &nbsp; will have</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'C',this)">C &nbsp; had</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'C',this)">D &nbsp; having</button>
+      <button class="opt-btn" onclick="checkMCQ(46,'C',this)">E &nbsp; is having</button>
+    </div>
+    <div class="answer-box" id="q46-ans"></div>
+    <button class="show-link" onclick="revealMCQ(46,'C','')">Show answer</button>
+  </div>
+
+  <!-- Q47 -->
+  <div class="question" id="q47">
+    <div class="q-row"><span class="q-num">47.</span><span class="q-text">In the sentence &ldquo;Sam nervously entered the crowded classroom,&rdquo; which word is an <strong>adverb</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(47,'B',this)">A &nbsp; Sam</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'B',this)">B &nbsp; nervously</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'B',this)">C &nbsp; entered</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'B',this)">D &nbsp; crowded</button>
+      <button class="opt-btn" onclick="checkMCQ(47,'B',this)">E &nbsp; classroom</button>
+    </div>
+    <div class="answer-box" id="q47-ans"></div>
+    <button class="show-link" onclick="revealMCQ(47,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q48 -->
+  <div class="question" id="q48">
+    <div class="q-row"><span class="q-num">48.</span><span class="q-text">In the sentence &ldquo;Ravi and Sam drew until the bell rang,&rdquo; what part of speech is the word <em>until</em>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(48,'D',this)">A &nbsp; noun</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'D',this)">B &nbsp; adjective</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'D',this)">C &nbsp; adverb</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'D',this)">D &nbsp; conjunction</button>
+      <button class="opt-btn" onclick="checkMCQ(48,'D',this)">E &nbsp; pronoun</button>
+    </div>
+    <div class="answer-box" id="q48-ans"></div>
+    <button class="show-link" onclick="revealMCQ(48,'D','')">Show answer</button>
+  </div>
+
+  <!-- Q49 -->
+  <div class="question" id="q49">
+    <div class="q-row"><span class="q-num">49.</span><span class="q-text">Which word is closest in meaning to <em>battered</em> (as in &ldquo;a battered notebook&rdquo;)?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">A &nbsp; brand-new</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">B &nbsp; worn</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">C &nbsp; heavy</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">D &nbsp; colourful</button>
+      <button class="opt-btn" onclick="checkMCQ(49,'B',this)">E &nbsp; enormous</button>
+    </div>
+    <div class="answer-box" id="q49-ans"></div>
+    <button class="show-link" onclick="revealMCQ(49,'B','')">Show answer</button>
+  </div>
+
+  <!-- Q50 -->
+  <div class="question" id="q50">
+    <div class="q-row"><span class="q-num">50.</span><span class="q-text">Which word is the <strong>opposite</strong> (antonym) of <em>dread</em>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">A &nbsp; fear</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">B &nbsp; loathe</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">C &nbsp; welcome</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">D &nbsp; avoid</button>
+      <button class="opt-btn" onclick="checkMCQ(50,'C',this)">E &nbsp; worry</button>
+    </div>
+    <div class="answer-box" id="q50-ans"></div>
+    <button class="show-link" onclick="revealMCQ(50,'C','')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Paper &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results &mdash; English Paper 6</h2>
+  <div class="result-score" id="res-score">&mdash; / 50</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">&mdash;</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any you got wrong.
+  </p>
+  <div style="margin-top:18px;display:flex;gap:16px;">
+    <a href="../index.html" style="color:var(--blue);font-size:0.9rem;">&#8592; Back to Home</a>
+    <a href="english-paper-05.html" style="color:var(--blue);font-size:0.9rem;">English Paper 5 &#8594;</a>
+  </div>
+</div>
+
+<script>
+  var answers = {};
+  var totalQ = 50;
+  var totalSecs = 50 * 60;
+  var remaining = totalSecs;
+  var timerRunning = true;
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  // Grounded explanation for every question (single source of truth for both the
+  // instant-feedback and the "Show answer" reveal). Each justifies the keyed answer
+  // against the passage or rule; inference/language/vocab items also note why the
+  // most tempting wrong option is wrong.
+  var EXPLAIN = {
+    1: "Line 3: he would &ldquo;walk through the gates of <strong>Ashcroft Primary</strong>&rdquo;.",
+    2: "Line 3: &ldquo;In <strong>three days</strong> he would walk through the gates&rdquo;.",
+    3: "&lsquo;Dull&rsquo; means lacking brightness, so &lsquo;duller&rsquo; means <strong>less bright</strong>. &lsquo;Darker&rsquo; is tempting, but dullness is about a lack of vividness, not simply being darker.",
+    4: "The gloomy details reflect Sam&rsquo;s own unhappiness at moving &mdash; &ldquo;not a single face belonged to anyone he knew&rdquo; (line 3). A is tempting, but the &lsquo;faults&rsquo; are really his miserable point of view, not the town itself.",
+    5: "Line 5: &ldquo;<strong>You&rsquo;ll make friends in no time</strong>,&rdquo; his mother promised.",
+    6: "It compares friends to furniture using &lsquo;like&rsquo;, which makes it a <strong>simile</strong>. A metaphor (A) would say friends <em>were</em> furniture, without &lsquo;like&rsquo; or &lsquo;as&rsquo;.",
+    7: "Having heard the promise before and rejecting it shows Sam is doubtful and <strong>pessimistic</strong>. C (furious) is too strong &mdash; he is quietly gloomy, not angry with his mother.",
+    8: "A churning stomach signals anxiety, so Sam felt <strong>sick with nerves</strong> among the strangers. B (hungry) plays on &lsquo;stomach&rsquo; but does not fit the fearful mood.",
+    9: "Line 11: &ldquo;The teacher, <strong>Mrs Okafor</strong>, gestured towards an empty seat&rdquo;.",
+    10: "Line 11: &ldquo;a boy <strong>with wild curls and ink-stained fingers</strong>&rdquo;.",
+    11: "Wanting to vanish under thirty stares shows painful shyness, so Sam felt <strong>extremely self-conscious</strong>. It is figurative &mdash; he cannot really disappear.",
+    12: "The exaggerated comparison shows how frightened Sam felt, clinging to his bag for <strong>comfort</strong>. B (a heavy bag) mistakes a figure of speech for a literal fact.",
+    13: "Lines 14&ndash;15: &ldquo;Is that a comic?&hellip; a battered <strong>notebook</strong> poking from Sam&rsquo;s bag&rdquo;.",
+    14: "Line 16: the drawings were his own and he &ldquo;had never shown anyone&rdquo;, so he froze out of fear of <strong>exposing something private</strong>, not from cold (A).",
+    15: "Line 16: &ldquo;a masked hero called <strong>Nighthawk</strong>&rdquo;.",
+    16: "Keeping them hidden shows the drawings were <strong>personal and private</strong>. D (unfinished) is not implied &mdash; the point is secrecy, not that they were incomplete.",
+    17: "To <strong>mumble</strong> is to speak quietly and unclearly, which fits Sam&rsquo;s shyness. A (shouted) is the opposite.",
+    18: "Line 23: &ldquo;The boy, whose name was <strong>Ravi</strong>&rdquo;.",
+    19: "Shining eyes here convey enthusiasm at finding a shared interest, so Ravi was <strong>eager and excited</strong>. B (tearful) also gives shiny eyes, but the happy context rules it out.",
+    20: "The comparison stresses real fascination, showing Ravi was <strong>genuinely interested</strong> &mdash; which is why a friendship forms. A (pretending politely) contradicts his shining, eager reaction.",
+    21: "Line 25: &ldquo;huddled in <strong>a corner of the playground</strong>&rdquo;.",
+    22: "To <strong>huddle</strong> is to gather closely together, showing the boys absorbed side by side. A (stood far apart) is the opposite.",
+    23: "He begins dreading the day (line 9) and ends having &ldquo;forgotten&hellip; that he had ever dreaded this day&rdquo; (line 27), a shift from <strong>lonely dread to happiness</strong>.",
+    24: "&lsquo;Grey&rsquo; is a metaphor for gloom, so it means <strong>dull and miserable</strong>; now Sam has a friend the town no longer feels that way. B (the real colour) misses the figurative meaning that echoes the &lsquo;duller shade of grey&rsquo; at the start.",
+    25: "The passage tracks Sam from fearing isolation to finding a friend in Ravi, ending on hope &mdash; a <strong>dread-to-friendship</strong> arc. A reverses it and D ignores the story entirely.",
+    26: "&lsquo;definately&rsquo; should be <strong>definitely</strong> (it contains the word &lsquo;finite&rsquo;: de-fin-ite-ly).",
+    27: "&lsquo;embarass&rsquo; should be <strong>embarrass</strong> (double r and double s).",
+    28: "&lsquo;goverment&rsquo; should be <strong>government</strong> &mdash; keep the &lsquo;n&rsquo; from &lsquo;govern&rsquo;.",
+    29: "&lsquo;rythm&rsquo; should be <strong>rhythm</strong> (r-h-y-t-h-m, with an &lsquo;h&rsquo; after each of the first two letters).",
+    30: "Every word is spelled correctly, so the answer is <strong>N, no mistake</strong>.",
+    31: "&lsquo;priviledge&rsquo; should be <strong>privilege</strong> &mdash; there is no &lsquo;d&rsquo; and no second &lsquo;e&rsquo; in the middle.",
+    32: "&lsquo;occassion&rsquo; should be <strong>occasion</strong> (double c but only one s).",
+    33: "&lsquo;acheive&rsquo; should be <strong>achieve</strong> (i before e, following &lsquo;ach&rsquo;).",
+    34: "&lsquo;wierd&rsquo; should be <strong>weird</strong> &mdash; an exception to &lsquo;i before e&rsquo;, spelt w-e-i-r-d.",
+    35: "A sentence must begin with a capital letter, so &lsquo;on&rsquo; should be <strong>On</strong>.",
+    36: "Here &lsquo;it&rsquo;s&rsquo; is possessive (the tail belonging to the dog), so it needs no apostrophe: <strong>its</strong>.",
+    37: "A statement must end with a full stop, so a full stop is needed after &lsquo;appeared again&rsquo;.",
+    38: "&lsquo;Sams&rsquo; is possessive (the notebook belonging to Sam), so it needs an apostrophe: <strong>Sam&rsquo;s</strong>.",
+    39: "The pronoun &lsquo;I&rsquo; is always written as a capital letter, so &lsquo;i&rsquo; should be <strong>I</strong>.",
+    40: "This is a question, so it must end with a question mark: &lsquo;drawn today<strong>?</strong>&rsquo;",
+    41: "Items in a list need commas: &lsquo;pens<strong>,</strong> paper and pencils&rsquo;.",
+    42: "&lsquo;wouldnt&rsquo; is a contraction of &lsquo;would not&rsquo; and needs an apostrophe: <strong>wouldn&rsquo;t</strong>.",
+    43: "The commas and full stop are all correct, so the answer is <strong>N, no mistake</strong>.",
+    44: "&lsquo;Despite&rsquo; signals a contrast with relaxing later, so a <strong>nervous</strong> start fits. Positive words such as &lsquo;confident&rsquo; or &lsquo;cheerful&rsquo; would not contrast with beginning to relax.",
+    45: "The possessive determiner <strong>their</strong> is needed (the love belonging to the two boys). A (&lsquo;there&rsquo;) refers to a place and B (&lsquo;they&rsquo;re&rsquo;) means &lsquo;they are&rsquo;.",
+    46: "The past-perfect &lsquo;<strong>had</strong> almost forgotten&rsquo; fits this past narrative. A (&lsquo;has&rsquo;) is present perfect and B (&lsquo;will have&rsquo;) is future, so neither matches.",
+    47: "<strong>Nervously</strong> tells us <em>how</em> Sam entered, so it is an adverb. &lsquo;Crowded&rsquo; (D) is an adjective describing the classroom, not the action.",
+    48: "Here <strong>until</strong> joins two clauses (&lsquo;drew&rsquo; and &lsquo;the bell rang&rsquo;), so it is a conjunction. It only acts as a preposition before a noun, e.g. &lsquo;until lunchtime&rsquo;.",
+    49: "A &lsquo;battered&rsquo; notebook is old and damaged from use, so the closest word is <strong>worn</strong>. A (brand-new) is the opposite.",
+    50: "To <strong>dread</strong> something is to fear it, so its opposite is to <strong>welcome</strong> it. A (fear) and E (worry) are synonyms of dread, not antonyms."
+  };
+
+  function explainSpan(qNum) {
+    return EXPLAIN[qNum] ? '<span class="explain">' + EXPLAIN[qNum] + '</span>' : '';
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    var el = document.getElementById('timer');
+    el.textContent = pad(m) + ':' + pad(s);
+    el.className = rem <= 300 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  function updateLiveScore() {
+    document.getElementById('live-score').textContent = Object.keys(answers).length + ' / ' + totalQ + ' answered';
+  }
+
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + explainSpan(qNum);
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function checkSpell(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .sent-part');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + explainSpan(qNum);
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.' + (EXPLAIN[qNum] ? explainSpan(qNum) : '<span class="explain">' + html + '</span>');
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealSpell(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .sent-part');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.' + (EXPLAIN[qNum] ? explainSpan(qNum) : '<span class="explain">' + html + '</span>');
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — on track for grammar school!' :
+                pct >= 70 ? 'Good — keep practising to reach the top band.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the paper again after revision.';
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+    document.getElementById('res-score').textContent = correct + ' / 50';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
