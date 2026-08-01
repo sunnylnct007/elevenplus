@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Long Maths — Mock Pack 3</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    /* --- exam header --- */
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+    .badge {
+      background: var(--blue);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    .header-line {
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .exam-subtitle {
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--blue);
+    }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    /* --- timer bar --- */
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .score-display {
+      font-size: 0.88rem;
+    }
+    /* --- paper body --- */
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    /* --- question --- */
+    .question {
+      margin-bottom: 22px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+      page-break-inside: avoid;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .q-num {
+      font-weight: 700;
+      font-size: 1rem;
+      min-width: 32px;
+      color: var(--blue);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding-top: 1px;
+    }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding-top: 3px;
+    }
+    /* write-in */
+    .write-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0 0 42px;
+    }
+    .write-row input {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 0.97rem;
+      border: none;
+      border-bottom: 2px solid #555;
+      padding: 3px 6px;
+      width: 160px;
+      background: transparent;
+      outline: none;
+    }
+    .write-row input:focus { border-bottom-color: var(--blue); }
+    .check-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .check-btn:hover { background: #163d7d; }
+    /* answer reveal */
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    /* show answer link */
+    .show-link {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    /* results panel */
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    /* nav */
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a {
+      color: var(--blue);
+      text-decoration: none;
+      background: var(--blue-light);
+      padding: 7px 18px;
+      border-radius: 8px;
+    }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .submit-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Back to Mock Pack 3</a>
+  <span style="padding:7px 0;color:var(--muted)">Section 4 of 6</span>
+</div>
+
+<div class="exam-header">
+  <div class="header-top">
+    <div class="badge">LM</div>
+    <h1>Long Maths</h1>
+  </div>
+  <div class="header-line">Mock Pack 3 &middot; Section 4 of 6</div>
+  <div class="exam-subtitle">12 questions &middot; 10 minutes</div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Answer <strong>all 12 questions</strong>. Each is a multi-step, real-life problem.</li>
+      <li>Work carefully on paper, then type your answer and press <strong>Check</strong>.</li>
+      <li>You do not need to include units unless asked, but &pound; answers are accepted with or without the sign.</li>
+      <li>Click <em>Show answer</em> at any time to see the worked solution.</li>
+      <li>Press <strong>Submit Section</strong> at the end to see your score.</li>
+      <li>No calculator.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">10:00</div>
+  </div>
+  <div class="score-display" id="live-score">0 / 12 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <div class="section-heading">Long Maths &mdash; Word Problems</div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row">
+      <span class="q-num">1.</span>
+      <span class="q-text">A winter coat normally costs <strong>&pound;80</strong>. In a sale it is reduced by <strong>15%</strong>. What is the <strong>sale price</strong> of the coat?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q1-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(1,'68',['68','£68','£68.00','68.00'])">Check</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealAns(1,'15% of &pound;80 = 0.15 &times; 80 = &pound;12. Sale price = 80 &minus; 12 = <strong>&pound;68</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row">
+      <span class="q-num">2.</span>
+      <span class="q-text">A bag of sweets is shared between Amy and Ben in the ratio <strong>3 : 5</strong>. Ben receives <strong>40 sweets</strong>. How many sweets does <strong>Amy</strong> receive?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q2-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(2,'24',['24','24 sweets'])">Check</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealAns(2,'Ben has 5 parts = 40, so 1 part = 40 &div; 5 = 8. Amy has 3 parts = 3 &times; 8 = <strong>24</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row">
+      <span class="q-num">3.</span>
+      <span class="q-text">At a market, <strong>5 apples cost &pound;1.20</strong>. At the same price per apple, how much would <strong>8 apples</strong> cost?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q3-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(3,'1.92',['1.92','£1.92'])">Check</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealAns(3,'One apple = &pound;1.20 &div; 5 = 24p. Eight apples = 8 &times; 24p = 192p = <strong>&pound;1.92</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row">
+      <span class="q-num">4.</span>
+      <span class="q-text">A film starts at <strong>19:45</strong> and lasts <strong>2 hours 35 minutes</strong>. At what time does the film <strong>finish</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q4-inp" placeholder="hh:mm" />
+      <button class="check-btn" onclick="checkWrite(4,'22:20',['22:20','2220','22.20'])">Check</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealAns(4,'19:45 + 2 h = 21:45. Then + 35 min: 45 + 35 = 80 min = 1 h 20 min, so 21:45 + 35 = <strong>22:20</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row">
+      <span class="q-num">5.</span>
+      <span class="q-text">A restaurant bill comes to <strong>&pound;60</strong>. A <strong>10% service charge</strong> is then added. What is the <strong>total amount</strong> to pay?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q5-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(5,'66',['66','£66','£66.00','66.00'])">Check</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealAns(5,'Service charge = 10% of &pound;60 = &pound;6. Total = 60 + 6 = <strong>&pound;66</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row">
+      <span class="q-num">6.</span>
+      <span class="q-text">A rectangular garden measures <strong>8 m by 5 m</strong>. A new fence is put all the way around it, costing <strong>&pound;3 per metre</strong>. What is the <strong>total cost</strong> of the fence?</span>
+      <span class="q-marks">[3]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q6-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(6,'78',['78','£78','£78.00','78.00'])">Check</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealAns(6,'Perimeter = 2 &times; (8 + 5) = 2 &times; 13 = 26 m. Cost = 26 &times; &pound;3 = <strong>&pound;78</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row">
+      <span class="q-num">7.</span>
+      <span class="q-text">A car travels <strong>150 km</strong> in <strong>3 hours</strong> at a steady speed. What is its <strong>average speed</strong> in kilometres per hour?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q7-inp" placeholder="km/h" />
+      <button class="check-btn" onclick="checkWrite(7,'50',['50','50km/h','50 km/h','50kmh'])">Check</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealAns(7,'Average speed = distance &div; time = 150 &div; 3 = <strong>50 km/h</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row">
+      <span class="q-num">8.</span>
+      <span class="q-text">A rice recipe for <strong>4 people</strong> uses <strong>300 g of rice</strong>. Using the same recipe, how much rice is needed for <strong>10 people</strong>?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q8-inp" placeholder="g" />
+      <button class="check-btn" onclick="checkWrite(8,'750',['750','750g','750 g'])">Check</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealAns(8,'Rice per person = 300 &div; 4 = 75 g. For 10 people = 75 &times; 10 = <strong>750 g</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row">
+      <span class="q-num">9.</span>
+      <span class="q-text">A carton of juice is sold as a <strong>6-pack for &pound;2.40</strong>, or as <strong>single cartons at 45p each</strong>. How much <strong>cheaper</strong> is it to buy the 6-pack than to buy six singles?</span>
+      <span class="q-marks">[3]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q9-inp" placeholder="£ or p" />
+      <button class="check-btn" onclick="checkWrite(9,'30p',['30p','0.30','£0.30','0.3','£0.3','30'])">Check</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealAns(9,'Six singles = 6 &times; 45p = 270p = &pound;2.70. The 6-pack = &pound;2.40. Saving = 2.70 &minus; 2.40 = &pound;0.30 = <strong>30p</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row">
+      <span class="q-num">10.</span>
+      <span class="q-text">In a shop Leah buys a notebook for <strong>&pound;3.45</strong> and a pen for <strong>&pound;2.80</strong>. She pays with a <strong>&pound;10 note</strong>. How much <strong>change</strong> should she receive?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q10-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(10,'3.75',['3.75','£3.75'])">Check</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealAns(10,'Spent = &pound;3.45 + &pound;2.80 = &pound;6.25. Change = &pound;10 &minus; &pound;6.25 = <strong>&pound;3.75</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row">
+      <span class="q-num">11.</span>
+      <span class="q-text">On a map the scale is <strong>1 cm to 5 km</strong>. Two towns are <strong>7 cm apart</strong> on the map. What is the <strong>real distance</strong> between the towns?</span>
+      <span class="q-marks">[2]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q11-inp" placeholder="km" />
+      <button class="check-btn" onclick="checkWrite(11,'35',['35','35km','35 km'])">Check</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealAns(11,'Each 1 cm represents 5 km, so 7 cm represents 7 &times; 5 = <strong>35 km</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row">
+      <span class="q-num">12.</span>
+      <span class="q-text">Cinema tickets cost <strong>&pound;9 for an adult</strong> and <strong>&pound;6 for a child</strong>. A family of <strong>2 adults and 3 children</strong> book together. As members they get <strong>25% off</strong> the whole order. How much do they <strong>pay</strong>?</span>
+      <span class="q-marks">[3]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q12-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(12,'27',['27','£27','£27.00','27.00'])">Check</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealAns(12,'Adults 2 &times; &pound;9 = &pound;18; children 3 &times; &pound;6 = &pound;18. Full price = 18 + 18 = &pound;36. 25% off means paying 75%: 0.75 &times; 36 = <strong>&pound;27</strong>')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Section &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results — Long Maths</h2>
+  <div class="result-score" id="res-score">— / 12</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any question you got wrong.
+  </p>
+  <div style="margin-top:18px;">
+    <a href="index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Mock Pack 3</a>
+  </div>
+</div>
+
+<script>
+  // ---- State ----
+  var answers = {}; // qNum -> {correct: bool, submitted: bool}
+  var totalQ = 12;
+
+  // ---- Timer ----
+  var totalSecs = 10 * 60;
+  var timerRunning = true;
+  var timerEl = document.getElementById('timer');
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    timerEl.textContent = pad(m) + ':' + pad(s);
+    timerEl.className = rem <= 120 ? (rem <= 30 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  // ---- Score display ----
+  function updateLiveScore() {
+    var done = Object.keys(answers).length;
+    document.getElementById('live-score').textContent = done + ' / ' + totalQ + ' answered';
+  }
+
+  // ---- Write-in check ----
+  function checkWrite(qNum, correct, alts) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var norm = function(x){ return x.toLowerCase().replace(/\s+/g,'').replace(/£/g,''); };
+    var val = norm(inp.value.trim());
+    var normAlts = alts.map(norm);
+    var isCorrect = normAlts.indexOf(val) !== -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + alts[0] + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Show answer (reveal without grading) ----
+  function revealAns(qNum, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    var inp = document.getElementById('q' + qNum + '-inp');
+    if (inp) inp.disabled = true;
+    updateLiveScore();
+  }
+
+  // ---- Submit ----
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — strong problem-solving!' :
+                pct >= 70 ? 'Good — keep practising the wordy questions.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — read each problem step by step.';
+
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+
+    document.getElementById('res-score').textContent = correct + ' / 12';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

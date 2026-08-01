@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data — Mock Pack 2, Section 5</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header .badge {
+      float: right;
+      background: var(--blue);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 8px;
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .exam-header .sub {
+      text-align: center;
+      font-size: 0.92rem;
+      color: var(--muted);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .exam-header .packline {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--blue);
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      margin-bottom: 4px;
+    }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    /* visual panel */
+    .visual {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: #fcfdff;
+      padding: 16px 18px 12px;
+      margin: 0 0 20px;
+    }
+    .visual h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.95rem;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .visual svg { display: block; width: 100%; height: auto; max-width: 620px; margin: 0 auto; }
+    .data-table {
+      border-collapse: collapse;
+      margin: 6px auto 4px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.85rem;
+    }
+    .data-table caption {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      text-align: center;
+    }
+    .data-table th { background: var(--blue-light); color: var(--blue); font-weight: 700; }
+    .data-table td.rowhead { background: var(--blue-light); color: var(--blue); font-weight: 700; }
+    .data-table td.diag { background: #e2e8f0; color: #94a3b8; }
+    .tables-wrap { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+    .question {
+      margin-bottom: 20px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .options { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0 42px; }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 5px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .write-row { display: flex; align-items: center; gap: 10px; margin: 10px 0 0 42px; }
+    .write-row input {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 0.97rem;
+      border: none;
+      border-bottom: 2px solid #555;
+      padding: 3px 6px;
+      width: 160px;
+      background: transparent;
+      outline: none;
+    }
+    .write-row input:focus { border-bottom-color: var(--blue); }
+    .check-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .check-btn:hover { background: #163d7d; }
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .show-link {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn {
+      font-family: -apple-system, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .options { flex-direction: column; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">&larr; Back to Mock Pack 2</a>
+  <span style="padding:7px 0;color:var(--muted)">Section 5 of 6</span>
+</div>
+
+<div class="exam-header">
+  <span class="badge">DA</span>
+  <h1>Data</h1>
+  <div class="packline">Mock Pack 2 &middot; Section 5 of 6</div>
+  <div class="sub">20 questions &middot; 10 minutes</div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Study each chart, graph or table carefully before answering the questions about it.</li>
+      <li>For multiple-choice questions, click the letter of your chosen answer.</li>
+      <li>For written-answer questions, type your answer and press <strong>Check</strong>.</li>
+      <li>Click <em>Show answer</em> at any time to reveal the correct answer.</li>
+      <li>Press <strong>Submit Section</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">10:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 20 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ============ VISUAL 1: PICTOGRAM — BOOKS BORROWED ============ -->
+  <div class="section-heading">Pictogram &mdash; Books borrowed from the library (Questions 1&ndash;5)</div>
+
+  <div class="visual">
+    <h4>Books borrowed each day last week</h4>
+    <svg viewBox="0 0 520 300" role="img" aria-label="Pictogram of books borrowed each day, each circle represents 5 books">
+      <!-- day labels -->
+      <g font-family="Arial, sans-serif" font-size="13" fill="#334155" text-anchor="end">
+        <text x="70" y="55">Mon</text>
+        <text x="70" y="100">Tue</text>
+        <text x="70" y="145">Wed</text>
+        <text x="70" y="190">Thu</text>
+        <text x="70" y="235">Fri</text>
+      </g>
+      <!-- Mon: 4 symbols = 20 -->
+      <g fill="#1c4c96">
+        <circle cx="100" cy="50" r="12"/><circle cx="134" cy="50" r="12"/><circle cx="168" cy="50" r="12"/><circle cx="202" cy="50" r="12"/>
+      </g>
+      <!-- Tue: 6 symbols = 30 -->
+      <g fill="#1c4c96">
+        <circle cx="100" cy="95" r="12"/><circle cx="134" cy="95" r="12"/><circle cx="168" cy="95" r="12"/><circle cx="202" cy="95" r="12"/><circle cx="236" cy="95" r="12"/><circle cx="270" cy="95" r="12"/>
+      </g>
+      <!-- Wed: 3 symbols = 15 -->
+      <g fill="#1c4c96">
+        <circle cx="100" cy="140" r="12"/><circle cx="134" cy="140" r="12"/><circle cx="168" cy="140" r="12"/>
+      </g>
+      <!-- Thu: 5 symbols = 25 -->
+      <g fill="#1c4c96">
+        <circle cx="100" cy="185" r="12"/><circle cx="134" cy="185" r="12"/><circle cx="168" cy="185" r="12"/><circle cx="202" cy="185" r="12"/><circle cx="236" cy="185" r="12"/>
+      </g>
+      <!-- Fri: 7 symbols = 35 -->
+      <g fill="#1c4c96">
+        <circle cx="100" cy="230" r="12"/><circle cx="134" cy="230" r="12"/><circle cx="168" cy="230" r="12"/><circle cx="202" cy="230" r="12"/><circle cx="236" cy="230" r="12"/><circle cx="270" cy="230" r="12"/><circle cx="304" cy="230" r="12"/>
+      </g>
+      <!-- key -->
+      <line x1="90" y1="262" x2="430" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+      <circle cx="102" cy="282" r="12" fill="#1c4c96"/>
+      <text x="122" y="287" font-family="Arial, sans-serif" font-size="13" fill="#334155">= 5 books</text>
+    </svg>
+  </div>
+
+  <!-- Q1 write-in -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">How many books were borrowed on <strong>Tuesday</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q1-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(1,'30',['30'])">Check</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealAns(1,'Tuesday has 6 symbols. 6 &times; 5 = <strong>30 books</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q2 MCQ -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">On which day were the <strong>fewest</strong> books borrowed?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">A &nbsp; Monday</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">B &nbsp; Tuesday</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">C &nbsp; Wednesday</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">D &nbsp; Thursday</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealMCQ(2,'C','<strong>Wednesday</strong> has the fewest symbols (3), which is 15 books.')">Show answer</button>
+  </div>
+
+  <!-- Q3 write-in -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">What was the <strong>total</strong> number of books borrowed during the whole week?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q3-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(3,'125',['125'])">Check</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealAns(3,'20 + 30 + 15 + 25 + 35 = <strong>125 books</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q4 MCQ -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">How many books does <strong>each symbol</strong> represent?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">A &nbsp; 2</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">B &nbsp; 5</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">C &nbsp; 10</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">D &nbsp; 15</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealMCQ(4,'B','The key shows one circle = <strong>5 books</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q5 write-in -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">How many <strong>more</strong> books were borrowed on Friday than on Monday?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q5-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(5,'15',['15'])">Check</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealAns(5,'Friday = 35, Monday = 20. 35 &minus; 20 = <strong>15 books</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ============ VISUAL 2: BAR CHART — GOALS BY TEAM ============ -->
+  <div class="section-heading">Bar chart &mdash; Goals scored this season (Questions 6&ndash;10)</div>
+
+  <div class="visual">
+    <h4>Total goals scored by five football teams</h4>
+    <svg viewBox="0 0 540 320" role="img" aria-label="Bar chart of goals scored by five teams">
+      <!-- gridlines + y labels 0..60 by 10 -->
+      <g stroke="#dbe3ef" stroke-width="1">
+        <line x1="60" y1="260" x2="510" y2="260"/>
+        <line x1="60" y1="223.3" x2="510" y2="223.3"/>
+        <line x1="60" y1="186.7" x2="510" y2="186.7"/>
+        <line x1="60" y1="150" x2="510" y2="150"/>
+        <line x1="60" y1="113.3" x2="510" y2="113.3"/>
+        <line x1="60" y1="76.7" x2="510" y2="76.7"/>
+        <line x1="60" y1="40" x2="510" y2="40"/>
+      </g>
+      <line x1="60" y1="40" x2="60" y2="260" stroke="#334155" stroke-width="1.5"/>
+      <line x1="60" y1="260" x2="510" y2="260" stroke="#334155" stroke-width="1.5"/>
+      <g font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="end">
+        <text x="52" y="264">0</text>
+        <text x="52" y="227.3">10</text>
+        <text x="52" y="190.7">20</text>
+        <text x="52" y="154">30</text>
+        <text x="52" y="117.3">40</text>
+        <text x="52" y="80.7">50</text>
+        <text x="52" y="44">60</text>
+      </g>
+      <text x="16" y="150" font-family="Arial, sans-serif" font-size="11" fill="#475569" transform="rotate(-90 16 150)" text-anchor="middle">Goals scored</text>
+      <!-- bars: Lions45 Tigers30 Bears55 Wolves25 Hawks40 -->
+      <g fill="#1c4c96">
+        <rect x="80" y="95" width="60" height="165"/>
+        <rect x="170" y="150" width="60" height="110"/>
+        <rect x="260" y="58.3" width="60" height="201.7"/>
+        <rect x="350" y="168.3" width="60" height="91.7"/>
+        <rect x="440" y="113.3" width="60" height="146.7"/>
+      </g>
+      <!-- value labels -->
+      <g font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1c4c96" text-anchor="middle">
+        <text x="110" y="88">45</text>
+        <text x="200" y="143">30</text>
+        <text x="290" y="51">55</text>
+        <text x="380" y="161">25</text>
+        <text x="470" y="106">40</text>
+      </g>
+      <!-- x labels -->
+      <g font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">
+        <text x="110" y="277">Lions</text>
+        <text x="200" y="277">Tigers</text>
+        <text x="290" y="277">Bears</text>
+        <text x="380" y="277">Wolves</text>
+        <text x="470" y="277">Hawks</text>
+      </g>
+      <text x="285" y="300" font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Team</text>
+    </svg>
+  </div>
+
+  <!-- Q6 MCQ -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text">Which team scored the <strong>most</strong> goals?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">A &nbsp; Lions</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">B &nbsp; Tigers</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">C &nbsp; Bears</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">D &nbsp; Hawks</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealMCQ(6,'C','<strong>Bears</strong> had the tallest bar at 55 goals.')">Show answer</button>
+  </div>
+
+  <!-- Q7 write-in -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text">What is the <strong>difference</strong> between the highest and lowest number of goals scored?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q7-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(7,'30',['30'])">Check</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealAns(7,'Highest = Bears (55), lowest = Wolves (25). 55 &minus; 25 = <strong>30</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q8 write-in -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text">How many goals did the <strong>Lions and Hawks together</strong> score?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q8-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(8,'85',['85'])">Check</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealAns(8,'Lions 45 + Hawks 40 = <strong>85 goals</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q9 MCQ -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text">How many teams scored <strong>more than 35</strong> goals?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(9,'B',this)">A &nbsp; 2</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'B',this)">B &nbsp; 3</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'B',this)">C &nbsp; 4</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'B',this)">D &nbsp; 5</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealMCQ(9,'B','Above 35: Lions (45), Bears (55) and Hawks (40) = <strong>3 teams</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q10 write-in -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text">How many goals did the <strong>Tigers</strong> score?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q10-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(10,'30',['30'])">Check</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealAns(10,'The Tigers&rsquo; bar reaches <strong>30 goals</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ============ VISUAL 3: PIE CHART — FAVOURITE PET ============ -->
+  <div class="section-heading">Pie chart &mdash; Favourite pet of 24 children (Questions 11&ndash;15)</div>
+
+  <div class="visual">
+    <h4>Favourite pet chosen by a class of 24 children</h4>
+    <svg viewBox="0 0 400 240" role="img" aria-label="Pie chart of favourite pets: Dog, Cat, Fish and Rabbit">
+      <!-- Dog: 12 children, half, 0-180 deg -->
+      <path d="M120,110 L120,20 A90,90 0 0 1 120,200 Z" fill="#1c4c96"/>
+      <!-- Cat: 6 children, quarter, 180-270 deg -->
+      <path d="M120,110 L120,200 A90,90 0 0 1 30,110 Z" fill="#1a7a4a"/>
+      <!-- Fish: 4 children, 60 deg, 270-330 -->
+      <path d="M120,110 L30,110 A90,90 0 0 1 75,32 Z" fill="#b45309"/>
+      <!-- Rabbit: 2 children, 30 deg, 330-360 -->
+      <path d="M120,110 L75,32 A90,90 0 0 1 120,20 Z" fill="#b91c1c"/>
+      <!-- slice labels -->
+      <g font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle">
+        <text x="160" y="115">Dog</text>
+        <text x="82" y="150">Cat</text>
+      </g>
+      <!-- legend -->
+      <g font-family="Arial, sans-serif" font-size="12" fill="#334155">
+        <rect x="245" y="40" width="16" height="16" fill="#1c4c96"/>
+        <text x="268" y="53">Dog &mdash; 12</text>
+        <rect x="245" y="68" width="16" height="16" fill="#1a7a4a"/>
+        <text x="268" y="81">Cat &mdash; 6</text>
+        <rect x="245" y="96" width="16" height="16" fill="#b45309"/>
+        <text x="268" y="109">Fish &mdash; 4</text>
+        <rect x="245" y="124" width="16" height="16" fill="#b91c1c"/>
+        <text x="268" y="137">Rabbit &mdash; 2</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Q11 write-in -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">Which pet was the <strong>most popular</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q11-inp" placeholder="Pet" />
+      <button class="check-btn" onclick="checkWrite(11,'Dog',['dog'])">Check</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealAns(11,'The <strong>Dog</strong> slice is the largest &mdash; 12 children, half the class.')">Show answer</button>
+  </div>
+
+  <!-- Q12 MCQ -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">What <strong>fraction</strong> of the class chose a dog?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(12,'A',this)">A &nbsp; 1/2</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'A',this)">B &nbsp; 1/3</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'A',this)">C &nbsp; 1/4</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'A',this)">D &nbsp; 1/5</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealMCQ(12,'A','12 out of 24 chose a dog. 12/24 = <strong>1/2</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q13 write-in -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text">How many children chose a <strong>cat</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q13-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(13,'6',['6'])">Check</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealAns(13,'The legend shows <strong>6</strong> children chose a cat.')">Show answer</button>
+  </div>
+
+  <!-- Q14 write-in -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text">How many <strong>more</strong> children chose a dog than chose a fish?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q14-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(14,'8',['8'])">Check</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealAns(14,'Dog 12 &minus; Fish 4 = <strong>8 children</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q15 MCQ -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text">Which pet did the <strong>fewest</strong> children choose?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">A &nbsp; Cat</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">B &nbsp; Fish</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">C &nbsp; Rabbit</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'C',this)">D &nbsp; Dog</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealMCQ(15,'C','The <strong>Rabbit</strong> slice is smallest &mdash; only 2 children.')">Show answer</button>
+  </div>
+
+  <!-- ============ VISUAL 4: TABLE — TRAIN TIMETABLE ============ -->
+  <div class="section-heading">Timetable &mdash; Morning trains (Questions 16&ndash;20)</div>
+
+  <div class="visual">
+    <h4>Train times from Oakwood to Hilltop</h4>
+    <div class="tables-wrap">
+      <table class="data-table">
+        <caption>Each column shows one train calling at all four stations.</caption>
+        <tr><th>Station</th><th>Train A</th><th>Train B</th><th>Train C</th></tr>
+        <tr><td class="rowhead">Oakwood</td><td>08:00</td><td>09:15</td><td>10:30</td></tr>
+        <tr><td class="rowhead">Riverside</td><td>08:20</td><td>09:40</td><td>10:52</td></tr>
+        <tr><td class="rowhead">Millfield</td><td>08:45</td><td>10:05</td><td>11:20</td></tr>
+        <tr><td class="rowhead">Hilltop</td><td>09:10</td><td>10:35</td><td>11:55</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Q16 write-in -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text">How many <strong>minutes</strong> does <strong>Train A</strong> take to travel from Oakwood all the way to Hilltop?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q16-inp" placeholder="minutes" />
+      <button class="check-btn" onclick="checkWrite(16,'70',['70','70min','70mins','70minutes'])">Check</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealAns(16,'Train A: Oakwood 08:00 to Hilltop 09:10 = <strong>70 minutes</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q17 MCQ -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text">A pupil must reach <strong>Millfield before 10:10</strong>. Which is the <strong>latest</strong> train she can catch?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">A &nbsp; Train A</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">B &nbsp; Train B</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">C &nbsp; Train C</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealMCQ(17,'B','Train B reaches Millfield at 10:05 (before 10:10). Train C is too late (11:20), so the latest is <strong>Train B</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q18 write-in -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text">How many <strong>minutes</strong> does <strong>Train B</strong> take from Oakwood to Hilltop?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q18-inp" placeholder="minutes" />
+      <button class="check-btn" onclick="checkWrite(18,'80',['80','80min','80mins','80minutes'])">Check</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealAns(18,'Train B: Oakwood 09:15 to Hilltop 10:35 = <strong>80 minutes</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q19 write-in -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text">How many <strong>minutes</strong> does <strong>Train C</strong> take from Riverside to Hilltop?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q19-inp" placeholder="minutes" />
+      <button class="check-btn" onclick="checkWrite(19,'63',['63','63min','63mins','63minutes'])">Check</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealAns(19,'Train C: Riverside 10:52 to Hilltop 11:55 = <strong>63 minutes</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q20 MCQ -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text">Which train takes the <strong>longest</strong> to travel the whole way from Oakwood to Hilltop?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(20,'C',this)">A &nbsp; Train A</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'C',this)">B &nbsp; Train B</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'C',this)">C &nbsp; Train C</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealMCQ(20,'C','Times: A = 70 min, B = 80 min, C = 85 min (10:30 to 11:55). <strong>Train C</strong> is the longest.')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Section &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results — Data (Section 5)</h2>
+  <div class="result-score" id="res-score">— / 20</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any question you got wrong.
+  </p>
+  <div style="margin-top:18px;">
+    <a href="index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Mock Pack 2</a>
+  </div>
+</div>
+
+<script>
+  // ---- State ----
+  var answers = {}; // qNum -> {correct: bool, submitted: bool}
+  var totalQ = 20;
+
+  // ---- Timer ----
+  var totalSecs = 10 * 60;
+  var timerRunning = true;
+  var timerEl = document.getElementById('timer');
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    timerEl.textContent = pad(m) + ':' + pad(s);
+    timerEl.className = rem <= 120 ? (rem <= 30 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  // ---- Score display ----
+  function updateLiveScore() {
+    var done = Object.keys(answers).length;
+    document.getElementById('live-score').textContent = done + ' / ' + totalQ + ' answered';
+  }
+
+  // ---- MCQ check ----
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    optBtns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Write-in check ----
+  function checkWrite(qNum, correct, alts) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var val = inp.value.trim().toLowerCase().replace(/\s+/g,'');
+    var normAlts = alts.map(function(a){ return a.toLowerCase().replace(/\s+/g,''); });
+    var isCorrect = normAlts.indexOf(val) !== -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + alts[0] + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Show answer (reveal without grading) ----
+  function revealAns(qNum, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    optBtns.forEach(function(b) {
+      if (b.textContent.trim()[0] === correct) b.classList.add('correct');
+    });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  // ---- Submit ----
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — strong data-handling skills!' :
+                pct >= 70 ? 'Good — keep practising reading charts closely.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the section again after revision.';
+
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+
+    document.getElementById('res-score').textContent = correct + ' / 20';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
