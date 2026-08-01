@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comprehension — 11+ Mock Pack 1</title>
+  <style>
+    :root {
+      --blue: #1c4c96; --blue-light: #e8eef8;
+      --green: #1a7a4a; --green-light: #e6f4ed;
+      --red: #b91c1c; --red-light: #fee2e2;
+      --amber: #b45309; --amber-light: #fef3c7;
+      --text: #1a1a2e; --muted: #64748b;
+      --border: #cbd5e1; --bg: #f8fafc; --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Times New Roman", Times, serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .exam-header { background: var(--card); border-bottom: 3px double #000; padding: 24px 32px 20px; max-width: 860px; margin: 24px auto 0; border-radius: 8px 8px 0 0; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+    .exam-header .badge { display:inline-block; background: var(--blue); color:#fff; font-family:-apple-system,sans-serif; font-weight:700; font-size:0.82rem; letter-spacing:1px; padding:4px 12px; border-radius:6px; margin-bottom:10px; }
+    .exam-header h1 { font-size: 1.55rem; font-weight: 700; text-align: center; border-bottom: 1.5px solid #000; padding-bottom: 10px; margin-bottom: 6px; }
+    .exam-header .pack-line { text-align:center; font-family:-apple-system,sans-serif; font-size:0.86rem; color:var(--muted); margin-bottom:4px; }
+    .exam-header .subtitle { text-align:center; font-family:-apple-system,sans-serif; font-size:0.92rem; color:var(--blue); font-weight:700; margin-bottom:14px; }
+    .instructions { margin-top: 6px; border: 1.5px solid #000; padding: 12px 16px; font-size: 0.88rem; background: #fffde7; }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar { max-width: 860px; margin: 0 auto; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; font-family: -apple-system, sans-serif; font-size: 0.92rem; }
+    .timer-bar #timer { font-size: 1.4rem; font-weight: 700; font-family: monospace; letter-spacing: 2px; }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button { font-family: -apple-system, sans-serif; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 5px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; }
+    .passage-box { background: #fffef5; border: 1.5px solid #d1c96a; border-radius: 8px; padding: 20px 24px; margin-bottom: 24px; font-size: 0.93rem; }
+    .passage-box h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
+    .passage-box .byline { font-style: italic; font-size: 0.88rem; color: var(--muted); margin-bottom: 12px; }
+    .passage-box .intro { font-size: 0.85rem; color: #555; margin-bottom: 12px; border-left: 3px solid #d1c96a; padding-left: 10px; }
+    /* line-numbered text */
+    .lined { counter-reset: ln; font-size: 0.92rem; line-height: 1.75; }
+    .lined .tline { display: block; padding-left: 3em; text-indent: 0; position: relative; }
+    .lined .tline::before { counter-increment: ln; content: counter(ln); position: absolute; left: 0; width: 2.2em; text-align: right; color: #b0a94e; font-family: monospace; font-size: 0.72rem; user-select: none; }
+    .lined .tline.blank { min-height: 0.6em; }
+    .lined .tline.step { padding-left: 4.6em; }
+    .lined .tline.cont { color: inherit; }
+    .paper { max-width: 860px; margin: 0 auto 40px; background: var(--card); border: 1.5px solid #aaa; border-top: none; padding: 28px 32px 36px; box-shadow: 0 4px 16px rgba(0,0,0,0.07); border-radius: 0 0 8px 8px; }
+    .section-heading { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 6px; margin: 28px 0 16px; font-family: -apple-system, sans-serif; }
+    .section-heading:first-child { margin-top: 0; }
+    .question { margin-bottom: 22px; padding: 14px 16px 12px; border: 1px solid var(--border); border-radius: 8px; background: #fafcff; }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .write-area { margin: 10px 0 0 42px; }
+    .write-area textarea { width: 100%; min-height: 80px; font-family: "Times New Roman", Times, serif; font-size: 0.95rem; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; resize: vertical; outline: none; }
+    .write-area textarea:focus { border-color: var(--blue); }
+    .reveal-btn { font-family: -apple-system, sans-serif; background: var(--blue); color: #fff; border: none; padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; margin-top: 6px; }
+    .reveal-btn:hover { background: #163d7d; }
+    .answer-box { margin: 10px 0 0 42px; font-family: -apple-system, sans-serif; font-size: 0.88rem; padding: 10px 14px; border-radius: 6px; display: none; line-height: 1.6; }
+    .answer-box.model-ans { background: var(--amber-light); color: #7c4a00; border-left: 3px solid var(--amber); }
+    .mark-scheme { margin: 8px 0 0 42px; font-family: -apple-system, sans-serif; font-size: 0.85rem; background: var(--blue-light); border-left: 3px solid var(--blue); border-radius: 6px; padding: 10px 14px; color: #1c3f7a; line-height: 1.55; }
+    .mark-scheme strong { color: var(--blue); }
+    .mark-scheme ul { margin: 6px 0 0 18px; padding: 0; }
+    .mark-scheme li { margin: 3px 0; }
+    .self-score { margin: 8px 0 0 42px; font-family: -apple-system, sans-serif; font-size: 0.85rem; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .self-score .ss-label { color: var(--muted); }
+    .ss-btn { font-family: -apple-system, sans-serif; min-width: 34px; padding: 5px 10px; border: 1.5px solid var(--border); border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 700; color: var(--text); transition: background 0.12s, border-color 0.12s, color 0.12s; }
+    .ss-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .ss-btn.selected { background: var(--green); border-color: var(--green); color: #fff; }
+    .ss-done { font-size: 0.82rem; color: var(--green); font-weight: 700; margin-left: 4px; }
+    #results-panel { display: none; max-width: 860px; margin: 0 auto 40px; background: var(--card); border: 2px solid var(--blue); border-radius: 12px; padding: 28px 32px; font-family: -apple-system, sans-serif; box-shadow: 0 4px 20px rgba(28,76,150,0.12); }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .nav-bar { max-width: 860px; margin: 24px auto 0; display: flex; justify-content: space-between; font-family: -apple-system, sans-serif; font-size: 0.88rem; }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn { font-family: -apple-system, sans-serif; background: var(--green); color: #fff; border: none; padding: 12px 36px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .submit-btn:hover { background: #155d38; }
+    .section-note { font-family: -apple-system, sans-serif; font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; background: var(--blue-light); padding: 10px 14px; border-radius: 6px; border-left: 3px solid var(--blue); }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">&larr; Back to Mock Pack 1</a>
+</div>
+
+<div class="exam-header">
+  <div style="text-align:center;"><span class="badge">CO</span></div>
+  <h1>Comprehension</h1>
+  <div class="pack-line">Mock Pack 1 &middot; Section 6 of 6</div>
+  <div class="subtitle">12 questions &middot; 20 minutes</div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Read both texts (Text A and Text B) carefully. You may look back at any time.</li>
+      <li>Answer in your own words and quote from the text where you can, giving the line number.</li>
+      <li>All answers are written. Type your answer, then click <strong>Show model answer &amp; mark scheme</strong>.</li>
+      <li>Mark your own answer honestly against the mark scheme using the self-score buttons.</li>
+      <li>Press <strong>Submit Section</strong> at the end to see your self-assessed total.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">20:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 marks self-scored (/24) &middot; 0/12 marked</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <div class="section-heading">Text A &mdash; Information article</div>
+  <div class="passage-box">
+    <h3>Making Magnificent Mosaics</h3>
+    <div class="byline">an information and how-to article</div>
+    <div class="lined">
+<span class="tline">A mosaic is a picture or pattern made from many</span>
+<span class="tline">small pieces of coloured material pressed into place.</span>
+<span class="tline">The art is astonishingly old. The ancient Greeks</span>
+<span class="tline">first laid patterns of dark and light pebbles across</span>
+<span class="tline">the floors of their grand houses in Greece, and the</span>
+<span class="tline">Romans later perfected the craft, covering the walls</span>
+<span class="tline">and floors of villas throughout Italy with tiny cubes</span>
+<span class="tline">of stone and glass called tesserae. Wherever their</span>
+<span class="tline">empire spread, the Romans carried the fashion with</span>
+<span class="tline">them, and mosaics never went out of style.</span>
+<span class="tline blank">&nbsp;</span>
+<span class="tline">In Morocco, skilled craftsmen still chip glazed tiles</span>
+<span class="tline">into dazzling geometric stars that decorate fountains,</span>
+<span class="tline">doorways and shady courtyards. Centuries later, in</span>
+<span class="tline">the Spanish city of Barcelona, the architect Antoni</span>
+<span class="tline">Gaud&iacute; covered benches, walls and rooftops with a</span>
+<span class="tline">riot of broken tiles, proving that even smashed</span>
+<span class="tline">rubbish can transform a dull surface into something</span>
+<span class="tline">truly wonderful.</span>
+<span class="tline blank">&nbsp;</span>
+<span class="tline">Making a mosaic of your own is easier than you might</span>
+<span class="tline">think, and you will not need to spend a fortune.</span>
+<span class="tline">Broken bits become beautiful in the hands of a</span>
+<span class="tline">patient maker. Begin by collecting broken crockery &mdash;</span>
+<span class="tline">chipped plates, cracked cups and old saucers are</span>
+<span class="tline">perfect. You'll also need a pair of tile cutters to</span>
+<span class="tline">snip the pieces to size, a sturdy table to work on,</span>
+<span class="tline">some strong glue, a tub of grout, and an old cloth or</span>
+<span class="tline">buff rag for polishing.</span>
+<span class="tline blank">&nbsp;</span>
+<span class="tline">Once your materials are ready, follow these steps:</span>
+<span class="tline step">1. Sketch a simple design onto your base board so</span>
+<span class="tline step cont">that you know where each colour should go.</span>
+<span class="tline step">2. Place the tiles, one by one, onto the glue,</span>
+<span class="tline step cont">leaving a small recess or gap between them.</span>
+<span class="tline step">3. Press each piece down firmly and let the glue</span>
+<span class="tline step cont">dry completely overnight.</span>
+<span class="tline step">4. Apply the grout, spreading it into every gap</span>
+<span class="tline step cont">with your fingers until the cracks are filled.</span>
+<span class="tline step">5. Let the grout dry until it turns pale and firm.</span>
+<span class="tline step">6. Clean off the excess grout with your buff cloth,</span>
+<span class="tline step cont">rubbing gently until every tile gleams.</span>
+<span class="tline blank">&nbsp;</span>
+<span class="tline">Do not rush the drying stages &mdash; if you can't wait,</span>
+<span class="tline">the grout will smear and your picture will be</span>
+<span class="tline">spoiled. A mosaic made with care can last for</span>
+<span class="tline">thousands of years, as the Roman floors still buried</span>
+<span class="tline">beneath modern Italy prove to this very day. So</span>
+<span class="tline">gather your broken crockery, and begin!</span>
+    </div>
+  </div>
+
+  <div class="section-heading">Text B &mdash; A letter</div>
+  <div class="passage-box">
+    <h3>A Letter from the Nail Works, 1842</h3>
+    <div class="byline">written by a child nail-maker to her brother</div>
+    <div class="lined">
+<span class="tline">Dear Thomas,</span>
+<span class="tline">I take up my pen to tell you how things stand at</span>
+<span class="tline">home, for I know you worry about us all.</span>
+<span class="tline">I am but twelve years old, yet I have worked at the</span>
+<span class="tline">nail block since I was eight. Each morning I rise</span>
+<span class="tline">before dawn and stand at the hearth for fourteen</span>
+<span class="tline">hours, hammering out nails until my arms ache and</span>
+<span class="tline">my eyes sting from the smoke. For all this labour</span>
+<span class="tline">I earn only a few pennies a week &mdash; scarcely enough</span>
+<span class="tline">to make ends meet.</span>
+<span class="tline">The foggers are the worst of our troubles. A fogger</span>
+<span class="tline">is a middleman who hands out the iron and buys back</span>
+<span class="tline">our finished nails, yet he pays us in goods from his</span>
+<span class="tline">own shop instead of honest coin, and cheats us on</span>
+<span class="tline">the weight besides. However hard we toil, he grows</span>
+<span class="tline">fat while we grow thin.</span>
+<span class="tline">Lately things have become far worse. Cheap nails</span>
+<span class="tline">made by machine, which the men here call "Belgiums",</span>
+<span class="tline">have flooded the market from across the sea. Because</span>
+<span class="tline">a machine can make in an hour what takes me a whole</span>
+<span class="tline">day, no one will pay a fair price for our hand-made</span>
+<span class="tline">nails. Many of my friends have gone hungry: some</span>
+<span class="tline">could find no work at all, some were paid only in</span>
+<span class="tline">spoiled flour they could not sell, and some grew</span>
+<span class="tline">too weak from want of food to lift the hammer.</span>
+<span class="tline">Last week something just snapped. A crowd of nailers</span>
+<span class="tline">gathered in the square and began causing havoc. They</span>
+<span class="tline">smashed the windows of the fogger's shop, set fire</span>
+<span class="tline">to his warehouse, broke the new machines to pieces,</span>
+<span class="tline">marched through the streets with burning torches,</span>
+<span class="tline">and seized loaves of bread from the baker's cart.</span>
+<span class="tline">I was frightened, but a part of me understood their</span>
+<span class="tline">anger. We cannot go on like this much longer.</span>
+<span class="tline">Pray for us, and write when you are able.</span>
+<span class="tline">Your loving sister,</span>
+<span class="tline">Mary</span>
+    </div>
+  </div>
+
+  <div class="section-heading">Questions 1&ndash;12 &nbsp;[24 marks]</div>
+  <div class="section-note">
+    Answer all twelve questions. Each shows a model answer and a mark scheme when you click <strong>Show model answer &amp; mark scheme</strong>. Comprehension is <strong>self-marked</strong>: award yourself the marks your answer deserves using the buttons.
+  </div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">What type of text is <strong>Text A</strong>? Find <strong>FIVE</strong> pieces of evidence to support your answer.</span><span class="q-marks">[3]</span></div>
+    <div class="write-area"><textarea id="q1-ta" placeholder="Name the text type, then give five pieces of evidence..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(1)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q1-ans">&#9432; <strong>Model answer:</strong> Text A is an <strong>information / instructional (how-to) article</strong>. Evidence: (1) it gives factual history &mdash; &ldquo;The ancient Greeks first laid patterns&hellip;&rdquo;; (2) it uses the present tense to state facts &mdash; &ldquo;A mosaic is a picture or pattern&hellip;&rdquo;; (3) it lists the materials you need (tile cutters, grout, a buff rag); (4) it gives a numbered, step-by-step set of instructions (steps 1&ndash;6); (5) it uses imperative (command) verbs to address the reader directly &mdash; &ldquo;Begin by collecting&hellip;&rdquo;, &ldquo;Place the tiles&hellip;&rdquo;, &ldquo;Clean off the excess&hellip;&rdquo;. (Sub-headings such as no fictional story or characters also show it is non-fiction.)</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">What do these words mean as they are used in <strong>Text A</strong>: <em>&lsquo;recess&rsquo;</em>, <em>&lsquo;transform&rsquo;</em> and <em>&lsquo;buff&rsquo;</em>?</span><span class="q-marks">[3]</span></div>
+    <div class="write-area"><textarea id="q2-ta" placeholder="Give the meaning of each of the three words..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(2)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q2-ans">&#9432; <strong>Model answer:</strong> <strong>recess</strong> &mdash; a small hollow, gap or space set back between the tiles (&ldquo;leaving a small recess or gap between them&rdquo;). <strong>transform</strong> &mdash; to change something completely, here from a dull surface into something wonderful (&ldquo;can transform a dull surface&rdquo;). <strong>buff</strong> &mdash; a soft cloth used for polishing / to polish (&ldquo;an old cloth or buff rag for polishing&rdquo;).</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">Which <strong>FOUR</strong> countries are referred to in <strong>Text A</strong>?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q3-ta" placeholder="Name the four countries..." style="min-height:56px;"></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(3)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q3-ans">&#9432; <strong>Model answer:</strong> <strong>Greece</strong> (the ancient Greeks / &ldquo;grand houses in Greece&rdquo;), <strong>Italy</strong> (Roman villas &ldquo;throughout Italy&rdquo;), <strong>Morocco</strong> (&ldquo;In Morocco, skilled craftsmen&hellip;&rdquo;) and <strong>Spain</strong> (&ldquo;the Spanish city of Barcelona&rdquo;).</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">In Text A the words &lsquo;can not&rsquo; have become <strong>&lsquo;can't&rsquo;</strong>. What grammar rule has been applied, and what is the missing letter replaced by?</span><span class="q-marks">[1]</span></div>
+    <div class="write-area"><textarea id="q4-ta" placeholder="Name the rule..." style="min-height:56px;"></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(4)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q4-ans">&#9432; <strong>Model answer:</strong> A <strong>contraction</strong> has been used. Two words (&ldquo;can not&rdquo; / &ldquo;cannot&rdquo;) are shortened into one, and the missing letters (the &ldquo;n-o&rdquo; of &ldquo;not&rdquo;) are replaced by an <strong>apostrophe</strong> &mdash; an apostrophe of omission.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">Find <strong>another word in Text A</strong> that follows the same rule as &lsquo;can't&rsquo; (a contraction with an apostrophe of omission).</span><span class="q-marks">[1]</span></div>
+    <div class="write-area"><textarea id="q5-ta" placeholder="Find and write the word..." style="min-height:56px;"></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(5)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q5-ans">&#9432; <strong>Model answer:</strong> <strong>&ldquo;You'll&rdquo;</strong> (&ldquo;You'll also need a pair of tile cutters&hellip;&rdquo;). Here &ldquo;you will&rdquo; is contracted to &ldquo;you'll&rdquo;, with the apostrophe replacing the omitted letters &ldquo;wi&rdquo; of &ldquo;will&rdquo;.</div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text">The title uses alliteration (&ldquo;<strong>M</strong>aking <strong>M</strong>agnificent <strong>M</strong>osaics&rdquo;). Find an example of a <strong>four-word alliterative phrase</strong> inside Text A.</span><span class="q-marks">[1]</span></div>
+    <div class="write-area"><textarea id="q6-ta" placeholder="Write the four-word phrase..." style="min-height:56px;"></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(6)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q6-ans">&#9432; <strong>Model answer:</strong> <strong>&ldquo;Broken bits become beautiful&rdquo;</strong> &mdash; all four words begin with the same &ldquo;b&rdquo; sound (&ldquo;Broken bits become beautiful in the hands of a patient maker&rdquo;).</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text">What type of text is <strong>Text B</strong>? Find <strong>FIVE</strong> pieces of evidence to support your answer.</span><span class="q-marks">[3]</span></div>
+    <div class="write-area"><textarea id="q7-ta" placeholder="Name the text type, then give five pieces of evidence..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(7)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q7-ans">&#9432; <strong>Model answer:</strong> Text B is a <strong>(personal, first-person) letter</strong>. Evidence: (1) it opens with a greeting/salutation &mdash; &ldquo;Dear Thomas,&rdquo;; (2) it refers to the act of letter-writing &mdash; &ldquo;I take up my pen to tell you&rdquo;; (3) it is written in the first person, addressed directly to &ldquo;you&rdquo; (the brother); (4) it asks him to reply &mdash; &ldquo;write when you are able&rdquo;; (5) it ends with a sign-off and signature &mdash; &ldquo;Your loving sister, Mary&rdquo;.</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text">What do these phrases mean as used in <strong>Text B</strong>: <em>&lsquo;make ends meet&rsquo;</em>, <em>&lsquo;began causing havoc&rsquo;</em> and <em>&lsquo;something just snapped&rsquo;</em>?</span><span class="q-marks">[3]</span></div>
+    <div class="write-area"><textarea id="q8-ta" placeholder="Explain each of the three phrases..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(8)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q8-ans">&#9432; <strong>Model answer:</strong> <strong>make ends meet</strong> &mdash; to earn just enough money to pay for what you need to live. <strong>began causing havoc</strong> &mdash; started creating great chaos, damage and disorder. <strong>something just snapped</strong> &mdash; the workers suddenly lost their patience / self-control after enduring so much, and their feelings burst out.</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text">Give <strong>THREE</strong> reasons, from Text B, why some of Mary's friends might have starved.</span><span class="q-marks">[3]</span></div>
+    <div class="write-area"><textarea id="q9-ta" placeholder="Give three reasons..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(9)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q9-ans">&#9432; <strong>Model answer:</strong> (1) &ldquo;some could find no work at all&rdquo; &mdash; without work they had no money for food; (2) &ldquo;some were paid only in spoiled flour they could not sell&rdquo; &mdash; the flour was ruined and they could get no money from it; (3) &ldquo;some grew too weak from want of food to lift the hammer&rdquo; &mdash; hunger made them unable to work, so they earned even less.</div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text">What is a <strong>&lsquo;fogger&rsquo;</strong>, according to Text B?</span><span class="q-marks">[1]</span></div>
+    <div class="write-area"><textarea id="q10-ta" placeholder="Explain what a fogger is..." style="min-height:56px;"></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(10)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q10-ans">&#9432; <strong>Model answer:</strong> A fogger is a <strong>middleman</strong> who gives out the iron to the nail-makers and buys back their finished nails. He is dishonest &mdash; he pays them in goods from his own shop instead of proper money, and cheats them on the weight (&ldquo;he grows fat while we grow thin&rdquo;).</div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">Explain how the <strong>&lsquo;Belgiums&rsquo;</strong> are creating a problem for Mary and the other nail-makers.</span><span class="q-marks">[1]</span></div>
+    <div class="write-area"><textarea id="q11-ta" placeholder="Explain the problem..." style="min-height:56px;"></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(11)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q11-ans">&#9432; <strong>Model answer:</strong> The &ldquo;Belgiums&rdquo; are cheap machine-made nails that have &ldquo;flooded the market from across the sea&rdquo;. Because a machine can make in an hour what takes Mary a whole day, no one will pay a fair price for the workers' slower, hand-made nails, so the nail-makers can no longer earn a living.</div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">What <strong>FIVE</strong> things have the rioters done, according to Text B?</span><span class="q-marks">[2]</span></div>
+    <div class="write-area"><textarea id="q12-ta" placeholder="List the five things the rioters did..."></textarea><br>
+    <button class="reveal-btn" onclick="revealWrite(12)">Show model answer &amp; mark scheme</button></div>
+    <div class="answer-box model-ans" id="q12-ans">&#9432; <strong>Model answer:</strong> The rioters (1) smashed the windows of the fogger's shop; (2) set fire to his warehouse; (3) broke the new machines to pieces; (4) marched through the streets with burning torches; and (5) seized loaves of bread from the baker's cart.</div>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Section &amp; See Score</button>
+  </div>
+</div>
+
+<div id="results-panel">
+  <h2>Your Results — Comprehension</h2>
+  <div class="result-score" id="res-score">— / 24</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div style="margin-top:14px;font-family:-apple-system,sans-serif;font-size:0.88rem;background:#e8eef8;padding:12px 16px;border-radius:8px;color:#1c4c96;">
+    <strong>Note on marking:</strong> Comprehension is <strong>self-marked</strong>. Every question above is scored by you against its mark scheme using the self-score buttons. The total below is your self-assessed mark out of 24.
+  </div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-self">0 / 24</div>
+      <div class="lbl">Self-assessed total</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-marked">0 / 12</div>
+      <div class="lbl">Questions self-marked</div>
+    </div>
+    <div class="rb-item g">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Percentage</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted);font-family:-apple-system,sans-serif;">
+    Scroll up to review your written answers against the model answers and mark schemes. Mark honestly against the mark scheme &mdash; give partial marks where your answer is only partly right.
+  </p>
+  <div style="margin-top:18px;font-family:-apple-system,sans-serif;display:flex;gap:16px;">
+    <a href="index.html" style="color:var(--blue);font-size:0.9rem;">&larr; Back to Mock Pack 1</a>
+  </div>
+</div>
+
+<script>
+  var answers = {};
+  var totalSecs = 20 * 60;
+
+  // Written questions (all self-marked): max marks + mark scheme bullets.
+  var written = {
+    1:  { max:3, scheme:['<strong>1 mark:</strong> correctly names the text type (information / how-to / instructional article).','<strong>1 mark:</strong> gives at least three valid pieces of evidence.','<strong>1 mark:</strong> gives all five pieces of evidence, quoting/referring to the text.'] },
+    2:  { max:3, scheme:['<strong>1 mark:</strong> correct meaning of <em>recess</em> (a gap/hollow between tiles).','<strong>1 mark:</strong> correct meaning of <em>transform</em> (to change completely).','<strong>1 mark:</strong> correct meaning of <em>buff</em> (a cloth for polishing / to polish).'] },
+    3:  { max:2, scheme:['<strong>1 mark:</strong> names two or three of the countries correctly.','<strong>1 mark:</strong> names all four &mdash; Greece, Italy, Morocco, Spain.'] },
+    4:  { max:1, scheme:['<strong>1 mark:</strong> identifies it as a <em>contraction</em> and that an <em>apostrophe</em> replaces the missing letter(s).'] },
+    5:  { max:1, scheme:['<strong>1 mark:</strong> gives another genuine contraction from Text A &mdash; &ldquo;You&rsquo;ll&rdquo;.'] },
+    6:  { max:1, scheme:['<strong>1 mark:</strong> quotes a true four-word alliterative phrase &mdash; &ldquo;Broken bits become beautiful&rdquo;.'] },
+    7:  { max:3, scheme:['<strong>1 mark:</strong> correctly names the text type (a first-person / personal letter).','<strong>1 mark:</strong> gives at least three valid pieces of evidence.','<strong>1 mark:</strong> gives all five pieces of evidence, quoting/referring to the text.'] },
+    8:  { max:3, scheme:['<strong>1 mark:</strong> correct meaning of <em>make ends meet</em> (earn just enough to live).','<strong>1 mark:</strong> correct meaning of <em>began causing havoc</em> (started creating chaos/damage).','<strong>1 mark:</strong> correct meaning of <em>something just snapped</em> (suddenly lost patience/control).'] },
+    9:  { max:3, scheme:['<strong>1 mark:</strong> reason 1 &mdash; some could find no work.','<strong>1 mark:</strong> reason 2 &mdash; some were paid only in spoiled flour they could not sell.','<strong>1 mark:</strong> reason 3 &mdash; some were too weak from hunger to work.'] },
+    10: { max:1, scheme:['<strong>1 mark:</strong> explains a fogger is a middleman who buys the nails and pays/cheats the workers unfairly.'] },
+    11: { max:1, scheme:['<strong>1 mark:</strong> explains cheap machine-made imported nails undercut the hand-made nails, so no one pays a fair price.'] },
+    12: { max:2, scheme:['<strong>1 mark:</strong> lists two to four of the actions correctly.','<strong>1 mark:</strong> lists all five &mdash; smashed windows, set fire to warehouse, broke machines, marched with torches, seized bread.'] }
+  };
+  var awarded = {}; // qNum -> marks self-scored
+
+  var maxTotal = 0;
+  for (var k in written) { maxTotal += written[k].max; }
+  var numQ = Object.keys(written).length;
+
+  var timerRunning = true;
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    var el = document.getElementById('timer');
+    el.textContent = pad(m) + ':' + pad(s);
+    el.className = rem <= 300 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  function writtenTotal() {
+    var t = 0;
+    for (var q in awarded) { t += awarded[q]; }
+    return t;
+  }
+
+  function markedCount() {
+    return Object.keys(awarded).length;
+  }
+
+  function updateLiveScore() {
+    document.getElementById('live-score').textContent =
+      writtenTotal() + ' marks self-scored (/' + maxTotal + ') · ' + markedCount() + '/' + numQ + ' marked';
+  }
+
+  function revealWrite(qNum) {
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.style.display = 'block';
+    document.getElementById('q' + qNum).classList.add('answered');
+    if (!document.getElementById('q' + qNum + '-scheme')) {
+      var info = written[qNum];
+      var q = document.getElementById('q' + qNum);
+      var ms = document.createElement('div');
+      ms.className = 'mark-scheme';
+      ms.id = 'q' + qNum + '-scheme';
+      ms.innerHTML = '<strong>Mark scheme (' + info.max + ' mark' + (info.max > 1 ? 's' : '') +
+        '):</strong><ul><li>' + info.scheme.join('</li><li>') + '</li></ul>';
+      q.appendChild(ms);
+      var ss = document.createElement('div');
+      ss.className = 'self-score';
+      ss.id = 'q' + qNum + '-selfscore';
+      var html = '<span class="ss-label">How many marks did you earn?</span>';
+      for (var m = 0; m <= info.max; m++) {
+        html += '<button class="ss-btn" id="q' + qNum + '-ss' + m +
+          '" onclick="selfScore(' + qNum + ',' + m + ',' + info.max + ',this)">' + m + '</button>';
+      }
+      html += '<span class="ss-done" id="q' + qNum + '-ssdone"></span>';
+      ss.innerHTML = html;
+      q.appendChild(ss);
+    }
+    updateLiveScore();
+  }
+
+  function selfScore(qNum, marks, maxMarks, btn) {
+    awarded[qNum] = marks;
+    var wrap = document.getElementById('q' + qNum + '-selfscore');
+    wrap.querySelectorAll('.ss-btn').forEach(function(b) { b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    document.getElementById('q' + qNum + '-ssdone').textContent =
+      '✓ ' + marks + ' / ' + maxMarks + ' recorded';
+    document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+    var selfTotal = writtenTotal();
+    var pct = Math.round((selfTotal / maxTotal) * 100);
+    var grade = pct >= 80 ? 'Excellent comprehension!' :
+                pct >= 65 ? 'Good work — review the marks you dropped.' :
+                pct >= 50 ? 'Developing — study the model answers and mark schemes.' :
+                            'Keep practising — re-read both texts and the mark schemes.';
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+    document.getElementById('res-score').textContent = selfTotal + ' / ' + maxTotal;
+    document.getElementById('res-grade').textContent = grade + ' (self-marked against the mark schemes)';
+    document.getElementById('res-self').textContent = selfTotal + ' / ' + maxTotal;
+    document.getElementById('res-marked').textContent = markedCount() + ' / ' + numQ;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

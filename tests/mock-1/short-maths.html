@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Short Maths — Mock Pack 1</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    /* --- exam header --- */
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .sm-badge {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      border-radius: 8px;
+      padding: 8px 12px;
+    }
+    .header-titles { text-align: left; }
+    .header-titles .pack-line {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .header-titles .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 0.92rem;
+    }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    /* --- timer bar --- */
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .score-display {
+      font-size: 0.88rem;
+    }
+    /* --- paper body --- */
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    .group-instruction {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-light);
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin: 22px 0 12px;
+    }
+    /* --- question --- */
+    .question {
+      margin-bottom: 22px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+      page-break-inside: avoid;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .q-num {
+      font-weight: 700;
+      font-size: 1rem;
+      min-width: 32px;
+      color: var(--blue);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding-top: 1px;
+    }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding-top: 3px;
+    }
+    /* MCQ options */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 0 42px;
+    }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 5px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    /* write-in */
+    .write-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0 0 42px;
+    }
+    .write-row input {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 0.97rem;
+      border: none;
+      border-bottom: 2px solid #555;
+      padding: 3px 6px;
+      width: 160px;
+      background: transparent;
+      outline: none;
+    }
+    .write-row input:focus { border-bottom-color: var(--blue); }
+    .check-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .check-btn:hover { background: #163d7d; }
+    /* answer reveal */
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    /* show answer link */
+    .show-link {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    /* results panel */
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    /* nav */
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a {
+      color: var(--blue);
+      text-decoration: none;
+      background: var(--blue-light);
+      padding: 7px 18px;
+      border-radius: 8px;
+    }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .submit-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .options { flex-direction: column; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">&larr; Back to Mock Pack 1</a>
+  <span style="padding:7px 0;color:var(--muted)">Section 3 of 6</span>
+</div>
+
+<div class="exam-header">
+  <div class="header-top">
+    <span class="sm-badge">SM</span>
+    <div class="header-titles">
+      <div class="pack-line">Mock Pack 1 &middot; Section 3 of 6</div>
+      <div class="subtitle">40 questions &middot; 15 minutes</div>
+    </div>
+  </div>
+  <h1>Short Maths</h1>
+  <div class="exam-meta">
+    <p><strong>Time allowed:</strong> 15 minutes</p>
+    <p><strong>Total marks:</strong> 40</p>
+    <p><strong>Equipment:</strong> Pencil (no calculator)</p>
+    <p><strong>Section:</strong> Short Maths (quick-fire)</p>
+  </div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Answer <strong>all 40 questions</strong> as quickly and accurately as you can.</li>
+      <li>Most questions are written-answer &mdash; type your answer and press <strong>Check</strong>.</li>
+      <li>For underline / multiple-choice questions, click your chosen answer.</li>
+      <li>Click <em>Show answer</em> at any time to reveal the correct answer.</li>
+      <li>Press <strong>Submit Section</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">15:00</div>
+  </div>
+  <div class="score-display" id="live-score">0 / 40 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== FILL IN THE MISSING NUMBERS ===== -->
+  <div class="section-heading">Short Maths</div>
+  <div class="group-instruction">Fill in the missing numbers (Q1&ndash;5).</div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row">
+      <span class="q-num">1.</span>
+      <span class="q-text"><strong>65 + 196 = ___</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q1-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(1,'261',['261'])">Check</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealAns(1,'65 + 196 = <strong>261</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row">
+      <span class="q-num">2.</span>
+      <span class="q-text"><strong>402 &minus; ___ = 175</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q2-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(2,'227',['227'])">Check</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealAns(2,'402 &minus; 175 = <strong>227</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row">
+      <span class="q-num">3.</span>
+      <span class="q-text"><strong>3 &times; ___ = 5 &times; 21</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q3-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(3,'35',['35'])">Check</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealAns(3,'5 &times; 21 = 105; 105 &div; 3 = <strong>35</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row">
+      <span class="q-num">4.</span>
+      <span class="q-text"><strong>&frac12; &times; ___ = 71 &minus; 7</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q4-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(4,'128',['128'])">Check</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealAns(4,'71 &minus; 7 = 64; 64 &times; 2 = <strong>128</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row">
+      <span class="q-num">5.</span>
+      <span class="q-text"><strong>49 &div; 7 = 2 &times; ___</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q5-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(5,'3.5',['3.5','3½','3 1/2','7/2'])">Check</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealAns(5,'49 &div; 7 = 7; 7 &div; 2 = <strong>3.5</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== SOLVE FOR y ===== -->
+  <div class="group-instruction">Solve for y (Q6&ndash;10).</div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row">
+      <span class="q-num">6.</span>
+      <span class="q-text"><strong>2y = 3x + 6</strong> &nbsp;where <strong>x = 4</strong>. &nbsp;Find <em>y</em>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <span style="font-family:'Times New Roman',serif;font-size:0.97rem;">y =</span>
+      <input type="text" id="q6-inp" placeholder="value" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(6,'9',['9'])">Check</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealAns(6,'2y = 3&times;4 + 6 = 18; y = 18 &div; 2 = <strong>9</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row">
+      <span class="q-num">7.</span>
+      <span class="q-text"><strong>y = 5x &minus; 3</strong> &nbsp;where <strong>x = 6</strong>. &nbsp;Find <em>y</em>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <span style="font-family:'Times New Roman',serif;font-size:0.97rem;">y =</span>
+      <input type="text" id="q7-inp" placeholder="value" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(7,'27',['27'])">Check</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealAns(7,'y = 5&times;6 &minus; 3 = 30 &minus; 3 = <strong>27</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row">
+      <span class="q-num">8.</span>
+      <span class="q-text"><strong>4y = 2x + 8</strong> &nbsp;where <strong>x = 10</strong>. &nbsp;Find <em>y</em>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <span style="font-family:'Times New Roman',serif;font-size:0.97rem;">y =</span>
+      <input type="text" id="q8-inp" placeholder="value" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(8,'7',['7'])">Check</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealAns(8,'4y = 2&times;10 + 8 = 28; y = 28 &div; 4 = <strong>7</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row">
+      <span class="q-num">9.</span>
+      <span class="q-text"><strong>y + 7 = 3x</strong> &nbsp;where <strong>x = 5</strong>. &nbsp;Find <em>y</em>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <span style="font-family:'Times New Roman',serif;font-size:0.97rem;">y =</span>
+      <input type="text" id="q9-inp" placeholder="value" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(9,'8',['8'])">Check</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealAns(9,'y = 3&times;5 &minus; 7 = 15 &minus; 7 = <strong>8</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row">
+      <span class="q-num">10.</span>
+      <span class="q-text"><strong>3y = x&sup2;</strong> &nbsp;where <strong>x = 6</strong>. &nbsp;Find <em>y</em>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <span style="font-family:'Times New Roman',serif;font-size:0.97rem;">y =</span>
+      <input type="text" id="q10-inp" placeholder="value" style="width:100px" />
+      <button class="check-btn" onclick="checkWrite(10,'12',['12'])">Check</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealAns(10,'x&sup2; = 36; y = 36 &div; 3 = <strong>12</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== EQUIVALENT FRACTIONS ===== -->
+  <div class="group-instruction">Equivalent fractions &mdash; underline the fraction that is equivalent (Q11&ndash;13).</div>
+
+  <!-- Q11 MCQ -->
+  <div class="question" id="q11">
+    <div class="q-row">
+      <span class="q-num">11.</span>
+      <span class="q-text">Which fraction is equivalent to <strong>2/3</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(11,'A',this)">A &nbsp; 4/9</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">B &nbsp; 6/9</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'C',this)">C &nbsp; 3/9</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'D',this)">D &nbsp; 5/8</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'E',this)">E &nbsp; 8/9</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealMCQ(11,'B','2/3 = (2&times;3)/(3&times;3) = <strong>6/9</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q12 MCQ -->
+  <div class="question" id="q12">
+    <div class="q-row">
+      <span class="q-num">12.</span>
+      <span class="q-text">Which fraction is equivalent to <strong>3/4</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(12,'A',this)">A &nbsp; 6/9</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'B',this)">B &nbsp; 9/16</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'C',this)">C &nbsp; 9/12</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'D',this)">D &nbsp; 12/15</button>
+      <button class="opt-btn" onclick="checkMCQ(12,'E',this)">E &nbsp; 8/12</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealMCQ(12,'C','3/4 = (3&times;3)/(4&times;3) = <strong>9/12</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q13 MCQ -->
+  <div class="question" id="q13">
+    <div class="q-row">
+      <span class="q-num">13.</span>
+      <span class="q-text">Which fraction is equivalent to <strong>5/6</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(13,'A',this)">A &nbsp; 10/12</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'B',this)">B &nbsp; 12/18</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'C',this)">C &nbsp; 11/12</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'D',this)">D &nbsp; 15/16</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'E',this)">E &nbsp; 20/25</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealMCQ(13,'A','5/6 = (5&times;2)/(6&times;2) = <strong>10/12</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== SEQUENCES ===== -->
+  <div class="group-instruction">Sequences &mdash; fill in the missing term (Q14&ndash;18).</div>
+
+  <!-- Q14 -->
+  <div class="question" id="q14">
+    <div class="q-row">
+      <span class="q-num">14.</span>
+      <span class="q-text"><strong>4, 9, 14, 19, ___, 29</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q14-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(14,'24',['24'])">Check</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealAns(14,'Add 5 each time: 19 + 5 = <strong>24</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question" id="q15">
+    <div class="q-row">
+      <span class="q-num">15.</span>
+      <span class="q-text"><strong>2, 6, 18, ___, 162</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q15-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(15,'54',['54'])">Check</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealAns(15,'Multiply by 3 each time: 18 &times; 3 = <strong>54</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question" id="q16">
+    <div class="q-row">
+      <span class="q-num">16.</span>
+      <span class="q-text"><strong>100, 91, 82, ___, 64</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q16-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(16,'73',['73'])">Check</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealAns(16,'Subtract 9 each time: 82 &minus; 9 = <strong>73</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question" id="q17">
+    <div class="q-row">
+      <span class="q-num">17.</span>
+      <span class="q-text"><strong>1, 4, 9, 16, ___, 36</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q17-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(17,'25',['25'])">Check</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealAns(17,'Square numbers: 1&sup2;, 2&sup2;, 3&sup2;, 4&sup2;, 5&sup2;, 6&sup2;; the gap is 5&sup2; = <strong>25</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question" id="q18">
+    <div class="q-row">
+      <span class="q-num">18.</span>
+      <span class="q-text"><strong>3, 4, 7, 11, 18, ___</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q18-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(18,'29',['29'])">Check</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealAns(18,'Each term is the sum of the two before it: 11 + 18 = <strong>29</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== QUICK WORD PROBLEMS ===== -->
+  <div class="group-instruction">Quick word problems (Q19&ndash;34).</div>
+
+  <!-- Q19 -->
+  <div class="question" id="q19">
+    <div class="q-row">
+      <span class="q-num">19.</span>
+      <span class="q-text">Which of these has the <strong>highest value</strong>? &nbsp;<strong>0.7, &nbsp; 0.68, &nbsp; 0.75, &nbsp; 0.709</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q19-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(19,'0.75',['0.75','3/4'])">Check</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealAns(19,'Compare tenths/hundredths: 0.75 is the largest &mdash; <strong>0.75</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question" id="q20">
+    <div class="q-row">
+      <span class="q-num">20.</span>
+      <span class="q-text">Which of these has the <strong>lowest value</strong>? &nbsp;<strong>0.3, &nbsp; 0.29, &nbsp; &frac14;, &nbsp; 0.305</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q20-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(20,'0.25',['0.25','1/4','¼'])">Check</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealAns(20,'&frac14; = 0.25, which is smaller than 0.29, 0.3 and 0.305 &mdash; <strong>&frac14; (0.25)</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q21 -->
+  <div class="question" id="q21">
+    <div class="q-row">
+      <span class="q-num">21.</span>
+      <span class="q-text">&pound;48 is shared in the ratio <strong>3 : 5</strong>. What is the <strong>larger share</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q21-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(21,'30',['30','£30','£30.00'])">Check</button>
+    </div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealAns(21,'8 parts; &pound;48 &div; 8 = &pound;6 per part; larger = 5 &times; &pound;6 = <strong>&pound;30</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question" id="q22">
+    <div class="q-row">
+      <span class="q-num">22.</span>
+      <span class="q-text">How many <strong>millimetres</strong> are there in <strong>1 m 37 cm</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q22-inp" placeholder="mm" />
+      <button class="check-btn" onclick="checkWrite(22,'1370',['1370','1,370','1370mm']) ">Check</button>
+    </div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealAns(22,'1 m 37 cm = 137 cm; 137 &times; 10 = <strong>1,370 mm</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question" id="q23">
+    <div class="q-row">
+      <span class="q-num">23.</span>
+      <span class="q-text">A container holds <strong>4.5 litres</strong>. How many <strong>300 ml</strong> bottles can be filled from it?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q23-inp" placeholder="bottles" />
+      <button class="check-btn" onclick="checkWrite(23,'15',['15'])">Check</button>
+    </div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealAns(23,'4.5 litres = 4500 ml; 4500 &div; 300 = <strong>15 bottles</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question" id="q24">
+    <div class="q-row">
+      <span class="q-num">24.</span>
+      <span class="q-text">A toy costs <strong>&pound;3.65</strong>. How much <strong>change</strong> is given from a <strong>&pound;5</strong> note?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q24-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(24,'1.35',['1.35','£1.35'])">Check</button>
+    </div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealAns(24,'&pound;5.00 &minus; &pound;3.65 = <strong>&pound;1.35</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question" id="q25">
+    <div class="q-row">
+      <span class="q-num">25.</span>
+      <span class="q-text">A rectangle measures <strong>12 cm by 7 cm</strong>. What is its <strong>perimeter</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q25-inp" placeholder="cm" />
+      <button class="check-btn" onclick="checkWrite(25,'38',['38','38cm','38 cm'])">Check</button>
+    </div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealAns(25,'Perimeter = 2 &times; (12 + 7) = 2 &times; 19 = <strong>38 cm</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q26 -->
+  <div class="question" id="q26">
+    <div class="q-row">
+      <span class="q-num">26.</span>
+      <span class="q-text">How many <strong>2 cm cubes</strong> fit exactly inside an open box measuring <strong>8 cm &times; 6 cm &times; 4 cm</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q26-inp" placeholder="cubes" />
+      <button class="check-btn" onclick="checkWrite(26,'24',['24'])">Check</button>
+    </div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealAns(26,'Along each edge: 8&div;2=4, 6&div;2=3, 4&div;2=2; 4 &times; 3 &times; 2 = <strong>24 cubes</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q27 MCQ -->
+  <div class="question" id="q27">
+    <div class="q-row">
+      <span class="q-num">27.</span>
+      <span class="q-text">A pointer faces <strong>North</strong>. It turns <strong>clockwise through 270&deg;</strong>. Which direction does it now face?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(27,'A',this)">A &nbsp; North</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'B',this)">B &nbsp; East</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'C',this)">C &nbsp; South</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'D',this)">D &nbsp; West</button>
+      <button class="opt-btn" onclick="checkMCQ(27,'E',this)">E &nbsp; North-East</button>
+    </div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealMCQ(27,'D','Clockwise: N &rarr; E (90&deg;) &rarr; S (180&deg;) &rarr; W (270&deg;) &mdash; <strong>West</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question" id="q28">
+    <div class="q-row">
+      <span class="q-num">28.</span>
+      <span class="q-text">If <strong>a = 7, b = 2</strong> and <strong>c = 4</strong>, work out <strong>2a + c &minus; b</strong>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q28-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(28,'16',['16'])">Check</button>
+    </div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealAns(28,'2&times;7 + 4 &minus; 2 = 14 + 4 &minus; 2 = <strong>16</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q29 -->
+  <div class="question" id="q29">
+    <div class="q-row">
+      <span class="q-num">29.</span>
+      <span class="q-text">If <strong>a = 7, b = 2</strong> and <strong>c = 4</strong>, work out <strong>a&sup2; &minus; bc</strong>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q29-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(29,'41',['41'])">Check</button>
+    </div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealAns(29,'a&sup2; = 49; bc = 2&times;4 = 8; 49 &minus; 8 = <strong>41</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question" id="q30">
+    <div class="q-row">
+      <span class="q-num">30.</span>
+      <span class="q-text">A film starts at <strong>14:35</strong> and lasts <strong>1 hour 50 minutes</strong>. At what time does it <strong>end</strong>? (24-hour clock)</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q30-inp" placeholder="hh:mm" />
+      <button class="check-btn" onclick="checkWrite(30,'16:25',['16:25','1625'])">Check</button>
+    </div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealAns(30,'14:35 + 1 h = 15:35; + 50 min = <strong>16:25</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q31 -->
+  <div class="question" id="q31">
+    <div class="q-row">
+      <span class="q-num">31.</span>
+      <span class="q-text"><strong>6 identical books</strong> weigh <strong>2.4 kg</strong> altogether. What is the mass of <strong>one book</strong>, in grams?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q31-inp" placeholder="g" />
+      <button class="check-btn" onclick="checkWrite(31,'400',['400','400g','400 g'])">Check</button>
+    </div>
+    <div class="answer-box" id="q31-ans"></div>
+    <button class="show-link" onclick="revealAns(31,'2.4 kg = 2400 g; 2400 &div; 6 = <strong>400 g</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q32 -->
+  <div class="question" id="q32">
+    <div class="q-row">
+      <span class="q-num">32.</span>
+      <span class="q-text"><strong>3/8</strong> of a class of <strong>32 pupils</strong> are boys. How many are <strong>girls</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q32-inp" placeholder="girls" />
+      <button class="check-btn" onclick="checkWrite(32,'20',['20'])">Check</button>
+    </div>
+    <div class="answer-box" id="q32-ans"></div>
+    <button class="show-link" onclick="revealAns(32,'Boys = 3/8 &times; 32 = 12; girls = 32 &minus; 12 = <strong>20</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q33 -->
+  <div class="question" id="q33">
+    <div class="q-row">
+      <span class="q-num">33.</span>
+      <span class="q-text">A whole number rounds to <strong>80</strong> when rounded to the nearest 10. What is the <strong>largest</strong> it could be?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q33-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(33,'84',['84'])">Check</button>
+    </div>
+    <div class="answer-box" id="q33-ans"></div>
+    <button class="show-link" onclick="revealAns(33,'Rounds to 80 for 75&ndash;84; the largest whole number is <strong>84</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q34 MCQ -->
+  <div class="question" id="q34">
+    <div class="q-row">
+      <span class="q-num">34.</span>
+      <span class="q-text">Which fraction is equal to <strong>0.6</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(34,'A',this)">A &nbsp; 1/6</button>
+      <button class="opt-btn" onclick="checkMCQ(34,'B',this)">B &nbsp; 3/5</button>
+      <button class="opt-btn" onclick="checkMCQ(34,'C',this)">C &nbsp; 6/100</button>
+      <button class="opt-btn" onclick="checkMCQ(34,'D',this)">D &nbsp; 2/3</button>
+      <button class="opt-btn" onclick="checkMCQ(34,'E',this)">E &nbsp; 5/3</button>
+    </div>
+    <div class="answer-box" id="q34-ans"></div>
+    <button class="show-link" onclick="revealMCQ(34,'B','0.6 = 6/10 = <strong>3/5</strong>')">Show answer</button>
+  </div>
+
+  <!-- ===== DECIMALS & MISSING NUMBERS ===== -->
+  <div class="group-instruction">Decimals &amp; missing numbers (Q35&ndash;40).</div>
+
+  <!-- Q35 -->
+  <div class="question" id="q35">
+    <div class="q-row">
+      <span class="q-num">35.</span>
+      <span class="q-text"><strong>45.93 + 10.2 = ___</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q35-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(35,'56.13',['56.13'])">Check</button>
+    </div>
+    <div class="answer-box" id="q35-ans"></div>
+    <button class="show-link" onclick="revealAns(35,'45.93 + 10.20 = <strong>56.13</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q36 -->
+  <div class="question" id="q36">
+    <div class="q-row">
+      <span class="q-num">36.</span>
+      <span class="q-text"><strong>700.9 &minus; 355.44 = ___</strong></span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q36-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(36,'345.46',['345.46'])">Check</button>
+    </div>
+    <div class="answer-box" id="q36-ans"></div>
+    <button class="show-link" onclick="revealAns(36,'700.90 &minus; 355.44 = <strong>345.46</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q37 -->
+  <div class="question" id="q37">
+    <div class="q-row">
+      <span class="q-num">37.</span>
+      <span class="q-text">A lawn measures <strong>5 m &times; 4 m</strong>. One pack of turf covers <strong>2 m&sup2;</strong>. How many <strong>packs</strong> are needed?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q37-inp" placeholder="packs" />
+      <button class="check-btn" onclick="checkWrite(37,'10',['10'])">Check</button>
+    </div>
+    <div class="answer-box" id="q37-ans"></div>
+    <button class="show-link" onclick="revealAns(37,'Area = 5 &times; 4 = 20 m&sup2;; 20 &div; 2 = <strong>10 packs</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q38 -->
+  <div class="question" id="q38">
+    <div class="q-row">
+      <span class="q-num">38.</span>
+      <span class="q-text">A floor has an area of <strong>24 m&sup2;</strong>. Each tile covers <strong>0.5 m&sup2;</strong>. How many <strong>tiles</strong> are needed?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q38-inp" placeholder="tiles" />
+      <button class="check-btn" onclick="checkWrite(38,'48',['48'])">Check</button>
+    </div>
+    <div class="answer-box" id="q38-ans"></div>
+    <button class="show-link" onclick="revealAns(38,'24 &div; 0.5 = 24 &times; 2 = <strong>48 tiles</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q39 -->
+  <div class="question" id="q39">
+    <div class="q-row">
+      <span class="q-num">39.</span>
+      <span class="q-text"><strong>&pound;720</strong> is shared in the ratio <strong>2 : 3 : 4</strong>. What is the value of the <strong>largest share</strong>?</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q39-inp" placeholder="£" />
+      <button class="check-btn" onclick="checkWrite(39,'320',['320','£320','£320.00'])">Check</button>
+    </div>
+    <div class="answer-box" id="q39-ans"></div>
+    <button class="show-link" onclick="revealAns(39,'9 parts; &pound;720 &div; 9 = &pound;80 per part; largest = 4 &times; &pound;80 = <strong>&pound;320</strong>')">Show answer</button>
+  </div>
+
+  <!-- Q40 -->
+  <div class="question" id="q40">
+    <div class="q-row">
+      <span class="q-num">40.</span>
+      <span class="q-text">Sam saves <strong>&pound;45</strong> and Tom saves <strong>&pound;27</strong>. Write the ratio of Sam's savings to Tom's savings in its <strong>simplest form</strong>.</span>
+      <span class="q-marks">[1]</span>
+    </div>
+    <div class="write-row">
+      <input type="text" id="q40-inp" placeholder="a : b" />
+      <button class="check-btn" onclick="checkWrite(40,'5:3',['5:3','5 : 3'])">Check</button>
+    </div>
+    <div class="answer-box" id="q40-ans"></div>
+    <button class="show-link" onclick="revealAns(40,'45 : 27, divide both by 9 = <strong>5 : 3</strong>')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Section &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results &mdash; Short Maths</h2>
+  <div class="result-score" id="res-score">&mdash; / 40</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">&mdash;</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any question you got wrong.
+  </p>
+  <div style="margin-top:18px;">
+    <a href="index.html" style="color:var(--blue);font-size:0.9rem;">&larr; Back to Mock Pack 1</a>
+  </div>
+</div>
+
+<script>
+  // ---- State ----
+  var answers = {}; // qNum -> {correct: bool, submitted: bool}
+  var totalQ = 40;
+  // correct answers for MCQ (write-in checked inline)
+  var mcqAnswers = {
+    11:'B', 12:'C', 13:'A', 27:'D', 34:'B'
+  };
+
+  // ---- Timer ----
+  var totalSecs = 15 * 60;
+  var remaining = totalSecs;
+  var timerRunning = true;
+  var timerEl = document.getElementById('timer');
+  var startTime = Date.now();
+  var pausedAt = 0;
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    timerEl.textContent = pad(m) + ':' + pad(s);
+    timerEl.className = rem <= 180 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  // ---- Score display ----
+  function updateLiveScore() {
+    var done = Object.keys(answers).length;
+    document.getElementById('live-score').textContent = done + ' / ' + totalQ + ' answered';
+  }
+
+  // ---- MCQ check ----
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0]; // letter
+    optBtns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Write-in check ----
+  function checkWrite(qNum, correct, alts) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var val = inp.value.trim().toLowerCase().replace(/\s+/g,'');
+    var normAlts = alts.map(function(a){ return a.toLowerCase().replace(/\s+/g,''); });
+    var isCorrect = normAlts.indexOf(val) !== -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + alts[0] + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Show answer (reveal without grading) ----
+  function revealAns(qNum, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    optBtns.forEach(function(b) {
+      if (b.textContent.trim()[0] === correct) b.classList.add('correct');
+    });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  // ---- Submit ----
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — sharp and quick!' :
+                pct >= 70 ? 'Good — keep drilling for speed and accuracy.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the section again after revision.';
+
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+
+    document.getElementById('res-score').textContent = correct + ' / 40';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

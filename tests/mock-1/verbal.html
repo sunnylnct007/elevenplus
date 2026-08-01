@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verbal Reasoning — Mock Pack 1</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 6px;
+    }
+    .header-sub {
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .header-badge {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-family: -apple-system, sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 3px 12px;
+      border-radius: 6px;
+      margin: 4px auto 8px;
+    }
+    .header-center { text-align: center; }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 10px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    .section-example {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.84rem;
+      color: #555;
+      background: var(--blue-light);
+      border-left: 3px solid var(--blue);
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-target { font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .options { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0 42px; }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .write-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0 0 42px;
+      flex-wrap: wrap;
+    }
+    .write-row input {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 1.05rem;
+      border: none;
+      border-bottom: 2px solid #555;
+      padding: 3px 6px;
+      width: 220px;
+      background: transparent;
+      outline: none;
+    }
+    .write-row input:focus { border-bottom-color: var(--blue); }
+    .check-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .check-btn:hover { background: #163d7d; }
+    .partial {
+      font-family: "Courier New", monospace;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .jumble {
+      font-family: -apple-system, sans-serif;
+      margin: 8px 0 0 42px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .jumble span {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.9rem;
+    }
+    .word-grid {
+      border-collapse: collapse;
+      margin: 4px auto 20px;
+      font-family: -apple-system, sans-serif;
+      width: 100%;
+      max-width: 620px;
+    }
+    .word-grid td {
+      border: 1.5px solid var(--blue);
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 0.98rem;
+      background: #fff;
+      text-transform: lowercase;
+    }
+    .grid-wrap { overflow-x: auto; }
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .answer-box .explain { display: block; margin-top: 5px; color: var(--muted); font-weight: 400; font-style: normal; font-size: 0.85rem; line-height: 1.5; }
+    .show-link {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .selfcheck-note {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-left: 42px;
+      margin-top: 4px;
+      font-style: italic;
+    }
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn {
+      font-family: -apple-system, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">← Back to Mock Pack 1</a>
+  <a href="../verbal-paper-01.html">Full VR Paper →</a>
+</div>
+
+<div class="exam-header">
+  <h1>Verbal Reasoning</h1>
+  <div class="header-sub">Mock Pack 1 &middot; Section 1 of 6</div>
+  <div class="header-center"><span class="header-badge">VR</span></div>
+  <div class="header-sub"><strong>35 questions &middot; 10 minutes</strong></div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Work quickly and carefully &mdash; you have <strong>10 minutes</strong> for all 35 questions.</li>
+      <li>Read the short instruction and worked <em>Example</em> at the start of each group.</li>
+      <li>For click questions, tap the word or letter you choose. For write-in questions, type your answer and press <strong>Check</strong>.</li>
+      <li>The &ldquo;longest sentence&rdquo; questions are <strong>self-checked</strong>: press <em>Show sentence</em> and compare with the model answer.</li>
+      <li>Press <strong>Submit Section</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">10:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 35 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== ANTONYMS (Q1-5) ===== -->
+  <div class="section-heading">Antonyms &mdash; Opposite Meanings (Questions 1&ndash;5)</div>
+  <div class="section-example">
+    Look at the word on the left. Click the <strong>one</strong> word from the five that is <strong>most opposite</strong> in meaning.<br>
+    Example: <strong class="q-target">wide</strong> &rarr; deep &nbsp; tall &nbsp; <u>narrow</u> &nbsp; heavy &nbsp; open &rarr; answer <strong>narrow</strong>.
+  </div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text"><span class="q-target">ancient</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">A &nbsp; huge</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">B &nbsp; modern</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">C &nbsp; distant</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">D &nbsp; sturdy</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'B',this)">E &nbsp; rusty</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealMCQ(1,'B','<strong>modern</strong> is the opposite of <em>ancient</em> (very old).')">Show answer</button>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text"><span class="q-target">expand</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">A &nbsp; stretch</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">B &nbsp; widen</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">C &nbsp; shrink</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">D &nbsp; grow</button>
+      <button class="opt-btn" onclick="checkMCQ(2,'C',this)">E &nbsp; cover</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealMCQ(2,'C','To <em>expand</em> is to get bigger; <strong>shrink</strong> is to get smaller.')">Show answer</button>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text"><span class="q-target">generous</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">A &nbsp; kind</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">B &nbsp; giving</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">C &nbsp; mean</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">D &nbsp; cheerful</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'C',this)">E &nbsp; wealthy</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealMCQ(3,'C','A <em>generous</em> person gives freely; a <strong>mean</strong> person does not.')">Show answer</button>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text"><span class="q-target">arrive</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">A &nbsp; reach</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">B &nbsp; depart</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">C &nbsp; enter</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">D &nbsp; land</button>
+      <button class="opt-btn" onclick="checkMCQ(4,'B',this)">E &nbsp; greet</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealMCQ(4,'B','To <em>arrive</em> is to come; to <strong>depart</strong> is to leave.')">Show answer</button>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text"><span class="q-target">victory</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">A &nbsp; triumph</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">B &nbsp; prize</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">C &nbsp; defeat</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">D &nbsp; battle</button>
+      <button class="opt-btn" onclick="checkMCQ(5,'C',this)">E &nbsp; medal</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealMCQ(5,'C','A <em>victory</em> is a win; a <strong>defeat</strong> is a loss.')">Show answer</button>
+  </div>
+
+  <!-- ===== COMPLETE THE WORD (Q6-12) ===== -->
+  <div class="section-heading">Complete the Word (Questions 6&ndash;12)</div>
+  <div class="section-example">
+    Find the <strong>three letters</strong> that complete the word so that it matches the clue. Type the three missing letters.<br>
+    Example: <em>A funny drawing:</em> <strong class="partial">car ( &nbsp; ) n</strong> &rarr; answer <strong>too</strong> (car<u>too</u>n).
+  </div>
+
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text"><em>A room where meals are cooked:</em> &nbsp; <span class="partial">kit ( &nbsp; ) n</span></span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q6-inp" placeholder="three letters" maxlength="5" />
+      <button class="check-btn" onclick="checkWrite(6,'che',['che'])">Check</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealAns(6,'<strong>che</strong> &rarr; kit<u>che</u>n.')">Show answer</button>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text"><em>A male sibling:</em> &nbsp; <span class="partial">bro ( &nbsp; ) r</span></span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q7-inp" placeholder="three letters" maxlength="5" />
+      <button class="check-btn" onclick="checkWrite(7,'the',['the'])">Check</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealAns(7,'<strong>the</strong> &rarr; bro<u>the</u>r.')">Show answer</button>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text"><em>A bird kept on a farm:</em> &nbsp; <span class="partial">chi ( &nbsp; ) n</span></span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q8-inp" placeholder="three letters" maxlength="5" />
+      <button class="check-btn" onclick="checkWrite(8,'cke',['cke'])">Check</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealAns(8,'<strong>cke</strong> &rarr; chi<u>cke</u>n.')">Show answer</button>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text"><em>A painting or photograph:</em> &nbsp; <span class="partial">pic ( &nbsp; ) e</span></span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q9-inp" placeholder="three letters" maxlength="5" />
+      <button class="check-btn" onclick="checkWrite(9,'tur',['tur'])">Check</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealAns(9,'<strong>tur</strong> &rarr; pic<u>tur</u>e.')">Show answer</button>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text"><em>A cover to keep you warm in bed:</em> &nbsp; <span class="partial">bla ( &nbsp; ) t</span></span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q10-inp" placeholder="three letters" maxlength="5" />
+      <button class="check-btn" onclick="checkWrite(10,'nke',['nke'])">Check</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealAns(10,'<strong>nke</strong> &rarr; bla<u>nke</u>t.')">Show answer</button>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text"><em>A precious, sparkling gem:</em> &nbsp; <span class="partial">dia ( &nbsp; ) d</span></span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q11-inp" placeholder="three letters" maxlength="5" />
+      <button class="check-btn" onclick="checkWrite(11,'mon',['mon'])">Check</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealAns(11,'<strong>mon</strong> &rarr; dia<u>mon</u>d.')">Show answer</button>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text"><em>A land ruled by a king:</em> &nbsp; <span class="partial">kin ( &nbsp; ) m</span></span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q12-inp" placeholder="three letters" maxlength="5" />
+      <button class="check-btn" onclick="checkWrite(12,'gdo',['gdo'])">Check</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealAns(12,'<strong>gdo</strong> &rarr; kin<u>gdo</u>m.')">Show answer</button>
+  </div>
+
+  <!-- ===== SYNONYMS (Q13-20) ===== -->
+  <div class="section-heading">Synonyms &mdash; Closest Meanings (Questions 13&ndash;20)</div>
+  <div class="section-example">
+    Look at the word on the left. Click the <strong>one</strong> word from the five that is <strong>closest</strong> in meaning.<br>
+    Example: <strong class="q-target">happy</strong> &rarr; sad &nbsp; <u>glad</u> &nbsp; tired &nbsp; loud &nbsp; quick &rarr; answer <strong>glad</strong>.
+  </div>
+
+  <!-- Q13 -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text"><span class="q-target">rapid</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(13,'B',this)">A &nbsp; slow</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'B',this)">B &nbsp; quick</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'B',this)">C &nbsp; loud</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'B',this)">D &nbsp; heavy</button>
+      <button class="opt-btn" onclick="checkMCQ(13,'B',this)">E &nbsp; calm</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealMCQ(13,'B','<em>rapid</em> means fast, the same as <strong>quick</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text"><span class="q-target">brave</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(14,'C',this)">A &nbsp; timid</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'C',this)">B &nbsp; weak</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'C',this)">C &nbsp; courageous</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'C',this)">D &nbsp; cruel</button>
+      <button class="opt-btn" onclick="checkMCQ(14,'C',this)">E &nbsp; silent</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealMCQ(14,'C','<em>brave</em> means the same as <strong>courageous</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text"><span class="q-target">huge</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(15,'B',this)">A &nbsp; tiny</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'B',this)">B &nbsp; enormous</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'B',this)">C &nbsp; narrow</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'B',this)">D &nbsp; empty</button>
+      <button class="opt-btn" onclick="checkMCQ(15,'B',this)">E &nbsp; plain</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealMCQ(15,'B','<em>huge</em> means very big, the same as <strong>enormous</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text"><span class="q-target">repair</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">A &nbsp; break</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">B &nbsp; damage</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">C &nbsp; mend</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">D &nbsp; waste</button>
+      <button class="opt-btn" onclick="checkMCQ(16,'C',this)">E &nbsp; hide</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealMCQ(16,'C','To <em>repair</em> is to <strong>mend</strong> something.')">Show answer</button>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text"><span class="q-target">begin</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">A &nbsp; finish</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">B &nbsp; start</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">C &nbsp; pause</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">D &nbsp; delay</button>
+      <button class="opt-btn" onclick="checkMCQ(17,'B',this)">E &nbsp; close</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealMCQ(17,'B','To <em>begin</em> is to <strong>start</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text"><span class="q-target">silent</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">A &nbsp; loud</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">B &nbsp; quiet</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">C &nbsp; busy</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">D &nbsp; bright</button>
+      <button class="opt-btn" onclick="checkMCQ(18,'B',this)">E &nbsp; rough</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealMCQ(18,'B','<em>silent</em> means the same as <strong>quiet</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q19 -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text"><span class="q-target">angry</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">A &nbsp; calm</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">B &nbsp; furious</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">C &nbsp; happy</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">D &nbsp; tired</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">E &nbsp; gentle</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealMCQ(19,'B','<em>angry</em> means the same as <strong>furious</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text"><span class="q-target">wealthy</span></span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(20,'B',this)">A &nbsp; poor</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'B',this)">B &nbsp; rich</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'B',this)">C &nbsp; greedy</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'B',this)">D &nbsp; mean</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'B',this)">E &nbsp; plain</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealMCQ(20,'B','<em>wealthy</em> means the same as <strong>rich</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ===== LONGEST SENTENCE (Q21-26) ===== -->
+  <div class="section-heading">Make the Longest Sentence (Questions 21&ndash;26)</div>
+  <div class="section-example">
+    Rearrange the jumbled words to make the <strong>longest sensible sentence</strong> you can, using as many of the words as possible. These are <strong>self-checked</strong>: write your sentence, then press <em>Show sentence</em> to compare with the model answer.<br>
+    Example: <em>park &nbsp; the &nbsp; dog &nbsp; in &nbsp; ran &nbsp; the</em> &rarr; <strong>The dog ran in the park.</strong>
+  </div>
+
+  <!-- Q21 -->
+  <div class="question" id="q21">
+    <div class="q-row"><span class="q-num">21.</span><span class="q-text">Make the longest sentence from these words:</span><span class="q-marks">[self]</span></div>
+    <div class="jumble"><span>garden</span><span>the</span><span>in</span><span>flowers</span><span>grew</span><span>beautiful</span></div>
+    <div class="write-row">
+      <input type="text" id="q21-inp" placeholder="type your sentence" maxlength="120" />
+    </div>
+    <div class="selfcheck-note">Self-checked &mdash; not counted in your score.</div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealSelf(21,'The beautiful flowers grew in the garden.')">Show sentence</button>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question" id="q22">
+    <div class="q-row"><span class="q-num">22.</span><span class="q-text">Make the longest sentence from these words:</span><span class="q-marks">[self]</span></div>
+    <div class="jumble"><span>morning</span><span>we</span><span>early</span><span>the</span><span>left</span><span>house</span><span>in</span></div>
+    <div class="write-row">
+      <input type="text" id="q22-inp" placeholder="type your sentence" maxlength="120" />
+    </div>
+    <div class="selfcheck-note">Self-checked &mdash; not counted in your score.</div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealSelf(22,'We left the house early in the morning.')">Show sentence</button>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question" id="q23">
+    <div class="q-row"><span class="q-num">23.</span><span class="q-text">Make the longest sentence from these words:</span><span class="q-marks">[self]</span></div>
+    <div class="jumble"><span>dog</span><span>loudly</span><span>the</span><span>barked</span><span>at</span><span>cat</span><span>the</span></div>
+    <div class="write-row">
+      <input type="text" id="q23-inp" placeholder="type your sentence" maxlength="120" />
+    </div>
+    <div class="selfcheck-note">Self-checked &mdash; not counted in your score.</div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealSelf(23,'The dog barked loudly at the cat.')">Show sentence</button>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question" id="q24">
+    <div class="q-row"><span class="q-num">24.</span><span class="q-text">Make the longest sentence from these words:</span><span class="q-marks">[self]</span></div>
+    <div class="jumble"><span>rain</span><span>because</span><span>of</span><span>match</span><span>the</span><span>cancelled</span><span>was</span><span>the</span></div>
+    <div class="write-row">
+      <input type="text" id="q24-inp" placeholder="type your sentence" maxlength="120" />
+    </div>
+    <div class="selfcheck-note">Self-checked &mdash; not counted in your score.</div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealSelf(24,'The match was cancelled because of the rain.')">Show sentence</button>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question" id="q25">
+    <div class="q-row"><span class="q-num">25.</span><span class="q-text">Make the longest sentence from these words:</span><span class="q-marks">[self]</span></div>
+    <div class="jumble"><span>children</span><span>the</span><span>played</span><span>happily</span><span>park</span><span>the</span><span>in</span><span>all</span></div>
+    <div class="write-row">
+      <input type="text" id="q25-inp" placeholder="type your sentence" maxlength="120" />
+    </div>
+    <div class="selfcheck-note">Self-checked &mdash; not counted in your score.</div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealSelf(25,'All the children played happily in the park.')">Show sentence</button>
+  </div>
+
+  <!-- Q26 -->
+  <div class="question" id="q26">
+    <div class="q-row"><span class="q-num">26.</span><span class="q-text">Make the longest sentence from these words:</span><span class="q-marks">[self]</span></div>
+    <div class="jumble"><span>mountain</span><span>climbed</span><span>they</span><span>tall</span><span>the</span><span>slowly</span><span>very</span></div>
+    <div class="write-row">
+      <input type="text" id="q26-inp" placeholder="type your sentence" maxlength="120" />
+    </div>
+    <div class="selfcheck-note">Self-checked &mdash; not counted in your score.</div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealSelf(26,'They slowly climbed the very tall mountain.')">Show sentence</button>
+  </div>
+
+  <!-- ===== SYNONYM / ANTONYM GRID (Q27-35) ===== -->
+  <div class="section-heading">Synonym &amp; Antonym Grid (Questions 27&ndash;35)</div>
+  <div class="section-example">
+    Use the grid of 15 words below to answer each question. Where two words are asked for, type them in <strong>either order</strong> (for example &ldquo;jetty, wharf&rdquo; or &ldquo;wharf jetty&rdquo;). Every answer is one of the words in the grid.
+  </div>
+
+  <div class="grid-wrap">
+    <table class="word-grid">
+      <tr><td>jetty</td><td>wharf</td><td>strict</td><td>joyful</td><td>cheerful</td></tr>
+      <tr><td>modern</td><td>bold</td><td>fearless</td><td>shrink</td><td>silent</td></tr>
+      <tr><td>hushed</td><td>stingy</td><td>start</td><td>commence</td><td>gloomy</td></tr>
+    </table>
+  </div>
+
+  <!-- Q27 -->
+  <div class="question" id="q27">
+    <div class="q-row"><span class="q-num">27.</span><span class="q-text">Find the <strong>two</strong> words in the grid that are <strong>synonyms of &lsquo;pier&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q27-inp" placeholder="two words" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(27,'jetty, wharf',['jetty','wharf'])">Check</button>
+    </div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealAns(27,'<strong>jetty</strong> and <strong>wharf</strong> &mdash; both are landing places at the water&rsquo;s edge, like a pier.')">Show answer</button>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question" id="q28">
+    <div class="q-row"><span class="q-num">28.</span><span class="q-text">Find the <strong>one</strong> word in the grid that is an <strong>antonym of &lsquo;lenient&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q28-inp" placeholder="one word" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(28,'strict',['strict'])">Check</button>
+    </div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealAns(28,'<strong>strict</strong> &mdash; the opposite of lenient (easy-going).')">Show answer</button>
+  </div>
+
+  <!-- Q29 -->
+  <div class="question" id="q29">
+    <div class="q-row"><span class="q-num">29.</span><span class="q-text">Find the <strong>two</strong> words in the grid that are <strong>synonyms of &lsquo;happy&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q29-inp" placeholder="two words" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(29,'joyful, cheerful',['joyful','cheerful'])">Check</button>
+    </div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealAns(29,'<strong>joyful</strong> and <strong>cheerful</strong> both mean happy.')">Show answer</button>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question" id="q30">
+    <div class="q-row"><span class="q-num">30.</span><span class="q-text">Find the <strong>one</strong> word in the grid that is an <strong>antonym of &lsquo;ancient&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q30-inp" placeholder="one word" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(30,'modern',['modern'])">Check</button>
+    </div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealAns(30,'<strong>modern</strong> &mdash; the opposite of ancient (very old).')">Show answer</button>
+  </div>
+
+  <!-- Q31 -->
+  <div class="question" id="q31">
+    <div class="q-row"><span class="q-num">31.</span><span class="q-text">Find the <strong>two</strong> words in the grid that are <strong>synonyms of &lsquo;brave&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q31-inp" placeholder="two words" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(31,'bold, fearless',['bold','fearless'])">Check</button>
+    </div>
+    <div class="answer-box" id="q31-ans"></div>
+    <button class="show-link" onclick="revealAns(31,'<strong>bold</strong> and <strong>fearless</strong> both mean brave.')">Show answer</button>
+  </div>
+
+  <!-- Q32 -->
+  <div class="question" id="q32">
+    <div class="q-row"><span class="q-num">32.</span><span class="q-text">Find the <strong>one</strong> word in the grid that is an <strong>antonym of &lsquo;expand&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q32-inp" placeholder="one word" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(32,'shrink',['shrink'])">Check</button>
+    </div>
+    <div class="answer-box" id="q32-ans"></div>
+    <button class="show-link" onclick="revealAns(32,'<strong>shrink</strong> &mdash; the opposite of expand (to get bigger).')">Show answer</button>
+  </div>
+
+  <!-- Q33 -->
+  <div class="question" id="q33">
+    <div class="q-row"><span class="q-num">33.</span><span class="q-text">Find the <strong>two</strong> words in the grid that are <strong>synonyms of &lsquo;quiet&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q33-inp" placeholder="two words" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(33,'silent, hushed',['silent','hushed'])">Check</button>
+    </div>
+    <div class="answer-box" id="q33-ans"></div>
+    <button class="show-link" onclick="revealAns(33,'<strong>silent</strong> and <strong>hushed</strong> both mean quiet.')">Show answer</button>
+  </div>
+
+  <!-- Q34 -->
+  <div class="question" id="q34">
+    <div class="q-row"><span class="q-num">34.</span><span class="q-text">Find the <strong>one</strong> word in the grid that is an <strong>antonym of &lsquo;generous&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q34-inp" placeholder="one word" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(34,'stingy',['stingy'])">Check</button>
+    </div>
+    <div class="answer-box" id="q34-ans"></div>
+    <button class="show-link" onclick="revealAns(34,'<strong>stingy</strong> &mdash; the opposite of generous.')">Show answer</button>
+  </div>
+
+  <!-- Q35 -->
+  <div class="question" id="q35">
+    <div class="q-row"><span class="q-num">35.</span><span class="q-text">Find the <strong>two</strong> words in the grid that are <strong>synonyms of &lsquo;begin&rsquo;</strong>.</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q35-inp" placeholder="two words" maxlength="40" />
+      <button class="check-btn" onclick="checkGrid(35,'start, commence',['start','commence'])">Check</button>
+    </div>
+    <div class="answer-box" id="q35-ans"></div>
+    <button class="show-link" onclick="revealAns(35,'<strong>start</strong> and <strong>commence</strong> both mean begin.')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Section &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results — Verbal Reasoning (Mock Pack 1, Section 1)</h2>
+  <div class="result-score" id="res-score">— / 29</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct (auto-scored)</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:16px;font-size:0.88rem;color:var(--muted)" id="res-self"></p>
+  <p style="margin-top:8px;font-size:0.88rem;color:var(--muted)">
+    Auto-scored out of 29 (Antonyms, Complete the Word, Synonyms and the Grid). The 6 &ldquo;longest sentence&rdquo; questions are self-checked &mdash; compare your answer with the model sentence. Scroll up to review any question with <em>Show answer</em>.
+  </p>
+  <div style="margin-top:18px;display:flex;gap:16px;">
+    <a href="index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Mock Pack 1</a>
+  </div>
+</div>
+
+<script>
+  var answers = {};
+  var totalQ = 35;                 // questions in the section (for the live counter)
+  var AUTO_QS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,27,28,29,30,31,32,33,34,35];
+  var autoTotal = AUTO_QS.length;  // 29 auto-scorable
+  var selfCount = 6;               // Q21-26 self-checked
+  var totalSecs = 10 * 60;
+  var remaining = totalSecs;
+  var timerRunning = true;
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    var el = document.getElementById('timer');
+    el.textContent = pad(m) + ':' + pad(s);
+    el.className = rem <= 120 ? (rem <= 30 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  function updateLiveScore() {
+    document.getElementById('live-score').textContent = Object.keys(answers).length + ' / ' + totalQ + ' answered';
+  }
+
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.');
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function checkWrite(qNum, correct, alts) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var val = inp.value.trim().toLowerCase().replace(/\s+/g,'');
+    var normAlts = alts.map(function(a){ return a.toLowerCase().replace(/\s+/g,''); });
+    var isCorrect = normAlts.indexOf(val) !== -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // Tolerant grid check: split into words (letters only), compare as an
+  // unordered set so order, case, spacing and punctuation do not matter.
+  function checkGrid(qNum, correctDisplay, expected) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var toks = inp.value.toLowerCase().split(/[^a-z]+/).filter(function(t){ return t.length > 0; });
+    var exp = expected.map(function(w){ return w.toLowerCase(); }).sort();
+    var got = toks.slice().sort();
+    var isCorrect = got.length === exp.length && got.every(function(w,i){ return w === exp[i]; });
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correctDisplay + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.<span class="explain">' + html + '</span>';
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealAns(qNum, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var inp = document.getElementById('q' + qNum + '-inp');
+    if (inp) inp.disabled = true;
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  // Self-check reveal for the "longest sentence" questions. Records the
+  // answer as "seen" (so the counter updates) but never affects the score.
+  function revealSelf(qNum, model) {
+    var inp = document.getElementById('q' + qNum + '-inp');
+    if (inp) inp.disabled = true;
+    answers[qNum] = { correct: false, submitted: true, self: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; Model sentence: <strong>' + model + '</strong>' +
+      '<span class="explain">Self-check: your sentence should use all (or nearly all) of the words and make good sense. This question is not auto-scored.</span>';
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+    var correct = 0;
+    AUTO_QS.forEach(function(q) { if (answers[q] && answers[q].correct) correct++; });
+    var wrong = autoTotal - correct;
+    var pct = Math.round((correct / autoTotal) * 100);
+    var grade = pct >= 85 ? 'Excellent — on track for grammar school!' :
+                pct >= 70 ? 'Good — keep practising to reach the top band.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the section again after revision.';
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+    document.getElementById('res-score').textContent = correct + ' / ' + autoTotal;
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+    var selfSeen = 0;
+    for (var q = 21; q <= 26; q++) { if (answers[q]) selfSeen++; }
+    document.getElementById('res-self').textContent =
+      'Plus ' + selfCount + ' self-checked &ldquo;longest sentence&rdquo; questions (Q21–26) — ' +
+      selfSeen + ' of ' + selfCount + ' revealed. Mark these yourself against the model sentences.';
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

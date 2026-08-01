@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloze — 11+ Mock Pack 1</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .badge {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .exam-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      font-size: 0.92rem;
+    }
+    .exam-meta p { display: flex; gap: 6px; }
+    .exam-meta strong { min-width: 110px; }
+    .subtitle {
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .passage-box {
+      background: #fffef5;
+      border: 1.5px solid #d1c96a;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      font-size: 0.98rem;
+      line-height: 2;
+    }
+    .passage-box h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; }
+    .passage-box .passage-para { margin-bottom: 12px; }
+    .gap {
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 1px;
+      background: #eef2fb;
+      padding: 1px 4px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .gap-num {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      vertical-align: super;
+    }
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 10px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    .instruction-line {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .example {
+      font-family: -apple-system, sans-serif;
+      background: var(--blue-light);
+      border-left: 3px solid var(--blue);
+      padding: 9px 14px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      border-radius: 0 6px 6px 0;
+    }
+    .example strong { color: var(--blue); }
+    .word-bank {
+      font-family: -apple-system, sans-serif;
+      background: #f4f7fd;
+      border: 1.5px dashed var(--blue);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 0.92rem;
+    }
+    .word-bank .wb-title { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 6px; }
+    .word-bank .wb-words { display: flex; flex-wrap: wrap; gap: 8px; }
+    .word-bank .wb-word { background: #fff; border: 1px solid var(--border); border-radius: 5px; padding: 3px 10px; }
+    .question {
+      margin-bottom: 16px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .q-text { flex: 1; font-size: 0.97rem; padding-top: 2px; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 5px; }
+    .cloze-input {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.95rem;
+      padding: 5px 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      width: 170px;
+      margin-left: 6px;
+    }
+    .cloze-input:focus { outline: none; border-color: var(--blue); }
+    .cloze-input.correct-input { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 700; }
+    .cloze-input.wrong-input { background: var(--red-light); border-color: var(--red); color: var(--red); font-weight: 700; }
+    .small-input { width: 90px; }
+    .options { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0 42px; }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 7px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .answer-box .explain { display: block; margin-top: 5px; color: var(--muted); font-weight: 400; font-style: normal; font-size: 0.85rem; line-height: 1.5; }
+    .show-link {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn {
+      font-family: -apple-system, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .exam-meta { grid-template-columns: 1fr; }
+      .result-breakdown { grid-template-columns: 1fr; }
+      .cloze-input { width: 130px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">&larr; Back to Mock Pack 1</a>
+  <a href="#" onclick="submitPaper();return false;">Finish section</a>
+</div>
+
+<div class="exam-header">
+  <div class="header-top">
+    <span class="badge">CL</span>
+  </div>
+  <h1>Cloze</h1>
+  <div class="subtitle">Mock Pack 1 &middot; Section 2 of 6</div>
+  <div class="subtitle" style="margin-bottom:14px;font-weight:700;color:var(--text);">35 questions &middot; 15 minutes</div>
+  <div class="exam-meta">
+    <p><strong>Time allowed:</strong> 15 minutes</p>
+    <p><strong>Total marks:</strong> 35</p>
+    <p><strong>Section:</strong> Cloze (2 of 6)</p>
+    <p><strong>Source:</strong> GL Assessment style</p>
+  </div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>This is a timed section. Work as quickly and as carefully as you can.</li>
+      <li>Type your answer into the box, or click the correct option where buttons are shown.</li>
+      <li>Spelling counts &mdash; make sure every word is spelt correctly.</li>
+      <li>Click <em>Show answer</em> to reveal the correct answer at any time.</li>
+      <li>Press <strong>Submit Section</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">15:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 35 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ===== PART 1: WORD COMPLETION IN A PASSAGE ===== -->
+  <div class="section-heading">Part 1 &mdash; Complete the words in the passage (Questions 1&ndash;12)</div>
+  <p class="instruction-line">In the passage below, some words have letters missing, shown by a dash and blanks. Read the passage, then write the <strong>full word</strong> for each numbered gap in the matching box.</p>
+  <div class="example"><strong>Example.</strong> Gap 0 shows <span class="gap">rid____ously</span> &rarr; the full word is <strong>ridiculously</strong>.</div>
+
+  <div class="passage-box">
+    <h3>The Journey</h3>
+    <div class="passage-para">
+      It was still dark when we began our long <span class="gap-num">(1)</span><span class="gap">jour___</span> into the hills. My little brother could hardly contain his <span class="gap-num">(2)</span><span class="gap">exc_______</span> as he clambered into the back of the car. Grandad, who did everything <span class="gap-num">(3)</span><span class="gap">car_____y</span>, checked the map twice before we set off. The <span class="gap-num">(4)</span><span class="gap">dist____</span> we had to travel was enormous, and the <span class="gap-num">(5)</span><span class="gap">mount____</span> ahead looked impossibly tall against the pale sky.
+    </div>
+    <div class="passage-para">
+      For the first hour the road was easy, but then the weather changed <span class="gap-num">(6)</span><span class="gap">sudd____</span>. Thick fog rolled in and the driving became <span class="gap-num">(7)</span><span class="gap">diff_____</span>. Above us, though, the sky was slowly turning a <span class="gap-num">(8)</span><span class="gap">br_______</span> shade of blue as the sun climbed higher.
+    </div>
+    <div class="passage-para">
+      Half way there I <span class="gap-num">(9)</span><span class="gap">rem_______</span> that I had forgotten my camera, but it was far too late to turn back. At last the fog lifted and a <span class="gap-num">(10)</span><span class="gap">beau_____</span> valley opened out below us, greener than anything I had ever seen. We had <span class="gap-num">(11)</span><span class="gap">fin____</span> arrived. Tired but happy, and completely <span class="gap-num">(12)</span><span class="gap">exh______</span>, we tumbled out of the car to explore.
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">Gap 1: <span class="gap">jour___</span> <input class="cloze-input" onchange="checkWrite(1,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealWrite(1)">Show answer</button>
+  </div>
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">Gap 2: <span class="gap">exc_______</span> <input class="cloze-input" onchange="checkWrite(2,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealWrite(2)">Show answer</button>
+  </div>
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">Gap 3: <span class="gap">car_____y</span> <input class="cloze-input" onchange="checkWrite(3,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealWrite(3)">Show answer</button>
+  </div>
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">Gap 4: <span class="gap">dist____</span> <input class="cloze-input" onchange="checkWrite(4,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealWrite(4)">Show answer</button>
+  </div>
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">Gap 5: <span class="gap">mount____</span> <input class="cloze-input" onchange="checkWrite(5,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealWrite(5)">Show answer</button>
+  </div>
+  <!-- Q6 -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text">Gap 6: <span class="gap">sudd____</span> <input class="cloze-input" onchange="checkWrite(6,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealWrite(6)">Show answer</button>
+  </div>
+  <!-- Q7 -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text">Gap 7: <span class="gap">diff_____</span> <input class="cloze-input" onchange="checkWrite(7,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealWrite(7)">Show answer</button>
+  </div>
+  <!-- Q8 -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text">Gap 8: <span class="gap">br_______</span> <input class="cloze-input" onchange="checkWrite(8,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealWrite(8)">Show answer</button>
+  </div>
+  <!-- Q9 -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text">Gap 9: <span class="gap">rem_______</span> <input class="cloze-input" onchange="checkWrite(9,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealWrite(9)">Show answer</button>
+  </div>
+  <!-- Q10 -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text">Gap 10: <span class="gap">beau_____</span> <input class="cloze-input" onchange="checkWrite(10,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealWrite(10)">Show answer</button>
+  </div>
+  <!-- Q11 -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">Gap 11: <span class="gap">fin____</span> <input class="cloze-input" onchange="checkWrite(11,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealWrite(11)">Show answer</button>
+  </div>
+  <!-- Q12 -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">Gap 12: <span class="gap">exh______</span> <input class="cloze-input" onchange="checkWrite(12,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealWrite(12)">Show answer</button>
+  </div>
+
+  <!-- ===== PART 2: ADD FOUR LETTERS ===== -->
+  <div class="section-heading">Part 2 &mdash; Add the four missing letters (Questions 13&ndash;18)</div>
+  <p class="instruction-line">In each sentence one word has <strong>four letters missing</strong>, shown by four blanks. Write the four missing letters (or the whole word) in the box.</p>
+  <div class="example"><strong>Example.</strong> &ldquo;We had fitted new wardr<span class="gap">____</span> in the bedroom.&rdquo; The four letters are <strong>obes</strong> (wardr<u>obes</u>).</div>
+
+  <!-- Q13 -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text">The old castle was completely surr<span class="gap">____</span>ed by a deep moat. <input class="cloze-input small-input" onchange="checkWrite(13,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealWrite(13)">Show answer</button>
+  </div>
+  <!-- Q14 -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text">The dentist gave me an app<span class="gap">____</span>ment for next Tuesday. <input class="cloze-input small-input" onchange="checkWrite(14,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealWrite(14)">Show answer</button>
+  </div>
+  <!-- Q15 -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text">This is a very comf<span class="gap">____</span>ble armchair to sit in. <input class="cloze-input small-input" onchange="checkWrite(15,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealWrite(15)">Show answer</button>
+  </div>
+  <!-- Q16 -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text">I found some useful info<span class="gap">____</span>ion in the library book. <input class="cloze-input small-input" onchange="checkWrite(16,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealWrite(16)">Show answer</button>
+  </div>
+  <!-- Q17 -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text">Overnight the temp<span class="gap">____</span>ure dropped well below freezing. <input class="cloze-input small-input" onchange="checkWrite(17,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealWrite(17)">Show answer</button>
+  </div>
+  <!-- Q18 -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text">With a flick of his wand, the rabbit seemed to dis<span class="gap">____</span>ar. <input class="cloze-input small-input" onchange="checkWrite(18,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealWrite(18)">Show answer</button>
+  </div>
+
+  <!-- ===== PART 3: UNDERLINE THE CORRECT WORD ===== -->
+  <div class="section-heading">Part 3 &mdash; Choose the correct word in brackets (Questions 19&ndash;24)</div>
+  <p class="instruction-line">In each sentence, choose the word from the brackets that fits best. Click the word you would underline.</p>
+  <div class="example"><strong>Example.</strong> &ldquo;We bought a new (kennel, hutch, sty) for our rabbit.&rdquo; The correct word is <strong>hutch</strong>.</div>
+
+  <!-- Q19 -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text">The farmer kept his pigs in a muddy (<em>kennel, sty, stable</em>).</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">A &nbsp; kennel</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">B &nbsp; sty</button>
+      <button class="opt-btn" onclick="checkMCQ(19,'B',this)">C &nbsp; stable</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealMCQ(19,'B','')">Show answer</button>
+  </div>
+  <!-- Q20 -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text">We keep our horse in a (<em>sty, kennel, stable</em>) at night.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(20,'C',this)">A &nbsp; sty</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'C',this)">B &nbsp; kennel</button>
+      <button class="opt-btn" onclick="checkMCQ(20,'C',this)">C &nbsp; stable</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealMCQ(20,'C','')">Show answer</button>
+  </div>
+  <!-- Q21 -->
+  <div class="question" id="q21">
+    <div class="q-row"><span class="q-num">21.</span><span class="q-text">An angry (<em>swarm, herd, flock</em>) of bees chased the frightened dog.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(21,'A',this)">A &nbsp; swarm</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'A',this)">B &nbsp; herd</button>
+      <button class="opt-btn" onclick="checkMCQ(21,'A',this)">C &nbsp; flock</button>
+    </div>
+    <div class="answer-box" id="q21-ans"></div>
+    <button class="show-link" onclick="revealMCQ(21,'A','')">Show answer</button>
+  </div>
+  <!-- Q22 -->
+  <div class="question" id="q22">
+    <div class="q-row"><span class="q-num">22.</span><span class="q-text">A (<em>flock, pack, shoal</em>) of sheep grazed on the hillside.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">A &nbsp; flock</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">B &nbsp; pack</button>
+      <button class="opt-btn" onclick="checkMCQ(22,'A',this)">C &nbsp; shoal</button>
+    </div>
+    <div class="answer-box" id="q22-ans"></div>
+    <button class="show-link" onclick="revealMCQ(22,'A','')">Show answer</button>
+  </div>
+  <!-- Q23 -->
+  <div class="question" id="q23">
+    <div class="q-row"><span class="q-num">23.</span><span class="q-text">The travellers were followed by a (<em>pride, pack, litter</em>) of hungry wolves.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">A &nbsp; pride</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">B &nbsp; pack</button>
+      <button class="opt-btn" onclick="checkMCQ(23,'B',this)">C &nbsp; litter</button>
+    </div>
+    <div class="answer-box" id="q23-ans"></div>
+    <button class="show-link" onclick="revealMCQ(23,'B','')">Show answer</button>
+  </div>
+  <!-- Q24 -->
+  <div class="question" id="q24">
+    <div class="q-row"><span class="q-num">24.</span><span class="q-text">She carried a beautiful (<em>bunch, bouquet, herd</em>) of roses down the aisle.</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">A &nbsp; bunch</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">B &nbsp; bouquet</button>
+      <button class="opt-btn" onclick="checkMCQ(24,'B',this)">C &nbsp; herd</button>
+    </div>
+    <div class="answer-box" id="q24-ans"></div>
+    <button class="show-link" onclick="revealMCQ(24,'B','')">Show answer</button>
+  </div>
+
+  <!-- ===== PART 4: PICK ONE WORD FROM THE LIST ===== -->
+  <div class="section-heading">Part 4 &mdash; Choose the best word from the list (Questions 25&ndash;31)</div>
+  <p class="instruction-line">Choose the word from the list below that best completes each sentence. Each word is used <strong>once only</strong>. Some words will be left over.</p>
+  <div class="example"><strong>Example.</strong> &ldquo;A ___ of people crowded around the bargain table.&rdquo; The best word is <strong>horde</strong>.</div>
+  <div class="word-bank">
+    <div class="wb-title">Word list</div>
+    <div class="wb-words">
+      <span class="wb-word">horde</span>
+      <span class="wb-word">fleet</span>
+      <span class="wb-word">bunch</span>
+      <span class="wb-word">flock</span>
+      <span class="wb-word">swarm</span>
+      <span class="wb-word">pack</span>
+      <span class="wb-word">library</span>
+      <span class="wb-word">range</span>
+      <span class="wb-word">series</span>
+      <span class="wb-word">shower</span>
+    </div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question" id="q25">
+    <div class="q-row"><span class="q-num">25.</span><span class="q-text">A ___ of warships sailed proudly into the harbour. <input class="cloze-input" onchange="checkWrite(25,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q25-ans"></div>
+    <button class="show-link" onclick="revealWrite(25)">Show answer</button>
+  </div>
+  <!-- Q26 -->
+  <div class="question" id="q26">
+    <div class="q-row"><span class="q-num">26.</span><span class="q-text">A ___ of wasps buzzed angrily around the picnic. <input class="cloze-input" onchange="checkWrite(26,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q26-ans"></div>
+    <button class="show-link" onclick="revealWrite(26)">Show answer</button>
+  </div>
+  <!-- Q27 -->
+  <div class="question" id="q27">
+    <div class="q-row"><span class="q-num">27.</span><span class="q-text">A ___ of wolves hunted silently through the forest. <input class="cloze-input" onchange="checkWrite(27,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q27-ans"></div>
+    <button class="show-link" onclick="revealWrite(27)">Show answer</button>
+  </div>
+  <!-- Q28 -->
+  <div class="question" id="q28">
+    <div class="q-row"><span class="q-num">28.</span><span class="q-text">A ___ of birds settled on the telephone wire. <input class="cloze-input" onchange="checkWrite(28,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q28-ans"></div>
+    <button class="show-link" onclick="revealWrite(28)">Show answer</button>
+  </div>
+  <!-- Q29 -->
+  <div class="question" id="q29">
+    <div class="q-row"><span class="q-num">29.</span><span class="q-text">A ripe ___ of grapes hung heavily from the vine. <input class="cloze-input" onchange="checkWrite(29,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q29-ans"></div>
+    <button class="show-link" onclick="revealWrite(29)">Show answer</button>
+  </div>
+  <!-- Q30 -->
+  <div class="question" id="q30">
+    <div class="q-row"><span class="q-num">30.</span><span class="q-text">A snow-capped ___ of mountains stretched across the horizon. <input class="cloze-input" onchange="checkWrite(30,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q30-ans"></div>
+    <button class="show-link" onclick="revealWrite(30)">Show answer</button>
+  </div>
+  <!-- Q31 -->
+  <div class="question" id="q31">
+    <div class="q-row"><span class="q-num">31.</span><span class="q-text">A sudden ___ of rain soaked the players on the pitch. <input class="cloze-input" onchange="checkWrite(31,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q31-ans"></div>
+    <button class="show-link" onclick="revealWrite(31)">Show answer</button>
+  </div>
+
+  <!-- ===== PART 5: THREE-LETTER WORD INSERTION ===== -->
+  <div class="section-heading">Part 5 &mdash; Find the hidden three-letter word (Questions 32&ndash;35)</div>
+  <p class="instruction-line">In each sentence, one word has <strong>three letters missing</strong>. Write the three letters that complete the word so the sentence makes sense.</p>
+  <div class="example"><strong>Example.</strong> &ldquo;Foxes are becoming more common in ur<span class="gap">___</span> areas.&rdquo; The three letters are <strong>ban</strong> (ur<u>ban</u>).</div>
+
+  <!-- Q32 -->
+  <div class="question" id="q32">
+    <div class="q-row"><span class="q-num">32.</span><span class="q-text">We grew bright red roses in the gar<span class="gap">___</span> . <input class="cloze-input small-input" onchange="checkWrite(32,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q32-ans"></div>
+    <button class="show-link" onclick="revealWrite(32)">Show answer</button>
+  </div>
+  <!-- Q33 -->
+  <div class="question" id="q33">
+    <div class="q-row"><span class="q-num">33.</span><span class="q-text">Mum bought some fresh fish at the mar<span class="gap">___</span> . <input class="cloze-input small-input" onchange="checkWrite(33,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q33-ans"></div>
+    <button class="show-link" onclick="revealWrite(33)">Show answer</button>
+  </div>
+  <!-- Q34 -->
+  <div class="question" id="q34">
+    <div class="q-row"><span class="q-num">34.</span><span class="q-text">We laid a soft new car<span class="gap">___</span> across the living-room floor. <input class="cloze-input small-input" onchange="checkWrite(34,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q34-ans"></div>
+    <button class="show-link" onclick="revealWrite(34)">Show answer</button>
+  </div>
+  <!-- Q35 -->
+  <div class="question" id="q35">
+    <div class="q-row"><span class="q-num">35.</span><span class="q-text">The fluffy white rab<span class="gap">___</span> hopped across the lawn. <input class="cloze-input small-input" onchange="checkWrite(35,this)" autocomplete="off"></span><span class="q-marks">[1]</span></div>
+    <div class="answer-box" id="q35-ans"></div>
+    <button class="show-link" onclick="revealWrite(35)">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Section &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results &mdash; Cloze (Section 2)</h2>
+  <div class="result-score" id="res-score">— / 35</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any you got wrong.
+  </p>
+  <div style="margin-top:18px;display:flex;gap:16px;">
+    <a href="index.html" style="color:var(--blue);font-size:0.9rem;">&larr; Back to Mock Pack 1</a>
+  </div>
+</div>
+
+<script>
+  var answers = {};
+  var totalQ = 35;
+  var totalSecs = 15 * 60;
+  var remaining = totalSecs;
+  var timerRunning = true;
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  // Accepted answers for the typed (write) questions. First entry is the
+  // canonical answer shown when revealing. Case and spaces are ignored, and for
+  // "add letters" / "three-letter" items both the missing letters and the whole
+  // word are accepted.
+  var ACC = {
+    1: ['journey'],
+    2: ['excitement'],
+    3: ['carefully'],
+    4: ['distance'],
+    5: ['mountains'],
+    6: ['suddenly'],
+    7: ['difficult'],
+    8: ['brilliant'],
+    9: ['remembered'],
+    10: ['beautiful'],
+    11: ['finally'],
+    12: ['exhausted'],
+    13: ['ound', 'surrounded'],
+    14: ['oint', 'appointment'],
+    15: ['orta', 'comfortable'],
+    16: ['rmat', 'information'],
+    17: ['erat', 'temperature'],
+    18: ['appe', 'disappear'],
+    25: ['fleet'],
+    26: ['swarm'],
+    27: ['pack'],
+    28: ['flock'],
+    29: ['bunch'],
+    30: ['range'],
+    31: ['shower'],
+    32: ['den', 'garden'],
+    33: ['ket', 'market'],
+    34: ['pet', 'carpet'],
+    35: ['bit', 'rabbit']
+  };
+
+  var EXPLAIN = {
+    1: "The full word is <strong>journey</strong> &mdash; a long trip from one place to another.",
+    2: "The full word is <strong>excitement</strong> &mdash; the feeling the brother could hardly contain.",
+    3: "The full word is <strong>carefully</strong> &mdash; Grandad checked the map with care.",
+    4: "The full word is <strong>distance</strong> &mdash; how far they had to travel.",
+    5: "The full word is <strong>mountains</strong> &mdash; the tall hills ahead of them.",
+    6: "The full word is <strong>suddenly</strong> &mdash; the weather changed all at once.",
+    7: "The full word is <strong>difficult</strong> &mdash; the fog made driving hard.",
+    8: "The full word is <strong>brilliant</strong> &mdash; a bright, vivid shade of blue.",
+    9: "The full word is <strong>remembered</strong> &mdash; he recalled the forgotten camera.",
+    10: "The full word is <strong>beautiful</strong> &mdash; describing the lovely green valley.",
+    11: "The full word is <strong>finally</strong> &mdash; at last they had arrived.",
+    12: "The full word is <strong>exhausted</strong> &mdash; completely worn out after the journey.",
+    13: "Add <strong>ound</strong> to make <strong>surrounded</strong> &mdash; the moat went all the way round.",
+    14: "Add <strong>oint</strong> to make <strong>appointment</strong> &mdash; a fixed time to see the dentist.",
+    15: "Add <strong>orta</strong> to make <strong>comfortable</strong> &mdash; pleasant and easy to sit in.",
+    16: "Add <strong>rmat</strong> to make <strong>information</strong> &mdash; facts found in the book.",
+    17: "Add <strong>erat</strong> to make <strong>temperature</strong> &mdash; how hot or cold it was.",
+    18: "Add <strong>appe</strong> to make <strong>disappear</strong> &mdash; to vanish from sight.",
+    19: "A <strong>sty</strong> is the enclosure where pigs are kept.",
+    20: "A horse is kept in a <strong>stable</strong>; a sty is for pigs and a kennel for dogs.",
+    21: "The collective noun for bees is a <strong>swarm</strong>.",
+    22: "A group of sheep is a <strong>flock</strong>; a shoal is for fish and a pack for wolves.",
+    23: "A group of wolves is a <strong>pack</strong>; a pride is for lions and a litter for newborn animals.",
+    24: "A tied arrangement of cut flowers carried at a wedding is a <strong>bouquet</strong>.",
+    25: "A group of ships is a <strong>fleet</strong>.",
+    26: "A group of flying insects such as wasps is a <strong>swarm</strong>.",
+    27: "A group of wolves is a <strong>pack</strong>.",
+    28: "A group of birds is a <strong>flock</strong>.",
+    29: "Grapes grow in a <strong>bunch</strong>.",
+    30: "A line of mountains is a <strong>range</strong>.",
+    31: "A short, sudden fall of rain is a <strong>shower</strong>.",
+    32: "Add <strong>den</strong> to make <strong>garden</strong>.",
+    33: "Add <strong>ket</strong> to make <strong>market</strong>.",
+    34: "Add <strong>pet</strong> to make <strong>carpet</strong>.",
+    35: "Add <strong>bit</strong> to make <strong>rabbit</strong>."
+  };
+
+  function explainSpan(qNum) {
+    return EXPLAIN[qNum] ? '<span class="explain">' + EXPLAIN[qNum] + '</span>' : '';
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    var el = document.getElementById('timer');
+    el.textContent = pad(m) + ':' + pad(s);
+    el.className = rem <= 180 ? (rem <= 60 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  function updateLiveScore() {
+    document.getElementById('live-score').textContent = Object.keys(answers).length + ' / ' + totalQ + ' answered';
+  }
+
+  function norm(s) {
+    return (s || '').toString().toLowerCase().replace(/[^a-z]/g, '');
+  }
+
+  function checkWrite(qNum, inputEl) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var val = norm(inputEl.value);
+    if (val === '') return;
+    var acc = ACC[qNum].map(norm);
+    var isCorrect = acc.indexOf(val) > -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    inputEl.classList.remove('correct-input', 'wrong-input');
+    inputEl.classList.add(isCorrect ? 'correct-input' : 'wrong-input');
+    inputEl.readOnly = true;
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + ACC[qNum][0] + '</strong>.') + explainSpan(qNum);
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function revealWrite(qNum) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var input = document.querySelector('#q' + qNum + ' .cloze-input');
+    if (input) { input.value = ACC[qNum][0]; input.readOnly = true; }
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; The correct answer is <strong>' + ACC[qNum][0] + '</strong>.' + explainSpan(qNum);
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    btns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected', 'correct', 'wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = (isCorrect ? '&#10003; Correct!' : '&#10007; The correct answer is <strong>' + correct + '</strong>.') + explainSpan(qNum);
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var btns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    btns.forEach(function(b) { if (b.textContent.trim()[0] === correct) b.classList.add('correct'); });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; The correct answer is <strong>' + correct + '</strong>.' + (EXPLAIN[qNum] ? explainSpan(qNum) : '<span class="explain">' + html + '</span>');
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — on track for grammar school!' :
+                pct >= 70 ? 'Good — keep practising to reach the top band.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the section again after revision.';
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+    document.getElementById('res-score').textContent = correct + ' / 35';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
