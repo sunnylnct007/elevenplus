@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 6 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    /* ── Timer bar ── */
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    /* ── Main layout ── */
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .math-hdr .section-icon { background: #1c4c96; }
+    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    /* ── Sub-task ── */
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    /* ── Questions ── */
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    /* ── Passage box ── */
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    /* ── Writing prompt ── */
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .writing-checklist li { margin-bottom: 2px; }
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 6 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 6</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+  <p>Maths &amp; English — about 40–45 minutes total</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~20 min</span>
+  <span><strong>English</strong> ~20–25 min</span>
+  <span>Try every question on your own first!</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">~20 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Data &amp; Statistics Warm-up</div>
+        <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
+        <ol class="qlist">
+          <li>
+            A class voted for their favourite fruit. The table shows the results:<br>
+            <table style="border-collapse:collapse;margin-top:6px;font-size:0.9rem;">
+              <tr><th style="text-align:left;padding:2px 12px 2px 0;border-bottom:1px solid var(--border);">Fruit</th><th style="text-align:left;padding:2px 0;border-bottom:1px solid var(--border);">Votes</th></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Apple</td><td style="padding:2px 0;">6</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Banana</td><td style="padding:2px 0;">9</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Pear</td><td style="padding:2px 0;">4</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Orange</td><td style="padding:2px 0;">6</td></tr>
+            </table><br>
+            What is the <strong>mode</strong> (most popular fruit)?
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer">
+              <strong>Answer: Banana</strong><br>
+              The mode is the value that appears most often. Banana has the highest number of votes (9), so it is the mode.
+            </div>
+          </li>
+          <li>
+            The number of books borrowed by 7 pupils in a month were: 3, 7, 2, 5, 4, 8, 5. Find the <strong>median</strong> number of books borrowed.
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer">
+              <strong>Answer: 5</strong><br>
+              First put the numbers in order: 2, 3, 4, 5, 5, 7, 8. The median is the middle value &mdash; with 7 numbers, that is the 4th one, which is 5.
+            </div>
+          </li>
+          <li>
+            The temperatures recorded on 5 days were 18&deg;C, 20&deg;C, 19&deg;C, 22&deg;C and 21&deg;C. Find the <strong>mean</strong> temperature.
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 20&deg;C</strong><br>
+              Add the values: 18 + 20 + 19 + 22 + 21 = 100. Divide by how many days: 100 &divide; 5 = 20.
+            </div>
+          </li>
+          <li>
+            In a pictogram showing books read this month, each &#128214; symbol represents 4 books. The row for Year 6 shows 5 symbols. How many books did Year 6 read?
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 20 books</strong><br>
+              Each symbol = 4 books, so 5 symbols = 5 &times; 4 = 20 books.
+            </div>
+          </li>
+          <li>
+            A bar chart shows the number of pets owned by each class:<br>
+            <table style="border-collapse:collapse;margin-top:6px;font-size:0.9rem;">
+              <tr><th style="text-align:left;padding:2px 12px 2px 0;border-bottom:1px solid var(--border);">Class</th><th style="text-align:left;padding:2px 0;border-bottom:1px solid var(--border);">Pets</th></tr>
+              <tr><td style="padding:2px 12px 2px 0;">6A</td><td style="padding:2px 0;">8</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">6B</td><td style="padding:2px 0;">5</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">6C</td><td style="padding:2px 0;">11</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">6D</td><td style="padding:2px 0;">6</td></tr>
+            </table><br>
+            Which class owns the most pets?
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer">
+              <strong>Answer: 6C</strong><br>
+              Reading the tallest bar/largest value in the table, 6C has 11 pets &mdash; more than any other class.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Data Handling Word Problems</div>
+        <p class="task-intro">Show clear working for each question:</p>
+        <ol class="qlist">
+          <li>
+            Four friends compared how many minutes they spent reading over the weekend:<br>
+            <table style="border-collapse:collapse;margin-top:6px;font-size:0.9rem;">
+              <tr><th style="text-align:left;padding:2px 12px 2px 0;border-bottom:1px solid var(--border);">Name</th><th style="text-align:left;padding:2px 0;border-bottom:1px solid var(--border);">Minutes</th></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Priya</td><td style="padding:2px 0;">40</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Tom</td><td style="padding:2px 0;">55</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Nadia</td><td style="padding:2px 0;">30</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Josh</td><td style="padding:2px 0;">35</td></tr>
+            </table><br>
+            What is the <strong>total</strong> reading time for all four friends?
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer">
+              <strong>Answer: 160 minutes</strong><br>
+              40 + 55 + 30 + 35 = 160 minutes.
+            </div>
+          </li>
+          <li>
+            Using the same table as question 6, what is the <strong>mean</strong> (average) reading time per friend?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer">
+              <strong>Answer: 40 minutes</strong><br>
+              Total &divide; number of friends: 160 &divide; 4 = 40 minutes.
+            </div>
+          </li>
+          <li>
+            A pictogram shows the number of cars parked outside a school, where each &#128663; symbol represents 10 cars: Monday &mdash; 3 symbols, Tuesday &mdash; 4&frac12; symbols, Wednesday &mdash; 2 symbols. How many cars were parked in total across the three days?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer">
+              <strong>Answer: 95 cars</strong><br>
+              Monday: 3 &times; 10 = 30. Tuesday: 4.5 &times; 10 = 45. Wednesday: 2 &times; 10 = 20. Total: 30 + 45 + 20 = 95 cars.
+            </div>
+          </li>
+          <li>
+            The table shows the number of visitors to a museum each day:<br>
+            <table style="border-collapse:collapse;margin-top:6px;font-size:0.9rem;">
+              <tr><th style="text-align:left;padding:2px 12px 2px 0;border-bottom:1px solid var(--border);">Day</th><th style="text-align:left;padding:2px 0;border-bottom:1px solid var(--border);">Visitors</th></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Mon</td><td style="padding:2px 0;">120</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Tue</td><td style="padding:2px 0;">95</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Wed</td><td style="padding:2px 0;">140</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Thu</td><td style="padding:2px 0;">110</td></tr>
+              <tr><td style="padding:2px 12px 2px 0;">Fri</td><td style="padding:2px 0;">160</td></tr>
+            </table><br>
+            What is the <strong>range</strong> of visitor numbers over the week?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer">
+              <strong>Answer: 65</strong><br>
+              Range = highest value &minus; lowest value: 160 &minus; 95 = 65.
+            </div>
+          </li>
+          <li>
+            The mean number of points scored by 5 quiz players was 8. Four of the players scored 6, 9, 7 and 10 points. How many points did the fifth player score?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <strong>Answer: 8 points</strong><br>
+              If the mean of 5 players is 8, the total must be 8 &times; 5 = 40. The first four players scored 6 + 9 + 7 + 10 = 32, so the fifth player scored 40 &minus; 32 = 8.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">~20–25 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Figurative Language &amp; Vocabulary</div>
+        <ol class="qlist">
+          <li>
+            Which sentence contains a <strong>simile</strong>?<br>
+            A)&nbsp;The wind howled like a wolf. &nbsp;&nbsp; B)&nbsp;The wind howled through the trees. &nbsp;&nbsp; C)&nbsp;The wind was very loud.
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <strong>Answer: A</strong><br>
+              A simile compares two things using &ldquo;like&rdquo; or &ldquo;as&rdquo;. Here the wind is compared to a wolf using &ldquo;like&rdquo;.
+            </div>
+          </li>
+          <li>
+            Which sentence is a <strong>metaphor</strong>?<br>
+            A)&nbsp;The playground was as noisy as a zoo. &nbsp;&nbsp; B)&nbsp;The playground was a zoo. &nbsp;&nbsp; C)&nbsp;The playground was noisy.
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer">
+              <strong>Answer: B</strong><br>
+              A metaphor says one thing <em>is</em> another, without using &ldquo;like&rdquo; or &ldquo;as&rdquo;. Calling the playground &ldquo;a zoo&rdquo; is a direct comparison.
+            </div>
+          </li>
+          <li>
+            Which word best replaces &ldquo;said&rdquo; to show that a character spoke in a <strong>frightened</strong> way?<br>
+            A)&nbsp;whimpered &nbsp;&nbsp; B)&nbsp;announced &nbsp;&nbsp; C)&nbsp;chuckled
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">
+              <strong>Answer: A) whimpered</strong><br>
+              &ldquo;Whimpered&rdquo; suggests a quiet, fearful tone, matching the mood described. &ldquo;Announced&rdquo; sounds confident and &ldquo;chuckled&rdquo; sounds happy, so neither fits.
+            </div>
+          </li>
+          <li>
+            Which sentence uses <strong>personification</strong>?<br>
+            A)&nbsp;The stars twinkled brightly in the sky. &nbsp;&nbsp; B)&nbsp;The stars winked playfully at the sleeping town. &nbsp;&nbsp; C)&nbsp;The stars were very bright.
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer">
+              <strong>Answer: B</strong><br>
+              Personification gives human qualities to non-human things. Stars cannot really &ldquo;wink playfully&rdquo; &mdash; that is a human action given to the stars.
+            </div>
+          </li>
+          <li>
+            Which phrase uses <strong>alliteration</strong>?<br>
+            A)&nbsp;The bright blue balloon bounced by. &nbsp;&nbsp; B)&nbsp;The balloon floated slowly upward. &nbsp;&nbsp; C)&nbsp;The red balloon was round.
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <strong>Answer: A</strong><br>
+              Alliteration is the repetition of the same starting sound in nearby words. Notice &ldquo;bright&rdquo;, &ldquo;blue&rdquo;, &ldquo;balloon&rdquo; and &ldquo;bounced&rdquo; all start with &ldquo;b&rdquo;.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Comprehension</div>
+        <p class="task-intro">Read this passage carefully, then answer the questions:</p>
+        <div class="passage">
+          My new school badge felt heavy on my blazer, as if it had been pinned there just to remind me
+          how much I did not belong. I stood alone at the edge of the playground, watching clusters of
+          children who already knew each other's names, their laughter rising and falling like a tide
+          I could not join. My stomach twisted into a tight knot. Then a girl with a gap-toothed smile
+          bounced over and asked if I wanted to play tag. For a moment I could only stare, too surprised
+          to answer. When I finally nodded, something inside me loosened, like a fist slowly unclenching.
+          We ran across the playground together, and for the first time that morning, the size of the
+          building did not feel quite so frightening.
+        </div>
+        <ol class="qlist">
+          <li>
+            How does the narrator feel at the start of the passage? Give one word and one piece of evidence.
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">
+              <strong>Example answer: Nervous / anxious.</strong><br>
+              Evidence: &ldquo;My stomach twisted into a tight knot&rdquo; or &ldquo;how much I did not belong&rdquo;.
+            </div>
+          </li>
+          <li>
+            Find and copy a <strong>simile</strong> from the passage that shows how the narrator's feelings changed.
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">
+              <strong>Answer: &ldquo;like a fist slowly unclenching&rdquo;</strong><br>
+              This compares the narrator's feelings to a fist relaxing, using &ldquo;like&rdquo;.
+            </div>
+          </li>
+          <li>
+            What does the word <strong>&ldquo;loosened&rdquo;</strong> suggest about how the narrator was feeling? Choose the best answer.<br>
+            A)&nbsp;More relaxed &nbsp;&nbsp; B)&nbsp;More frightened &nbsp;&nbsp; C)&nbsp;More confused
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">
+              <strong>Answer: A) More relaxed</strong><br>
+              &ldquo;Loosened&rdquo; suggests tension easing away, so the narrator is starting to feel calmer.
+            </div>
+          </li>
+          <li>
+            This passage is written in the <strong>first person</strong>. What effect does this have on the reader?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">
+              <strong>Example answer:</strong> Writing in the first person lets the reader hear the narrator's own thoughts and feelings directly, which helps us understand and share their nervousness and relief.
+            </div>
+          </li>
+          <li>
+            Have you ever felt nervous about doing something new? Describe the situation and how you felt, in 2&ndash;3 sentences.
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">
+              <strong>Example answer:</strong> On my first day at swimming club, I did not know anyone and felt shy about getting into the pool. My hands felt cold and my heart beat quickly, but once another swimmer smiled at me, I began to feel much braver.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Prompt:</strong> Imagine you are the narrator from the passage above. Write a diary entry
+          for that evening, describing your first day at your new school and how your feelings changed.<br><br>
+          Write 8&ndash;10 sentences. Try to use:
+          <ul class="writing-checklist">
+            <li>First-person language (I, my, me)</li>
+            <li>At least one simile or piece of personification</li>
+            <li>Words that show how your feelings changed during the day</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
+        <div id="e11" class="answer">
+          <strong>Example answer:</strong><br>
+          <em>Dear Diary, today was my first day at my new school and I felt sick with nerves before I had even walked through the gate. My badge felt heavy, like a weight pinned to my chest, reminding me that I was the only new face in the playground. At break time I stood alone, watching everyone else laugh together like old friends. Then a girl called Amelia asked if I wanted to play tag, and my whole body relaxed with relief. We ran around the playground until the bell rang, and for the first time all day I actually smiled. By home time, the school did not feel nearly as big or as scary as it had this morning. I think tomorrow might even be a good day.</em><br><br>
+          <strong>Check your own writing for:</strong> consistent first-person voice, at least one simile or example of personification, clear time order (morning to evening), and a change in feelings shown through your word choices.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
+    <a href="day-07.html" class="nav-btn">Day 7 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 6 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>

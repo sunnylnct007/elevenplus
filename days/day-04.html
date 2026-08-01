@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 4 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    /* ── Timer bar ── */
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    /* ── Main layout ── */
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .math-hdr .section-icon { background: #1c4c96; }
+    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    /* ── Sub-task ── */
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    /* ── Questions ── */
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    /* ── Passage box ── */
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    /* ── Writing prompt ── */
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .writing-checklist li { margin-bottom: 2px; }
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 4 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 4</div>
+  <h1>Day 4 — 11+ Daily Practice</h1>
+  <p>Maths &amp; English — about 40–45 minutes total</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~20 min</span>
+  <span><strong>English</strong> ~20–25 min</span>
+  <span>Try every question on your own first!</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">~20 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Geometry Basics Warm-up</div>
+        <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
+        <ol class="qlist">
+          <li>
+            An angle measures 35&deg;. What type of angle is it?
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer">
+              <strong>Answer: Acute angle</strong><br>
+              An acute angle is any angle less than 90&deg;. Since 35&deg; &lt; 90&deg;, it is acute.
+            </div>
+          </li>
+          <li>
+            Two angles lie on a straight line. One is 110&deg;. What is the other angle?
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer">
+              <strong>Answer: 70&deg;</strong><br>
+              Angles on a straight line add up to 180&deg;. 180 &minus; 110 = 70&deg;.
+            </div>
+          </li>
+          <li>
+            Four angles meet at a single point. Three of them are 90&deg;, 120&deg; and 80&deg;. What is the fourth angle?
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 70&deg;</strong><br>
+              Angles around a point add up to 360&deg;. 90 + 120 + 80 = 290. 360 &minus; 290 = 70&deg;.
+            </div>
+          </li>
+          <li>
+            How many sides does a hexagon have, and how many lines of symmetry does a regular hexagon have?
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 6 sides, 6 lines of symmetry</strong><br>
+              A hexagon always has 6 sides. A <em>regular</em> hexagon (all sides and angles equal) has 6 lines of symmetry.
+            </div>
+          </li>
+          <li>
+            Name a 2D shape that has exactly one pair of parallel sides.
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer">
+              <strong>Answer: A trapezium</strong><br>
+              A trapezium has one pair of parallel sides. (A parallelogram, rectangle or square would have two pairs.)
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Geometry &amp; Measurement Problems</div>
+        <p class="task-intro">Show clear working for each question:</p>
+        <ol class="qlist">
+          <li>
+            A rectangular garden is 9 m long and 5 m wide. What is its perimeter?
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer">
+              <strong>Answer: 28 m</strong><br>
+              Perimeter = 2 &times; (length + width) = 2 &times; (9 + 5) = 2 &times; 14 = 28 m.
+            </div>
+          </li>
+          <li>
+            A rectangular rug measures 3 m by 2.5 m. What is its area?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer">
+              <strong>Answer: 7.5 m&sup2;</strong><br>
+              Area of a rectangle = length &times; width = 3 &times; 2.5 = 7.5 m&sup2;.
+            </div>
+          </li>
+          <li>
+            An L-shaped room is made from a 6 m &times; 4 m rectangle with a 2 m &times; 3 m rectangle cut out of one corner. What is the area of the room?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer">
+              <strong>Answer: 18 m&sup2;</strong><br>
+              Whole rectangle: 6 &times; 4 = 24 m&sup2;. Cut-out corner: 2 &times; 3 = 6 m&sup2;. Remaining area: 24 &minus; 6 = 18 m&sup2;.
+            </div>
+          </li>
+          <li>
+            In a triangle, one angle is 90&deg; and another is 35&deg;. What is the size of the third angle?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer">
+              <strong>Answer: 55&deg;</strong><br>
+              Angles in a triangle add up to 180&deg;. 180 &minus; 90 &minus; 35 = 55&deg;.
+            </div>
+          </li>
+          <li>
+            A square lawn has an area of 49 m&sup2;. What is the perimeter of the lawn?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <strong>Answer: 28 m</strong><br>
+              Since area = side &times; side, and 7 &times; 7 = 49, the side length is 7 m. Perimeter = 4 &times; 7 = 28 m.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">~20–25 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Spelling Patterns &amp; Cloze</div>
+        <ol class="qlist">
+          <li>
+            Choose the correct word to complete the sentence:<br>
+            <em>&ldquo;___ going to the shops later,&rdquo; said Grandma.</em><br>
+            A)&nbsp;There &nbsp;&nbsp; B)&nbsp;Their &nbsp;&nbsp; C)&nbsp;They're
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <strong>Answer: C) They're</strong><br>
+              &ldquo;They're&rdquo; is short for &ldquo;they are&rdquo;. &ldquo;There&rdquo; refers to a place, and &ldquo;their&rdquo; shows possession.
+            </div>
+          </li>
+          <li>
+            Choose the correct word:<br>
+            <em>Is this pencil case ___?</em><br>
+            A)&nbsp;your &nbsp;&nbsp; B)&nbsp;you're
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer">
+              <strong>Answer: A) your</strong><br>
+              &ldquo;Your&rdquo; shows possession (belonging to you). &ldquo;You're&rdquo; is short for &ldquo;you are&rdquo;, which does not make sense here.
+            </div>
+          </li>
+          <li>
+            Choose the correct spelling:<br>
+            A)&nbsp;neccessary &nbsp;&nbsp; B)&nbsp;necessary &nbsp;&nbsp; C)&nbsp;neccesary
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">
+              <strong>Answer: B) necessary</strong><br>
+              Remember: one <strong>c</strong>, two <strong>s</strong>&mdash;ne<strong>c</strong>e<strong>ss</strong>ary.
+            </div>
+          </li>
+          <li>
+            Choose the correct word to complete the sentence:<br>
+            <em>Yesterday, the runners ___ the finish line before the whistle blew.</em><br>
+            A)&nbsp;past &nbsp;&nbsp; B)&nbsp;passed
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer">
+              <strong>Answer: B) passed</strong><br>
+              &ldquo;Passed&rdquo; is the past tense of the verb &ldquo;to pass&rdquo;. &ldquo;Past&rdquo; describes time or position (e.g. &ldquo;half past two&rdquo;, &ldquo;walked past the shop&rdquo;).
+            </div>
+          </li>
+          <li>
+            Choose the correct word to complete the sentence:<br>
+            <em>Bright sunshine can ___ your mood in a positive way.</em><br>
+            A)&nbsp;affect &nbsp;&nbsp; B)&nbsp;effect
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <strong>Answer: A) affect</strong><br>
+              &ldquo;Affect&rdquo; is usually a verb (to influence something). &ldquo;Effect&rdquo; is usually a noun (the result of something), e.g. &ldquo;a positive effect&rdquo;.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Comprehension</div>
+        <p class="task-intro">Read this passage carefully, then answer the questions:</p>
+        <div class="passage">
+          Maya crouched behind the old stone wall, her heart thudding against her ribs. The map, crumpled
+          and stained with tea, trembled in her hands. According to the faded ink, the entrance to the
+          tunnel should have been right here &mdash; beneath the crooked willow tree. Instead, she saw only
+          tangled ivy and a rusted iron gate, chained shut for as long as anyone could remember.<br><br>
+          A twig snapped somewhere behind her. Maya spun around, her breath caught in her throat, but there
+          was nothing except shifting shadows and the distant call of an owl. She swallowed hard and turned
+          back to the gate. Perhaps the map was wrong. Perhaps it wasn't. Taking a deep breath, she reached
+          into her rucksack for the small brass key her grandfather had left her, and pressed it firmly
+          into the ancient, waiting lock.
+        </div>
+        <ol class="qlist">
+          <li>
+            What was Maya using to find the tunnel entrance?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">
+              <strong>Answer: A crumpled, tea-stained map.</strong><br>
+              The passage says: &ldquo;The map, crumpled and stained with tea, trembled in her hands.&rdquo;
+            </div>
+          </li>
+          <li>
+            How did Maya feel when the twig snapped behind her? Use evidence from the text.
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">
+              <strong>Answer: Frightened or startled.</strong><br>
+              She &ldquo;spun around&rdquo; and &ldquo;her breath caught in her throat&rdquo;, both of which show fear or shock.
+            </div>
+          </li>
+          <li>
+            What do you think Maya will do next? Give a reason for your prediction.
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">
+              <strong>Example answer:</strong> She will probably turn the key and open the gate, because she has already pressed it into the lock and seems determined to find the tunnel.
+            </div>
+          </li>
+          <li>
+            What does the word <strong>&ldquo;ancient&rdquo;</strong> suggest about the lock?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">
+              <strong>Answer: That the lock is very old.</strong><br>
+              &ldquo;Ancient&rdquo; means extremely old, suggesting the gate and lock have not been used for a very long time, adding a sense of mystery.
+            </div>
+          </li>
+          <li>
+            What can you infer about Maya's relationship with her grandfather? Explain your answer.
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">
+              <strong>Example answer:</strong> Maya seems to trust and care about her grandfather, since she has kept the key he left her and is using it to continue what may have been his unfinished journey.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Prompt:</strong> Continue the story. What happens when Maya turns the key in the ancient lock?
+          Describe what she discovers, how she feels, and what she decides to do.<br><br>
+          Write 8–10 sentences. Try to use:
+          <ul class="writing-checklist">
+            <li>Full stops and commas correctly</li>
+            <li>At least three interesting adjectives</li>
+            <li>One example of speech (with speech marks)</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
+        <div id="e11" class="answer">
+          <strong>Example answer:</strong><br>
+          <em>The lock gave a stiff, rusty groan and then, with a final click, sprang open. Maya pushed the heavy gate, and it swung inward with a long, eerie creak. Beyond it, a narrow stone passage disappeared into the darkness, lit only by faint slivers of daylight through cracks above. A cool, musty breeze drifted out, carrying the smell of damp earth and old secrets. &ldquo;Grandad, what were you hiding down here?&rdquo; she whispered, her voice trembling with excitement. She switched on her torch, took one last glance at the fading afternoon sky, and stepped bravely into the tunnel. Her footsteps echoed strangely on the ancient stone floor. Whatever lay ahead, she knew there was no turning back now.</em><br><br>
+          <strong>Check your own writing for:</strong> capital letters and full stops, commas in the right places, interesting adjectives (describe the tunnel and how Maya feels), speech marks around spoken words.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
+    <a href="day-05.html" class="nav-btn">Day 5 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 4 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>

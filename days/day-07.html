@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 7 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    /* ── Timer bar ── */
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    /* ── Main layout ── */
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .math-hdr .section-icon { background: #1c4c96; }
+    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    /* ── Sub-task ── */
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    /* ── Questions ── */
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    /* ── Passage box ── */
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    /* ── Writing prompt ── */
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .writing-checklist li { margin-bottom: 2px; }
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 7 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 7</div>
+  <h1>Day 7 — 11+ Daily Practice</h1>
+  <p>Week 1 Review — Maths &amp; English — about 40–45 minutes total</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~20 min</span>
+  <span><strong>English</strong> ~20–25 min</span>
+  <span>Try every question on your own first!</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">~20 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Algebra &amp; Reasoning Warm-up</div>
+        <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
+        <ol class="qlist">
+          <li>
+            Find the missing number: 7 + ? = 15
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer">
+              <strong>Answer: 8</strong><br>
+              Work backwards: 15 &minus; 7 = 8, so the missing number is 8.
+            </div>
+          </li>
+          <li>
+            Find the next number in the sequence: 3, 6, 9, 12, ?
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer">
+              <strong>Answer: 15</strong><br>
+              Each term increases by 3, so 12 + 3 = 15.
+            </div>
+          </li>
+          <li>
+            I think of a number, double it, then add 5. My answer is 23. What was my number?
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 9</strong><br>
+              Work backwards: 23 &minus; 5 = 18, then 18 &divide; 2 = 9.
+            </div>
+          </li>
+          <li>
+            Find the missing number: ? &times; 4 = 32
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 8</strong><br>
+              32 &divide; 4 = 8, so the missing number is 8.
+            </div>
+          </li>
+          <li>
+            A function machine adds 7 to a number, then doubles the result. The output is 26. What was the input?
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer">
+              <strong>Answer: 6</strong><br>
+              Work backwards: 26 &divide; 2 = 13, then 13 &minus; 7 = 6.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Week 1 Mixed Review</div>
+        <p class="task-intro">Each question combines two topics from this week. Show clear working:</p>
+        <ol class="qlist">
+          <li>
+            <strong>Fractions &amp; Money:</strong> Layla has &pound;36. She spends &frac29; of it on a game. How much money does she have left?
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer">
+              <strong>Answer: &pound;28</strong><br>
+              &frac29; of &pound;36 = 36 &divide; 9 &times; 2 = &pound;8 spent. &pound;36 &minus; &pound;8 = &pound;28 left.
+            </div>
+          </li>
+          <li>
+            <strong>Ratio &amp; Percentages:</strong> A fruit bowl has apples and oranges in the ratio 2:3. There are 30 pieces of fruit altogether. What percentage of the fruit are apples?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer">
+              <strong>Answer: 40%</strong><br>
+              2 + 3 = 5 parts, so each part = 30 &divide; 5 = 6. Apples = 2 &times; 6 = 12. Percentage: 12 &divide; 30 &times; 100 = 40%.
+            </div>
+          </li>
+          <li>
+            <strong>Geometry &amp; Measurement:</strong> A rectangular playground is 650&nbsp;cm long and 400&nbsp;cm wide. Find its perimeter in metres.
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer">
+              <strong>Answer: 21 m</strong><br>
+              650 cm = 6.5 m and 400 cm = 4 m. Perimeter = 2 &times; (6.5 + 4) = 2 &times; 10.5 = 21 m.
+            </div>
+          </li>
+          <li>
+            <strong>Time &amp; Data:</strong> A chart shows laps swum each day: Monday 45, Tuesday 60, Wednesday 51. Swimming club runs for 3 hours each day. What was the average number of laps swum per hour on Tuesday?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer">
+              <strong>Answer: 20 laps per hour</strong><br>
+              60 laps &divide; 3 hours = 20 laps per hour.
+            </div>
+          </li>
+          <li>
+            <strong>Money &amp; Percentages:</strong> A bike costs &pound;150. In a sale it is reduced by 20%, then a further &pound;5 is taken off for a loyalty card. What is the final price?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <strong>Answer: &pound;115</strong><br>
+              20% of &pound;150 = &pound;30, so the sale price is &pound;150 &minus; &pound;30 = &pound;120. Then &pound;120 &minus; &pound;5 = &pound;115.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">~20–25 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Week 1 SPaG &amp; Vocabulary Review</div>
+        <ol class="qlist">
+          <li>
+            Choose the grammatically correct sentence:<br>
+            A)&nbsp;Me and him went to the shop. &nbsp;&nbsp; B)&nbsp;He and I went to the shop. &nbsp;&nbsp; C)&nbsp;Him and me went to the shop.
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <strong>Answer: B) He and I went to the shop.</strong><br>
+              Use subject pronouns (he, I) before the verb, not object pronouns (him, me).
+            </div>
+          </li>
+          <li>
+            Add the missing punctuation:<br>
+            <em>we should leave now james said its getting late</em>
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer">
+              <strong>Corrected:</strong> <em>&ldquo;We should leave now,&rdquo; James said. &ldquo;It's getting late.&rdquo;</em><br>
+              Speech marks surround spoken words; a comma sits before the closing speech marks when speech continues; &ldquo;It's&rdquo; needs an apostrophe (it is).
+            </div>
+          </li>
+          <li>
+            Choose the correct spelling:<br>
+            A)&nbsp;definately &nbsp;&nbsp; B)&nbsp;definitely &nbsp;&nbsp; C)&nbsp;definitly
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">
+              <strong>Answer: B) definitely</strong><br>
+              Remember: &ldquo;definite&rdquo; + &ldquo;ly&rdquo; &mdash; there is no &ldquo;a&rdquo; in the middle.
+            </div>
+          </li>
+          <li>
+            Choose a synonym for <strong>enormous</strong>:<br>
+            A)&nbsp;tiny &nbsp;&nbsp; B)&nbsp;huge &nbsp;&nbsp; C)&nbsp;quiet
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer">
+              <strong>Answer: B) huge</strong><br>
+              A synonym has a similar meaning. Huge &asymp; enormous.
+            </div>
+          </li>
+          <li>
+            Choose an antonym for <strong>ancient</strong>:<br>
+            A)&nbsp;old &nbsp;&nbsp; B)&nbsp;ruined &nbsp;&nbsp; C)&nbsp;modern
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <strong>Answer: C) modern</strong><br>
+              An antonym has the opposite meaning. Modern &ne; ancient.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Comprehension</div>
+        <p class="task-intro">Read this passage carefully, then answer the questions:</p>
+        <div class="passage">
+          Zara pressed her face against the cold window, watching the storm rage outside. Branches
+          clawed at the glass, and the sky flashed silver every few seconds. Then she noticed something
+          small and white struggling in the flowerbed below &mdash; a barn owl, its wing pinned awkwardly
+          beneath a fallen branch. Without stopping to grab her coat, Zara dashed into the garden, rain
+          stinging her cheeks like tiny needles. Carefully, she lifted the branch and gathered the
+          trembling bird into an old towel. The owl's amber eyes blinked up at her, wide with fear. Back
+          inside, Zara's mother examined the wing and declared it merely bruised, not broken. They kept
+          the owl warm in a box lined with straw until the storm passed. At dawn, Zara carried it to the
+          garden and opened the towel. For a moment the owl simply sat there. Then, with a single powerful
+          beat of its wings, it rose silently into the pale morning sky.
+        </div>
+        <ol class="qlist">
+          <li>
+            What did Zara find in the flowerbed?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">
+              <strong>Answer: A barn owl with its wing pinned under a fallen branch.</strong><br>
+              This is stated directly: &ldquo;a barn owl, its wing pinned awkwardly beneath a fallen branch.&rdquo;
+            </div>
+          </li>
+          <li>
+            Why did Zara not stop to grab her coat? What does this suggest about how she was feeling?
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">
+              <strong>Example answer:</strong> She was in too much of a hurry to help the owl &mdash; this suggests she was worried about it and cared more about rescuing it quickly than staying dry or comfortable.
+            </div>
+          </li>
+          <li>
+            What does the word &ldquo;trembling&rdquo; tell you about how the owl was feeling?
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">
+              <strong>Answer: It tells us the owl was frightened.</strong><br>
+              &ldquo;Trembling&rdquo; means shaking, which usually happens when a creature is scared or in shock.
+            </div>
+          </li>
+          <li>
+            The writer describes the rain &ldquo;stinging her cheeks like tiny needles.&rdquo; What effect does this simile have on the reader?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">
+              <strong>Example answer:</strong> The simile helps the reader imagine how sharp and painful the rain felt, showing how determined Zara was to help the owl despite the harsh weather.
+            </div>
+          </li>
+          <li>
+            How do you think Zara felt when she watched the owl fly away? Use evidence from the text to support your answer.
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">
+              <strong>Example answer:</strong> Zara probably felt proud and relieved, because the owl &ldquo;rose silently into the pale morning sky,&rdquo; showing it had fully recovered thanks to her care.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Choose ONE of the following prompts:</strong><br><br>
+          <strong>Option A (Narrative):</strong> Write a story that begins with the sentence: &ldquo;The door creaked open, and nobody was inside.&rdquo;<br><br>
+          <strong>Option B (Descriptive):</strong> Describe a bustling market on a busy Saturday morning. Use your senses to bring the scene to life.<br><br>
+          Write 8&ndash;10 sentences for your chosen option. Try to use:
+          <ul class="writing-checklist">
+            <li>Varied sentence openers (not every sentence starting the same way)</li>
+            <li>At least one simile or metaphor</li>
+            <li>Powerful verbs and adjectives</li>
+            <li>Correct punctuation throughout</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
+        <div id="e11" class="answer">
+          <strong>Example answer (Option B &mdash; Descriptive):</strong><br>
+          <em>The market burst with colour and noise from every direction. Stallholders bellowed their prices over the chatter of the crowd, while the sweet smell of fresh bread drifted through the air. Crates of ruby-red strawberries and golden lemons were piled high like tiny mountains. Somewhere a fiddler played a lively tune, and children darted between legs, chasing a runaway balloon. Steam curled up from a food stall, carrying the spicy scent of grilled onions. Coins clinked as customers haggled cheerfully over prices. By midday, the cobbled square was a sea of shoppers, baskets swinging, voices rising and falling like waves.</em><br><br>
+          <strong>Check your own writing for:</strong> a clear structure with varied openers, at least one simile or metaphor, ambitious vocabulary, and accurate punctuation throughout.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
+    <a href="day-08.html" class="nav-btn disabled">Day 8 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 7 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>

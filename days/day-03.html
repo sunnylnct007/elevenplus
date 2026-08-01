@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 3 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    /* ── Timer bar ── */
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    /* ── Main layout ── */
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .math-hdr .section-icon { background: #1c4c96; }
+    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    /* ── Sub-task ── */
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    /* ── Questions ── */
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    /* ── Passage box ── */
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    /* ── Writing prompt ── */
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .writing-checklist li { margin-bottom: 2px; }
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 3 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 3</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+  <p>Maths &amp; English — about 40–45 minutes total</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~20 min</span>
+  <span><strong>English</strong> ~20–25 min</span>
+  <span>Try every question on your own first!</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">~20 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Ratio Warm-up</div>
+        <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
+        <ol class="qlist">
+          <li>
+            A bag contains 4 red counters and 6 blue counters. Write the ratio of red to blue counters in its simplest form.
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer">
+              <strong>Answer: 2:3</strong><br>
+              4:6 &mdash; divide both numbers by their highest common factor, 2, to get 2:3.
+            </div>
+          </li>
+          <li>
+            Share &pound;40 between two people in the ratio 3:5. How much does each person get?
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer">
+              <strong>Answer: &pound;15 and &pound;25</strong><br>
+              Total parts: 3 + 5 = 8. One part = 40 &divide; 8 = &pound;5. So 3 parts = &pound;15 and 5 parts = &pound;25.
+            </div>
+          </li>
+          <li>
+            Simplify the ratio 12:18.
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 2:3</strong><br>
+              The highest common factor of 12 and 18 is 6. 12 &divide; 6 = 2, 18 &divide; 6 = 3.
+            </div>
+          </li>
+          <li>
+            A recipe uses flour and sugar in the ratio 5:2. If 200 g of sugar is used, how much flour is needed?
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 500 g</strong><br>
+              2 parts = 200 g, so 1 part = 100 g. Flour is 5 parts: 5 &times; 100 = 500 g.
+            </div>
+          </li>
+          <li>
+            The ratio of boys to girls in a class is 4:5. There are 27 children in total. How many girls are there?
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer">
+              <strong>Answer: 15 girls</strong><br>
+              Total parts: 4 + 5 = 9. One part = 27 &divide; 9 = 3. Girls = 5 parts = 5 &times; 3 = 15.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Percentages Word Problems</div>
+        <p class="task-intro">Show clear working for each question:</p>
+        <ol class="qlist">
+          <li>
+            Find 35% of 160.
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer">
+              <strong>Answer: 56</strong><br>
+              10% of 160 = 16, so 30% = 48. 5% = 8. 30% + 5% = 48 + 8 = 56.
+            </div>
+          </li>
+          <li>
+            A jacket costs &pound;60. In a sale it is reduced by 20%. What is the sale price?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer">
+              <strong>Answer: &pound;48</strong><br>
+              10% of &pound;60 = &pound;6, so 20% = &pound;12. &pound;60 &minus; &pound;12 = &pound;48.
+            </div>
+          </li>
+          <li>
+            Tom's height increased from 140 cm to 154 cm over a year. What was the percentage increase?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer">
+              <strong>Answer: 10%</strong><br>
+              Increase = 154 &minus; 140 = 14 cm. As a percentage of the original: 14 &divide; 140 = 0.10 = 10%.
+            </div>
+          </li>
+          <li>
+            A shop increases the price of a &pound;25 toy by 8%. What is the new price?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer">
+              <strong>Answer: &pound;27</strong><br>
+              1% of &pound;25 = &pound;0.25, so 8% = 8 &times; 0.25 = &pound;2. New price = &pound;25 + &pound;2 = &pound;27.
+            </div>
+          </li>
+          <li>
+            A &pound;40 pair of trainers is reduced by 15% in a sale. A loyalty card then gives a further &pound;2 off. What is the final price?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <strong>Answer: &pound;32</strong><br>
+              10% of &pound;40 = &pound;4, 5% = &pound;2, so 15% = &pound;6 off. &pound;40 &minus; &pound;6 = &pound;34. Then &pound;34 &minus; &pound;2 = &pound;32.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">~20–25 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Vocabulary</div>
+        <ol class="qlist">
+          <li>
+            Choose the correct prefix to complete the word so that it means &ldquo;not possible&rdquo;:<br>
+            ___possible &mdash; A)&nbsp;un- &nbsp;&nbsp; B)&nbsp;im- &nbsp;&nbsp; C)&nbsp;dis-
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <strong>Answer: B) im-</strong><br>
+              Before words starting with &ldquo;p&rdquo;, the prefix meaning &ldquo;not&rdquo; usually becomes &ldquo;im-&rdquo;, as in impossible or impatient.
+            </div>
+          </li>
+          <li>
+            Add the correct suffix to change the verb &ldquo;act&rdquo; into a noun meaning &ldquo;a person who performs&rdquo;:<br>
+            act___ &mdash; A)&nbsp;-tion &nbsp;&nbsp; B)&nbsp;-or &nbsp;&nbsp; C)&nbsp;-ful
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer">
+              <strong>Answer: B) -or (actor)</strong><br>
+              The suffix &ldquo;-or&rdquo; turns a verb into a noun that names a person who does that action, e.g. act &rarr; actor.
+            </div>
+          </li>
+          <li>
+            The prefix &ldquo;auto-&rdquo; means &ldquo;self&rdquo;. Knowing this, what does the word &ldquo;autograph&rdquo; mean?<br>
+            A)&nbsp;a self-portrait &nbsp;&nbsp; B)&nbsp;a person's own signature, written by themselves &nbsp;&nbsp; C)&nbsp;a self-driving car
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">
+              <strong>Answer: B</strong><br>
+              &ldquo;Auto-&rdquo; means self, and the root &ldquo;-graph&rdquo; means to write. So &ldquo;autograph&rdquo; literally means &ldquo;self-written&rdquo; &mdash; a person's own signature.
+            </div>
+          </li>
+          <li>
+            Choose the word that best completes the sentence:<br>
+            <em>The little boy was ___ when his balloon slipped from his fingers and floated away.</em><br>
+            A)&nbsp;devastated &nbsp;&nbsp; B)&nbsp;annoyed &nbsp;&nbsp; C)&nbsp;puzzled
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer">
+              <strong>Answer: A) devastated</strong><br>
+              For a young child losing a balloon, &ldquo;devastated&rdquo; captures the strong, dramatic sadness far better than the milder words &ldquo;annoyed&rdquo; or &ldquo;puzzled&rdquo;.
+            </div>
+          </li>
+          <li>
+            Choose a synonym for <strong>enormous</strong>:<br>
+            A)&nbsp;tiny &nbsp;&nbsp; B)&nbsp;gigantic &nbsp;&nbsp; C)&nbsp;narrow
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <strong>Answer: B) gigantic</strong><br>
+              A synonym has a similar meaning. Gigantic &asymp; enormous, both meaning very large.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Poetry Comprehension</div>
+        <p class="task-intro">Read this poem carefully, then answer the questions:</p>
+        <div class="passage">
+          <strong>October Gold</strong><br><br>
+          The maple leaves turn gold and red,<br>
+          And drift like whispers overhead.<br>
+          The squirrels dart from branch to branch,<br>
+          Their cheeks packed full with one last chance.<br><br>
+          A misty morning wraps the lane,<br>
+          The air smells sweet with autumn rain.<br>
+          The apples fall with gentle thuds,<br>
+          While pumpkins hide among the buds.<br><br>
+          The days grow short, the evenings chill,<br>
+          Yet colour blazes on the hill.<br>
+          I pull my scarf up to my chin,<br>
+          And breathe the frosty air within.
+        </div>
+        <ol class="qlist">
+          <li>
+            Which season is being described in the poem? Give two pieces of evidence from the text.
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">
+              <strong>Answer: Autumn</strong><br>
+              Evidence includes the maple leaves turning &ldquo;gold and red&rdquo;, apples falling, pumpkins, and the days growing &ldquo;short&rdquo; and evenings turning &ldquo;chill&rdquo;.
+            </div>
+          </li>
+          <li>
+            Find and copy a simile from the first verse.
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">
+              <strong>Answer: &ldquo;drift like whispers overhead&rdquo;</strong><br>
+              This is a simile because it uses &ldquo;like&rdquo; to compare the falling leaves to whispers.
+            </div>
+          </li>
+          <li>
+            What rhyming pattern does this poem follow? Give one example rhyming pair.
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">
+              <strong>Answer: Rhyming couplets (AABB)</strong><br>
+              Each pair of lines rhymes, for example &ldquo;red / overhead&rdquo; or &ldquo;branch / chance&rdquo;.
+            </div>
+          </li>
+          <li>
+            Why do you think the poet chose the word &ldquo;whispers&rdquo; to describe the falling leaves, instead of simply saying they &ldquo;fall quietly&rdquo;?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">
+              <strong>Example answer:</strong> &ldquo;Whispers&rdquo; makes the leaves seem gentle and almost alive, as if they are secretly talking, which creates a softer and more magical image than just saying they fall quietly.
+            </div>
+          </li>
+          <li>
+            Which line or image in the poem do you like best, and why? Answer in one or two sentences.
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">
+              <strong>Example answer:</strong> I like &ldquo;colour blazes on the hill&rdquo; because the word &ldquo;blazes&rdquo; makes the autumn leaves sound as bright and exciting as fire, even though the poem also talks about cold, chilly evenings.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Prompt:</strong> You have just stepped off a train in a town you have never visited before.
+          Describe what you see, hear and feel as you look around for the first time.<br><br>
+          Write 8–10 sentences. Try to use:
+          <ul class="writing-checklist">
+            <li>Full stops and commas correctly</li>
+            <li>At least three descriptive adjectives or a simile</li>
+            <li>Varied sentence openings (not every sentence starting with &ldquo;I&rdquo;)</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
+        <div id="e11" class="answer">
+          <strong>Example answer:</strong><br>
+          <em>The station was smaller than I had imagined, with hanging baskets of flowers swinging gently by the entrance. Steam curled from a nearby food stall, carrying the rich smell of roasted chestnuts across the platform. Unfamiliar voices chattered around me, and somewhere a bell rang twice. Cautiously, I stepped onto the cobbled street, my suitcase rattling behind me like a nervous puppy. Tall, narrow houses leaned over the road, their windows glowing amber in the fading light. &ldquo;Welcome to Ashbury,&rdquo; read a faded sign swinging above a bakery door. My heart thudded with a mixture of excitement and nerves. Slowly, I began to walk, wondering what adventures this strange new town might hold.</em><br><br>
+          <strong>Check your own writing for:</strong> capital letters and full stops, commas in the right places, at least three vivid adjectives or a simile, and sentences that don't all start the same way.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
+    <a href="day-04.html" class="nav-btn">Day 4 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 3 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>

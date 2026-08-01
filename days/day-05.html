@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 5 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    /* ── Timer bar ── */
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    /* ── Main layout ── */
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .math-hdr .section-icon { background: #1c4c96; }
+    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    /* ── Sub-task ── */
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    /* ── Questions ── */
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    /* ── Passage box ── */
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    /* ── Writing prompt ── */
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .writing-checklist li { margin-bottom: 2px; }
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 5 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 5</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+  <p>Maths &amp; English — about 40–45 minutes total</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~20 min</span>
+  <span><strong>English</strong> ~20–25 min</span>
+  <span>Try every question on your own first!</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">~20 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Time &amp; Unit Conversion Warm-up</div>
+        <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
+        <ol class="qlist">
+          <li>
+            Write &ldquo;twenty to five in the afternoon&rdquo; using the 24-hour clock.
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer">
+              <strong>Answer: 16:40</strong><br>
+              &ldquo;Twenty to five&rdquo; is 4:40. Afternoon means add 12 hours: 4:40 + 12:00 = 16:40.
+            </div>
+          </li>
+          <li>
+            Convert 2.5 kilometres into metres.
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer">
+              <strong>Answer: 2,500 m</strong><br>
+              1 km = 1,000 m, so 2.5 &times; 1,000 = 2,500 m.
+            </div>
+          </li>
+          <li>
+            Convert 4,200 grams into kilograms.
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 4.2 kg</strong><br>
+              1,000 g = 1 kg, so 4,200 &divide; 1,000 = 4.2 kg.
+            </div>
+          </li>
+          <li>
+            Convert 3 litres into millilitres.
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 3,000 ml</strong><br>
+              1 litre = 1,000 ml, so 3 &times; 1,000 = 3,000 ml.
+            </div>
+          </li>
+          <li>
+            How many minutes are there between 9:05 and 9:47?
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer">
+              <strong>Answer: 42 minutes</strong><br>
+              47 &minus; 5 = 42 minutes (both times are in the same hour, so just subtract).
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Measurement &amp; Time Word Problems</div>
+        <p class="task-intro">Show clear working for each question:</p>
+        <ol class="qlist">
+          <li>
+            A bus timetable shows a bus leaving at 13:20 and arriving at 14:05. How long is the journey?
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer">
+              <strong>Answer: 45 minutes</strong><br>
+              13:20 &rarr; 14:00 = 40 minutes; 14:00 &rarr; 14:05 = 5 minutes. Total: 40 + 5 = 45 minutes.
+            </div>
+          </li>
+          <li>
+            A baker has 1.2 kg of flour. A loaf recipe uses 750 g. How much flour is left after making one loaf, in grams?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer">
+              <strong>Answer: 450 g</strong><br>
+              1.2 kg = 1,200 g. 1,200 &minus; 750 = 450 g left.
+            </div>
+          </li>
+          <li>
+            Jess has a ribbon 1.5 m long and another piece 85 cm long. What is the total length in centimetres?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer">
+              <strong>Answer: 235 cm</strong><br>
+              1.5 m = 150 cm. 150 + 85 = 235 cm.
+            </div>
+          </li>
+          <li>
+            A train leaves the station at 08:45. The journey takes 1 hour 50 minutes. What time does it arrive?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer">
+              <strong>Answer: 10:35</strong><br>
+              08:45 + 1 hour = 09:45. 09:45 + 50 minutes = 10:35.
+            </div>
+          </li>
+          <li>
+            Sam walks 900 m to school every morning and 900 m home every afternoon. How far does he walk in total over a 5-day school week, in kilometres?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <strong>Answer: 9 km</strong><br>
+              Each day: 900 + 900 = 1,800 m. Over 5 days: 1,800 &times; 5 = 9,000 m = 9 km.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">~20–25 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Punctuation &amp; Sentence Structure</div>
+        <ol class="qlist">
+          <li>
+            Add the missing commas:<br>
+            <em>For the picnic we packed sandwiches apples crisps and lemonade.</em>
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <strong>Corrected:</strong> <em>For the picnic we packed sandwiches, apples, crisps and lemonade.</em><br>
+              Use a comma after each item in a list, except usually before the final &ldquo;and&rdquo;.
+            </div>
+          </li>
+          <li>
+            Punctuate this direct speech correctly:<br>
+            <em>the teacher said sit down quietly please</em>
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer">
+              <strong>Corrected:</strong> <em>The teacher said, &ldquo;Sit down quietly, please.&rdquo;</em><br>
+              Capital letter to start; comma before the spoken words; speech marks around what is actually said; the spoken sentence starts with a capital letter and ends with its own punctuation inside the speech marks.
+            </div>
+          </li>
+          <li>
+            Is this a compound or a complex sentence?<br>
+            <em>We wanted to play outside, but it started to rain.</em>
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">
+              <strong>Answer: Compound sentence</strong><br>
+              It joins two equal main clauses with the coordinating conjunction &ldquo;but&rdquo;. A complex sentence would join a main clause to a subordinate clause (e.g. using &ldquo;although&rdquo; or &ldquo;because&rdquo;).
+            </div>
+          </li>
+          <li>
+            Which sentence is complex?<br>
+            A)&nbsp;The dog barked and the cat ran away. &nbsp;&nbsp; B)&nbsp;Because the dog barked, the cat ran away. &nbsp;&nbsp; C)&nbsp;The dog barked; the cat ran away.
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer">
+              <strong>Answer: B</strong><br>
+              &ldquo;Because the dog barked&rdquo; is a subordinate clause attached to the main clause &ldquo;the cat ran away&rdquo;, which makes it a complex sentence.
+            </div>
+          </li>
+          <li>
+            This is a run-on sentence. Correct it:<br>
+            <em>The rain poured down the streets flooded people rushed to find shelter.</em>
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <strong>Corrected:</strong> <em>The rain poured down. The streets flooded, and people rushed to find shelter.</em><br>
+              A run-on sentence crams several ideas together with no punctuation. Split it into separate sentences, or join related ideas with a comma and a conjunction.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Comprehension</div>
+        <p class="task-intro">Read this passage carefully, then answer the questions:</p>
+        <div class="passage">
+          Octopuses are remarkable creatures that live in oceans all around the world. Unlike most
+          animals, an octopus has no bones at all, which allows it to squeeze its soft body through
+          the tiniest of gaps &mdash; even a hole no bigger than a coin. Octopuses are also famous for
+          changing colour in an instant. Special cells in their skin let them match the rocks, sand
+          or coral around them, helping them hide from hungry predators such as sharks and eels.
+          Perhaps most surprising of all is their intelligence. Scientists have watched octopuses
+          open jars to reach food inside, and some have even been seen carrying coconut shells to
+          use as portable shelters. With eight flexible arms lined with hundreds of sensitive
+          suckers, the octopus is truly one of the ocean&rsquo;s most extraordinary inhabitants.
+        </div>
+        <ol class="qlist">
+          <li>
+            Why can an octopus squeeze through a hole no bigger than a coin?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">
+              <strong>Answer: Because it has no bones at all.</strong><br>
+              The passage states this directly: &ldquo;an octopus has no bones at all, which allows it to squeeze its soft body through the tiniest of gaps.&rdquo;
+            </div>
+          </li>
+          <li>
+            What is this passage mainly about?
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">
+              <strong>Answer: The amazing and unusual abilities of octopuses</strong> (their boneless bodies, colour-changing skin, and intelligence).<br>
+              Each part of the passage describes a different remarkable feature of the animal.
+            </div>
+          </li>
+          <li>
+            What does the word &ldquo;predators&rdquo; mean in the passage?
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">
+              <strong>Answer: Animals that hunt and eat other animals.</strong><br>
+              The passage gives sharks and eels as examples of predators the octopus hides from.
+            </div>
+          </li>
+          <li>
+            How does the writer organise the information in this passage?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">
+              <strong>Answer:</strong> The writer describes one amazing feature of the octopus at a time, in separate sentences &mdash; first its boneless body, then its colour-changing skin, then its intelligence, ending with a summary sentence.
+            </div>
+          </li>
+          <li>
+            Summarise in one sentence why the octopus is described as &ldquo;extraordinary&rdquo;.
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">
+              <strong>Example answer:</strong> The octopus is extraordinary because its boneless body, colour-changing skin and clever problem-solving make it unlike most other animals.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Prompt:</strong> Write a short informal report about an unusual animal that interests you
+          (real or imaginary), explaining what makes it special and how it survives in its habitat.<br><br>
+          Write 8–10 sentences. Try to use:
+          <ul class="writing-checklist">
+            <li>A clear opening sentence introducing the animal</li>
+            <li>At least three interesting facts</li>
+            <li>Topic-related vocabulary (e.g. habitat, survive, adapt)</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
+        <div id="e11" class="answer">
+          <strong>Example answer:</strong><br>
+          <em>The Arctic fox is a small, hardy animal that survives in one of the coldest habitats on Earth. Its thick white fur keeps it warm and also helps it hide from predators in the snow. In summer, its coat changes to a brownish-grey colour so it can blend in with the rocks and soil. Arctic foxes have short ears and a compact body shape, which helps them lose less heat in freezing temperatures. They are excellent hunters, often listening for small animals moving beneath the snow before pouncing to catch them. When food is scarce, an Arctic fox can survive by following polar bears and eating the leftovers from their kills. These clever adaptations show how well the Arctic fox has adapted to its harsh environment.</em><br><br>
+          <strong>Check your own writing for:</strong> a clear introductory sentence, at least three separate facts, correct use of full stops and commas, and topic vocabulary such as habitat, survive or adapt.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
+    <a href="day-06.html" class="nav-btn">Day 6 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 5 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>
