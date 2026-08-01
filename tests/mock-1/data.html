@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data — Mock Pack 1, Section 5</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --red: #b91c1c;
+      --red-light: #fee2e2;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #cbd5e1;
+      --bg: #f8fafc;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .exam-header {
+      background: var(--card);
+      border-bottom: 3px double #000;
+      padding: 24px 32px 20px;
+      max-width: 860px;
+      margin: 24px auto 0;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .exam-header .badge {
+      float: right;
+      background: var(--blue);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 8px;
+    }
+    .exam-header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .exam-header .sub {
+      text-align: center;
+      font-size: 0.92rem;
+      color: var(--muted);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .exam-header .packline {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--blue);
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      margin-bottom: 4px;
+    }
+    .instructions {
+      margin-top: 16px;
+      border: 1.5px solid #000;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      background: #fffde7;
+    }
+    .instructions ul { padding-left: 18px; margin-top: 6px; }
+    .instructions li { margin: 3px 0; }
+    .timer-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.92rem;
+    }
+    .timer-bar #timer {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: monospace;
+      letter-spacing: 2px;
+    }
+    .timer-bar #timer.warn { color: #fde68a; }
+    .timer-bar #timer.danger { color: #fca5a5; animation: blink 0.9s infinite; }
+    @keyframes blink { 50% { opacity: 0.4; } }
+    .timer-bar button {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .paper {
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 1.5px solid #aaa;
+      border-top: none;
+      padding: 28px 32px 36px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      border-radius: 0 0 8px 8px;
+    }
+    .section-heading {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin: 28px 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    .section-heading:first-child { margin-top: 0; }
+    /* visual panel */
+    .visual {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: #fcfdff;
+      padding: 16px 18px 12px;
+      margin: 0 0 20px;
+    }
+    .visual h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.95rem;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .visual svg { display: block; width: 100%; height: auto; max-width: 620px; margin: 0 auto; }
+    .data-table {
+      border-collapse: collapse;
+      margin: 6px auto 4px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.85rem;
+    }
+    .data-table caption {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      text-align: center;
+    }
+    .data-table th { background: var(--blue-light); color: var(--blue); font-weight: 700; }
+    .data-table td.rowhead { background: var(--blue-light); color: var(--blue); font-weight: 700; }
+    .data-table td.diag { background: #e2e8f0; color: #94a3b8; }
+    .tables-wrap { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+    .question {
+      margin-bottom: 20px;
+      padding: 14px 16px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafcff;
+    }
+    .question.answered { border-color: #86efac; background: #f0fdf4; }
+    .q-row { display: flex; gap: 10px; align-items: flex-start; }
+    .q-num { font-weight: 700; font-size: 1rem; min-width: 32px; color: var(--blue); font-family: -apple-system, sans-serif; padding-top: 1px; }
+    .q-text { flex: 1; font-size: 0.97rem; }
+    .q-marks { font-size: 0.75rem; color: var(--muted); white-space: nowrap; font-family: -apple-system, sans-serif; padding-top: 3px; }
+    .options { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0 42px; }
+    .opt-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 5px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-align: left;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .opt-btn:hover { border-color: var(--blue); background: var(--blue-light); }
+    .opt-btn.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .opt-btn.correct { background: var(--green); color: #fff; border-color: var(--green); }
+    .opt-btn.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+    .write-row { display: flex; align-items: center; gap: 10px; margin: 10px 0 0 42px; }
+    .write-row input {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 0.97rem;
+      border: none;
+      border-bottom: 2px solid #555;
+      padding: 3px 6px;
+      width: 160px;
+      background: transparent;
+      outline: none;
+    }
+    .write-row input:focus { border-bottom-color: var(--blue); }
+    .check-btn {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 5px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .check-btn:hover { background: #163d7d; }
+    .answer-box {
+      margin: 10px 0 0 42px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .answer-box.correct-ans { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+    .answer-box.wrong-ans { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+    .answer-box.reveal-ans { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+    .show-link {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      cursor: pointer;
+      margin-left: 42px;
+      display: inline-block;
+      margin-top: 6px;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    #results-panel {
+      display: none;
+      max-width: 860px;
+      margin: 0 auto 40px;
+      background: var(--card);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: -apple-system, sans-serif;
+      box-shadow: 0 4px 20px rgba(28,76,150,0.12);
+    }
+    #results-panel h2 { font-size: 1.3rem; color: var(--blue); margin-bottom: 16px; }
+    .result-score { font-size: 2.8rem; font-weight: 700; color: var(--blue); }
+    .result-grade { font-size: 1rem; color: var(--muted); margin-top: 4px; }
+    .result-breakdown { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rb-item { background: var(--bg); border-radius: 8px; padding: 12px 16px; }
+    .rb-item .val { font-size: 1.5rem; font-weight: 700; }
+    .rb-item .lbl { font-size: 0.82rem; color: var(--muted); }
+    .rb-item.g .val { color: var(--green); }
+    .rb-item.r .val { color: var(--red); }
+    .nav-bar {
+      max-width: 860px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.88rem;
+    }
+    .nav-bar a { color: var(--blue); text-decoration: none; background: var(--blue-light); padding: 7px 18px; border-radius: 8px; }
+    .nav-bar a:hover { background: var(--blue); color: #fff; }
+    .submit-row { text-align: center; margin-top: 28px; }
+    .submit-btn {
+      font-family: -apple-system, sans-serif;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      padding: 12px 36px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #155d38; }
+    @media (max-width: 600px) {
+      .paper { padding: 18px 14px 24px; }
+      .exam-header { padding: 18px 14px 14px; }
+      .options { flex-direction: column; }
+      .result-breakdown { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="index.html">&larr; Back to Mock Pack 1</a>
+  <span style="padding:7px 0;color:var(--muted)">Section 5 of 6</span>
+</div>
+
+<div class="exam-header">
+  <span class="badge">DA</span>
+  <h1>Data</h1>
+  <div class="packline">Mock Pack 1 &middot; Section 5 of 6</div>
+  <div class="sub">20 questions &middot; 10 minutes</div>
+  <div class="instructions">
+    <strong>Instructions to candidates:</strong>
+    <ul>
+      <li>Study each chart, graph or table carefully before answering the questions about it.</li>
+      <li>For multiple-choice questions, click the letter of your chosen answer.</li>
+      <li>For written-answer questions, type your answer and press <strong>Check</strong>.</li>
+      <li>Click <em>Show answer</em> at any time to reveal the correct answer.</li>
+      <li>Press <strong>Submit Section</strong> at the end to see your score.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timer-bar">
+  <div>
+    <div style="font-size:0.75rem;opacity:0.8;margin-bottom:2px;">Time remaining</div>
+    <div id="timer">10:00</div>
+  </div>
+  <div style="font-size:0.88rem;" id="live-score">0 / 20 answered</div>
+  <button onclick="toggleTimer()" id="timer-btn">Pause</button>
+</div>
+
+<div class="paper" id="paper">
+
+  <!-- ============ VISUAL 1: LINE GRAPH — TEMPERATURE OVER A DAY ============ -->
+  <div class="section-heading">Chart 1 &mdash; Temperature during one day (Questions 1&ndash;4)</div>
+
+  <div class="visual">
+    <h4>Temperature recorded at a weather station</h4>
+    <svg viewBox="0 0 520 300" role="img" aria-label="Line graph of temperature over one day">
+      <!-- gridlines + y labels (0 to 12 by 2) -->
+      <g stroke="#dbe3ef" stroke-width="1">
+        <line x1="60" y1="240" x2="480" y2="240"/>
+        <line x1="60" y1="206.7" x2="480" y2="206.7"/>
+        <line x1="60" y1="173.3" x2="480" y2="173.3"/>
+        <line x1="60" y1="140" x2="480" y2="140"/>
+        <line x1="60" y1="106.7" x2="480" y2="106.7"/>
+        <line x1="60" y1="73.3" x2="480" y2="73.3"/>
+        <line x1="60" y1="40" x2="480" y2="40"/>
+      </g>
+      <!-- axes -->
+      <line x1="60" y1="40" x2="60" y2="240" stroke="#334155" stroke-width="1.5"/>
+      <line x1="60" y1="240" x2="480" y2="240" stroke="#334155" stroke-width="1.5"/>
+      <!-- y labels -->
+      <g font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="end">
+        <text x="52" y="244">0</text>
+        <text x="52" y="210.7">2</text>
+        <text x="52" y="177.3">4</text>
+        <text x="52" y="144">6</text>
+        <text x="52" y="110.7">8</text>
+        <text x="52" y="77.3">10</text>
+        <text x="52" y="44">12</text>
+      </g>
+      <text x="18" y="145" font-family="Arial, sans-serif" font-size="11" fill="#475569" transform="rotate(-90 18 145)" text-anchor="middle">Temperature (&#176;C)</text>
+      <!-- x labels -->
+      <g font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">
+        <text x="60" y="258">06:00</text>
+        <text x="160" y="258">09:00</text>
+        <text x="260" y="258">12:00</text>
+        <text x="360" y="258">15:00</text>
+        <text x="460" y="258">18:00</text>
+      </g>
+      <text x="270" y="282" font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Time of day</text>
+      <!-- data line: 7,10,12,12,3 -->
+      <polyline points="60,123.3 160,73.3 260,40 360,40 460,190" fill="none" stroke="#b91c1c" stroke-width="2.5"/>
+      <g fill="#b91c1c">
+        <circle cx="60" cy="123.3" r="4"/>
+        <circle cx="160" cy="73.3" r="4"/>
+        <circle cx="260" cy="40" r="4"/>
+        <circle cx="360" cy="40" r="4"/>
+        <circle cx="460" cy="190" r="4"/>
+      </g>
+      <!-- value labels -->
+      <g font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#7f1d1d" text-anchor="middle">
+        <text x="60" y="115">7</text>
+        <text x="160" y="65">10</text>
+        <text x="255" y="32">12</text>
+        <text x="365" y="32">12</text>
+        <text x="460" y="182">3</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Q1 MCQ -->
+  <div class="question" id="q1">
+    <div class="q-row"><span class="q-num">1.</span><span class="q-text">During which 3-hour period did the temperature stay <strong>constant</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(1,'C',this)">A &nbsp; 06:00 &ndash; 09:00</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'C',this)">B &nbsp; 09:00 &ndash; 12:00</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'C',this)">C &nbsp; 12:00 &ndash; 15:00</button>
+      <button class="opt-btn" onclick="checkMCQ(1,'C',this)">D &nbsp; 15:00 &ndash; 18:00</button>
+    </div>
+    <div class="answer-box" id="q1-ans"></div>
+    <button class="show-link" onclick="revealMCQ(1,'C','The temperature was 12&#176;C at both 12:00 and 15:00, so it stayed constant during <strong>12:00 &ndash; 15:00</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q2 write-in -->
+  <div class="question" id="q2">
+    <div class="q-row"><span class="q-num">2.</span><span class="q-text">How much <strong>colder</strong> was it at 18:00 than at 06:00? (in &#176;C)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q2-inp" placeholder="°C" />
+      <button class="check-btn" onclick="checkWrite(2,'4',['4','4°c','4c','4degrees'])">Check</button>
+    </div>
+    <div class="answer-box" id="q2-ans"></div>
+    <button class="show-link" onclick="revealAns(2,'At 06:00 it was 7&#176;C and at 18:00 it was 3&#176;C. 7 &minus; 3 = <strong>4&#176;C</strong> colder.')">Show answer</button>
+  </div>
+
+  <!-- Q3 MCQ -->
+  <div class="question" id="q3">
+    <div class="q-row"><span class="q-num">3.</span><span class="q-text">Which 3-hour period had the <strong>greatest change</strong> in temperature?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(3,'D',this)">A &nbsp; 06:00 &ndash; 09:00</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'D',this)">B &nbsp; 09:00 &ndash; 12:00</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'D',this)">C &nbsp; 12:00 &ndash; 15:00</button>
+      <button class="opt-btn" onclick="checkMCQ(3,'D',this)">D &nbsp; 15:00 &ndash; 18:00</button>
+    </div>
+    <div class="answer-box" id="q3-ans"></div>
+    <button class="show-link" onclick="revealMCQ(3,'D','Changes: +3, +2, 0, then a fall of 9&#176;C (12 to 3). The greatest change is <strong>15:00 &ndash; 18:00</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q4 write-in -->
+  <div class="question" id="q4">
+    <div class="q-row"><span class="q-num">4.</span><span class="q-text">What was the temperature at <strong>09:00</strong>? (in &#176;C)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q4-inp" placeholder="°C" />
+      <button class="check-btn" onclick="checkWrite(4,'10',['10','10°c','10c'])">Check</button>
+    </div>
+    <div class="answer-box" id="q4-ans"></div>
+    <button class="show-link" onclick="revealAns(4,'Reading up from 09:00, the line is at <strong>10&#176;C</strong>.')">Show answer</button>
+  </div>
+
+  <!-- ============ VISUAL 2: BAR CHART — NEWSPAPERS SOLD ============ -->
+  <div class="section-heading">Chart 2 &mdash; Newspapers sold at a shop (Questions 5&ndash;9)</div>
+
+  <div class="visual">
+    <h4>Number of newspapers sold each day</h4>
+    <svg viewBox="0 0 540 320" role="img" aria-label="Bar chart of newspapers sold from Monday to Saturday">
+      <!-- gridlines + y labels 0..120 by 20 -->
+      <g stroke="#dbe3ef" stroke-width="1">
+        <line x1="60" y1="260" x2="510" y2="260"/>
+        <line x1="60" y1="223.3" x2="510" y2="223.3"/>
+        <line x1="60" y1="186.7" x2="510" y2="186.7"/>
+        <line x1="60" y1="150" x2="510" y2="150"/>
+        <line x1="60" y1="113.3" x2="510" y2="113.3"/>
+        <line x1="60" y1="76.7" x2="510" y2="76.7"/>
+        <line x1="60" y1="40" x2="510" y2="40"/>
+      </g>
+      <line x1="60" y1="40" x2="60" y2="260" stroke="#334155" stroke-width="1.5"/>
+      <line x1="60" y1="260" x2="510" y2="260" stroke="#334155" stroke-width="1.5"/>
+      <g font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="end">
+        <text x="52" y="264">0</text>
+        <text x="52" y="227.3">20</text>
+        <text x="52" y="190.7">40</text>
+        <text x="52" y="154">60</text>
+        <text x="52" y="117.3">80</text>
+        <text x="52" y="80.7">100</text>
+        <text x="52" y="44">120</text>
+      </g>
+      <text x="16" y="150" font-family="Arial, sans-serif" font-size="11" fill="#475569" transform="rotate(-90 16 150)" text-anchor="middle">Newspapers sold</text>
+      <!-- bars: Mon80 Tue70 Wed40 Thu90 Fri100 Sat120 -->
+      <g fill="#1c4c96">
+        <rect x="78" y="113.3" width="44" height="146.7"/>
+        <rect x="151" y="131.7" width="44" height="128.3"/>
+        <rect x="224" y="186.7" width="44" height="73.3"/>
+        <rect x="297" y="95" width="44" height="165"/>
+        <rect x="370" y="76.7" width="44" height="183.3"/>
+        <rect x="443" y="40" width="44" height="220"/>
+      </g>
+      <!-- value labels -->
+      <g font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1c4c96" text-anchor="middle">
+        <text x="100" y="106">80</text>
+        <text x="173" y="124">70</text>
+        <text x="246" y="179">40</text>
+        <text x="319" y="88">90</text>
+        <text x="392" y="69">100</text>
+        <text x="465" y="33">120</text>
+      </g>
+      <!-- x labels -->
+      <g font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">
+        <text x="100" y="277">Mon</text>
+        <text x="173" y="277">Tue</text>
+        <text x="246" y="277">Wed</text>
+        <text x="319" y="277">Thu</text>
+        <text x="392" y="277">Fri</text>
+        <text x="465" y="277">Sat</text>
+      </g>
+      <text x="285" y="300" font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="middle">Day of the week</text>
+    </svg>
+  </div>
+
+  <!-- Q5 write-in -->
+  <div class="question" id="q5">
+    <div class="q-row"><span class="q-num">5.</span><span class="q-text">What was the <strong>total</strong> number of newspapers sold on the <strong>two lowest days</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q5-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(5,'110',['110'])">Check</button>
+    </div>
+    <div class="answer-box" id="q5-ans"></div>
+    <button class="show-link" onclick="revealAns(5,'The two lowest days are Wednesday (40) and Tuesday (70). 40 + 70 = <strong>110</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q6 MCQ -->
+  <div class="question" id="q6">
+    <div class="q-row"><span class="q-num">6.</span><span class="q-text">On which day were <strong>fewer than 70</strong> newspapers sold?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">A &nbsp; Monday</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">B &nbsp; Tuesday</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">C &nbsp; Wednesday</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">D &nbsp; Thursday</button>
+      <button class="opt-btn" onclick="checkMCQ(6,'C',this)">E &nbsp; Friday</button>
+    </div>
+    <div class="answer-box" id="q6-ans"></div>
+    <button class="show-link" onclick="revealMCQ(6,'C','Only <strong>Wednesday</strong> (40) is below 70. Tuesday is exactly 70.')">Show answer</button>
+  </div>
+
+  <!-- Q7 write-in -->
+  <div class="question" id="q7">
+    <div class="q-row"><span class="q-num">7.</span><span class="q-text">On one day the shop sold <strong>exactly twice</strong> as many newspapers as on Wednesday. Which day was this?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q7-inp" placeholder="Day" />
+      <button class="check-btn" onclick="checkWrite(7,'Monday',['monday','mon'])">Check</button>
+    </div>
+    <div class="answer-box" id="q7-ans"></div>
+    <button class="show-link" onclick="revealAns(7,'Wednesday = 40; twice that is 80, which is <strong>Monday</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q8 write-in -->
+  <div class="question" id="q8">
+    <div class="q-row"><span class="q-num">8.</span><span class="q-text">What is the <strong>difference</strong> between the number sold on Saturday and on Monday?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q8-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(8,'40',['40'])">Check</button>
+    </div>
+    <div class="answer-box" id="q8-ans"></div>
+    <button class="show-link" onclick="revealAns(8,'Saturday = 120, Monday = 80. 120 &minus; 80 = <strong>40</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q9 MCQ -->
+  <div class="question" id="q9">
+    <div class="q-row"><span class="q-num">9.</span><span class="q-text">On which day were the <strong>most</strong> newspapers sold?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">A &nbsp; Monday</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">B &nbsp; Friday</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">C &nbsp; Saturday</button>
+      <button class="opt-btn" onclick="checkMCQ(9,'C',this)">D &nbsp; Thursday</button>
+    </div>
+    <div class="answer-box" id="q9-ans"></div>
+    <button class="show-link" onclick="revealMCQ(9,'C','<strong>Saturday</strong> had the tallest bar at 120.')">Show answer</button>
+  </div>
+
+  <!-- ============ VISUAL 3: TABLES ============ -->
+  <div class="section-heading">Tables &mdash; Distances and competition scores (Questions 10&ndash;14)</div>
+
+  <div class="visual">
+    <h4>Distances between five towns (in km)</h4>
+    <div class="tables-wrap">
+      <table class="data-table">
+        <caption>Read across and down to find the distance between any two towns.</caption>
+        <tr><th></th><th>Ashby</th><th>Barton</th><th>Crayle</th><th>Denby</th><th>Elton</th></tr>
+        <tr><td class="rowhead">Ashby</td><td class="diag">&ndash;</td><td>30</td><td>45</td><td>70</td><td>90</td></tr>
+        <tr><td class="rowhead">Barton</td><td>30</td><td class="diag">&ndash;</td><td>20</td><td>50</td><td>75</td></tr>
+        <tr><td class="rowhead">Crayle</td><td>45</td><td>20</td><td class="diag">&ndash;</td><td>35</td><td>60</td></tr>
+        <tr><td class="rowhead">Denby</td><td>70</td><td>50</td><td>35</td><td class="diag">&ndash;</td><td>28</td></tr>
+        <tr><td class="rowhead">Elton</td><td>90</td><td>75</td><td>60</td><td>28</td><td class="diag">&ndash;</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="visual">
+    <h4>Quiz competition &mdash; points scored in each round</h4>
+    <div class="tables-wrap">
+      <table class="data-table">
+        <tr><th>Team</th><th>Round 1</th><th>Round 2</th><th>Round 3</th><th>Round 4</th></tr>
+        <tr><td class="rowhead">Team A</td><td>8</td><td>5</td><td>9</td><td>6</td></tr>
+        <tr><td class="rowhead">Team B</td><td>7</td><td>9</td><td>4</td><td>3</td></tr>
+        <tr><td class="rowhead">Team C</td><td>6</td><td>8</td><td>7</td><td>10</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Q10 write-in -->
+  <div class="question" id="q10">
+    <div class="q-row"><span class="q-num">10.</span><span class="q-text">A driver travels from <strong>Ashby to Denby</strong>, stopping at <strong>Crayle</strong> on the way. How far does she travel altogether? (in km)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q10-inp" placeholder="km" />
+      <button class="check-btn" onclick="checkWrite(10,'80',['80','80km'])">Check</button>
+    </div>
+    <div class="answer-box" id="q10-ans"></div>
+    <button class="show-link" onclick="revealAns(10,'Ashby&ndash;Crayle = 45 km, Crayle&ndash;Denby = 35 km. 45 + 35 = <strong>80 km</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q11 MCQ -->
+  <div class="question" id="q11">
+    <div class="q-row"><span class="q-num">11.</span><span class="q-text">A coach travels the <strong>Denby to Elton</strong> distance at a steady <strong>56 km/h</strong>. How long does the journey take?</span><span class="q-marks">[1]</span></div>
+    <div class="options">
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">A &nbsp; 20 minutes</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">B &nbsp; 30 minutes</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">C &nbsp; 40 minutes</button>
+      <button class="opt-btn" onclick="checkMCQ(11,'B',this)">D &nbsp; 1 hour</button>
+    </div>
+    <div class="answer-box" id="q11-ans"></div>
+    <button class="show-link" onclick="revealMCQ(11,'B','Denby&ndash;Elton = 28 km. Time = 28 &divide; 56 = 0.5 hour = <strong>30 minutes</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q12 write-in -->
+  <div class="question" id="q12">
+    <div class="q-row"><span class="q-num">12.</span><span class="q-text">In the quiz, a team &ldquo;wins&rdquo; a round if it scores the most points in that round. Which team won the <strong>most rounds</strong>? (A, B or C)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q12-inp" placeholder="Team" />
+      <button class="check-btn" onclick="checkWrite(12,'A',['a','teama'])">Check</button>
+    </div>
+    <div class="answer-box" id="q12-ans"></div>
+    <button class="show-link" onclick="revealAns(12,'Round winners: R1 A(8), R2 B(9), R3 A(9), R4 C(10). <strong>Team A</strong> won 2 rounds &mdash; more than any other team.')">Show answer</button>
+  </div>
+
+  <!-- Q13 write-in -->
+  <div class="question" id="q13">
+    <div class="q-row"><span class="q-num">13.</span><span class="q-text">What was the <strong>highest score</strong> by any team in any single round?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q13-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(13,'10',['10'])">Check</button>
+    </div>
+    <div class="answer-box" id="q13-ans"></div>
+    <button class="show-link" onclick="revealAns(13,'The highest single-round score is <strong>10</strong>, scored by Team C in Round 4.')">Show answer</button>
+  </div>
+
+  <!-- Q14 write-in -->
+  <div class="question" id="q14">
+    <div class="q-row"><span class="q-num">14.</span><span class="q-text">How many points did <strong>Team A</strong> score in <strong>total</strong> across all four rounds?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q14-inp" placeholder="Your answer" />
+      <button class="check-btn" onclick="checkWrite(14,'28',['28'])">Check</button>
+    </div>
+    <div class="answer-box" id="q14-ans"></div>
+    <button class="show-link" onclick="revealAns(14,'Team A: 8 + 5 + 9 + 6 = <strong>28</strong> points.')">Show answer</button>
+  </div>
+
+  <!-- ============ VISUAL 4: DOUBLE LINE GRAPH ============ -->
+  <div class="section-heading">Chart 3 &mdash; Average monthly temperatures (Questions 15&ndash;20)</div>
+
+  <div class="visual">
+    <h4>Average daily maximum and minimum temperature, by month</h4>
+    <svg viewBox="0 0 580 340" role="img" aria-label="Double line graph of average maximum and minimum temperature for each month">
+      <!-- gridlines + y labels 0..25 by 5 -->
+      <g stroke="#dbe3ef" stroke-width="1">
+        <line x1="50" y1="260" x2="550" y2="260"/>
+        <line x1="50" y1="216" x2="550" y2="216"/>
+        <line x1="50" y1="172" x2="550" y2="172"/>
+        <line x1="50" y1="128" x2="550" y2="128"/>
+        <line x1="50" y1="84" x2="550" y2="84"/>
+        <line x1="50" y1="40" x2="550" y2="40"/>
+      </g>
+      <line x1="50" y1="40" x2="50" y2="260" stroke="#334155" stroke-width="1.5"/>
+      <line x1="50" y1="260" x2="550" y2="260" stroke="#334155" stroke-width="1.5"/>
+      <g font-family="Arial, sans-serif" font-size="11" fill="#475569" text-anchor="end">
+        <text x="42" y="264">0</text>
+        <text x="42" y="220">5</text>
+        <text x="42" y="176">10</text>
+        <text x="42" y="132">15</text>
+        <text x="42" y="88">20</text>
+        <text x="42" y="44">25</text>
+      </g>
+      <text x="14" y="150" font-family="Arial, sans-serif" font-size="11" fill="#475569" transform="rotate(-90 14 150)" text-anchor="middle">Temperature (&#176;C)</text>
+      <!-- x labels -->
+      <g font-family="Arial, sans-serif" font-size="10" fill="#475569" text-anchor="middle">
+        <text x="50" y="276">Jan</text>
+        <text x="94" y="276">Feb</text>
+        <text x="139" y="276">Mar</text>
+        <text x="184" y="276">Apr</text>
+        <text x="228" y="276">May</text>
+        <text x="272" y="276">Jun</text>
+        <text x="317" y="276">Jul</text>
+        <text x="362" y="276">Aug</text>
+        <text x="406" y="276">Sep</text>
+        <text x="450" y="276">Oct</text>
+        <text x="495" y="276">Nov</text>
+        <text x="540" y="276">Dec</text>
+      </g>
+      <!-- MAX line: 7,8,11,14,18,21,23,22,19,15,10,8 -->
+      <polyline points="50,198.4 94,189.6 139,163.2 184,136.8 228,101.6 272,75.2 317,57.6 362,66.4 406,92.8 450,128 495,172 540,189.6" fill="none" stroke="#b91c1c" stroke-width="2.5"/>
+      <g fill="#b91c1c">
+        <circle cx="50" cy="198.4" r="3.5"/><circle cx="94" cy="189.6" r="3.5"/><circle cx="139" cy="163.2" r="3.5"/><circle cx="184" cy="136.8" r="3.5"/><circle cx="228" cy="101.6" r="3.5"/><circle cx="272" cy="75.2" r="3.5"/><circle cx="317" cy="57.6" r="3.5"/><circle cx="362" cy="66.4" r="3.5"/><circle cx="406" cy="92.8" r="3.5"/><circle cx="450" cy="128" r="3.5"/><circle cx="495" cy="172" r="3.5"/><circle cx="540" cy="189.6" r="3.5"/>
+      </g>
+      <!-- MIN line: 2,2,4,6,9,12,13,14,11,8,5,3 -->
+      <polyline points="50,242.4 94,242.4 139,224.8 184,207.2 228,180.8 272,154.4 317,145.6 362,136.8 406,163.2 450,189.6 495,216 540,233.6" fill="none" stroke="#1c4c96" stroke-width="2.5"/>
+      <g fill="#1c4c96">
+        <circle cx="50" cy="242.4" r="3.5"/><circle cx="94" cy="242.4" r="3.5"/><circle cx="139" cy="224.8" r="3.5"/><circle cx="184" cy="207.2" r="3.5"/><circle cx="228" cy="180.8" r="3.5"/><circle cx="272" cy="154.4" r="3.5"/><circle cx="317" cy="145.6" r="3.5"/><circle cx="362" cy="136.8" r="3.5"/><circle cx="406" cy="163.2" r="3.5"/><circle cx="450" cy="189.6" r="3.5"/><circle cx="495" cy="216" r="3.5"/><circle cx="540" cy="233.6" r="3.5"/>
+      </g>
+      <!-- legend -->
+      <g font-family="Arial, sans-serif" font-size="11">
+        <line x1="330" y1="308" x2="360" y2="308" stroke="#b91c1c" stroke-width="2.5"/>
+        <circle cx="345" cy="308" r="3.5" fill="#b91c1c"/>
+        <text x="366" y="312" fill="#475569">Avg maximum</text>
+        <line x1="450" y1="308" x2="480" y2="308" stroke="#1c4c96" stroke-width="2.5"/>
+        <circle cx="465" cy="308" r="3.5" fill="#1c4c96"/>
+        <text x="486" y="312" fill="#475569">Avg minimum</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Q15 write-in -->
+  <div class="question" id="q15">
+    <div class="q-row"><span class="q-num">15.</span><span class="q-text">For how many months was the average <strong>maximum</strong> temperature <strong>above 15&#176;C</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q15-inp" placeholder="months" />
+      <button class="check-btn" onclick="checkWrite(15,'5',['5','5months'])">Check</button>
+    </div>
+    <div class="answer-box" id="q15-ans"></div>
+    <button class="show-link" onclick="revealAns(15,'Max above 15&#176;C: May (18), Jun (21), Jul (23), Aug (22), Sep (19) = <strong>5 months</strong>. October is exactly 15, not above.')">Show answer</button>
+  </div>
+
+  <!-- Q16 write-in -->
+  <div class="question" id="q16">
+    <div class="q-row"><span class="q-num">16.</span><span class="q-text">In <strong>December</strong>, what is the <strong>difference</strong> between the average maximum and average minimum temperature? (in &#176;C)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q16-inp" placeholder="°C" />
+      <button class="check-btn" onclick="checkWrite(16,'5',['5','5°c','5c'])">Check</button>
+    </div>
+    <div class="answer-box" id="q16-ans"></div>
+    <button class="show-link" onclick="revealAns(16,'December: max 8&#176;C, min 3&#176;C. 8 &minus; 3 = <strong>5&#176;C</strong>.')">Show answer</button>
+  </div>
+
+  <!-- Q17 write-in -->
+  <div class="question" id="q17">
+    <div class="q-row"><span class="q-num">17.</span><span class="q-text">In which month was the <strong>gap</strong> between the average maximum and average minimum the <strong>greatest</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q17-inp" placeholder="Month" />
+      <button class="check-btn" onclick="checkWrite(17,'July',['july','jul'])">Check</button>
+    </div>
+    <div class="answer-box" id="q17-ans"></div>
+    <button class="show-link" onclick="revealAns(17,'In <strong>July</strong> the gap is 23 &minus; 13 = 10&#176;C, the largest of any month.')">Show answer</button>
+  </div>
+
+  <!-- Q18 write-in -->
+  <div class="question" id="q18">
+    <div class="q-row"><span class="q-num">18.</span><span class="q-text">What was the average <strong>maximum</strong> temperature in <strong>July</strong>? (in &#176;C)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q18-inp" placeholder="°C" />
+      <button class="check-btn" onclick="checkWrite(18,'23',['23','23°c','23c'])">Check</button>
+    </div>
+    <div class="answer-box" id="q18-ans"></div>
+    <button class="show-link" onclick="revealAns(18,'The red (maximum) line peaks at <strong>23&#176;C</strong> in July.')">Show answer</button>
+  </div>
+
+  <!-- Q19 write-in -->
+  <div class="question" id="q19">
+    <div class="q-row"><span class="q-num">19.</span><span class="q-text">What was the average <strong>minimum</strong> temperature in <strong>June</strong>? (in &#176;C)</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q19-inp" placeholder="°C" />
+      <button class="check-btn" onclick="checkWrite(19,'12',['12','12°c','12c'])">Check</button>
+    </div>
+    <div class="answer-box" id="q19-ans"></div>
+    <button class="show-link" onclick="revealAns(19,'The blue (minimum) line is at <strong>12&#176;C</strong> in June.')">Show answer</button>
+  </div>
+
+  <!-- Q20 write-in -->
+  <div class="question" id="q20">
+    <div class="q-row"><span class="q-num">20.</span><span class="q-text">For how many months was the average <strong>minimum</strong> temperature <strong>below 5&#176;C</strong>?</span><span class="q-marks">[1]</span></div>
+    <div class="write-row">
+      <input type="text" id="q20-inp" placeholder="months" />
+      <button class="check-btn" onclick="checkWrite(20,'4',['4','4months'])">Check</button>
+    </div>
+    <div class="answer-box" id="q20-ans"></div>
+    <button class="show-link" onclick="revealAns(20,'Min below 5&#176;C: Jan (2), Feb (2), Mar (4), Dec (3) = <strong>4 months</strong>. November is exactly 5, not below.')">Show answer</button>
+  </div>
+
+  <div class="submit-row">
+    <button class="submit-btn" onclick="submitPaper()">Submit Section &amp; See Score</button>
+  </div>
+</div>
+
+<!-- Results panel -->
+<div id="results-panel">
+  <h2>Your Results — Data (Section 5)</h2>
+  <div class="result-score" id="res-score">— / 20</div>
+  <div class="result-grade" id="res-grade"></div>
+  <div class="result-breakdown">
+    <div class="rb-item g">
+      <div class="val" id="res-correct">0</div>
+      <div class="lbl">Correct</div>
+    </div>
+    <div class="rb-item r">
+      <div class="val" id="res-wrong">0</div>
+      <div class="lbl">Incorrect / unanswered</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-pct">0%</div>
+      <div class="lbl">Score</div>
+    </div>
+    <div class="rb-item">
+      <div class="val" id="res-time">—</div>
+      <div class="lbl">Time used</div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.88rem;color:var(--muted)">
+    Scroll up to review questions. Use <em>Show answer</em> on any question you got wrong.
+  </p>
+  <div style="margin-top:18px;">
+    <a href="index.html" style="color:var(--blue);font-size:0.9rem;">← Back to Mock Pack 1</a>
+  </div>
+</div>
+
+<script>
+  // ---- State ----
+  var answers = {}; // qNum -> {correct: bool, submitted: bool}
+  var totalQ = 20;
+
+  // ---- Timer ----
+  var totalSecs = 10 * 60;
+  var timerRunning = true;
+  var timerEl = document.getElementById('timer');
+  var startTime = Date.now();
+  var elapsed = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimer() {
+    if (!timerRunning) return;
+    elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var rem = Math.max(0, totalSecs - elapsed);
+    var m = Math.floor(rem / 60), s = rem % 60;
+    timerEl.textContent = pad(m) + ':' + pad(s);
+    timerEl.className = rem <= 120 ? (rem <= 30 ? 'danger' : 'warn') : '';
+    if (rem === 0) { timerRunning = false; submitPaper(); }
+  }
+
+  setInterval(updateTimer, 500);
+
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+    if (timerRunning) {
+      startTime = Date.now() - elapsed * 1000;
+      document.getElementById('timer-btn').textContent = 'Pause';
+    } else {
+      document.getElementById('timer-btn').textContent = 'Resume';
+    }
+  }
+
+  // ---- Score display ----
+  function updateLiveScore() {
+    var done = Object.keys(answers).length;
+    document.getElementById('live-score').textContent = done + ' / ' + totalQ + ' answered';
+  }
+
+  // ---- MCQ check ----
+  function checkMCQ(qNum, correct, btn) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    var chosen = btn.textContent.trim()[0];
+    optBtns.forEach(function(b) {
+      var letter = b.textContent.trim()[0];
+      b.classList.remove('selected','correct','wrong');
+      if (letter === correct) b.classList.add('correct');
+      else if (letter === chosen && chosen !== correct) b.classList.add('wrong');
+    });
+    var isCorrect = (chosen === correct);
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + correct + '</strong>.';
+    box.style.display = 'block';
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Write-in check ----
+  function checkWrite(qNum, correct, alts) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    var inp = document.getElementById('q' + qNum + '-inp');
+    var val = inp.value.trim().toLowerCase().replace(/\s+/g,'');
+    var normAlts = alts.map(function(a){ return a.toLowerCase().replace(/\s+/g,''); });
+    var isCorrect = normAlts.indexOf(val) !== -1;
+    answers[qNum] = { correct: isCorrect, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = isCorrect
+      ? '&#10003; Correct!'
+      : '&#10007; The correct answer is <strong>' + alts[0] + '</strong>.';
+    box.style.display = 'block';
+    inp.disabled = true;
+    if (isCorrect) document.getElementById('q' + qNum).classList.add('answered');
+    updateLiveScore();
+  }
+
+  // ---- Show answer (reveal without grading) ----
+  function revealAns(qNum, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  function revealMCQ(qNum, correct, html) {
+    if (answers[qNum] && answers[qNum].submitted) return;
+    answers[qNum] = { correct: false, submitted: true };
+    var optBtns = document.querySelectorAll('#q' + qNum + ' .opt-btn');
+    optBtns.forEach(function(b) {
+      if (b.textContent.trim()[0] === correct) b.classList.add('correct');
+    });
+    var box = document.getElementById('q' + qNum + '-ans');
+    box.className = 'answer-box reveal-ans';
+    box.innerHTML = '&#9432; ' + html;
+    box.style.display = 'block';
+    updateLiveScore();
+  }
+
+  // ---- Submit ----
+  function submitPaper() {
+    timerRunning = false;
+    document.getElementById('timer-btn').textContent = 'Finished';
+    document.getElementById('timer-btn').disabled = true;
+
+    var correct = 0;
+    for (var q in answers) { if (answers[q].correct) correct++; }
+    var wrong = totalQ - correct;
+    var pct = Math.round((correct / totalQ) * 100);
+    var grade = pct >= 85 ? 'Excellent — strong data-handling skills!' :
+                pct >= 70 ? 'Good — keep practising reading charts closely.' :
+                pct >= 50 ? 'Developing — review the questions you missed.' :
+                            'Keep going — try the section again after revision.';
+
+    var usedSecs = Math.min(elapsed, totalSecs);
+    var um = Math.floor(usedSecs / 60), us = usedSecs % 60;
+
+    document.getElementById('res-score').textContent = correct + ' / 20';
+    document.getElementById('res-grade').textContent = grade;
+    document.getElementById('res-correct').textContent = correct;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+    document.getElementById('res-time').textContent = pad(um) + ':' + pad(us);
+
+    document.getElementById('results-panel').style.display = 'block';
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
