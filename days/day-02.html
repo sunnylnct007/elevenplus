@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 2 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    /* ── Timer bar ── */
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    /* ── Main layout ── */
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .math-hdr .section-icon { background: #1c4c96; }
+    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    /* ── Sub-task ── */
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    /* ── Questions ── */
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    /* ── Passage box ── */
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    /* ── Writing prompt ── */
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .writing-checklist li { margin-bottom: 2px; }
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 2 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 2</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+  <p>Maths &amp; English — about 40–45 minutes total</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~20 min</span>
+  <span><strong>English</strong> ~20–25 min</span>
+  <span>Try every question on your own first!</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">~20 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Fractions &amp; Decimals Warm-up</div>
+        <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
+        <ol class="qlist">
+          <li>
+            Write &frac35; as a decimal.
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer">
+              <strong>Answer: 0.6</strong><br>
+              &frac35; means 3 &divide; 5 = 0.6.
+            </div>
+          </li>
+          <li>
+            Which is larger: &frac23; or &frac58;?
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer">
+              <strong>Answer: &frac23;</strong><br>
+              Common denominator 24: &frac23; = &sup1;&#8320;&frasl;&#8322;&#8324;, &frac58; = &sup1;&#8309;&frasl;&#8322;&#8324;. 16 &gt; 15, so &frac23; is larger.
+            </div>
+          </li>
+          <li>
+            Round 0.478 to 1 decimal place.
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 0.5</strong><br>
+              The second decimal digit is 7 (&ge;5), so round the first digit up: 0.5.
+            </div>
+          </li>
+          <li>
+            Add: 0.35 + 0.6
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 0.95</strong><br>
+              Line up the decimal points: 0.35 + 0.60 = 0.95.
+            </div>
+          </li>
+          <li>
+            Simplify &sup8;&frasl;&#8321;&#8322; to its lowest terms.
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer">
+              <strong>Answer: &frac23;</strong><br>
+              Divide top and bottom by their highest common factor, 4: 8&divide;4 = 2, 12&divide;4 = 3.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Multi-step Word Problems</div>
+        <p class="task-intro">Show clear working for each question:</p>
+        <ol class="qlist">
+          <li>
+            Priya has &pound;15. She spends &frac25; of it on a book and &pound;3 on a pen. How much does she have left?
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer">
+              <strong>Answer: &pound;6</strong><br>
+              &frac25; of &pound;15 = &pound;6 spent on the book. &pound;15 &minus; &pound;6 &minus; &pound;3 = &pound;6 left.
+            </div>
+          </li>
+          <li>
+            A recipe for 4 people needs 0.6 kg of flour. How much flour is needed for 10 people?
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer">
+              <strong>Answer: 1.5 kg</strong><br>
+              Flour per person: 0.6 &divide; 4 = 0.15 kg. For 10 people: 0.15 &times; 10 = 1.5 kg.
+            </div>
+          </li>
+          <li>
+            A jug holds 1.8 litres. It is &frac34; full. How many millilitres of water are in the jug?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer">
+              <strong>Answer: 1,350 ml</strong><br>
+              1.8 litres = 1,800 ml. &frac34; of 1,800 = 1,350 ml.
+            </div>
+          </li>
+          <li>
+            Three friends share a bill of &pound;27.60 equally. How much does each person pay?
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer">
+              <strong>Answer: &pound;9.20</strong><br>
+              27.60 &divide; 3 = 9.20.
+            </div>
+          </li>
+          <li>
+            A shop reduces a &pound;40 jacket by &frac14; in a sale, then adds &pound;2 for a matching scarf. What is the final price?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <strong>Answer: &pound;32</strong><br>
+              &frac14; of &pound;40 = &pound;10 off, so the jacket is &pound;30. Add &pound;2 for the scarf: &pound;32.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">~20–25 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Grammar &amp; Punctuation</div>
+        <ol class="qlist">
+          <li>
+            Which word in this sentence is an adverb?<br>
+            <em>The dog barked loudly at the postman.</em>
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <strong>Answer: loudly</strong><br>
+              Adverbs often describe how an action is done and often end in -ly.
+            </div>
+          </li>
+          <li>
+            Choose the correctly punctuated sentence:<br>
+            A)&nbsp;Its raining, so bring your coat. &nbsp;&nbsp; B)&nbsp;It's raining, so bring your coat. &nbsp;&nbsp; C)&nbsp;Its' raining, so bring your coat.
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer">
+              <strong>Answer: B</strong><br>
+              &ldquo;It's&rdquo; is the contraction of &ldquo;it is&rdquo;. &ldquo;Its&rdquo; (no apostrophe) shows possession instead.
+            </div>
+          </li>
+          <li>
+            Add the missing apostrophe:<br>
+            <em>The childrens coats were hung on the pegs.</em>
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">
+              <strong>Corrected:</strong> <em>The children's coats were hung on the pegs.</em><br>
+              &ldquo;Children&rdquo; is already plural, so add &lsquo;s to show possession.
+            </div>
+          </li>
+          <li>
+            Which sentence uses a subordinating conjunction?<br>
+            A)&nbsp;I like tea and coffee. &nbsp;&nbsp; B)&nbsp;Although it was raining, we went outside. &nbsp;&nbsp; C)&nbsp;The cat sat on the mat.
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer">
+              <strong>Answer: B</strong><br>
+              &ldquo;Although&rdquo; joins a subordinate clause to the main clause, showing contrast.
+            </div>
+          </li>
+          <li>
+            Identify the noun phrase in:<br>
+            <em>The tall, old oak tree stood in the field.</em>
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <strong>Answer: The tall, old oak tree</strong><br>
+              A noun phrase is built around a noun (&ldquo;tree&rdquo;) with describing words in front of it.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Comprehension</div>
+        <p class="task-intro">Read this passage carefully, then answer the questions:</p>
+        <div class="passage">
+          Recycling helps to protect the environment in several ways. When materials such as paper, glass
+          and plastic are recycled, fewer raw materials need to be taken from the earth. This saves energy
+          and reduces pollution. Many schools now run recycling schemes, encouraging pupils to sort their
+          rubbish into different bins. Some schools have even started composting food waste, turning it
+          into rich soil for the school garden instead of sending it to landfill.
+        </div>
+        <ol class="qlist">
+          <li>
+            According to the passage, what happens when materials are recycled?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">
+              <strong>Answer: Fewer raw materials need to be taken from the earth.</strong><br>
+              This is stated directly in the first two sentences.
+            </div>
+          </li>
+          <li>
+            What do some schools do with food waste?
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">
+              <strong>Answer: They compost it, turning it into soil for the school garden.</strong><br>
+              See the final sentence of the passage.
+            </div>
+          </li>
+          <li>
+            Find and copy one word that means the same as &ldquo;dirtying&rdquo; or &ldquo;contamination&rdquo;.
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">
+              <strong>Answer: pollution</strong>
+            </div>
+          </li>
+          <li>
+            Is this passage mainly fact or opinion? Give one reason.
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">
+              <strong>Answer: Fact.</strong><br>
+              It gives real information about recycling and school schemes rather than personal feelings.
+            </div>
+          </li>
+          <li>
+            Why might sorting rubbish into different bins be useful? Explain in your own words.
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">
+              <strong>Example answer:</strong> Sorting rubbish makes it easier to recycle each material properly, so less ends up wasted in landfill.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Prompt:</strong> Write a short letter to your head teacher persuading them to start a new
+          recycling or gardening scheme at your school.<br><br>
+          Write 8–10 sentences. Try to use:
+          <ul class="writing-checklist">
+            <li>A clear opening that states your idea</li>
+            <li>Persuasive words (e.g. &ldquo;imagine&rdquo;, &ldquo;surely&rdquo;, &ldquo;important&rdquo;)</li>
+            <li>A short concluding sentence</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
+        <div id="e11" class="answer">
+          <strong>Example answer:</strong><br>
+          <em>Dear Mrs Patel, I am writing to suggest that our school starts a composting scheme. Imagine how much less rubbish we would send to landfill if every classroom had its own food-waste bin! Surely it is important for us to look after our planet while we are still young. The compost could even be used to grow vegetables in our school garden, which would teach everyone new skills. I hope you will consider this idea. Yours sincerely, a concerned pupil.</em><br><br>
+          <strong>Check your own writing for:</strong> a clear opening idea, at least two persuasive phrases, correct letter punctuation, and a short closing sentence.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
+    <a href="day-03.html" class="nav-btn">Day 3 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 2 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>
