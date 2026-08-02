@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 8 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    /* ── Header ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    /* ── Timer bar ── */
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    /* ── Main layout ── */
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    /* ── Section cards ── */
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .math-hdr .section-icon { background: #1c4c96; }
+    .eng-hdr  .section-icon { background: #1a7a4a; }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    /* ── Sub-task ── */
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    /* ── Questions ── */
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    /* ── Passage box ── */
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    /* ── Diagram ── */
+    .diagram {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+    /* ── Writing prompt ── */
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      padding-left: 18px;
+    }
+    .writing-checklist li { margin-bottom: 2px; }
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      gap: 12px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+    }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 8 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 8</div>
+  <h1>Day 8 — 11+ Daily Practice</h1>
+  <p>Maths &amp; English — about 40–45 minutes total</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~20 min</span>
+  <span><strong>English</strong> ~20–25 min</span>
+  <span>Try every question on your own first!</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">~20 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Perimeter, Area &amp; Borders Warm-up</div>
+        <p class="task-intro">Answer these quickly &mdash; mentally or with brief working:</p>
+        <ol class="qlist">
+          <li>
+            A rectangular pond measures 3 m by 4 m. It is surrounded by a border, exactly one paving stone wide, of square paving stones measuring 50 cm by 50 cm. How many paving stones are needed for the border?
+            <div class="diagram">
+              <svg viewBox="0 0 240 200" width="240" height="200">
+                <defs>
+                  <pattern id="tilegrid" width="18" height="18" patternUnits="userSpaceOnUse">
+                    <rect width="18" height="18" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+                  </pattern>
+                </defs>
+                <rect x="20" y="24" width="180" height="144" fill="url(#tilegrid)" stroke="#b45309" stroke-width="2"/>
+                <rect x="38" y="42" width="144" height="108" fill="#60a5fa" stroke="#1c4c96" stroke-width="2"/>
+                <text x="110" y="100" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">Pond</text>
+                <text x="110" y="15" font-size="10" fill="#64748b" text-anchor="middle">4 m = 8 &times; 50 cm</text>
+                <text x="222" y="96" font-size="10" fill="#64748b" text-anchor="middle" transform="rotate(90 222 96)">3 m = 6 &times; 50 cm</text>
+                <text x="110" y="190" font-size="10" fill="#b45309" text-anchor="middle">Border = 1 paving stone wide (shown in yellow)</text>
+              </svg>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
+            <div id="a1" class="answer">
+              <strong>Answer: 32 paving stones</strong><br>
+              In 50 cm units the pond is 6 tiles by 8 tiles. The outer rectangle (adding a 1-tile border all round) is (6+2)=8 tiles by (8+2)=10 tiles = 80 tiles. Subtract the pond area: 80 &minus; 48 = 32 paving stones.
+            </div>
+          </li>
+          <li>
+            A square photograph measures 20 cm by 20 cm. It is placed inside a wooden frame that adds a border 5 cm wide all the way round the photograph. What is the area of the wooden frame alone (not including the photograph)?
+            <div class="diagram">
+              <svg viewBox="0 0 200 200" width="200" height="200">
+                <rect x="20" y="20" width="150" height="150" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+                <rect x="45" y="45" width="100" height="100" fill="#60a5fa" stroke="#1c4c96" stroke-width="2"/>
+                <text x="95" y="100" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">Photo 20&times;20</text>
+                <text x="95" y="14" font-size="10" fill="#64748b" text-anchor="middle">Frame border = 5 cm wide</text>
+              </svg>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
+            <div id="a2" class="answer">
+              <strong>Answer: 500 cm&sup2;</strong><br>
+              The outer edge of the frame is 20 + 5 + 5 = 30 cm, so the outer area is 30 &times; 30 = 900 cm&sup2;. The photograph itself is 20 &times; 20 = 400 cm&sup2;. Frame area = 900 &minus; 400 = 500 cm&sup2;.
+            </div>
+          </li>
+          <li>
+            The L-shaped tile below is drawn on a 1 cm square grid. Find the perimeter of the tile.
+            <div class="diagram">
+              <svg viewBox="0 0 160 130" width="160" height="130">
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="30" y1="20" x2="30" y2="100"/>
+                  <line x1="50" y1="20" x2="50" y2="100"/>
+                  <line x1="70" y1="20" x2="70" y2="100"/>
+                  <line x1="90" y1="20" x2="90" y2="100"/>
+                  <line x1="110" y1="20" x2="110" y2="100"/>
+                  <line x1="30" y1="20" x2="110" y2="20"/>
+                  <line x1="30" y1="40" x2="110" y2="40"/>
+                  <line x1="30" y1="60" x2="110" y2="60"/>
+                  <line x1="30" y1="80" x2="110" y2="80"/>
+                  <line x1="30" y1="100" x2="110" y2="100"/>
+                </g>
+                <polygon points="30,20 90,20 90,40 50,40 50,80 30,80" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+                <text x="70" y="115" font-size="10" fill="#64748b" text-anchor="middle">Each square = 1 cm &times; 1 cm</text>
+              </svg>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('a3')">help</button>
+            <div id="a3" class="answer">
+              <strong>Answer: 12 cm</strong><br>
+              Count the unit edges all the way round the shape: 3 + 1 + 2 + 2 + 1 + 3 = 12 grid-line lengths. Each grid line is 1 cm, so the perimeter is 12 cm. (A useful trick: this L-shape fits inside a 3 cm &times; 3 cm bounding box, and its perimeter is the same as that square's perimeter &mdash; 4 &times; 3 = 12 cm &mdash; because the notch doesn't change the total distance travelled round the edge.)
+            </div>
+          </li>
+          <li>
+            The T-shaped tile below is drawn on a 1 cm square grid. By counting the unit squares, find its area.
+            <div class="diagram">
+              <svg viewBox="0 0 160 110" width="160" height="110">
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="30" y1="20" x2="30" y2="80"/>
+                  <line x1="50" y1="20" x2="50" y2="80"/>
+                  <line x1="70" y1="20" x2="70" y2="80"/>
+                  <line x1="90" y1="20" x2="90" y2="80"/>
+                  <line x1="30" y1="20" x2="90" y2="20"/>
+                  <line x1="30" y1="40" x2="90" y2="40"/>
+                  <line x1="30" y1="60" x2="90" y2="60"/>
+                  <line x1="30" y1="80" x2="90" y2="80"/>
+                </g>
+                <polygon points="30,20 90,20 90,40 70,40 70,80 50,80 50,40 30,40" fill="#e6f4ed" stroke="#1a7a4a" stroke-width="2.5"/>
+                <text x="60" y="96" font-size="10" fill="#64748b" text-anchor="middle">Each square = 1 cm &times; 1 cm</text>
+              </svg>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('a4')">help</button>
+            <div id="a4" class="answer">
+              <strong>Answer: 5 cm&sup2;</strong><br>
+              The top row has 3 unit squares, and the stem below the middle square has 2 more unit squares. 3 + 2 = 5 unit squares in total, so the area is 5 cm&sup2;.
+            </div>
+          </li>
+          <li>
+            A vegetable patch is shaped like the letter L. It is made from a 6 m by 5 m rectangle with a 2 m by 2 m square cut out of one corner for a path. What is the area of the vegetable patch?
+            <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
+            <div id="a5" class="answer">
+              <strong>Answer: 26 m&sup2;</strong><br>
+              Whole rectangle: 6 &times; 5 = 30 m&sup2;. Cut-out corner: 2 &times; 2 = 4 m&sup2;. Remaining area: 30 &minus; 4 = 26 m&sup2;.
+              <div class="diagram" style="margin-top:8px;">
+                <svg viewBox="0 0 160 120" width="160" height="120">
+                  <polygon points="25,15 85,15 85,45 115,45 115,90 25,90" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+                  <text x="70" y="102" font-size="10" fill="#1a1a2e" text-anchor="middle" font-weight="700">6 m</text>
+                  <text x="12" y="55" font-size="10" fill="#1a1a2e" text-anchor="middle" font-weight="700" transform="rotate(-90 12 55)">5 m</text>
+                  <text x="100" y="40" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700">2 m</text>
+                  <text x="122" y="65" font-size="9" fill="#b45309" text-anchor="middle" font-weight="700" transform="rotate(-90 122 65)">2 m</text>
+                </svg>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Word Problems: Area, Perimeter &amp; Position</div>
+        <p class="task-intro">Show clear working for each question:</p>
+        <ol class="qlist">
+          <li>
+            A rectangular allotment measures 8 m by 5 m. Amir wants to put a fence post every 1 m all the way around the edge (there is a post at every corner too, and the fence forms a closed loop). How many posts does he need in total?
+            <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
+            <div id="a6" class="answer">
+              <strong>Answer: 26 posts</strong><br>
+              Perimeter = 2 &times; (8 + 5) = 2 &times; 13 = 26 m. Because the fence forms a closed loop, the number of 1 m gaps equals the number of posts &mdash; each post starts one gap, and the last gap returns to the very first post. So Amir needs 26 posts.
+            </div>
+          </li>
+          <li>
+            Look at the grid below. Point A is marked on the grid. What are the coordinates of point A?
+            <div class="diagram">
+              <svg viewBox="0 0 200 200" width="200" height="200">
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="20" y1="30" x2="20" y2="180"/>
+                  <line x1="45" y1="30" x2="45" y2="180"/>
+                  <line x1="70" y1="30" x2="70" y2="180"/>
+                  <line x1="95" y1="30" x2="95" y2="180"/>
+                  <line x1="120" y1="30" x2="120" y2="180"/>
+                  <line x1="145" y1="30" x2="145" y2="180"/>
+                  <line x1="170" y1="30" x2="170" y2="180"/>
+                  <line x1="20" y1="180" x2="170" y2="180"/>
+                  <line x1="20" y1="155" x2="170" y2="155"/>
+                  <line x1="20" y1="130" x2="170" y2="130"/>
+                  <line x1="20" y1="105" x2="170" y2="105"/>
+                  <line x1="20" y1="80" x2="170" y2="80"/>
+                  <line x1="20" y1="55" x2="170" y2="55"/>
+                  <line x1="20" y1="30" x2="170" y2="30"/>
+                </g>
+                <line x1="20" y1="180" x2="170" y2="180" stroke="#1a1a2e" stroke-width="2"/>
+                <line x1="20" y1="180" x2="20" y2="30" stroke="#1a1a2e" stroke-width="2"/>
+                <text x="20" y="192" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                <text x="45" y="192" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                <text x="70" y="192" font-size="8" fill="#64748b" text-anchor="middle">2</text>
+                <text x="95" y="192" font-size="8" fill="#64748b" text-anchor="middle">3</text>
+                <text x="120" y="192" font-size="8" fill="#64748b" text-anchor="middle">4</text>
+                <text x="145" y="192" font-size="8" fill="#64748b" text-anchor="middle">5</text>
+                <text x="170" y="192" font-size="8" fill="#64748b" text-anchor="middle">6</text>
+                <text x="12" y="183" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                <text x="12" y="158" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                <text x="12" y="133" font-size="8" fill="#64748b" text-anchor="middle">2</text>
+                <text x="12" y="108" font-size="8" fill="#64748b" text-anchor="middle">3</text>
+                <text x="12" y="83" font-size="8" fill="#64748b" text-anchor="middle">4</text>
+                <text x="12" y="58" font-size="8" fill="#64748b" text-anchor="middle">5</text>
+                <text x="12" y="33" font-size="8" fill="#64748b" text-anchor="middle">6</text>
+                <circle cx="145" cy="105" r="4" fill="#1c4c96"/>
+                <text x="152" y="100" font-size="12" fill="#1c4c96" font-weight="700">A</text>
+              </svg>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('a7')">help</button>
+            <div id="a7" class="answer">
+              <strong>Answer: (5, 3)</strong><br>
+              Point A is 5 units across (right) and 3 units up from the origin (0,0). Remember the rule: along the corridor first, then up the stairs &mdash; so the coordinates are (5, 3).
+            </div>
+          </li>
+          <li>
+            A rectangular lawn measures 12 m by 7 m. A gravel path 1 m wide runs all the way around the outside of the lawn. What is the area of the gravel path alone (not including the lawn)?
+            <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
+            <div id="a8" class="answer">
+              <strong>Answer: 42 m&sup2;</strong><br>
+              Adding a 1 m path all round makes the outer rectangle (12+2) by (7+2) = 14 m by 9 m, giving an outer area of 14 &times; 9 = 126 m&sup2;. The lawn itself is 12 &times; 7 = 84 m&sup2;. Path area = 126 &minus; 84 = 42 m&sup2;.
+            </div>
+          </li>
+          <li>
+            A rectangle is drawn on a coordinate grid. Three of its corners are at (1,1), (1,4) and (5,4). What are the coordinates of the fourth corner?
+            <div class="diagram">
+              <svg viewBox="0 0 200 200" width="200" height="200">
+                <g stroke="#e2e8f0" stroke-width="1">
+                  <line x1="20" y1="30" x2="20" y2="180"/>
+                  <line x1="45" y1="30" x2="45" y2="180"/>
+                  <line x1="70" y1="30" x2="70" y2="180"/>
+                  <line x1="95" y1="30" x2="95" y2="180"/>
+                  <line x1="120" y1="30" x2="120" y2="180"/>
+                  <line x1="145" y1="30" x2="145" y2="180"/>
+                  <line x1="170" y1="30" x2="170" y2="180"/>
+                  <line x1="20" y1="180" x2="170" y2="180"/>
+                  <line x1="20" y1="155" x2="170" y2="155"/>
+                  <line x1="20" y1="130" x2="170" y2="130"/>
+                  <line x1="20" y1="105" x2="170" y2="105"/>
+                  <line x1="20" y1="80" x2="170" y2="80"/>
+                  <line x1="20" y1="55" x2="170" y2="55"/>
+                  <line x1="20" y1="30" x2="170" y2="30"/>
+                </g>
+                <line x1="20" y1="180" x2="170" y2="180" stroke="#1a1a2e" stroke-width="2"/>
+                <line x1="20" y1="180" x2="20" y2="30" stroke="#1a1a2e" stroke-width="2"/>
+                <text x="20" y="192" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                <text x="45" y="192" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                <text x="70" y="192" font-size="8" fill="#64748b" text-anchor="middle">2</text>
+                <text x="95" y="192" font-size="8" fill="#64748b" text-anchor="middle">3</text>
+                <text x="120" y="192" font-size="8" fill="#64748b" text-anchor="middle">4</text>
+                <text x="145" y="192" font-size="8" fill="#64748b" text-anchor="middle">5</text>
+                <text x="170" y="192" font-size="8" fill="#64748b" text-anchor="middle">6</text>
+                <text x="12" y="183" font-size="8" fill="#64748b" text-anchor="middle">0</text>
+                <text x="12" y="158" font-size="8" fill="#64748b" text-anchor="middle">1</text>
+                <text x="12" y="133" font-size="8" fill="#64748b" text-anchor="middle">2</text>
+                <text x="12" y="108" font-size="8" fill="#64748b" text-anchor="middle">3</text>
+                <text x="12" y="83" font-size="8" fill="#64748b" text-anchor="middle">4</text>
+                <text x="12" y="58" font-size="8" fill="#64748b" text-anchor="middle">5</text>
+                <text x="12" y="33" font-size="8" fill="#64748b" text-anchor="middle">6</text>
+                <line x1="45" y1="155" x2="45" y2="80" stroke="#1c4c96" stroke-width="2.5"/>
+                <line x1="45" y1="80" x2="145" y2="80" stroke="#1c4c96" stroke-width="2.5"/>
+                <line x1="45" y1="155" x2="145" y2="155" stroke="#b45309" stroke-width="2" stroke-dasharray="4 3"/>
+                <line x1="145" y1="80" x2="145" y2="155" stroke="#b45309" stroke-width="2" stroke-dasharray="4 3"/>
+                <circle cx="45" cy="155" r="4" fill="#1c4c96"/>
+                <circle cx="45" cy="80" r="4" fill="#1c4c96"/>
+                <circle cx="145" cy="80" r="4" fill="#1c4c96"/>
+                <text x="28" y="170" font-size="10" fill="#1c4c96" font-weight="700">(1,1)</text>
+                <text x="20" y="72" font-size="10" fill="#1c4c96" font-weight="700">(1,4)</text>
+                <text x="128" y="72" font-size="10" fill="#1c4c96" font-weight="700">(5,4)</text>
+                <text x="150" y="170" font-size="12" fill="#b45309" font-weight="700">?</text>
+              </svg>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('a9')">help</button>
+            <div id="a9" class="answer">
+              <strong>Answer: (5, 1)</strong><br>
+              In a rectangle, corners that are joined by a horizontal or vertical side share a coordinate. The missing corner must share its x-coordinate with (5,4) &mdash; so x = 5 &mdash; and share its y-coordinate with (1,1) &mdash; so y = 1. That gives (5, 1).
+            </div>
+          </li>
+          <li>
+            A square field has a perimeter of 48 m. A gardener plants a flower border 2 m wide all the way around the inside edge of the field, next to the fence. What is the area of the ground left in the middle, inside the border?
+            <button class="help-btn" onclick="toggleAnswer('a10')">help</button>
+            <div id="a10" class="answer">
+              <strong>Answer: 64 m&sup2;</strong><br>
+              Perimeter = 4 &times; side, so side = 48 &divide; 4 = 12 m. The 2 m border runs around the inside on both ends of each side, reducing the length and width by 2 &times; 2 = 4 m: 12 &minus; 4 = 8 m. Area in the middle = 8 &times; 8 = 64 m&sup2;.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">~20–25 minutes</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Prepositions, Modal Verbs &amp; Expanded Noun Phrases</div>
+        <ol class="qlist">
+          <li>
+            Choose the correct preposition to complete the sentence:<br>
+            <em>&ldquo;The cat hid ___ the sofa when the vacuum cleaner started.&rdquo;</em><br>
+            A)&nbsp;between &nbsp;&nbsp; B)&nbsp;under &nbsp;&nbsp; C)&nbsp;among
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer">
+              <strong>Answer: B) under</strong><br>
+              &ldquo;Under&rdquo; correctly shows the cat's position beneath the sofa. &ldquo;Between&rdquo; needs two objects, and &ldquo;among&rdquo; needs three or more &mdash; neither fits a single sofa.
+            </div>
+          </li>
+          <li>
+            Choose the modal verb that best completes the sentence to show strong obligation:<br>
+            <em>&ldquo;You ___ wear a seatbelt in a moving car &mdash; it's the law.&rdquo;</em><br>
+            A)&nbsp;might &nbsp;&nbsp; B)&nbsp;must &nbsp;&nbsp; C)&nbsp;could
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer">
+              <strong>Answer: B) must</strong><br>
+              Modal verbs show degrees of possibility, ability or obligation. &ldquo;Must&rdquo; expresses a strong obligation or requirement, which fits a legal rule. &ldquo;Might&rdquo; and &ldquo;could&rdquo; only show possibility, not a requirement.
+            </div>
+          </li>
+          <li>
+            Underline the expanded noun phrase in this sentence:<br>
+            <em>&ldquo;The exhausted, mud-spattered explorer trudged wearily into camp.&rdquo;</em>
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer">
+              <strong>Answer: &ldquo;The exhausted, mud-spattered explorer&rdquo;</strong><br>
+              An expanded noun phrase adds extra detail to a noun using two or more describing words before it. Here, &ldquo;exhausted&rdquo; and &ldquo;mud-spattered&rdquo; both describe &ldquo;explorer&rdquo;, painting a much clearer picture than &ldquo;the explorer&rdquo; alone.
+            </div>
+          </li>
+          <li>
+            Choose the correct spelling to complete the sentence:<br>
+            <em>&ldquo;The head teacher made an important ___ about the school trip.&rdquo;</em><br>
+            A)&nbsp;desicion &nbsp;&nbsp; B)&nbsp;decision &nbsp;&nbsp; C)&nbsp;decission
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer">
+              <strong>Answer: B) decision</strong><br>
+              Many words ending in the &ldquo;shun&rdquo; sound are spelled <strong>-sion</strong> when the root word ends in <strong>-d</strong> or <strong>-se</strong> (decide &rarr; deci<strong>sion</strong>), while others are spelled <strong>-tion</strong> (invite &rarr; invita<strong>tion</strong>). Watch out for double letters that don't belong &mdash; there is only one &ldquo;s&rdquo; before &ldquo;ion&rdquo; in decision.
+            </div>
+          </li>
+          <li>
+            Choose the correct preposition to complete the sentence:<br>
+            <em>&ldquo;The treasure chest was hidden ___ the old oak tree and the garden wall.&rdquo;</em><br>
+            A)&nbsp;among &nbsp;&nbsp; B)&nbsp;between &nbsp;&nbsp; C)&nbsp;through
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer">
+              <strong>Answer: B) between</strong><br>
+              &ldquo;Between&rdquo; is used for a position relating to exactly two things (the tree and the wall). &ldquo;Among&rdquo; is used for three or more things, and &ldquo;through&rdquo; suggests movement rather than position.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Comprehension: Persuasive Speech</div>
+        <p class="task-intro">Read this speech transcript carefully, then answer the questions:</p>
+        <div class="passage">
+          Good morning, School Council. Today I want to talk about something that affects every single pupil in this school: our lunch break.<br><br>
+          Twenty minutes. That is all we currently have to eat our food, queue for the hall, and catch our breath before another afternoon of learning. Twenty minutes is not enough &mdash; not nearly enough!<br><br>
+          Think about it. Would you want to rush through your dinner at home in twenty minutes flat? Of course you wouldn't. So why should we be expected to do it every single day at school?<br><br>
+          A longer lunch break would mean happier pupils, healthier eating habits, and calmer afternoon lessons. We could finally eat properly, chat with our friends, and return to class ready to learn &mdash; not still hungry and stressed.<br><br>
+          I am asking you, please, to extend our lunch break by just ten more minutes. Ten minutes that could change our whole school day for the better.
+        </div>
+        <ol class="qlist">
+          <li>
+            What is the speaker's main purpose in this speech?
+            <button class="help-btn" onclick="toggleAnswer('e6')">help</button>
+            <div id="e6" class="answer">
+              <strong>Answer:</strong> To persuade the School Council to extend the school lunch break by ten minutes.
+            </div>
+          </li>
+          <li>
+            Find an example of a rhetorical question in the speech. What effect does it have on the listener?
+            <button class="help-btn" onclick="toggleAnswer('e7')">help</button>
+            <div id="e7" class="answer">
+              <strong>Example:</strong> &ldquo;Would you want to rush through your dinner at home in twenty minutes flat?&rdquo;<br>
+              A rhetorical question doesn't expect a spoken answer &mdash; it makes the listener imagine the situation for themselves, so they reach the speaker's conclusion in their own mind and feel more persuaded.
+            </div>
+          </li>
+          <li>
+            The speaker repeats the phrase &ldquo;twenty minutes&rdquo; near the start of the speech. Why might the speaker have used repetition here?
+            <button class="help-btn" onclick="toggleAnswer('e8')">help</button>
+            <div id="e8" class="answer">
+              <strong>Answer:</strong> Repeating &ldquo;twenty minutes&rdquo; emphasises just how short the break feels, drills the key fact into the listener's memory, and makes the argument that it &ldquo;is not enough&rdquo; feel more forceful and convincing.
+            </div>
+          </li>
+          <li>
+            Pick out two examples of emotive language from the speech. What feelings do they create in the listener?
+            <button class="help-btn" onclick="toggleAnswer('e9')">help</button>
+            <div id="e9" class="answer">
+              <strong>Example answer:</strong> &ldquo;hungry and stressed&rdquo; and &ldquo;happier pupils&rdquo; are emotive phrases. They create sympathy and concern about how pupils currently feel, while also making the audience picture a positive outcome if the change is made &mdash; both push the listener towards agreeing.
+            </div>
+          </li>
+          <li>
+            Do you think this speech would convince the School Council to change the lunch break? Give your own opinion and a reason.
+            <button class="help-btn" onclick="toggleAnswer('e10')">help</button>
+            <div id="e10" class="answer">
+              <strong>Example answer:</strong> Yes, I think it would be quite convincing, because the speaker uses a clear, reasonable request (just ten more minutes) backed up with relatable examples and emotive language, which makes it easy for the audience to imagine agreeing.
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Prompt:</strong> Write your own short persuasive speech to your School Council about a change you would like to see at school. You can choose your own topic &mdash; for example, more sports equipment, a new school garden, longer library time, or an idea of your own.<br><br>
+          Write 8&ndash;10 sentences. Try to use:
+          <ul class="writing-checklist">
+            <li>A rhetorical question</li>
+            <li>An example of repetition</li>
+            <li>Emotive language</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('e11')" style="margin-top:4px;">show example answer</button>
+        <div id="e11" class="answer">
+          <strong>Example answer:</strong><br>
+          <em>Good afternoon, School Council &mdash; every single day, dozens of plastic bottles are thrown away in our school bins. Just think about that for a moment: dozens of bottles, every single day. Wouldn't it be wonderful if we could stop all that waste for good? I believe the answer is simple: a water refill station in the main hall. A refill station would mean fresh, free water for everyone, all day long. It would save money, protect our planet, and stop that horrible pile of plastic building up in our bins. No more thirsty pupils. No more wasted plastic. No more excuses. I am asking you today to say yes to a refill station, and yes to a cleaner, greener school for all of us.</em><br><br>
+          <strong>Check your own writing for:</strong> a rhetorical question that makes the reader imagine the answer, a repeated word or phrase that drives your point home, and emotive language that makes the listener feel something about your idea.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="../index.html" class="nav-btn secondary">&#8592; All Days</a>
+    <a href="day-09.html" class="nav-btn disabled">Day 9 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 8 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>

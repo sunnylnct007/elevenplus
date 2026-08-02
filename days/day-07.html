@@ -181,6 +181,18 @@
       margin-bottom: 16px;
       line-height: 1.8;
     }
+    /* ── Diagram ── */
+    .diagram {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .diagram svg { max-width: 100%; height: auto; }
+    .diagram text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
     /* ── Writing prompt ── */
     .writing-prompt {
       background: var(--blue-light);
@@ -279,6 +291,16 @@
         <ol class="qlist">
           <li>
             Find the missing number: 7 + ? = 15
+            <div class="diagram">
+              <svg viewBox="0 0 200 90" width="200" height="90">
+                <rect x="20" y="15" width="160" height="25" fill="#e8eef8" stroke="#1c4c96" stroke-width="1.5"/>
+                <text x="100" y="32" font-size="12" text-anchor="middle" font-weight="700">15</text>
+                <rect x="20" y="50" width="75" height="25" fill="#1c4c96"/>
+                <text x="57" y="67" font-size="12" text-anchor="middle" fill="#fff" font-weight="700">7</text>
+                <rect x="95" y="50" width="85" height="25" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+                <text x="137" y="67" font-size="12" text-anchor="middle" fill="#b45309" font-weight="700">?</text>
+              </svg>
+            </div>
             <button class="help-btn" onclick="toggleAnswer('a1')">help</button>
             <div id="a1" class="answer">
               <strong>Answer: 8</strong><br>
@@ -287,6 +309,25 @@
           </li>
           <li>
             Find the next number in the sequence: 3, 6, 9, 12, ?
+            <div class="diagram">
+              <svg viewBox="0 0 280 90" width="280" height="90">
+                <line x1="20" y1="55" x2="260" y2="55" stroke="#64748b" stroke-width="2"/>
+                <circle cx="30" cy="55" r="4" fill="#1c4c96"/>
+                <circle cx="85" cy="55" r="4" fill="#1c4c96"/>
+                <circle cx="140" cy="55" r="4" fill="#1c4c96"/>
+                <circle cx="195" cy="55" r="4" fill="#1c4c96"/>
+                <circle cx="250" cy="55" r="4" fill="#b45309"/>
+                <text x="30" y="75" font-size="11" text-anchor="middle" font-weight="700">3</text>
+                <text x="85" y="75" font-size="11" text-anchor="middle" font-weight="700">6</text>
+                <text x="140" y="75" font-size="11" text-anchor="middle" font-weight="700">9</text>
+                <text x="195" y="75" font-size="11" text-anchor="middle" font-weight="700">12</text>
+                <text x="250" y="75" font-size="11" text-anchor="middle" fill="#b45309" font-weight="700">?</text>
+                <text x="57" y="40" font-size="9" text-anchor="middle" fill="#1a7a4a">+3</text>
+                <text x="112" y="40" font-size="9" text-anchor="middle" fill="#1a7a4a">+3</text>
+                <text x="167" y="40" font-size="9" text-anchor="middle" fill="#1a7a4a">+3</text>
+                <text x="222" y="40" font-size="9" text-anchor="middle" fill="#1a7a4a">+3</text>
+              </svg>
+            </div>
             <button class="help-btn" onclick="toggleAnswer('a2')">help</button>
             <div id="a2" class="answer">
               <strong>Answer: 15</strong><br>
@@ -311,6 +352,26 @@
           </li>
           <li>
             A function machine adds 7 to a number, then doubles the result. The output is 26. What was the input?
+            <div class="diagram">
+              <svg viewBox="0 0 300 90" width="300" height="90">
+                <defs>
+                  <marker id="arrow7" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a2e"/>
+                  </marker>
+                </defs>
+                <rect x="10" y="30" width="45" height="35" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+                <text x="32" y="52" font-size="13" text-anchor="middle" fill="#b45309" font-weight="700">?</text>
+                <line x1="55" y1="47" x2="82" y2="47" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#arrow7)"/>
+                <rect x="85" y="30" width="60" height="35" fill="#e8eef8" stroke="#1c4c96" stroke-width="1.5"/>
+                <text x="115" y="52" font-size="13" text-anchor="middle" fill="#1c4c96" font-weight="700">+ 7</text>
+                <line x1="145" y1="47" x2="172" y2="47" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#arrow7)"/>
+                <rect x="175" y="30" width="60" height="35" fill="#e8eef8" stroke="#1c4c96" stroke-width="1.5"/>
+                <text x="205" y="52" font-size="13" text-anchor="middle" fill="#1c4c96" font-weight="700">&times; 2</text>
+                <line x1="235" y1="47" x2="257" y2="47" stroke="#1a1a2e" stroke-width="1.5" marker-end="url(#arrow7)"/>
+                <rect x="260" y="30" width="35" height="35" fill="#e6f4ed" stroke="#1a7a4a" stroke-width="1.5"/>
+                <text x="277" y="52" font-size="13" text-anchor="middle" fill="#1a7a4a" font-weight="700">26</text>
+              </svg>
+            </div>
             <button class="help-btn" onclick="toggleAnswer('a5')">help</button>
             <div id="a5" class="answer">
               <strong>Answer: 6</strong><br>
@@ -325,11 +386,11 @@
         <p class="task-intro">Each question combines two topics from this week. Show clear working:</p>
         <ol class="qlist">
           <li>
-            <strong>Fractions &amp; Money:</strong> Layla has &pound;36. She spends &frac29; of it on a game. How much money does she have left?
+            <strong>Fractions &amp; Money:</strong> Layla has &pound;36. She spends <sup>2</sup>&frasl;<sub>9</sub> of it on a game. How much money does she have left?
             <button class="help-btn" onclick="toggleAnswer('a6')">help</button>
             <div id="a6" class="answer">
               <strong>Answer: &pound;28</strong><br>
-              &frac29; of &pound;36 = 36 &divide; 9 &times; 2 = &pound;8 spent. &pound;36 &minus; &pound;8 = &pound;28 left.
+              <sup>2</sup>&frasl;<sub>9</sub> of &pound;36 = 36 &divide; 9 &times; 2 = &pound;8 spent. &pound;36 &minus; &pound;8 = &pound;28 left.
             </div>
           </li>
           <li>
@@ -342,6 +403,13 @@
           </li>
           <li>
             <strong>Geometry &amp; Measurement:</strong> A rectangular playground is 650&nbsp;cm long and 400&nbsp;cm wide. Find its perimeter in metres.
+            <div class="diagram">
+              <svg viewBox="0 0 200 130" width="200" height="130">
+                <rect x="25" y="25" width="150" height="80" fill="#e8eef8" stroke="#1c4c96" stroke-width="2.5"/>
+                <text x="100" y="18" font-size="12" text-anchor="middle" font-weight="700">650 cm</text>
+                <text x="12" y="70" font-size="12" text-anchor="middle" font-weight="700" transform="rotate(-90 12 70)">400 cm</text>
+              </svg>
+            </div>
             <button class="help-btn" onclick="toggleAnswer('a8')">help</button>
             <div id="a8" class="answer">
               <strong>Answer: 21 m</strong><br>
