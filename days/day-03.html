@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 3 — 11+ Daily Practice</title>
+  <style>
+    :root {
+      --blue: #1c4c96;
+      --blue-light: #e8eef8;
+      --green: #1a7a4a;
+      --green-light: #e6f4ed;
+      --purple: #6d28d9;
+      --purple-light: #f3e8ff;
+      --orange: #c2410c;
+      --orange-light: #ffedd5;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .topbar {
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+    }
+    .topbar a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem; }
+    .topbar a:hover { color: #fff; }
+    .topbar .sep { opacity: 0.4; }
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 28px 24px 32px;
+      text-align: center;
+    }
+    header .day-chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 99px;
+      padding: 3px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; }
+    header p { margin-top: 6px; opacity: 0.8; font-size: 0.95rem; }
+    .timer-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .timer-bar strong { color: var(--blue); }
+    main { max-width: 780px; margin: 0 auto; padding: 28px 16px 64px; }
+    .section-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.math-hdr { background: #eff6ff; border-bottom-color: #bfdbfe; }
+    .section-header.eng-hdr  { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .section-header.vr-hdr   { background: var(--purple-light); border-bottom-color: #ddd6fe; }
+    .section-header.nvr-hdr  { background: var(--orange-light); border-bottom-color: #fed7aa; }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .math-hdr .section-icon { background: var(--blue); }
+    .eng-hdr  .section-icon { background: var(--green); }
+    .vr-hdr   .section-icon { background: var(--purple); }
+    .nvr-hdr  .section-icon { background: var(--orange); }
+    .section-header h2 { font-size: 1.05rem; color: var(--text); }
+    .section-header .time-note { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    .section-body { padding: 20px 20px 24px; }
+    .task { margin-bottom: 28px; }
+    .task:last-child { margin-bottom: 0; }
+    .task-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .task-intro { font-size: 0.92rem; color: var(--muted); margin-bottom: 12px; }
+    ol.qlist { list-style: none; counter-reset: qcount; padding: 0; }
+    ol.qlist > li {
+      counter-increment: qcount;
+      padding: 12px 14px 12px 44px;
+      position: relative;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      font-size: 0.93rem;
+    }
+    ol.qlist > li::before {
+      content: counter(qcount);
+      position: absolute;
+      left: 12px;
+      top: 18px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eng-hdr ~ .section-body ol.qlist > li::before { background: var(--green); }
+    .vr-hdr  ~ .section-body ol.qlist > li::before { background: var(--purple); }
+    .nvr-hdr ~ .section-body ol.qlist > li::before { background: var(--orange); }
+    .help-btn {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 1px 9px;
+      border-radius: 99px;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      vertical-align: middle;
+      transition: background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .help-btn:hover { background: var(--blue); color: #fff; }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #14532d;
+    }
+    .passage {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #44403c;
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    .writing-prompt {
+      background: var(--blue-light);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .writing-checklist { font-size: 0.85rem; color: var(--muted); margin-top: 8px; padding-left: 18px; }
+    .writing-checklist li { margin-bottom: 2px; }
+    .example-box {
+      background: #f8fafc;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+    }
+    .example-box .ex-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .word-pair { text-align: center; font-size: 1.02rem; margin-bottom: 8px; }
+    .word-pair .bracket { font-weight: 700; }
+    .mc-opts { font-size: 0.9rem; }
+    /* Non-verbal reasoning shape system */
+    .nv-row { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+    .nv-box {
+      width: 54px; height: 54px;
+      display: flex; align-items: center; justify-content: center;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 1.6rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .nv-box.qmark {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--muted);
+      background: #f1f5f9;
+      border-style: dashed;
+    }
+    .nv-arrow { font-size: 1.2rem; color: var(--muted); }
+    .nv-sep { font-size: 0.85rem; font-weight: 700; color: var(--muted); }
+    .nv-glyph { display: inline-block; }
+    .nv-glyph.outline { color: #fff; -webkit-text-stroke: 2px #1a1a2e; }
+    .nv-glyph.grey { color: #94a3b8; -webkit-text-stroke: 0; }
+    .nv-opts { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+    .nv-opt { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .nv-opt-label { font-size: 0.72rem; font-weight: 700; color: var(--muted); }
+    .nv-legend { font-size: 0.85rem; text-align: center; color: var(--muted); margin-bottom: 10px; }
+    .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; gap: 12px; }
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: 8px;
+      background: var(--blue); color: #fff; text-decoration: none;
+      font-size: 0.88rem; font-weight: 600; transition: background 0.15s;
+    }
+    .nav-btn:hover { background: #163c78; }
+    .nav-btn.secondary { background: #fff; color: var(--blue); border: 1.5px solid var(--blue); }
+    .nav-btn.secondary:hover { background: var(--blue-light); }
+    .nav-btn.disabled { opacity: 0.35; pointer-events: none; }
+    footer { text-align: center; padding: 20px; font-size: 0.78rem; color: var(--muted); }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.25rem; }
+      .section-body { padding: 14px 14px 18px; }
+      ol.qlist > li { padding-left: 38px; }
+      .nv-box { width: 44px; height: 44px; font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html">&#8592; All Days</a>
+  <span class="sep">|</span>
+  <span>Day 3 of 28</span>
+</div>
+
+<header>
+  <div class="day-chip">Day 3</div>
+  <h1>Sutton Grammar 11+ Daily Practice</h1>
+  <p>Maths, English, Verbal &amp; Non-Verbal Reasoning</p>
+</header>
+
+<div class="timer-bar">
+  <span><strong>Maths</strong> ~15 min</span>
+  <span><strong>English</strong> ~15 min</span>
+  <span><strong>Verbal Reasoning</strong> ~10 min</span>
+  <span><strong>Non-Verbal Reasoning</strong> ~10 min</span>
+</div>
+
+<main>
+
+  <!-- ═══════════ MATHS ═══════════ -->
+  <div class="section-card">
+    <div class="section-header math-hdr">
+      <div class="section-icon">&#x1F9EE;</div>
+      <h2>Maths</h2>
+      <span class="time-note">Multiple-choice, A&ndash;E</span>
+    </div>
+    <div class="section-body">
+      <div class="task">
+        <p class="task-intro">For each question, work out the answer and choose the correct letter.</p>
+        <ol class="qlist">
+          <li>
+            What is the value of the 8 in the number 58,204?
+            <div class="mc-opts">A)&nbsp;8 ones &nbsp;&nbsp; B)&nbsp;8 tens &nbsp;&nbsp; C)&nbsp;8 hundreds &nbsp;&nbsp; D)&nbsp;8 thousands &nbsp;&nbsp; E)&nbsp;8 ten-thousands</div>
+            <button class="help-btn" onclick="toggleAnswer('m1')">help</button>
+            <div id="m1" class="answer">
+              <strong>Answer: D) 8 thousands</strong><br>
+              In 58,204, the digits represent 5 ten-thousands, 8 thousands, 2 hundreds, 0 tens and 4 ones, so the 8 is worth 8000.
+            </div>
+          </li>
+          <li>
+            What is 3,902 rounded to the nearest hundred?
+            <div class="mc-opts">A)&nbsp;3900 &nbsp;&nbsp; B)&nbsp;3800 &nbsp;&nbsp; C)&nbsp;4000 &nbsp;&nbsp; D)&nbsp;3950 &nbsp;&nbsp; E)&nbsp;3000</div>
+            <button class="help-btn" onclick="toggleAnswer('m2')">help</button>
+            <div id="m2" class="answer">
+              <strong>Answer: A) 3900</strong><br>
+              The tens digit is 0, which is less than 5, so we round down to 3900.
+            </div>
+          </li>
+          <li>
+            What is the missing number in this sequence? 100, 91, 82, 73, ?
+            <div class="mc-opts">A)&nbsp;60 &nbsp;&nbsp; B)&nbsp;62 &nbsp;&nbsp; C)&nbsp;63 &nbsp;&nbsp; D)&nbsp;64 &nbsp;&nbsp; E)&nbsp;65</div>
+            <button class="help-btn" onclick="toggleAnswer('m3')">help</button>
+            <div id="m3" class="answer">
+              <strong>Answer: D) 64</strong><br>
+              Each term decreases by 9: 100, 91, 82, 73, 64.
+            </div>
+          </li>
+          <li>
+            Find &frac27; of 63.
+            <div class="mc-opts">A)&nbsp;9 &nbsp;&nbsp; B)&nbsp;14 &nbsp;&nbsp; C)&nbsp;16 &nbsp;&nbsp; D)&nbsp;18 &nbsp;&nbsp; E)&nbsp;21</div>
+            <button class="help-btn" onclick="toggleAnswer('m4')">help</button>
+            <div id="m4" class="answer">
+              <strong>Answer: D) 18</strong><br>
+              &frac17; of 63 = 9, so &frac27; = 2 &times; 9 = 18.
+            </div>
+          </li>
+          <li>
+            A toy costs &pound;12.75. Ben pays with a &pound;20 note. How much change does he get?
+            <div class="mc-opts">A)&nbsp;&pound;6.25 &nbsp;&nbsp; B)&nbsp;&pound;7.15 &nbsp;&nbsp; C)&nbsp;&pound;7.25 &nbsp;&nbsp; D)&nbsp;&pound;7.75 &nbsp;&nbsp; E)&nbsp;&pound;8.25</div>
+            <button class="help-btn" onclick="toggleAnswer('m5')">help</button>
+            <div id="m5" class="answer">
+              <strong>Answer: C) &pound;7.25</strong><br>
+              &pound;20.00 &minus; &pound;12.75 = &pound;7.25.
+            </div>
+          </li>
+          <li>
+            A bus leaves at 14:05 and the journey takes 48 minutes. What time does it arrive?
+            <div class="mc-opts">A)&nbsp;14:43 &nbsp;&nbsp; B)&nbsp;14:48 &nbsp;&nbsp; C)&nbsp;14:53 &nbsp;&nbsp; D)&nbsp;15:03 &nbsp;&nbsp; E)&nbsp;15:13</div>
+            <button class="help-btn" onclick="toggleAnswer('m6')">help</button>
+            <div id="m6" class="answer">
+              <strong>Answer: C) 14:53</strong><br>
+              14:05 + 48 minutes = 14:53.
+            </div>
+          </li>
+          <li>
+            What is 25% of 96?
+            <div class="mc-opts">A)&nbsp;18 &nbsp;&nbsp; B)&nbsp;20 &nbsp;&nbsp; C)&nbsp;22 &nbsp;&nbsp; D)&nbsp;24 &nbsp;&nbsp; E)&nbsp;26</div>
+            <button class="help-btn" onclick="toggleAnswer('m7')">help</button>
+            <div id="m7" class="answer">
+              <strong>Answer: D) 24</strong><br>
+              25% is a quarter. 96 &divide; 4 = 24.
+            </div>
+          </li>
+          <li>
+            Which of these shapes has exactly 5 sides?
+            <div class="mc-opts">A)&nbsp;hexagon &nbsp;&nbsp; B)&nbsp;pentagon &nbsp;&nbsp; C)&nbsp;square &nbsp;&nbsp; D)&nbsp;triangle &nbsp;&nbsp; E)&nbsp;octagon</div>
+            <button class="help-btn" onclick="toggleAnswer('m8')">help</button>
+            <div id="m8" class="answer">
+              <strong>Answer: B) pentagon</strong><br>
+              "Penta" means five, so a pentagon has 5 sides.
+            </div>
+          </li>
+          <li>
+            This table shows the number of pages Amy read each day:
+            <table style="border-collapse:collapse;margin:10px 0;font-size:0.85rem;">
+              <tr><td style="border:1px solid #cbd5e1;padding:4px 10px;">Monday</td><td style="border:1px solid #cbd5e1;padding:4px 10px;">24</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;padding:4px 10px;">Tuesday</td><td style="border:1px solid #cbd5e1;padding:4px 10px;">31</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;padding:4px 10px;">Wednesday</td><td style="border:1px solid #cbd5e1;padding:4px 10px;">18</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;padding:4px 10px;">Thursday</td><td style="border:1px solid #cbd5e1;padding:4px 10px;">27</td></tr>
+            </table>
+            How many pages did she read in total over the four days?
+            <div class="mc-opts">A)&nbsp;90 &nbsp;&nbsp; B)&nbsp;95 &nbsp;&nbsp; C)&nbsp;100 &nbsp;&nbsp; D)&nbsp;105 &nbsp;&nbsp; E)&nbsp;110</div>
+            <button class="help-btn" onclick="toggleAnswer('m9')">help</button>
+            <div id="m9" class="answer">
+              <strong>Answer: C) 100</strong><br>
+              24 + 31 + 18 + 27 = 100.
+            </div>
+          </li>
+          <li>
+            3c &minus; 5 = 16. What is the value of c?
+            <div class="mc-opts">A)&nbsp;5 &nbsp;&nbsp; B)&nbsp;6 &nbsp;&nbsp; C)&nbsp;7 &nbsp;&nbsp; D)&nbsp;8 &nbsp;&nbsp; E)&nbsp;9</div>
+            <button class="help-btn" onclick="toggleAnswer('m10')">help</button>
+            <div id="m10" class="answer">
+              <strong>Answer: C) 7</strong><br>
+              3c = 16 + 5 = 21, so c = 21 &divide; 3 = 7.
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ ENGLISH ═══════════ -->
+  <div class="section-card">
+    <div class="section-header eng-hdr">
+      <div class="section-icon">&#x1F4DA;</div>
+      <h2>English</h2>
+      <span class="time-note">Comprehension &amp; SPaG</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Comprehension</div>
+        <p class="task-intro">Read this passage carefully, then answer the questions:</p>
+        <div class="passage">
+          Ellie had always been curious about the attic, but her parents kept the door locked, insisting
+          it was far too dusty and dangerous to explore. One rainy Saturday afternoon, however, she found
+          the key hidden inside an old teapot on the mantelpiece.<br><br>
+          Heart pounding, she crept up the narrow stairs, the wooden steps creaking beneath her feet.
+          Sunlight filtered through a small round window, illuminating stacks of forgotten boxes and
+          furniture draped in white sheets. Ellie pulled back one of the sheets and gasped: underneath sat
+          an antique wooden trunk, its brass hinges tarnished with age.<br><br>
+          She knelt down and carefully lifted the heavy lid. Inside lay a collection of old photographs, a
+          faded map, and a leather-bound journal with yellowed pages. As she flicked through the journal,
+          she realised the handwriting matched her grandmother's. Each entry described a different country
+          her grandmother had visited as a young woman &mdash; places Ellie had never heard mentioned at
+          family dinners.<br><br>
+          Near the back of the journal, a folded letter slipped out and landed by her knee. Ellie unfolded
+          it slowly, her fingers trembling with excitement, and began to read the elegant, looping
+          handwriting inside.
+        </div>
+        <ol class="qlist">
+          <li>
+            Where did Ellie find the key to the attic?
+            <div class="mc-opts">A)&nbsp;Under her pillow &nbsp;&nbsp; B)&nbsp;Inside an old teapot &nbsp;&nbsp; C)&nbsp;In her mother's pocket &nbsp;&nbsp; D)&nbsp;Behind a picture frame &nbsp;&nbsp; E)&nbsp;In the garden shed</div>
+            <button class="help-btn" onclick="toggleAnswer('e1')">help</button>
+            <div id="e1" class="answer"><strong>Answer: B</strong><br>"&hellip;she found the key hidden inside an old teapot on the mantelpiece."</div>
+          </li>
+          <li>
+            Why were Ellie's parents reluctant to let her into the attic?
+            <div class="mc-opts">A)&nbsp;They said it was haunted &nbsp;&nbsp; B)&nbsp;They said it was dusty and dangerous &nbsp;&nbsp; C)&nbsp;It was being redecorated &nbsp;&nbsp; D)&nbsp;It belonged to a neighbour &nbsp;&nbsp; E)&nbsp;It had no light</div>
+            <button class="help-btn" onclick="toggleAnswer('e2')">help</button>
+            <div id="e2" class="answer"><strong>Answer: B</strong><br>"&hellip;her parents kept the door locked, insisting it was far too dusty and dangerous to explore."</div>
+          </li>
+          <li>
+            What object did Ellie find under the white sheet?
+            <div class="mc-opts">A)&nbsp;A wardrobe &nbsp;&nbsp; B)&nbsp;A wooden trunk &nbsp;&nbsp; C)&nbsp;A rocking chair &nbsp;&nbsp; D)&nbsp;A bookshelf &nbsp;&nbsp; E)&nbsp;A mirror</div>
+            <button class="help-btn" onclick="toggleAnswer('e3')">help</button>
+            <div id="e3" class="answer"><strong>Answer: B</strong><br>"&hellip;underneath sat an antique wooden trunk, its brass hinges tarnished with age."</div>
+          </li>
+          <li>
+            How did Ellie know the journal belonged to her grandmother?
+            <div class="mc-opts">A)&nbsp;Her name was on the cover &nbsp;&nbsp; B)&nbsp;Her mother told her earlier &nbsp;&nbsp; C)&nbsp;The handwriting matched her grandmother's &nbsp;&nbsp; D)&nbsp;There was a photograph of her &nbsp;&nbsp; E)&nbsp;The journal was dated recently</div>
+            <button class="help-btn" onclick="toggleAnswer('e4')">help</button>
+            <div id="e4" class="answer"><strong>Answer: C</strong><br>"&hellip;she realised the handwriting matched her grandmother's."</div>
+          </li>
+          <li>
+            The word "trembling" suggests Ellie's fingers were&hellip;
+            <div class="mc-opts">A)&nbsp;steady &nbsp;&nbsp; B)&nbsp;cold &nbsp;&nbsp; C)&nbsp;shaking &nbsp;&nbsp; D)&nbsp;sticky &nbsp;&nbsp; E)&nbsp;strong</div>
+            <button class="help-btn" onclick="toggleAnswer('e5')">help</button>
+            <div id="e5" class="answer"><strong>Answer: C</strong><br>"Trembling" means shaking slightly, often from excitement or nerves.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Spelling</div>
+        <p class="task-intro">Each sentence below is split into groups A&ndash;D. Find the group containing a spelling mistake, or choose N if there is no mistake.</p>
+        <ol class="qlist">
+          <li>
+            <u>The exhausted athlete</u><sup>A</sup> <u>recieved a medal</u><sup>B</sup> <u>for her</u><sup>C</sup> <u>achievement.</u><sup>D</sup>
+            <div class="mc-opts">A &nbsp;&nbsp; B &nbsp;&nbsp; C &nbsp;&nbsp; D &nbsp;&nbsp; N (no mistake)</div>
+            <button class="help-btn" onclick="toggleAnswer('sp1')">help</button>
+            <div id="sp1" class="answer"><strong>Answer: B</strong><br>"recieved" should be "received" &mdash; i before e except after c.</div>
+          </li>
+          <li>
+            <u>Seperate instructions</u><sup>A</sup> <u>were given to</u><sup>B</sup> <u>each of</u><sup>C</sup> <u>the teams.</u><sup>D</sup>
+            <div class="mc-opts">A &nbsp;&nbsp; B &nbsp;&nbsp; C &nbsp;&nbsp; D &nbsp;&nbsp; N (no mistake)</div>
+            <button class="help-btn" onclick="toggleAnswer('sp2')">help</button>
+            <div id="sp2" class="answer"><strong>Answer: A</strong><br>"Seperate" should be "Separate".</div>
+          </li>
+          <li>
+            <u>The librarian carefully</u><sup>A</sup> <u>arranged the</u><sup>B</sup> <u>books</u><sup>C</sup> <u>alphabetically.</u><sup>D</sup>
+            <div class="mc-opts">A &nbsp;&nbsp; B &nbsp;&nbsp; C &nbsp;&nbsp; D &nbsp;&nbsp; N (no mistake)</div>
+            <button class="help-btn" onclick="toggleAnswer('sp3')">help</button>
+            <div id="sp3" class="answer"><strong>Answer: N</strong><br>Every word in this sentence is spelled correctly.</div>
+          </li>
+          <li>
+            <u>He was greatful</u><sup>A</sup> <u>for the</u><sup>B</sup> <u>unexpected surprise</u><sup>C</sup> <u>party.</u><sup>D</sup>
+            <div class="mc-opts">A &nbsp;&nbsp; B &nbsp;&nbsp; C &nbsp;&nbsp; D &nbsp;&nbsp; N (no mistake)</div>
+            <button class="help-btn" onclick="toggleAnswer('sp4')">help</button>
+            <div id="sp4" class="answer"><strong>Answer: A</strong><br>"greatful" should be "grateful".</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Punctuation &amp; Vocabulary</div>
+        <ol class="qlist">
+          <li>
+            <u>Its raining heavily</u><sup>A</sup> <u>outside so we</u><sup>B</sup> <u>cannot go to</u><sup>C</sup> <u>the park.</u><sup>D</sup>
+            <div class="mc-opts">A &nbsp;&nbsp; B &nbsp;&nbsp; C &nbsp;&nbsp; D &nbsp;&nbsp; N (no mistake)</div>
+            <button class="help-btn" onclick="toggleAnswer('pu1')">help</button>
+            <div id="pu1" class="answer"><strong>Answer: A</strong><br>It should be "It's raining" &mdash; an apostrophe is needed for the contraction of "it is".</div>
+          </li>
+          <li>
+            <u>Although it was</u><sup>A</sup> <u>late, the children</u><sup>B</sup> <u>kept playing</u><sup>C</sup> <u>outside.</u><sup>D</sup>
+            <div class="mc-opts">A &nbsp;&nbsp; B &nbsp;&nbsp; C &nbsp;&nbsp; D &nbsp;&nbsp; N (no mistake)</div>
+            <button class="help-btn" onclick="toggleAnswer('pu2')">help</button>
+            <div id="pu2" class="answer"><strong>Answer: N</strong><br>The comma correctly separates the introductory clause from the main clause. No mistake.</div>
+          </li>
+          <li>
+            Choose a synonym for <strong>ancient</strong>:
+            <div class="mc-opts">A)&nbsp;modern &nbsp;&nbsp; B)&nbsp;old &nbsp;&nbsp; C)&nbsp;shiny &nbsp;&nbsp; D)&nbsp;heavy &nbsp;&nbsp; E)&nbsp;small</div>
+            <button class="help-btn" onclick="toggleAnswer('vo1')">help</button>
+            <div id="vo1" class="answer"><strong>Answer: B</strong><br>"Old" means much the same as "ancient".</div>
+          </li>
+          <li>
+            Choose an antonym for <strong>reluctant</strong>:
+            <div class="mc-opts">A)&nbsp;willing &nbsp;&nbsp; B)&nbsp;nervous &nbsp;&nbsp; C)&nbsp;tired &nbsp;&nbsp; D)&nbsp;curious &nbsp;&nbsp; E)&nbsp;careful</div>
+            <button class="help-btn" onclick="toggleAnswer('vo2')">help</button>
+            <div id="vo2" class="answer"><strong>Answer: A</strong><br>"Willing" is the opposite of "reluctant".</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 4 &mdash; Writing Task</div>
+        <div class="writing-prompt">
+          <strong>Prompt:</strong> Imagine you are Ellie. Write the opening of the letter you find in the
+          journal, written by your grandmother describing one of her adventures abroad.<br><br>
+          Write 8&ndash;10 sentences. Try to use:
+          <ul class="writing-checklist">
+            <li>First person ("I") and past tense</li>
+            <li>At least three descriptive adjectives</li>
+            <li>One rhetorical question or exclamation</li>
+          </ul>
+        </div>
+        <button class="help-btn" onclick="toggleAnswer('wr1')" style="margin-top:4px;">show example answer</button>
+        <div id="wr1" class="answer">
+          <strong>Example answer:</strong><br>
+          <em>My dearest Eleanor, I wonder if you will ever read these pages and picture me as a young
+          woman, standing on the deck of a creaking ship bound for distant shores! The market in Marrakesh
+          was unlike anything I had ever seen &mdash; a dazzling, chaotic tangle of spice stalls, woven rugs
+          and shouting traders. I remember the sharp scent of cinnamon and the golden light falling across
+          the sandstone walls. Could there really be a whole world hidden beyond our quiet village? I was
+          determined to find out.</em><br><br>
+          <strong>Check your own writing for:</strong> consistent first-person past tense, vivid adjectives, and correctly punctuated exclamations or questions.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ VERBAL REASONING ═══════════ -->
+  <div class="section-card">
+    <div class="section-header vr-hdr">
+      <div class="section-icon">&#x1F520;</div>
+      <h2>Verbal Reasoning</h2>
+      <span class="time-note">Word puzzles</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Part 1 &mdash; Same Letter, Two Gaps</div>
+        <p class="task-intro">The same letter completes the word before the brackets and begins the word after the brackets &mdash; and the same rule applies to a second, unrelated pair of words. Find the one letter that works for both pairs.</p>
+        <div class="example-box">
+          <div class="ex-label">Worked example</div>
+          <div class="word-pair">mea[&nbsp;?&nbsp;]able &nbsp;&nbsp;&nbsp;&nbsp; si[&nbsp;?&nbsp;]op</div>
+          <strong>Answer: t</strong> &mdash; "mea" + t = "meat", t + "able" = "table"; "si" + t = "sit", t + "op" = "top". The letter t works for both pairs.
+        </div>
+        <ol class="qlist">
+          <li>
+            <div class="word-pair">spo[&nbsp;?&nbsp;]ool &nbsp;&nbsp;&nbsp;&nbsp; ma[&nbsp;?&nbsp;]op</div>
+            <div class="mc-opts">A)&nbsp;t &nbsp;&nbsp; B)&nbsp;p &nbsp;&nbsp; C)&nbsp;s &nbsp;&nbsp; D)&nbsp;l &nbsp;&nbsp; E)&nbsp;n</div>
+            <button class="help-btn" onclick="toggleAnswer('vr1')">help</button>
+            <div id="vr1" class="answer"><strong>Answer: A) t</strong><br>"spo" + t = "spot", t + "ool" = "tool"; "ma" + t = "mat", t + "op" = "top".</div>
+          </li>
+          <li>
+            <div class="word-pair">bea[&nbsp;?&nbsp;]ear &nbsp;&nbsp;&nbsp;&nbsp; spi[&nbsp;?&nbsp;]ame</div>
+            <div class="mc-opts">A)&nbsp;n &nbsp;&nbsp; B)&nbsp;s &nbsp;&nbsp; C)&nbsp;t &nbsp;&nbsp; D)&nbsp;m &nbsp;&nbsp; E)&nbsp;d</div>
+            <button class="help-btn" onclick="toggleAnswer('vr2')">help</button>
+            <div id="vr2" class="answer"><strong>Answer: A) n</strong><br>"bea" + n = "bean", n + "ear" = "near"; "spi" + n = "spin", n + "ame" = "name".</div>
+          </li>
+          <li>
+            <div class="word-pair">extr[&nbsp;?&nbsp;]nt &nbsp;&nbsp;&nbsp;&nbsp; vis[&nbsp;?&nbsp;]ble</div>
+            <div class="mc-opts">A)&nbsp;a &nbsp;&nbsp; B)&nbsp;e &nbsp;&nbsp; C)&nbsp;i &nbsp;&nbsp; D)&nbsp;o &nbsp;&nbsp; E)&nbsp;u</div>
+            <button class="help-btn" onclick="toggleAnswer('vr3')">help</button>
+            <div id="vr3" class="answer"><strong>Answer: A) a</strong><br>"extr" + a = "extra", a + "nt" = "ant"; "vis" + a = "visa", a + "ble" = "able".</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 2 &mdash; Double Meaning</div>
+        <p class="task-intro">Find the one word that fits both pairs of meanings equally well.</p>
+        <div class="example-box">
+          <div class="ex-label">Worked example</div>
+          <div class="word-pair">(permit allow) &nbsp;&nbsp;&nbsp;&nbsp; (rent hire)</div>
+          <strong>Answer: let</strong> &mdash; "let" can mean "to permit/allow" and also "to rent out (a property)".
+        </div>
+        <ol class="qlist">
+          <li>
+            <div class="word-pair">(steady firm) &nbsp;&nbsp;&nbsp;&nbsp; (horse building)</div>
+            <div class="mc-opts">A)&nbsp;stable &nbsp;&nbsp; B)&nbsp;study &nbsp;&nbsp; C)&nbsp;house &nbsp;&nbsp; D)&nbsp;solid &nbsp;&nbsp; E)&nbsp;shed</div>
+            <button class="help-btn" onclick="toggleAnswer('vr4')">help</button>
+            <div id="vr4" class="answer"><strong>Answer: A) stable</strong><br>"Stable" means steady/firm, and a stable is also a building where horses are kept.</div>
+          </li>
+          <li>
+            <div class="word-pair">(fasten knot) &nbsp;&nbsp;&nbsp;&nbsp; (draw score)</div>
+            <div class="mc-opts">A)&nbsp;knot &nbsp;&nbsp; B)&nbsp;tie &nbsp;&nbsp; C)&nbsp;bind &nbsp;&nbsp; D)&nbsp;link &nbsp;&nbsp; E)&nbsp;score</div>
+            <button class="help-btn" onclick="toggleAnswer('vr5')">help</button>
+            <div id="vr5" class="answer"><strong>Answer: B) tie</strong><br>"Tie" means to fasten with a knot, and it also means a drawn/equal score in a game.</div>
+          </li>
+          <li>
+            <div class="word-pair">(illumination bright) &nbsp;&nbsp;&nbsp;&nbsp; (not heavy)</div>
+            <div class="mc-opts">A)&nbsp;bright &nbsp;&nbsp; B)&nbsp;light &nbsp;&nbsp; C)&nbsp;glow &nbsp;&nbsp; D)&nbsp;sun &nbsp;&nbsp; E)&nbsp;airy</div>
+            <button class="help-btn" onclick="toggleAnswer('vr6')">help</button>
+            <div id="vr6" class="answer"><strong>Answer: B) light</strong><br>"Light" means illumination/brightness, and it also means "not heavy".</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Part 3 &mdash; Move a Letter</div>
+        <p class="task-intro">One letter can be moved from the first word to the second word to make two new words. The remaining letters must not be rearranged.</p>
+        <div class="example-box">
+          <div class="ex-label">Worked example</div>
+          chill &nbsp;&rarr;&nbsp; old<br>
+          <strong>Answer: c</strong> &mdash; "chill" &minus; c = "hill"; "old" + c (at the front) = "cold".
+        </div>
+        <ol class="qlist">
+          <li>
+            crane &nbsp;&rarr;&nbsp; am
+            <div class="mc-opts">A)&nbsp;c &nbsp;&nbsp; B)&nbsp;r &nbsp;&nbsp; C)&nbsp;a &nbsp;&nbsp; D)&nbsp;n &nbsp;&nbsp; E)&nbsp;e</div>
+            <button class="help-btn" onclick="toggleAnswer('vr7')">help</button>
+            <div id="vr7" class="answer"><strong>Answer: B) r</strong><br>"crane" &minus; r = "cane"; "am" + r (at the front) = "ram". Both are real words.</div>
+          </li>
+          <li>
+            plank &nbsp;&rarr;&nbsp; an
+            <div class="mc-opts">A)&nbsp;p &nbsp;&nbsp; B)&nbsp;l &nbsp;&nbsp; C)&nbsp;a &nbsp;&nbsp; D)&nbsp;n &nbsp;&nbsp; E)&nbsp;k</div>
+            <button class="help-btn" onclick="toggleAnswer('vr8')">help</button>
+            <div id="vr8" class="answer"><strong>Answer: A) p</strong><br>"plank" &minus; p = "lank"; "an" + p (at the front) = "pan". Both are real words.</div>
+          </li>
+          <li>
+            charm &nbsp;&rarr;&nbsp; ape
+            <div class="mc-opts">A)&nbsp;c &nbsp;&nbsp; B)&nbsp;h &nbsp;&nbsp; C)&nbsp;a &nbsp;&nbsp; D)&nbsp;r &nbsp;&nbsp; E)&nbsp;m</div>
+            <button class="help-btn" onclick="toggleAnswer('vr9')">help</button>
+            <div id="vr9" class="answer"><strong>Answer: A) c</strong><br>"charm" &minus; c = "harm"; "ape" + c (at the front) = "cape". Both are real words.</div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ NON-VERBAL REASONING ═══════════ -->
+  <div class="section-card">
+    <div class="section-header nvr-hdr">
+      <div class="section-icon">&#x1F9E9;</div>
+      <h2>Non-Verbal Reasoning</h2>
+      <span class="time-note">Shapes &amp; patterns</span>
+    </div>
+    <div class="section-body">
+
+      <div class="task">
+        <div class="task-title">Section 1 &mdash; What Comes Next?</div>
+        <p class="task-intro">Work out the rule connecting the shapes, then choose which option continues the series.</p>
+        <div class="example-box">
+          <div class="ex-label">Worked example &mdash; the triangle rotates 45&deg; clockwise each step</div>
+          <div class="nv-row">
+            <div class="nv-box"><span class="nv-glyph">&#9650;</span></div>
+            <div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(45deg);">&#9650;</span></div>
+            <div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(90deg);">&#9650;</span></div>
+            <div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(135deg);">&#9650;</span></div>
+            <span class="nv-arrow">&rarr;</span>
+            <div class="nv-box qmark">?</div>
+          </div>
+          <strong>Answer:</strong> the triangle rotated 180&deg; &mdash; each step turns it another 45&deg; clockwise.
+        </div>
+        <ol class="qlist">
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#9632;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#9632;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box qmark">?</div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9632;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9679;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9650;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9733;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11039;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n1')">help</button>
+            <div id="n1" class="answer"><strong>Answer: A</strong><br>The circle and square simply alternate: circle, square, circle, square, circle&hellip; so the next shape must be a square.</div>
+          </li>
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph" style="font-size:0.9rem;">&#11042;</span></div>
+              <div class="nv-box"><span class="nv-glyph" style="font-size:1.2rem;">&#11042;</span></div>
+              <div class="nv-box"><span class="nv-glyph" style="font-size:1.5rem;">&#11042;</span></div>
+              <div class="nv-box"><span class="nv-glyph" style="font-size:1.8rem;">&#11042;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box qmark">?</div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:1.5rem;">&#11042;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:2.1rem;">&#11042;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:0.9rem;">&#11042;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:2.1rem;">&#11039;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:1.8rem;">&#11042;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n2')">help</button>
+            <div id="n2" class="answer"><strong>Answer: B</strong><br>The hexagon grows a little larger at each step, so the next one should be larger again than the last.</div>
+          </li>
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph">&#11039;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;&#11039;&#11039;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box qmark">?</div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;&#11039;&#11039;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;&#11039;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n3')">help</button>
+            <div id="n3" class="answer"><strong>Answer: C</strong><br>The number of pentagons increases by two each time: 1, 3, 5, 7, so the next term is 9.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Section 2 &mdash; Shape Analogy</div>
+        <p class="task-intro">Work out how the first shape changes into the second. Apply the same change to the third shape.</p>
+        <div class="example-box">
+          <div class="ex-label">Worked example &mdash; the shape rotates 45&deg;</div>
+          <div class="nv-row">
+            <div class="nv-box"><span class="nv-glyph">&#9632;</span></div>
+            <span class="nv-arrow">&rarr;</span>
+            <div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(45deg);">&#9632;</span></div>
+            <span class="nv-sep">::</span>
+            <div class="nv-box"><span class="nv-glyph">&#9650;</span></div>
+            <span class="nv-arrow">&rarr;</span>
+            <div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(45deg);">&#9650;</span></div>
+          </div>
+          <strong>Answer:</strong> the triangle rotated 45&deg; &mdash; the same rotation applied to the square is applied to the triangle.
+        </div>
+        <ol class="qlist">
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph">&#11039;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box"><span class="nv-glyph outline">&#11039;</span></div>
+              <span class="nv-sep">::</span>
+              <div class="nv-box"><span class="nv-glyph">&#9733;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box qmark">?</div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph outline">&#9733;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9733;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(90deg);">&#9733;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph outline">&#9679;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9733;&#9733;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n4')">help</button>
+            <div id="n4" class="answer"><strong>Answer: A</strong><br>The rule is: the shading changes from solid to outline, with no other change. Applied to the solid star, this gives an outline star.</div>
+          </li>
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph" style="font-size:2rem;">&#9632;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box"><span class="nv-glyph" style="font-size:1.1rem;">&#9632;</span></div>
+              <span class="nv-sep">::</span>
+              <div class="nv-box"><span class="nv-glyph" style="font-size:2rem;">&#11039;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box qmark">?</div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:1.1rem;">&#11039;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:2rem;">&#11039;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:2.4rem;">&#11039;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:1.1rem;">&#9632;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="font-size:1.1rem;">&#9679;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n5')">help</button>
+            <div id="n5" class="answer"><strong>Answer: A</strong><br>The rule is: the shape shrinks to a smaller size. Applied to the large pentagon, this gives a small pentagon.</div>
+          </li>
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box"><span class="nv-glyph grey">&#9679;</span></div>
+              <span class="nv-sep">::</span>
+              <div class="nv-box"><span class="nv-glyph">&#9632;</span></div>
+              <span class="nv-arrow">&rarr;</span>
+              <div class="nv-box qmark">?</div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph grey">&#9632;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9632;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph outline">&#9632;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph grey">&#9679;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9733;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n6')">help</button>
+            <div id="n6" class="answer"><strong>Answer: A</strong><br>The rule is: the shading changes from solid black to grey. Applied to the solid square, this gives a grey square.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Section 3 &mdash; Odd One Out</div>
+        <p class="task-intro">The two shapes on the left are alike in one way. Find the option on the right that shares the same property.</p>
+        <div class="example-box">
+          <div class="ex-label">Worked example &mdash; both shapes are outlines (hollow)</div>
+          <div class="nv-row">
+            <div class="nv-box"><span class="nv-glyph outline">&#9632;</span></div>
+            <div class="nv-box"><span class="nv-glyph outline">&#9733;</span></div>
+          </div>
+          <strong>Answer:</strong> the option that is also an outline shape, regardless of which shape it is.
+        </div>
+        <ol class="qlist">
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph grey">&#9679;</span></div>
+              <div class="nv-box"><span class="nv-glyph grey">&#9632;</span></div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9650;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph outline">&#9733;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph grey">&#11039;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11042;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph outline">&#9679;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n7')">help</button>
+            <div id="n7" class="answer"><strong>Answer: C</strong><br>Both shapes on the left are shaded grey. Only option C, the grey pentagon, shares this grey shading.</div>
+          </li>
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(45deg);">&#9650;</span></div>
+              <div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(45deg);">&#11039;</span></div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9632;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(90deg);">&#9733;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(180deg);">&#9679;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(45deg);">&#11042;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(270deg);">&#9632;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n8')">help</button>
+            <div id="n8" class="answer"><strong>Answer: D</strong><br>Both shapes on the left are rotated 45&deg;. Only option D, the hexagon rotated 45&deg;, shares this rotation.</div>
+          </li>
+          <li>
+            <div class="nv-row">
+              <div class="nv-box"><span class="nv-glyph">&#9733;&#9733;&#9733;</span></div>
+              <div class="nv-box"><span class="nv-glyph">&#9632;&#9632;&#9632;</span></div>
+            </div>
+            <div class="nv-opts">
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9679;&#9679;</span></div><span class="nv-opt-label">A</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11039;&#11039;&#11039;</span></div><span class="nv-opt-label">B</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9650;</span></div><span class="nv-opt-label">C</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#11042;&#11042;&#11042;&#11042;</span></div><span class="nv-opt-label">D</span></div>
+              <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9679;</span></div><span class="nv-opt-label">E</span></div>
+            </div>
+            <button class="help-btn" onclick="toggleAnswer('n9')">help</button>
+            <div id="n9" class="answer"><strong>Answer: B</strong><br>Both figures on the left contain exactly three shapes. Only option B (three pentagons) also has exactly three shapes.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="task">
+        <div class="task-title">Section 4 &mdash; Cracking the Code</div>
+        <p class="task-intro">Each shape has two code letters: one for the shape and one for its shading. Work out the code, then find the code for the test shape. Remember the code is different for each question.</p>
+        <div class="example-box">
+          <div class="ex-label">Worked example</div>
+          <div class="nv-legend">solid star = <strong>WA</strong> &nbsp;&nbsp;&nbsp; outline circle = <strong>XB</strong></div>
+          <div class="nv-row">
+            <span>Test shape:</span>
+            <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+          </div>
+          <strong>Answer: XA</strong> &mdash; X is the code for a circle (from the second shape) and A is the code for solid shading (from the first shape).
+        </div>
+        <ol class="qlist">
+          <li>
+            <div class="nv-legend">solid triangle = <strong>CN</strong> &nbsp;&nbsp;&nbsp; outline square = <strong>DP</strong></div>
+            <div class="nv-row">
+              <span>Test shape:</span>
+              <div class="nv-box"><span class="nv-glyph outline">&#9650;</span></div>
+            </div>
+            <div class="mc-opts">A)&nbsp;CP &nbsp;&nbsp; B)&nbsp;DN &nbsp;&nbsp; C)&nbsp;CN &nbsp;&nbsp; D)&nbsp;DP &nbsp;&nbsp; E)&nbsp;PN</div>
+            <button class="help-btn" onclick="toggleAnswer('n10')">help</button>
+            <div id="n10" class="answer"><strong>Answer: A) CP</strong><br>C is the code for a triangle, and P is the code for outline shading. An outline triangle is therefore CP.</div>
+          </li>
+          <li>
+            <div class="nv-legend">solid hexagon = <strong>EQ</strong> &nbsp;&nbsp;&nbsp; outline pentagon = <strong>FR</strong></div>
+            <div class="nv-row">
+              <span>Test shape:</span>
+              <div class="nv-box"><span class="nv-glyph">&#11039;</span></div>
+            </div>
+            <div class="mc-opts">A)&nbsp;FQ &nbsp;&nbsp; B)&nbsp;EQ &nbsp;&nbsp; C)&nbsp;FR &nbsp;&nbsp; D)&nbsp;ER &nbsp;&nbsp; E)&nbsp;QF</div>
+            <button class="help-btn" onclick="toggleAnswer('n11')">help</button>
+            <div id="n11" class="answer"><strong>Answer: A) FQ</strong><br>F is the code for a pentagon, and Q is the code for solid shading. A solid pentagon is therefore FQ.</div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-row">
+    <a href="day-02.html" class="nav-btn secondary">&#8592; Day 2</a>
+    <a href="#" class="nav-btn disabled">Day 4 &rarr;</a>
+  </div>
+
+</main>
+
+<footer>Sutton Grammar 11+ Prep &nbsp;&middot;&nbsp; Day 3 of 28</footer>
+
+<script>
+  function toggleAnswer(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var btn = el.previousElementSibling;
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'help';
+    } else {
+      el.style.display = 'block';
+      if (btn && btn.classList.contains('help-btn')) btn.textContent = 'hide';
+    }
+  }
+</script>
+</body>
+</html>
