@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spatial &amp; Non-Verbal Reasoning Cheat Sheet — Kent 11+</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    --paper:#faf7f0;
+    --paper-alt:#f3efe4;
+    --ink:#2a2721;
+    --ink-soft:#5c574c;
+    --rule:#ddd6c4;
+    --card:#ffffff;
+
+    --maths:#1c4c96;    --maths-tint:#e8eef8;
+    --english:#1a7a4a;  --english-tint:#e6f4ed;
+    --vr:#6d28d9;        --vr-tint:#f1e9fc;
+    --nvr:#c2410c;        --nvr-tint:#fdece0;
+    --tip:#b0233a;        --tip-tint:#fbe9ea;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#1b1912;
+      --paper-alt:#221f17;
+      --ink:#efe9db;
+      --ink-soft:#b3ab98;
+      --rule:#3c372a;
+      --card:#242018;
+
+      --maths:#7fa8e8;     --maths-tint:#1c2b40;
+      --english:#6fce9c;   --english-tint:#173327;
+      --vr:#b493ec;         --vr-tint:#2a2140;
+      --nvr:#f0975f;         --nvr-tint:#3a2517;
+      --tip:#ef8b98;         --tip-tint:#3a2024;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#1b1912;
+    --paper-alt:#221f17;
+    --ink:#efe9db;
+    --ink-soft:#b3ab98;
+    --rule:#3c372a;
+    --card:#242018;
+
+    --maths:#7fa8e8;     --maths-tint:#1c2b40;
+    --english:#6fce9c;   --english-tint:#173327;
+    --vr:#b493ec;         --vr-tint:#2a2140;
+    --nvr:#f0975f;         --nvr-tint:#3a2517;
+    --tip:#ef8b98;         --tip-tint:#3a2024;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Public Sans", Arial, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    padding-inline:20px;
+  }
+  h1,h2,h3,h4{font-family:"Fraunces", Georgia, serif; text-wrap:balance; font-weight:600; margin:0;}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums;}
+  a{color:inherit;}
+  .wrap{max-width:900px; margin:0 auto;}
+
+  /* ---------- Top nav ---------- */
+  .topnav{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper); border-bottom:1px solid var(--rule);
+    margin-inline:-20px; padding-inline:20px;
+  }
+  .topnav-inner{
+    max-width:900px; margin:0 auto;
+    display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+    padding-block:10px;
+  }
+  .topnav .brand{font-family:"Fraunces",serif; font-weight:600; font-size:0.95rem; margin-right:auto; white-space:nowrap;}
+  .navlink{
+    font-size:0.78rem; font-weight:600; text-decoration:none; padding:5px 11px;
+    border-radius:99px; border:1.5px solid var(--rule); color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .navlink.m{border-color:var(--maths); color:var(--maths);}
+  .navlink.e{border-color:var(--english); color:var(--english);}
+  .navlink.v{border-color:var(--vr); color:var(--vr);}
+  .navlink.n{border-color:var(--nvr); color:var(--nvr);}
+  .navlink.active{background:var(--tint);} /* fallback */
+  .navlink.m.active{background:var(--maths-tint);} .navlink.e.active{background:var(--english-tint);} .navlink.v.active{background:var(--vr-tint);} .navlink.n.active{background:var(--nvr-tint);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding-block:34px 22px; border-bottom:1px solid var(--rule);}
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace; font-size:0.72rem; font-weight:600;
+    letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px; margin-bottom:10px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--ink-soft);}
+  .hero h1{font-size:clamp(1.8rem, 4.2vw, 2.5rem); letter-spacing:-0.01em;}
+  .hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:62ch; margin-top:10px;}
+  .paper-refs{
+    margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .paper-chip{
+    font-family:"IBM Plex Mono",monospace; font-size:0.72rem; font-weight:500;
+    background:var(--paper-alt); border:1px solid var(--rule); border-radius:6px;
+    padding:4px 9px; color:var(--ink-soft);
+  }
+
+  /* ---------- Chapter ---------- */
+  .chapter{padding-block:36px 8px; border-bottom:1px solid var(--rule); scroll-margin-top:64px;}
+  .chapter-head{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
+  .chapter-num{font-family:"IBM Plex Mono",monospace; font-size:0.85rem; font-weight:600; color:var(--accent);}
+  .chapter h2{font-size:1.6rem; color:var(--accent);}
+  .chapter-intro{color:var(--ink-soft); max-width:66ch; margin-block:8px 26px; font-size:0.97rem;}
+  .chapter.maths{--accent:var(--maths);}
+  .chapter.english{--accent:var(--english);}
+  .chapter.vr{--accent:var(--vr);}
+  .chapter.nvr{--accent:var(--nvr);}
+
+  /* ---------- Topic block ---------- */
+  .topic{margin-bottom:30px;}
+  .topic h3{
+    font-size:1.12rem; color:var(--ink); margin-bottom:4px;
+    padding-bottom:8px; border-bottom:2px solid var(--accent);
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  }
+  .topic h3 .badge{
+    font-family:"IBM Plex Mono",monospace; font-size:0.66rem; font-weight:600;
+    color:var(--accent); background:var(--tint); border-radius:5px; padding:2px 7px;
+    letter-spacing:0.03em; text-transform:uppercase;
+  }
+  .chapter.maths .topic h3 .badge{background:var(--maths-tint);}
+  .chapter.english .topic h3 .badge{background:var(--english-tint);}
+  .chapter.vr .topic h3 .badge{background:var(--vr-tint);}
+  .chapter.nvr .topic h3 .badge{background:var(--nvr-tint);}
+  .topic-body{margin-top:12px; font-size:0.94rem;}
+  .topic-body p{margin:0 0 10px;}
+  .topic-body ul, .topic-body ol{margin:0 0 10px; padding-left:20px;}
+  .topic-body li{margin-bottom:4px;}
+
+  .example{
+    background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--accent);
+    border-radius:8px; padding:12px 15px; margin:10px 0; font-size:0.9rem;
+  }
+  .example .ex-label{
+    font-family:"IBM Plex Mono",monospace; font-size:0.65rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.06em; color:var(--accent); margin-bottom:6px;
+  }
+  .example .ans{color:var(--accent); font-weight:700;}
+
+  .tip{
+    background:var(--tip-tint); border-radius:8px; padding:10px 14px;
+    font-size:0.87rem; margin:10px 0; display:flex; gap:9px; align-items:flex-start;
+    color:var(--ink);
+  }
+  .tip::before{content:"\270E"; color:var(--tip); flex-shrink:0; margin-top:1px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  table.ref{border-collapse:collapse; width:100%; font-size:0.87rem; margin:10px 0;}
+  table.ref caption{text-align:left; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); margin-bottom:6px; font-weight:600;}
+  table.ref th, table.ref td{border:1px solid var(--rule); padding:6px 10px; text-align:left;}
+  table.ref th{background:var(--tint); font-weight:600; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.02em;}
+  table.ref td.num{font-family:"IBM Plex Mono",monospace; text-align:right;}
+  .chapter.maths table.ref th{background:var(--maths-tint);}
+  .chapter.english table.ref th{background:var(--english-tint);}
+  .chapter.vr table.ref th{background:var(--vr-tint);}
+  .chapter.nvr table.ref th{background:var(--nvr-tint);}
+
+  /* ---------- Diagrams ---------- */
+  .diagram{
+    background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px;
+    padding:16px; margin:10px 0; display:flex; flex-wrap:wrap; gap:18px;
+    align-items:center; justify-content:center;
+  }
+  .diagram-cap{width:100%; text-align:center; font-size:0.78rem; color:var(--ink-soft); margin-top:2px;}
+  .diagram figure{margin:0; text-align:center;}
+  .diagram figcaption{font-size:0.72rem; color:var(--ink-soft); margin-top:4px;}
+  svg text{font-family:"IBM Plex Mono",monospace;}
+  svg .lbl{font-size:9px; fill:var(--ink-soft);}
+  svg .lbl-strong{font-size:10px; fill:var(--ink); font-weight:600;}
+
+  /* number line */
+  .numline{width:100%; max-width:480px;}
+
+  /* metric chart */
+  .unit-chain{display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:0.85rem; justify-content:center;}
+  .unit-chain .u{background:var(--card); border:1px solid var(--rule); border-radius:7px; padding:5px 10px;}
+  .unit-chain .op{color:var(--accent); font-weight:600; font-size:0.78rem;}
+
+  /* bar chart */
+  .barchart{display:flex; align-items:flex-end; gap:14px; height:130px; padding:0 6px;}
+  .barchart .bar{width:30px; background:var(--maths); border-radius:4px 4px 0 0; position:relative;}
+  .barchart .bar span{position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:0.68rem; font-family:"IBM Plex Mono",monospace; color:var(--ink-soft);}
+  .barchart .bcol{display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end;}
+  .barchart .bcol label{font-size:0.68rem; color:var(--ink-soft);}
+
+  /* pie */
+  .pie{width:120px; height:120px; border-radius:50%; flex-shrink:0;}
+  .pie-legend{display:flex; flex-direction:column; gap:5px; font-size:0.78rem;}
+  .pie-legend .sw{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px;}
+
+  /* NVR shape system */
+  .nv-row{display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:10px 0;}
+  .nv-box{width:46px; height:46px; display:flex; align-items:center; justify-content:center; background:var(--card); border:1.5px solid var(--rule); border-radius:7px; font-size:1.4rem; line-height:1; flex-shrink:0;}
+  .nv-box.qmark{font-size:1.2rem; font-weight:700; color:var(--ink-soft); background:var(--paper-alt); border-style:dashed;}
+  .nv-arrow{font-size:1.05rem; color:var(--ink-soft);}
+  .nv-sep{font-size:0.78rem; font-weight:700; color:var(--ink-soft);}
+  .nv-glyph{display:inline-block; color:var(--ink);}
+  .nv-glyph.outline{color:var(--paper); -webkit-text-stroke:1.6px var(--ink);}
+  .nv-glyph.grey{color:var(--ink-soft); -webkit-text-stroke:0;}
+  .nv-opts{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:8px;}
+  .nv-opt{display:flex; flex-direction:column; align-items:center; gap:3px;}
+  .nv-opt-label{font-size:0.66rem; font-weight:700; color:var(--ink-soft);}
+  .nv-grid3{display:grid; grid-template-columns:repeat(3,46px); gap:6px;}
+
+  footer{padding-block:30px 50px; text-align:center; color:var(--ink-soft); font-size:0.8rem;}
+
+  @media print{
+    .topnav{position:static;}
+    body{padding-inline:0; background:#fff; color:#000;}
+    .chapter{break-inside:avoid-page;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="index.html" style="text-decoration:none;">Kent 11+ Cheat Sheet</a>
+    <a class="navlink m" href="maths.html">Maths</a>
+    <a class="navlink e" href="english.html">English</a>
+    <a class="navlink v" href="verbal-reasoning.html">Verbal Reasoning</a>
+    <a class="navlink n active" href="non-verbal-reasoning.html">Spatial &amp; Non-Verbal</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Revision guide &middot; 04 of 4 &middot; Spatial &amp; Non-Verbal Reasoning</div>
+    <h1>Shape logic, block-building &amp; folding nets.</h1>
+    <p class="lede">The Kent paper splits this into Spatial Reasoning (3D building and folding) and Non-Verbal Reasoning (2D pattern logic) &mdash; the rule-first method is the same throughout.</p>
+    <div class="paper-refs">
+      <span class="paper-chip">Paper 1 &middot; Spatial Reasoning</span>
+      <span class="paper-chip">Paper 1 &middot; Non-Verbal Reasoning</span>
+    </div>
+  </header>
+
+  <section class="chapter nvr" id="nvr">
+    <div class="chapter-head"><span class="chapter-num">04</span><h2>Spatial &amp; Non-Verbal Reasoning</h2></div>
+    <p class="chapter-intro">The Kent paper actually splits this into two named sections — Spatial Reasoning (building and folding 3D shapes) and Non-Verbal Reasoning (2D pattern logic) — plus you'll see the same shape-logic style in most other 11+ boards too. Same instinct throughout: work out the <em>rule</em> before you look at the options.</p>
+
+    <div class="topic">
+      <h3>Shape analogy <span class="badge">Pattern</span></h3>
+      <div class="topic-body">
+        <p>Shape 1 changes into shape 2 by one rule (rotate, flip, resize, re-shade). Apply the exact same rule to shape 3.</p>
+        <div class="nv-row">
+          <div class="nv-box"><span class="nv-glyph outline">&#9679;</span></div>
+          <span class="nv-arrow">&rarr;</span>
+          <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+          <span class="nv-sep">::</span>
+          <div class="nv-box"><span class="nv-glyph outline">&#9650;</span></div>
+          <span class="nv-arrow">&rarr;</span>
+          <div class="nv-box qmark">?</div>
+        </div>
+        <div class="nv-opts">
+          <div class="nv-opt"><div class="nv-box"><span class="nv-glyph">&#9650;</span></div><span class="nv-opt-label">correct</span></div>
+          <div class="nv-opt"><div class="nv-box"><span class="nv-glyph outline">&#9650;</span></div><span class="nv-opt-label">no change</span></div>
+          <div class="nv-opt"><div class="nv-box"><span class="nv-glyph" style="display:inline-block;transform:rotate(90deg);">&#9650;</span></div><span class="nv-opt-label">wrong rule</span></div>
+        </div>
+        <p class="diagram-cap">Rule: outline becomes solid — nothing else changes.</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Series / "what comes next" <span class="badge">Pattern</span></h3>
+      <div class="topic-body">
+        <p>Look across the whole row for what's changing step by step — size, rotation, shading, or count.</p>
+        <div class="nv-row">
+          <div class="nv-box"><span class="nv-glyph" style="font-size:1rem;">&#9632;</span></div>
+          <div class="nv-box"><span class="nv-glyph" style="font-size:1.25rem;">&#9632;</span></div>
+          <div class="nv-box"><span class="nv-glyph" style="font-size:1.5rem;">&#9632;</span></div>
+          <div class="nv-box"><span class="nv-glyph" style="font-size:1.75rem;">&#9632;</span></div>
+          <span class="nv-arrow">&rarr;</span>
+          <div class="nv-box qmark">?</div>
+        </div>
+        <p class="diagram-cap">Rule: grows a little each step &mdash; next one is bigger again.</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Matrix / grid completion <span class="badge">Pattern</span></h3>
+      <div class="topic-body">
+        <p>A 3&times;3 (or 2&times;2) grid has one cell missing. Check each <em>row</em> and each <em>column</em> for its own rule — they don't have to match.</p>
+        <div class="diagram">
+          <div class="nv-grid3">
+            <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+            <div class="nv-box"><span class="nv-glyph">&#9650;</span></div>
+            <div class="nv-box"><span class="nv-glyph">&#11039;</span></div>
+            <div class="nv-box"><span class="nv-glyph">&#9650;</span></div>
+            <div class="nv-box"><span class="nv-glyph">&#11039;</span></div>
+            <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+            <div class="nv-box"><span class="nv-glyph">&#11039;</span></div>
+            <div class="nv-box"><span class="nv-glyph">&#9679;</span></div>
+            <div class="nv-box qmark">?</div>
+          </div>
+        </div>
+        <p class="diagram-cap">Every row and column contains circle, triangle, pentagon exactly once &mdash; the missing cell must be the triangle.</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Similarity &amp; odd one out <span class="badge">Pattern</span></h3>
+      <div class="topic-body">
+        <p>Two flavours: (a) two shapes share a property — find the option that shares it too; (b) four of five shapes share a property — spot the one that doesn't.</p>
+        <div class="nv-row">
+          <div class="nv-box"><span class="nv-glyph">&#9632;</span></div>
+          <div class="nv-box"><span class="nv-glyph">&#9733;</span></div>
+          <div class="nv-box"><span class="nv-glyph">&#11039;</span></div>
+          <div class="nv-box"><span class="nv-glyph">&#9650;</span></div>
+          <div class="nv-box"><span class="nv-glyph outline">&#11042;</span></div>
+        </div>
+        <p class="diagram-cap">Four shapes are solid black; the pentagon on the right is the odd one out — it's an outline.</p>
+        <div class="tip">Check every property in turn: shape, size, shading, rotation, number of sides, count of items. The "something in common" is rarely the shape itself — it's more often the shading or the count.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Coding shapes <span class="badge">Codes</span></h3>
+      <div class="topic-body">
+        <p>Each shape carries two code letters: one for <em>what</em> it is, one for its <em>shading</em>. Work out which letter means what, then build the code for a new shape.</p>
+        <div class="diagram">
+          <div style="text-align:center; font-size:0.85rem;">solid square = <strong>PT</strong> &nbsp;&nbsp; outline circle = <strong>QS</strong></div>
+        </div>
+        <div class="example"><div class="ex-label">Worked example</div>Test shape: outline square. P = square, S = outline &rarr; <span class="ans">PS</span>.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>3D block assembly &amp; counting cubes <span class="badge">Spatial</span></h3>
+      <div class="topic-body">
+        <p>A target shape is built from identical unit cubes. Five options show different groups of smaller blocks — only one set has the right <em>total number</em> of cubes and the right <em>shape</em> when joined together.</p>
+        <ol>
+          <li>Count the total cubes in the target shape first.</li>
+          <li>Rule out any option set whose block-pieces don't add up to that total.</li>
+          <li>For what's left, mentally rotate the pieces — a block can be turned any way, it just can't change shape.</li>
+        </ol>
+        <div class="tip">Don't be fooled by an option with the <em>right</em> number of blocks but the <em>wrong</em> width/height/depth — always sanity-check the overall outline shape too, not just the block count.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Nets &mdash; folding flat shapes into 3D <span class="badge">Spatial</span></h3>
+      <div class="topic-body">
+        <p>A net is a 2D shape that folds up into a 3D solid. For a cube net: opposite faces on the finished cube are always <em>two squares apart</em> in the net, never adjacent.</p>
+        <div class="diagram">
+          <svg width="120" height="100" viewBox="0 0 120 100" role="img" aria-label="Cube net with opposite faces marked">
+            <g fill="none" stroke="var(--ink)" stroke-width="1.4">
+              <rect x="30" y="5" width="28" height="28"/>
+              <rect x="2" y="33" width="28" height="28"/>
+              <rect x="30" y="33" width="28" height="28"/>
+              <rect x="58" y="33" width="28" height="28"/>
+              <rect x="86" y="33" width="28" height="28"/>
+              <rect x="30" y="61" width="28" height="28"/>
+            </g>
+            <text x="44" y="22" text-anchor="middle" class="lbl">1</text>
+            <text x="16" y="50" text-anchor="middle" class="lbl">2</text>
+            <text x="44" y="50" text-anchor="middle" class="lbl">3</text>
+            <text x="72" y="50" text-anchor="middle" class="lbl">4</text>
+            <text x="100" y="50" text-anchor="middle" class="lbl">5</text>
+            <text x="44" y="78" text-anchor="middle" class="lbl">6</text>
+          </svg>
+        </div>
+        <p class="diagram-cap">Opposite pairs once folded: 1&harr;6, 2&harr;4, 3&harr;5 &mdash; each pair sits two squares apart along the strip.</p>
+        <div class="tip">If a question shows painted/patterned faces on a net and asks which two end up opposite (or touching) once folded, physically trace the fold with your finger on the page — imagining it in your head is where mistakes creep in.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Combining shapes at matching edges <span class="badge">Spatial</span></h3>
+      <div class="topic-body">
+        <p>A base shape has two edges marked <strong>x</strong> and <strong>y</strong>. A small shape is <em>added on</em> at the matching-letter edge, and another is <em>added or subtracted</em> at the other. Line up the letters, then work out the resulting outline.</p>
+        <div class="tip">Do this one step at a time — first add/remove at x, redraw the shape in your head, <em>then</em> add/remove at y. Trying to do both at once is where errors happen.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>2D plan views of a 3D shape <span class="badge">Spatial</span></h3>
+      <div class="topic-body">
+        <p>You're shown a 3D object and asked to pick its view from directly above, the side, or the front — like a floor plan or an architect's elevation.</p>
+        <div class="diagram">
+          <figure>
+            <svg width="70" height="60" viewBox="0 0 70 60"><rect x="10" y="30" width="50" height="20" fill="none" stroke="var(--ink)"/><rect x="10" y="10" width="25" height="20" fill="none" stroke="var(--ink)"/></svg>
+            <figcaption>Front view</figcaption>
+          </figure>
+          <figure>
+            <svg width="70" height="60" viewBox="0 0 70 60"><rect x="10" y="20" width="50" height="30" fill="none" stroke="var(--ink)"/></svg>
+            <figcaption>Side view</figcaption>
+          </figure>
+          <figure>
+            <svg width="70" height="60" viewBox="0 0 70 60"><rect x="10" y="10" width="50" height="20" fill="none" stroke="var(--ink)"/><rect x="10" y="30" width="25" height="20" fill="none" stroke="var(--ink)"/></svg>
+            <figcaption>Top (plan) view</figcaption>
+          </figure>
+        </div>
+        <p class="diagram-cap">A stepped block, viewed from three different sides &mdash; each view only shows the outline, not the depth behind it.</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Spotting the identical (rotated/reflected) shape <span class="badge">Pattern</span></h3>
+      <div class="topic-body">
+        <p>One of five shapes is an exact match for the target — just rotated or mirrored. The other four differ in a small, deliberate way (a missing line, different shading, a stretched side).</p>
+        <div class="tip">Pick one distinctive feature of the target (e.g. "the tail points towards the biggest angle") and track only that feature across the five options — much faster than comparing the whole shape at once.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Built for Kent 11+ revision &middot; topics drawn from Examberry Kent Practice Tests 1&ndash;4 &middot; worked examples written fresh, not copied from the papers.
+  </footer>
+
+</div>
+</body>
+</html>
