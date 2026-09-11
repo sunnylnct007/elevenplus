@@ -154,11 +154,11 @@
   .example .ans{color:var(--accent); font-weight:700;}
 
   .tip{
-    background:var(--tip-tint); border-radius:8px; padding:10px 14px;
-    font-size:0.87rem; margin:10px 0; display:flex; gap:9px; align-items:flex-start;
+    background:var(--tip-tint); border-radius:8px; padding:10px 14px 10px 36px;
+    font-size:0.87rem; margin:10px 0; position:relative;
     color:var(--ink);
   }
-  .tip::before{content:"\270E"; color:var(--tip); flex-shrink:0; margin-top:1px;}
+  .tip::before{content:"\270E"; color:var(--tip); position:absolute; left:14px; top:11px;}
 
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
   @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
@@ -245,8 +245,8 @@
 
   <header class="hero">
     <div class="eyebrow">Revision guide &middot; 03 of 4 &middot; Verbal Reasoning</div>
-    <h1>Eight word puzzles, eight methods.</h1>
-    <p class="lede">Every Verbal Reasoning question type across the four papers is one of these eight &mdash; none of them test general knowledge, all of them are learnable.</p>
+    <h1>Twelve word puzzles, twelve methods.</h1>
+    <p class="lede">Every Verbal Reasoning question type across the four papers is one of these twelve &mdash; none of them test general knowledge, all of them are learnable.</p>
     <div class="paper-refs">
       <span class="paper-chip">Paper 1 &middot; Verbal Reasoning</span>
     </div>
@@ -254,13 +254,14 @@
 
   <section class="chapter vr" id="vr">
     <div class="chapter-head"><span class="chapter-num">03</span><h2>Verbal Reasoning</h2></div>
-    <p class="chapter-intro">Eight distinct question types appear across the four papers. None of them test general knowledge — every one is a small, learnable puzzle. Spot the type, apply the method.</p>
+    <p class="chapter-intro">Twelve distinct question types appear across the four papers. None of them test general knowledge — every one is a small, learnable puzzle. Spot the type, apply the method.</p>
 
     <div class="topic">
       <h3>1. Word-combination analogy <span class="badge">Words</span></h3>
       <div class="topic-body">
         <p>Letters taken from the two outer words build the word in brackets. Work out <em>which</em> letters and from <em>where</em> in the first pair, then apply the same rule to the second pair.</p>
         <div class="example"><div class="ex-label">Worked example</div>(cabin [can] net) :: (bacon [?] rope)<br>Rule found from the first pair: first two letters of word 1 + first letter of word 3 &rarr; "ca" + "n" = "can". Apply it: "ba" (bacon) + "r" (rope) = <span class="ans">bar</span>.</div>
+        <div class="example"><div class="ex-label">Another</div>(moist [mow] wing) :: (cargo [?] rain)<br>Rule: "mo" (first two of moist) + "w" (first letter of wing) = "mow". Apply it: "ca" (cargo) + "r" (rain) = <span class="ans">car</span>.</div>
         <div class="tip">The exact rule changes every question — sometimes it's last letters, sometimes a mix of positions. Write out the letter positions if it's not obvious in your head.</div>
       </div>
     </div>
@@ -280,6 +281,8 @@
       <div class="topic-body">
         <p>Each letter moves a fixed number of places along the alphabet. Write the alphabet out if needed — counting on fingers under exam pressure causes mistakes.</p>
         <div class="example"><div class="ex-label">Worked example</div>AB is to DE as GH is to (?)<br>A&rarr;D and B&rarr;E is a shift of +3. Apply to GH: G+3 = J, H+3 = K &rarr; <span class="ans">JK</span>.</div>
+        <div class="example"><div class="ex-label">Another</div>GOLD is to EMJB as SILK is to (?)<br>G&rarr;E and O&rarr;M is a shift of &minus;2 (backwards). Apply to SILK: S&minus;2=Q, I&minus;2=G, L&minus;2=J, K&minus;2=I &rarr; <span class="ans">QGJI</span>.</div>
+        <div class="tip">A shift can go backwards as well as forwards — check the <em>direction</em> using two letters from the example pair before assuming +1 or +3.</div>
       </div>
     </div>
 
@@ -288,6 +291,7 @@
       <div class="topic-body">
         <p>Pick one word from each bracketed group so that, joined together, they make a real compound word.</p>
         <div class="example"><div class="ex-label">Worked example</div>(bed, tea, foot) (room, pot, ball) &rarr; try each combination: bedroom &#10003;, teapot &#10003;, football &#10003; — all real words. The multiple-choice options on the answer sheet tell you which specific pair is being tested, so check those first rather than guessing freely.</div>
+        <div class="example"><div class="ex-label">Another</div>(sun, rain, tooth) (flower, coat, brush) &rarr; sunflower &#10003;, raincoat &#10003;, toothbrush &#10003; &mdash; again more than one combination works in theory. In the real test, only one pairing appears among the five lettered options, so scan the options first and work backwards from there.</div>
       </div>
     </div>
 
@@ -296,6 +300,8 @@
       <div class="topic-body">
         <p>One letter moves from the first word to the second, without rearranging any other letters, to make two new real words.</p>
         <div class="example"><div class="ex-label">Worked example</div>chill &rarr; old. Remove <span class="ans">c</span>: "chill" &minus; c = "hill". Add it to the front of "old": "cold". Both real words.</div>
+        <div class="example"><div class="ex-label">Another</div>beard &rarr; an. Remove <span class="ans">d</span>: "beard" &minus; d = "bear". Add it to the end of "an": "and". Both real words.</div>
+        <div class="tip">Try removing each letter of the first word in turn and check if what's left is still a real word — that narrows down the candidates fast, before you even look at the second word.</div>
       </div>
     </div>
 
@@ -304,6 +310,7 @@
       <div class="topic-body">
         <p>A short key tells you what number each letter is worth. Substitute and calculate using BIDMAS as normal.</p>
         <div class="example"><div class="ex-label">Worked example</div>If M = 6, N = 9, P = 2, work out (M + N) &times; P.<br>(6+9) &times; 2 = 15 &times; 2 = <span class="ans">30</span>.</div>
+        <div class="example"><div class="ex-label">Another</div>If X = 4, Y = 3, Z = 5, work out (X + Z) &minus; Y.<br>(4+5) &minus; 3 = 9 &minus; 3 = <span class="ans">6</span>.</div>
       </div>
     </div>
 
@@ -312,6 +319,8 @@
       <div class="topic-body">
         <p>You're shown a word and its code and must work out the substitution rule, then apply it to a new word. It isn't always a simple alphabet shift — sometimes it's a "mirror": A&harr;Z, B&harr;Y, C&harr;X, and so on (position <em>n</em> swaps with position 27&minus;<em>n</em>).</p>
         <div class="example"><div class="ex-label">Worked example</div>If DOG is coded as WLT using a mirror alphabet (A&harr;Z, B&harr;Y&hellip;), how is CAT coded?<br>C (3rd letter) &harr; X (24th). A &harr; Z. T (20th) &harr; G (7th). &rarr; <span class="ans">XZG</span>.</div>
+        <div class="example"><div class="ex-label">Another</div>Using the same mirror alphabet, if BIRD is coded as YRIW, how is FISH coded?<br>F (6th) &harr; U (21st). I (9th) &harr; R (18th). S (19th) &harr; H (8th). H (8th) &harr; S (19th). &rarr; <span class="ans">URHS</span>.</div>
+        <div class="tip">Spot the mirror pattern quickly: in a true mirror alphabet, applying the code <em>twice</em> always gets you back to the original letter — that's a good way to check your working.</div>
       </div>
     </div>
 
@@ -321,6 +330,46 @@
         <p>Five words are given. Three share a category; find the connection (or find the two that don't belong).</p>
         <div class="example"><div class="ex-label">Worked example</div>CARROT, OAK, POTATO, BEECH, ONION &rarr; three are vegetables (<span class="ans">carrot, potato, onion</span>); oak and beech are trees.</div>
         <div class="tip">Try grouping by the obvious category first (living thing, colour, shape) — if that gives you 2 and 3, you've found it. If it gives you 1 and 4, look for a subtler link (all could follow the same word, all rhyme, etc.).</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>9. Same letter, two gaps <span class="badge">Words</span></h3>
+      <div class="topic-body">
+        <p>The same letter completes the word before the brackets <em>and</em> begins the word after the brackets — and the identical letter must also work for a second, separate pair of words. Test candidate letters against both pairs at once.</p>
+        <div class="example"><div class="ex-label">Worked example</div>spo[&nbsp;?&nbsp;]ool &nbsp;&nbsp; ma[&nbsp;?&nbsp;]op<br>"spo" + t = "spot", t + "ool" = "tool"; "ma" + t = "mat", t + "op" = "top". The letter <span class="ans">t</span> works for both pairs.</div>
+        <div class="example"><div class="ex-label">Another</div>bea[&nbsp;?&nbsp;]ear &nbsp;&nbsp; spi[&nbsp;?&nbsp;]ame<br>"bea" + n = "bean", n + "ear" = "near"; "spi" + n = "spin", n + "ame" = "name". The letter <span class="ans">n</span> works for both pairs.</div>
+        <div class="tip">Start with the pair that has fewer plausible letters (a less common ending is easier to narrow down), then test only those candidates against the second pair.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>10. Number series <span class="badge">Codes</span></h3>
+      <div class="topic-body">
+        <p>The same "find the rule" approach as maths sequences, but appearing among the verbal reasoning questions — don't assume it's always a straightforward addition.</p>
+        <div class="example"><div class="ex-label">Worked example</div>5, 9, 13, 17, ?<br>Each term adds 4: <span class="ans">21</span>.</div>
+        <div class="example"><div class="ex-label">Another</div>2, 6, 18, 54, ?<br>Each term is multiplied by 3, not added to: 54 &times; 3 = <span class="ans">162</span>.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>11. Closest in meaning <span class="badge">Words</span></h3>
+      <div class="topic-body">
+        <p>Pick the single word from the options that means most nearly the same as the word given. The wrong options are usually related in <em>topic</em> but not in actual meaning.</p>
+        <div class="example"><div class="ex-label">Worked example</div>Which word is closest in meaning to RELUCTANT?<br>A) eager &nbsp; B) unwilling &nbsp; C) tired &nbsp; D) confused &nbsp; E) brave<br>"Eager" is the opposite; "tired", "confused" and "brave" are all plausible-sounding but unrelated in meaning. The answer is <span class="ans">B) unwilling</span>.</div>
+        <div class="tip">Say the word to yourself in a simple sentence first ("He was reluctant to go" = "He didn't want to go") — it's often easier to match a meaning you've put in your own words than to compare five options directly.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>12. Logical deduction <span class="badge">Logic</span></h3>
+      <div class="topic-body">
+        <p>You're given a set of true statements and must work out which conclusion <em>must</em> follow — not just which one sounds plausible.</p>
+        <div class="example"><div class="ex-label">Worked example</div>Every student in Class 5 plays either football or chess, but not both. 18 students play football. 7 students play chess. Which of these must also be true?<br>
+          A) Some students play both &nbsp; B) There are 25 students in Class 5 &nbsp; C) More students play chess than football &nbsp; D) No students play any sport &nbsp; E) Class 5 has exactly 18 students<br>
+          Since every student plays exactly one of the two (never both, never neither), the total is simply 18 + 7 = 25. The answer is <span class="ans">B</span>.
+        </div>
+        <div class="tip">Underline the absolute words in the statements — "either&hellip;or", "but not both", "every", "none" — these are what let you deduce a <em>certain</em> conclusion rather than just a likely one.</div>
       </div>
     </div>
   </section>

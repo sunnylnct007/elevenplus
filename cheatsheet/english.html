@@ -154,11 +154,11 @@
   .example .ans{color:var(--accent); font-weight:700;}
 
   .tip{
-    background:var(--tip-tint); border-radius:8px; padding:10px 14px;
-    font-size:0.87rem; margin:10px 0; display:flex; gap:9px; align-items:flex-start;
+    background:var(--tip-tint); border-radius:8px; padding:10px 14px 10px 36px;
+    font-size:0.87rem; margin:10px 0; position:relative;
     color:var(--ink);
   }
-  .tip::before{content:"\270E"; color:var(--tip); flex-shrink:0; margin-top:1px;}
+  .tip::before{content:"\270E"; color:var(--tip); position:absolute; left:14px; top:11px;}
 
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
   @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
@@ -267,6 +267,62 @@
           <li><strong>"Find and copy a phrase&hellip;"</strong> — copy <em>exactly</em> as printed, don't paraphrase.</li>
         </ol>
         <div class="tip">Point &rarr; Evidence &rarr; Explain (PEE): make the point, quote the line that proves it, then explain <em>why</em> that line proves it. Even one sentence of "explain" turns a vague answer into a strong one.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; literal vs inference, side by side</div>
+          Passage: <em>"Tom's hands trembled as he opened the envelope. He had waited three months for this letter."</em><br><br>
+          <strong>Literal question:</strong> "How long had Tom waited for the letter?" &mdash; the answer is stated word-for-word: <span class="ans">three months</span>.<br>
+          <strong>Inference question:</strong> "How does Tom feel as he opens the envelope?" &mdash; nowhere does it say "nervous", but "hands trembled" is a physical clue that points to <span class="ans">nervous / anxious</span>.
+        </div>
+        <div class="tip"><strong>Common mistake:</strong> answering an inference question by just re-reading the literal facts. If a question asks "how" or "why" someone feels or acts, the examiner wants you to interpret a clue, not quote a fact.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Word classes (parts of speech) <span class="badge">Grammar</span></h3>
+      <div class="topic-body">
+        <p>Knowing what job a word is doing in a sentence underpins almost every SPaG question — spotting the verb, or telling an adjective from an adverb, comes up constantly.</p>
+        <table class="ref">
+          <tr><th>Word class</th><th>Job</th><th>Example</th></tr>
+          <tr><td>Noun</td><td>a person, place or thing</td><td><strong>children</strong>, <strong>garden</strong></td></tr>
+          <tr><td>Verb</td><td>an action or state</td><td>ran, <strong>is</strong>, thinks</td></tr>
+          <tr><td>Adjective</td><td>describes a noun</td><td><strong>excited</strong> children</td></tr>
+          <tr><td>Adverb</td><td>describes a verb (often ends -ly)</td><td>ran <strong>quickly</strong></td></tr>
+          <tr><td>Pronoun</td><td>stands in for a noun</td><td><strong>it</strong>, she, they</td></tr>
+          <tr><td>Conjunction</td><td>joins two parts of a sentence</td><td>and, but, <strong>because</strong></td></tr>
+          <tr><td>Preposition</td><td>shows position/relationship</td><td><strong>outside</strong> the house</td></tr>
+        </table>
+        <div class="example"><div class="ex-label">Worked example</div>"The excited children quickly ran outside because it had stopped raining."<br>excited = <span class="ans">adjective</span> (describes children) &middot; quickly = <span class="ans">adverb</span> (describes ran) &middot; ran = <span class="ans">verb</span> &middot; because = <span class="ans">conjunction</span> (joins the two ideas).</div>
+        <div class="tip">The same word can be different word classes in different sentences — "light" is a noun in "turn on the light" but an adjective in "a light bag". Always check the job it's doing in <em>that</em> sentence.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Sentence types &amp; clauses <span class="badge">Grammar</span></h3>
+      <div class="topic-body">
+        <p>There are four sentence types by purpose: <strong>statement</strong> (tells you something, ends in a full stop), <strong>question</strong> (asks something, ends in ?), <strong>command</strong> (an instruction, e.g. "Close the door."), <strong>exclamation</strong> (shows strong feeling, ends in !).</p>
+        <p>Sentences also come in three structures, built from clauses (a clause is a group of words with its own verb):</p>
+        <table class="ref">
+          <tr><th>Structure</th><th>Made from</th><th>Example</th></tr>
+          <tr><td>Simple</td><td>one main clause</td><td>The dog barked.</td></tr>
+          <tr><td>Compound</td><td>two main clauses joined by and/but/or</td><td>The dog barked <strong>and</strong> the cat ran.</td></tr>
+          <tr><td>Complex</td><td>a main clause + a subordinate clause</td><td>The dog barked <strong>because it saw a squirrel</strong>.</td></tr>
+        </table>
+        <div class="tip">A subordinate clause can't stand alone as a full sentence ("because it saw a squirrel" isn't complete on its own) — that's what marks it out from a main clause.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Figurative language <span class="badge">Reading</span></h3>
+      <div class="topic-body">
+        <p>Comprehension questions sometimes name a technique and ask what effect it creates — knowing the terms makes these quick points.</p>
+        <table class="ref">
+          <tr><th>Technique</th><th>What it does</th><th>Example</th></tr>
+          <tr><td>Simile</td><td>compares using "like" or "as"</td><td>as brave <strong>as</strong> a lion</td></tr>
+          <tr><td>Metaphor</td><td>says one thing <em>is</em> another</td><td>the classroom <strong>was</strong> a zoo</td></tr>
+          <tr><td>Personification</td><td>gives human qualities to something non-human</td><td>the wind <strong>whispered</strong></td></tr>
+          <tr><td>Alliteration</td><td>repeats the starting sound</td><td><strong>s</strong>he <strong>s</strong>ells <strong>s</strong>ea <strong>s</strong>hells</td></tr>
+          <tr><td>Onomatopoeia</td><td>the word sounds like its meaning</td><td>buzz, crash, sizzle</td></tr>
+        </table>
+        <div class="example"><div class="ex-label">Worked example</div>"The old floorboards groaned under his feet." Which technique, and what effect? This is <span class="ans">personification</span> (floorboards can't really groan) &mdash; it makes the house feel almost alive, adding a slightly eerie atmosphere.</div>
       </div>
     </div>
 
@@ -277,9 +333,12 @@
           <li><strong>i before e, except after c</strong> (when the sound is "ee"): bel<u>ie</u>ve, rec<u>ei</u>ve.</li>
           <li><strong>Doubling the last consonant</strong> before -ing/-ed on a short vowel word: hop &rarr; hopp<em>ing</em>, stop &rarr; stopp<em>ed</em>.</li>
           <li><strong>-able vs -ible</strong>: no fixed rule — if the root is a complete word, it's usually -able (comfort<em>able</em>); learn -ible words individually (poss<em>ible</em>, terr<em>ible</em>).</li>
+          <li><strong>Plurals</strong>: usually add -s (cat &rarr; cats); add -es after s, x, ch, sh (box &rarr; boxes, fox &rarr; foxes); change a consonant + y to -ies (baby &rarr; babies), but a vowel + y just adds -s (toy &rarr; toys).</li>
         </ul>
         <p>Words that show up again and again in these papers — learn the whole list:</p>
         <p class="mono" style="font-size:0.85rem; line-height:2;">separate &middot; definitely &middot; necessary &middot; professional &middot; persuade &middot; consistent &middot; compulsory &middot; solicitor &middot; hoping / hopping &middot; receive &middot; announced &middot; grateful &middot; achievement</p>
+        <p><strong>Homophones</strong> (sound the same, spelled differently, mean different things) are a favourite trap:</p>
+        <p class="mono" style="font-size:0.85rem; line-height:2;">their / there / they're &middot; its / it's &middot; your / you're &middot; to / too / two &middot; where / wear / we're</p>
         <div class="tip">Every spelling question here follows the same shape: one wrong word hidden among four groups of words, or no mistake at all (marked N). Read the whole sentence once for meaning, then a second time scanning letter-by-letter.</div>
       </div>
     </div>
@@ -296,8 +355,11 @@
           <tr><td>Speech marks around spoken words</td><td>"This is unfair," <strong>she said</strong>.</td></tr>
           <tr><td>Question mark for a genuine question</td><td>Was she sure? <em>(not "she wasn't sure?")</em></td></tr>
           <tr><td>Semicolon joins two related full sentences</td><td>Patience matters<strong>;</strong> it takes practice.</td></tr>
+          <tr><td>Colon introduces a list or explanation</td><td>She packed three things<strong>:</strong> a hat, a map, a torch.</td></tr>
+          <tr><td>Brackets/dashes add extra, droppable info</td><td>The trophy <strong>(which was solid gold)</strong> gleamed.</td></tr>
+          <tr><td>Ellipsis shows a trailing-off or pause</td><td>I wasn't sure what to say<strong>&hellip;</strong></td></tr>
         </table>
-        <div class="tip">A very common trap: a statement written with a question mark, or a question written with a full stop. Read the sentence out loud in your head — does it actually ask something?</div>
+        <div class="tip">A very common trap: a statement written with a question mark, or a question written with a full stop. Read the sentence out loud in your head — does it actually ask something? For brackets/dashes: try reading the sentence with that part removed entirely — it should still make complete grammatical sense either way.</div>
       </div>
     </div>
 
@@ -306,9 +368,11 @@
       <div class="topic-body">
         <p>Cloze-style questions ask you to pick the word that fits the sentence's <em>exact</em> meaning, not just a similar one.</p>
         <div class="example"><div class="ex-label">Worked example</div>"We __________ the referee to change the decision." The options include <em>implored</em> (begged strongly), <em>implied</em> (suggested), <em>claimed</em>, <em>imposed</em>, <em>concerned</em>. Only "implored" fits a plea to someone else — the answer is <span class="ans">implored</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; a near-synonym trap</div>"New laws have __________ the sale of the dangerous chemical." Options: <em>abridged</em> (shortened, e.g. a book), <em>abandoned</em> (given up on), <em>idolised</em> (adored), <em>abolished</em> (officially ended), <em>adroit</em> (skilful, and not even a verb here). Only "abolished" means "made illegal/ended by law" &mdash; the answer is <span class="ans">abolished</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; tone matters too</div>"The critic's review was __________ , praising every detail of the performance." Which fits: <em>scathing</em> (harshly critical) or <em>glowing</em> (full of praise)? The sentence itself tells you the tone with "praising every detail" &mdash; the answer is <span class="ans">glowing</span>.</div>
         <ol>
           <li>Read the whole sentence first, ignoring the gap.</li>
-          <li>Predict what kind of word is missing (a strong verb? a connector?).</li>
+          <li>Predict what kind of word is missing (a strong verb? a connector? a positive or negative word?).</li>
           <li>Eliminate options that are almost-but-not-quite the right meaning — these papers deliberately include near-synonyms as traps.</li>
         </ol>
       </div>
