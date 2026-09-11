@@ -154,11 +154,11 @@
   .example .ans{color:var(--accent); font-weight:700;}
 
   .tip{
-    background:var(--tip-tint); border-radius:8px; padding:10px 14px;
-    font-size:0.87rem; margin:10px 0; display:flex; gap:9px; align-items:flex-start;
+    background:var(--tip-tint); border-radius:8px; padding:10px 14px 10px 36px;
+    font-size:0.87rem; margin:10px 0; position:relative;
     color:var(--ink);
   }
-  .tip::before{content:"\270E"; color:var(--tip); flex-shrink:0; margin-top:1px;}
+  .tip::before{content:"\270E"; color:var(--tip); position:absolute; left:14px; top:11px;}
 
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
   @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
@@ -273,7 +273,9 @@
           </svg>
         </div>
         <div class="example"><div class="ex-label">Worked example</div>Round 3,847 to the nearest hundred. The tens digit is 4 (less than 5), so round down: <span class="ans">3,800</span>.</div>
-        <div class="tip">Forming the biggest number from a set of digits: put them in descending order. Smallest: ascending order (careful if a leading zero isn't allowed).</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; rounding to the nearest thousand</div>Round 24,650 to the nearest thousand. The digit right after the thousands column is the <em>hundreds</em> digit, which is 6 (5 or more), so round up: <span class="ans">25,000</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; largest/smallest number</div>Using the digits 0, 3, 7 once each, what are the largest and smallest 3-digit numbers? Largest: put digits in descending order &rarr; <span class="ans">730</span>. Smallest: ascending order, but 0 can't lead a number, so put the smallest non-zero digit first, then the rest ascending &rarr; <span class="ans">307</span> (not 037, which isn't a 3-digit number).</div>
+        <div class="tip"><strong>Common mistake:</strong> when rounding, only look at the <em>one</em> digit immediately after your rounding column — not the whole rest of the number. Rounding 3,449 to the nearest hundred: look at the tens digit (4), not the ones digit, so it rounds down to 3,400.</div>
       </div>
     </div>
 
@@ -298,6 +300,9 @@
           </svg>
         </div>
         <div class="example"><div class="ex-label">Worked example</div>-9 + 15 = <span class="ans">6</span>. Start at -9, move 15 right: 9 steps gets you to 0, the remaining 6 steps gets you to 6.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; temperature</div>Overnight, the temperature is -6&deg;C. By midday it has risen by 9&deg;C. What is the midday temperature? -6 + 9 = <span class="ans">3&deg;C</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; subtracting a negative</div>4 &minus; (&minus;3) = ? Subtracting a negative is the same as adding: 4 + 3 = <span class="ans">7</span>. Think of it as "taking away a debt" &mdash; it leaves you better off.</div>
+        <div class="tip">Two minus signs next to each other always flip to a plus: 4 &minus; (&minus;3) becomes 4 + 3. Two different signs (one plus, one minus) stay minus.</div>
       </div>
     </div>
 
@@ -315,6 +320,9 @@
           </div>
         </div>
         <div class="example"><div class="ex-label">Worked example &mdash; LCM word problem</div>Ella packs eggs in boxes of 6, Sam in boxes of 8. If they've each packed the <em>same</em> number of eggs, what's the smallest that could be? Find the Lowest Common Multiple of 6 and 8: multiples of 6 = 6,12,18,24&hellip;; multiples of 8 = 8,16,24&hellip; First match: <span class="ans">24</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; HCF</div>What is the Highest Common Factor of 18 and 24? Factors of 18: 1, 2, 3, 6, 9, 18. Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24. The largest number in both lists is <span class="ans">6</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; square roots</div>&radic;81 = ? Ask "what number times itself makes 81?" 9 &times; 9 = 81, so &radic;81 = <span class="ans">9</span>.</div>
+        <div class="tip"><strong>LCM vs HCF, easy to mix up:</strong> LCM (Lowest Common Multiple) is always the same size or <em>bigger</em> than both numbers &mdash; it's for "when do these two patterns line up again?" questions. HCF (Highest Common Factor) is always the same size or <em>smaller</em> &mdash; it's for "what's the biggest group I can split these into evenly?" questions.</div>
       </div>
     </div>
 
@@ -326,7 +334,11 @@
           18 + (6 &times; 5) &divide; 2<br>
           Brackets first: 6&times;5 = 30 &rarr; 18 + 30 &divide; 2 &rarr; Divide before add: 30&divide;2 = 15 &rarr; 18 + 15 = <span class="ans">33</span>.
         </div>
-        <div class="tip">"Six squared" = 6&sup2; = 36. "Six cubed" = 6&sup3; = 216. Read power questions slowly — it's easy to multiply instead of raising to a power.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; with a power</div>
+          5 + 3&sup2; &times; (8 &minus; 6)<br>
+          Brackets first: 8&minus;6 = 2. Then the power: 3&sup2; = 9. Then multiply: 9 &times; 2 = 18. Then add: 5 + 18 = <span class="ans">23</span>.
+        </div>
+        <div class="tip">"Six squared" = 6&sup2; = 36. "Six cubed" = 6&sup3; = 216. Read power questions slowly — it's easy to multiply instead of raising to a power. <strong>Common mistake:</strong> doing operations strictly left-to-right instead of by priority &mdash; multiplication and division always happen before addition and subtraction, no matter which comes first when reading left to right.</div>
       </div>
     </div>
 
@@ -347,9 +359,11 @@
         </table>
         <p><strong>Fraction of an amount:</strong> divide by the bottom number, multiply by the top.</p>
         <p><strong>Percentage of an amount:</strong> find 10% (&divide;10), then build up or down from there.</p>
+        <div class="example"><div class="ex-label">Worked example &mdash; converting</div>Write 0.6 as a fraction and a percentage. As a fraction: 0.6 = 6/10, which simplifies to <span class="ans">3/5</span>. As a percentage, just multiply the decimal by 100: <span class="ans">60%</span>.</div>
         <div class="example"><div class="ex-label">Worked example &mdash; a fraction of a percentage</div>What is 30% of half of 200? Half of 200 = 100. 10% of 100 = 10, so 30% = <span class="ans">30</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; percentage increase</div>Increase £80 by 15%. Find 10% (£8) and 5% (£4), add them to get 15% = £12. New amount = £80 + £12 = <span class="ans">£92</span>. (Quicker route once you're confident: &pound;80 &times; 1.15 = &pound;92.)</div>
         <div class="example"><div class="ex-label">Worked example &mdash; reverse percentage</div>After paying a 20% deposit, Maya still owes £240 for a bike. What was the full price? The £240 remaining is 80% of the price. 80% &rarr; £240, so 1% &rarr; £3, so 100% = <span class="ans">£300</span>.</div>
-        <div class="tip">"Reverse percentage" questions are the ones that catch people out — the number given is <em>not</em> the whole amount. Always ask: what percentage does this number actually represent?</div>
+        <div class="tip">"Reverse percentage" questions are the ones that catch people out — the number given is <em>not</em> the whole amount. Always ask: what percentage does this number actually represent? Also watch the wording: "increase <em>by</em> 15%" means add 15% on top (&times;1.15); "reduced <em>to</em> 15%" would mean the new amount only equals 15% of the original — very different questions.</div>
       </div>
     </div>
 
@@ -358,6 +372,8 @@
       <div class="topic-body">
         <p>Add the parts of the ratio together to find the total number of "shares", divide the amount by that to find one share, then multiply up.</p>
         <div class="example"><div class="ex-label">Worked example</div>Share £40 between Priya and Josh in the ratio 3:5. Total shares = 3+5 = 8. One share = £40&divide;8 = £5. Priya = 3&times;£5 = <span class="ans">£15</span>, Josh = 5&times;£5 = <span class="ans">£25</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; scaling a ratio</div>A recipe uses flour and sugar in the ratio 3:2. If you use 450g of flour, how much sugar do you need? 450g is 3 parts, so 1 part = 450&divide;3 = 150g. Sugar is 2 parts: 2&times;150g = <span class="ans">300g</span>.</div>
+        <div class="tip">A ratio question is really a "find one share, then multiply" question in disguise &mdash; the trick is working out how many total parts (or how many parts one quantity represents) before you divide.</div>
       </div>
     </div>
 
@@ -366,14 +382,17 @@
       <div class="topic-body">
         <p><strong>Substitution</strong> means swapping the letter for its number and following BIDMAS.</p>
         <div class="example"><div class="ex-label">Worked example</div>If a = 5, find 4(a + 2) &minus; 3(a &minus; 1). = 4(7) &minus; 3(4) = 28 &minus; 12 = <span class="ans">16</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; a negative value</div>If a = &minus;2, find 3a&sup2; + 4. Square first: a&sup2; = (&minus;2)&times;(&minus;2) = 4 (a negative times a negative is positive). Then 3&times;4 + 4 = 12 + 4 = <span class="ans">16</span>.</div>
         <p><strong>Solving for x:</strong> do the same operation to both sides to get x on its own.</p>
         <div class="example"><div class="ex-label">Worked example</div>3c &minus; 5 = 16 &rarr; add 5 to both sides: 3c = 21 &rarr; divide by 3: c = <span class="ans">7</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; brackets in the equation</div>2(x + 3) = 16 &rarr; divide both sides by 2 first: x + 3 = 8 &rarr; subtract 3: x = <span class="ans">5</span>. Check: 2(5+3) = 2&times;8 = 16 &#10003;.</div>
         <div class="tip">
           <div>
             <strong>The "three pairs" trick</strong> — a classic Kent-style word problem: Sam &amp; Tia have 19 sweets between them, Tia &amp; Ravi have 15, Ravi &amp; Sam have 14. How many does Tia have?<br>
-            Add all three totals: 19+15+14 = 48. That counts everyone <em>twice</em>, so Sam+Tia+Ravi = 48&divide;2 = 24. Now subtract the pair that <em>excludes</em> Tia: Tia = 24 &minus; (Ravi+Sam) = 24 &minus; 14 = <span class="ans">10</span>.
+            Add all three totals: 19+15+14 = 48. That counts everyone <em>twice</em>, so Sam+Tia+Ravi = 48&divide;2 = 24. Now subtract the pair that <em>excludes</em> Tia: Tia = 24 &minus; (Ravi+Sam) = 24 &minus; 14 = <span class="ans">10</span>. (You can check: Sam = 24&minus;15 = 9, Ravi = 24&minus;19 = 5, and 9+10 = 19 &#10003;.)
           </div>
         </div>
+        <div class="tip"><strong>Common mistake:</strong> when an equation has brackets, students often try to expand them first (7(a+3) becomes 7a+21) when it's usually faster to divide both sides by the number outside the bracket, if it divides evenly — as in the example above. Either method works; pick whichever avoids fractions.</div>
       </div>
     </div>
 
@@ -389,6 +408,11 @@
           3, 20, 6, 17, 9, 14, ?<br>
           Odd positions (1st, 3rd, 5th&hellip;): 3, 6, 9 &mdash; adding 3. Even positions: 20, 17, 14 &mdash; subtracting 3. Position 7 is odd, so 9 + 3 = <span class="ans">12</span>.
         </div>
+        <div class="example"><div class="ex-label">Worked example &mdash; multiplying, not adding</div>
+          3, 6, 12, 24, ?<br>
+          The differences (3, 6, 12) aren't constant, but each term is exactly double the one before &mdash; a multiplying rule, not an adding one. 24 &times; 2 = <span class="ans">48</span>.
+        </div>
+        <div class="tip"><strong>Common mistake:</strong> assuming every sequence adds the same amount. Before settling on a rule, check whether the numbers are also being <em>multiplied</em> — if each term is roughly double, triple, or half the last, that's your clue.</div>
       </div>
     </div>
 
@@ -431,8 +455,12 @@
           <tr><td>Inside a quadrilateral</td><td class="num">= 360&deg;</td></tr>
           <tr><td>Vertically opposite angles (an X shape)</td><td class="num">equal</td></tr>
           <tr><td>Regular polygon, exterior angle</td><td class="num">= 360&deg; &divide; sides</td></tr>
+          <tr><td>Any polygon, interior angles total</td><td class="num">= (sides &minus; 2) &times; 180&deg;</td></tr>
         </table>
-        <div class="tip">Regular hexagon: exterior = 360&divide;6 = 60&deg;, so interior = 180&minus;60 = 120&deg;. Same method for any regular shape.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; straight line</div>Two angles on a straight line are 65&deg; and x. Since they total 180&deg;: x = 180 &minus; 65 = <span class="ans">115&deg;</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; around a point</div>Three angles meeting at a point are 120&deg;, 150&deg;, and x. Since they total 360&deg;: x = 360 &minus; 120 &minus; 150 = <span class="ans">90&deg;</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; polygon interior angles</div>What is the sum of the interior angles in a pentagon (5 sides), and how big is each angle if it's regular? Sum = (5&minus;2) &times; 180&deg; = 3 &times; 180&deg; = <span class="ans">540&deg;</span>. If regular, each angle = 540&deg; &divide; 5 = <span class="ans">108&deg;</span>.</div>
+        <div class="tip">Regular hexagon: exterior = 360&divide;6 = 60&deg;, so interior = 180&minus;60 = 120&deg;. Same method for any regular shape. Notice the two polygon formulas connect: exterior angles always total 360&deg; no matter how many sides, which is why "360 &divide; sides" always works for a regular shape's exterior angle.</div>
       </div>
     </div>
 
@@ -471,6 +499,10 @@
         <div class="example"><div class="ex-label">Worked example</div>
           At 3:15: minute hand = 6&times;15 = 90&deg; from 12. Hour hand = 30&times;3 + 0.5&times;15 = 90 + 7.5 = 97.5&deg; from 12. Gap = 97.5 &minus; 90 = <span class="ans">7.5&deg;</span>.
         </div>
+        <div class="example"><div class="ex-label">Worked example &mdash; a quarter to</div>
+          At 8:45 ("quarter to nine"): minute hand = 6&times;45 = 270&deg;. Hour hand = 30&times;8 + 0.5&times;45 = 240 + 22.5 = 262.5&deg;. Gap = 270 &minus; 262.5 = <span class="ans">7.5&deg;</span>. Notice it's the same answer as 3:15 &mdash; both are 15 minutes from a whole hour, so the hour hand has crept the same 7.5&deg; off the mark.
+        </div>
+        <div class="tip">"Quarter past" = :15, "half past" = :30, "quarter to" = :45 (i.e. 15 minutes before the next hour). Converting the words to a clock time first stops you misreading which hour the hour hand is closest to.</div>
       </div>
     </div>
 
@@ -493,6 +525,17 @@
           <tr><td>Trapezium</td><td class="num">1</td></tr>
           <tr><td>Kite, triangle</td><td class="num">0</td></tr>
         </table>
+        <p><strong>Symmetry</strong> comes in two kinds. A <strong>line of symmetry</strong> is a line you could fold the shape along so both halves match exactly. <strong>Rotational symmetry</strong> is when you can turn the shape less than a full circle and it looks the same — the "order" is how many times that happens in one full turn.</p>
+        <table class="ref">
+          <caption>Regular shapes: lines of symmetry = number of sides = order of rotational symmetry</caption>
+          <tr><th>Shape</th><th>Lines of symmetry</th><th>Rotational order</th></tr>
+          <tr><td>Equilateral triangle</td><td class="num">3</td><td class="num">3</td></tr>
+          <tr><td>Square</td><td class="num">4</td><td class="num">4</td></tr>
+          <tr><td>Regular pentagon</td><td class="num">5</td><td class="num">5</td></tr>
+          <tr><td>Regular hexagon</td><td class="num">6</td><td class="num">6</td></tr>
+          <tr><td>Rectangle (not square)</td><td class="num">2</td><td class="num">2</td></tr>
+        </table>
+        <div class="tip">A <em>regular</em> shape's lines of symmetry always match its number of sides. An <em>irregular</em> shape (like a plain rectangle) has fewer — a rectangle only has 2 lines of symmetry, through the middle of each pair of opposite sides, not through the corners.</div>
       </div>
     </div>
 
@@ -540,7 +583,10 @@
         </div>
         <p><strong>Volume of a cuboid</strong> = length &times; width &times; height. <strong>Volume of a cube</strong> = side&sup3;.</p>
         <div class="example"><div class="ex-label">Worked example</div>A cube has volume 125m&sup3;. Since 5&sup3; = 125, the side length is 5m, so the area of one face = 5&sup2; = <span class="ans">25m&sup2;</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; cuboid volume</div>A box is 4m long, 3m wide and 2m high. Volume = 4 &times; 3 &times; 2 = <span class="ans">24m&sup3;</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; surface area</div>Using the same 4m &times; 3m &times; 2m box: a cuboid has 3 pairs of matching faces. Front/back: 4&times;2=8. Top/bottom: 4&times;3=12. Sides: 3&times;2=6. Total for one of each = 8+12+6 = 26. Double it, because each face has a matching partner: 26 &times; 2 = <span class="ans">52m&sup2;</span>.</div>
         <div class="example"><div class="ex-label">Worked example &mdash; scaling</div>Square B has a perimeter of 40cm (side = 10cm). Square A is twice as wide (side = 20cm). Area of A = 20&sup2; = <span class="ans">400cm&sup2;</span> &mdash; four times bigger, not two, because area scales by the <em>square</em> of the size change.</div>
+        <div class="tip">Volume is always <strong>length &times; width &times; height</strong>, whatever units you're given — just make sure all three measurements are in the <em>same</em> unit before multiplying.</div>
       </div>
     </div>
 
@@ -559,16 +605,32 @@
         <p>Going the other way (big &rarr; small unit), divide instead of multiply.</p>
         <div class="example"><div class="ex-label">Worked example &mdash; unit rate</div>Fencing a rectangular garden 40m long and 15m wide costs £1.50 per metre. Perimeter = 2(40+15) = 110m. Cost = 110 &times; £1.50 = <span class="ans">£165</span>.</div>
         <div class="example"><div class="ex-label">Worked example &mdash; map scale</div>A map's scale is 1cm : 25,000cm (1cm = 250m). A road measures 8cm on the map. Real distance = 8 &times; 250m = 2000m = <span class="ans">2km</span>.</div>
-        <div class="tip">Time isn't metric! 60 seconds = 1 minute, 60 minutes = 1 hour. For "seconds until lunch"-style questions, convert to minutes first (&divide;60) to keep the arithmetic manageable.</div>
+        <p><strong>Speed, distance and time</strong> are linked by one formula — cover up the one you want to find:</p>
+        <div class="diagram">
+          <div class="unit-chain"><span class="u">Speed = Distance &divide; Time</span></div>
+        </div>
+        <div class="example"><div class="ex-label">Worked example</div>A car travels 150 miles in 3 hours. What is its average speed? Speed = 150 &divide; 3 = <span class="ans">50mph</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; rearranging</div>A cyclist rides at 12mph for 2.5 hours. How far do they travel? Rearrange to Distance = Speed &times; Time: 12 &times; 2.5 = <span class="ans">30 miles</span>.</div>
+        <div class="tip">Time isn't metric! 60 seconds = 1 minute, 60 minutes = 1 hour. For "seconds until lunch"-style questions, convert to minutes first (&divide;60) to keep the arithmetic manageable. For speed questions, watch out for a time given in minutes when the answer needs hours (e.g. 30 minutes = 0.5 hours) — mixing the units up is the single most common mistake here.</div>
       </div>
     </div>
 
     <div class="topic">
-      <h3>Data handling: mean, Venn diagrams, charts <span class="badge">Data</span></h3>
+      <h3>Data handling: mean, median, mode &amp; range <span class="badge">Data</span></h3>
       <div class="topic-body">
         <p><strong>Mean</strong> = total &divide; how many there are. To find a missing value: (new total) &minus; (old total).</p>
         <div class="example"><div class="ex-label">Worked example</div>5 books have a mean of 250 pages (total = 1250). A 6th book is added and the mean drops to 240 (new total = 1440). The new book has 1440 &minus; 1250 = <span class="ans">190 pages</span>.</div>
+        <p>The other three "averages" describe a set of numbers differently: <strong>median</strong> is the middle value once sorted, <strong>mode</strong> is the value that appears most often, and <strong>range</strong> is the spread (biggest minus smallest).</p>
+        <div class="example"><div class="ex-label">Worked example</div>Find the mean, median, mode and range of: 3, 7, 7, 9, 12.<br>
+          Mean = (3+7+7+9+12)&divide;5 = 38&divide;5 = <span class="ans">7.6</span>. Median = the middle number once in order = <span class="ans">7</span>. Mode = the most frequent value = <span class="ans">7</span>. Range = 12&minus;3 = <span class="ans">9</span>.
+        </div>
+        <div class="tip">With an <em>even</em> number of values, the median is the mean of the middle two. For 4, 6, 9, 11: the middle pair is 6 and 9, so median = (6+9)&divide;2 = 7.5.</div>
+      </div>
+    </div>
 
+    <div class="topic">
+      <h3>Data handling: Venn diagrams &amp; charts <span class="badge">Data</span></h3>
+      <div class="topic-body">
         <p><strong>Venn diagrams</strong> — read each region separately, and remember "not in a circle" includes the outside region too.</p>
         <div class="diagram">
           <svg width="220" height="140" viewBox="0 0 220 140" role="img" aria-label="Venn diagram of football and swimming">
@@ -583,6 +645,7 @@
           </svg>
         </div>
         <div class="example"><div class="ex-label">Worked example</div>35 children total. How many <em>don't</em> like swimming? That's football-only (12) + neither (10) = <span class="ans">22</span>.</div>
+        <div class="example"><div class="ex-label">Worked example</div>How many children like <em>both</em> sports? Read straight off the overlap region: <span class="ans">5</span>.</div>
 
         <p><strong>Pie charts</strong>: angle for a slice = (part &divide; total) &times; 360&deg;.</p>
         <div class="diagram">
@@ -593,6 +656,7 @@
             <div><span class="sw" style="background:var(--vr)"></span>Grape &mdash; 10 of 40 &rarr; 90&deg;</div>
           </div>
         </div>
+        <div class="example"><div class="ex-label">Worked example</div>In a class of 30, a pie chart slice for "walks to school" measures 108&deg;. How many children walk to school? Set up the fraction the other way: 108&deg;&divide;360&deg; = 0.3, and 0.3 &times; 30 = <span class="ans">9 children</span>.</div>
 
         <p><strong>Bar charts</strong>: read the axis scale carefully before comparing bars.</p>
         <div class="diagram">
@@ -604,6 +668,41 @@
             <div class="bcol"><div class="bar" style="height:70px;"><span>3500</span></div><label>Fri</label></div>
           </div>
         </div>
+        <div class="tip">Pie chart questions often run "backwards" from the angle to the amount, as in the example above — the same (part &divide; total) &times; 360&deg; formula, just rearranged. If you're ever unsure which way round to go, sanity-check with a fraction you know: a full circle (360&deg;) is always the whole total.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Probability <span class="badge">Data</span></h3>
+      <div class="topic-body">
+        <p>Probability = (number of ways it can happen) &divide; (total number of possible outcomes). It's always a number between 0 (impossible) and 1 (certain), and can be written as a fraction, decimal or percentage.</p>
+        <div class="example"><div class="ex-label">Worked example</div>A bag contains 3 red balls and 2 blue balls. What is the probability of picking a red ball? There are 5 balls total, 3 of them red: P(red) = <span class="ans">3/5</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; probability it does NOT happen</div>Using the same bag, what is the probability of <em>not</em> picking blue? Either work it out directly (3 non-blue out of 5 = 3/5), or use the shortcut: P(not blue) = 1 &minus; P(blue) = 1 &minus; 2/5 = <span class="ans">3/5</span>.</div>
+        <div class="tip">All the probabilities for every possible outcome always add up to 1 (or 100%). That's a handy check — and the reason "1 minus the probability it does happen" always works for "probability it doesn't happen".</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Coordinates <span class="badge">Geometry</span></h3>
+      <div class="topic-body">
+        <p>A coordinate is written (x, y): the <strong>x</strong> number says how far <em>across</em>, the <strong>y</strong> number says how far <em>up</em>. "Along the corridor, then up the stairs" is the classic way to remember the order.</p>
+        <div class="diagram">
+          <svg width="180" height="160" viewBox="0 0 180 160" role="img" aria-label="Coordinate grid showing point A at (3,2)">
+            <g stroke="var(--rule)">
+              <line x1="20" y1="10" x2="20" y2="140"/><line x1="20" y1="140" x2="170" y2="140"/>
+              <line x1="50" y1="10" x2="50" y2="140"/><line x1="80" y1="10" x2="80" y2="140"/><line x1="110" y1="10" x2="110" y2="140"/><line x1="140" y1="10" x2="140" y2="140"/>
+              <line x1="20" y1="110" x2="170" y2="110"/><line x1="20" y1="80" x2="170" y2="80"/><line x1="20" y1="50" x2="170" y2="50"/>
+            </g>
+            <g class="lbl">
+              <text x="18" y="152">0</text><text x="48" y="152">1</text><text x="78" y="152">2</text><text x="108" y="152">3</text><text x="140" y="152">4</text>
+              <text x="8" y="113">1</text><text x="8" y="83">2</text><text x="8" y="53">3</text>
+            </g>
+            <circle cx="110" cy="80" r="3.5" fill="var(--maths)"/>
+            <text x="118" y="76" class="lbl-strong">A (3, 2)</text>
+          </svg>
+        </div>
+        <div class="example"><div class="ex-label">Worked example</div>Point A is at (3, 2). Point B is at (3, 7). What is the distance between them? They share the same x, so they're on a vertical line &mdash; just subtract the y-values: 7 &minus; 2 = <span class="ans">5 units</span>.</div>
+        <div class="tip">Points that share the same x-coordinate sit on a vertical line; points that share the same y-coordinate sit on a horizontal line. Spotting that shortcut avoids having to plot every point to find a distance or a missing corner of a shape.</div>
       </div>
     </div>
   </section>
