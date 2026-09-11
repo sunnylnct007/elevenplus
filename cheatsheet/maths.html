@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maths Cheat Sheet — Kent 11+</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root{
+    --paper:#faf7f0;
+    --paper-alt:#f3efe4;
+    --ink:#2a2721;
+    --ink-soft:#5c574c;
+    --rule:#ddd6c4;
+    --card:#ffffff;
+
+    --maths:#1c4c96;    --maths-tint:#e8eef8;
+    --english:#1a7a4a;  --english-tint:#e6f4ed;
+    --vr:#6d28d9;        --vr-tint:#f1e9fc;
+    --nvr:#c2410c;        --nvr-tint:#fdece0;
+    --tip:#b0233a;        --tip-tint:#fbe9ea;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#1b1912;
+      --paper-alt:#221f17;
+      --ink:#efe9db;
+      --ink-soft:#b3ab98;
+      --rule:#3c372a;
+      --card:#242018;
+
+      --maths:#7fa8e8;     --maths-tint:#1c2b40;
+      --english:#6fce9c;   --english-tint:#173327;
+      --vr:#b493ec;         --vr-tint:#2a2140;
+      --nvr:#f0975f;         --nvr-tint:#3a2517;
+      --tip:#ef8b98;         --tip-tint:#3a2024;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#1b1912;
+    --paper-alt:#221f17;
+    --ink:#efe9db;
+    --ink-soft:#b3ab98;
+    --rule:#3c372a;
+    --card:#242018;
+
+    --maths:#7fa8e8;     --maths-tint:#1c2b40;
+    --english:#6fce9c;   --english-tint:#173327;
+    --vr:#b493ec;         --vr-tint:#2a2140;
+    --nvr:#f0975f;         --nvr-tint:#3a2517;
+    --tip:#ef8b98;         --tip-tint:#3a2024;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Public Sans", Arial, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    padding-inline:20px;
+  }
+  h1,h2,h3,h4{font-family:"Fraunces", Georgia, serif; text-wrap:balance; font-weight:600; margin:0;}
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums;}
+  a{color:inherit;}
+  .wrap{max-width:900px; margin:0 auto;}
+
+  /* ---------- Top nav ---------- */
+  .topnav{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper); border-bottom:1px solid var(--rule);
+    margin-inline:-20px; padding-inline:20px;
+  }
+  .topnav-inner{
+    max-width:900px; margin:0 auto;
+    display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+    padding-block:10px;
+  }
+  .topnav .brand{font-family:"Fraunces",serif; font-weight:600; font-size:0.95rem; margin-right:auto; white-space:nowrap;}
+  .navlink{
+    font-size:0.78rem; font-weight:600; text-decoration:none; padding:5px 11px;
+    border-radius:99px; border:1.5px solid var(--rule); color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .navlink.m{border-color:var(--maths); color:var(--maths);}
+  .navlink.e{border-color:var(--english); color:var(--english);}
+  .navlink.v{border-color:var(--vr); color:var(--vr);}
+  .navlink.n{border-color:var(--nvr); color:var(--nvr);}
+  .navlink.active{background:var(--tint);} /* fallback */
+  .navlink.m.active{background:var(--maths-tint);} .navlink.e.active{background:var(--english-tint);} .navlink.v.active{background:var(--vr-tint);} .navlink.n.active{background:var(--nvr-tint);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding-block:34px 22px; border-bottom:1px solid var(--rule);}
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace; font-size:0.72rem; font-weight:600;
+    letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px; margin-bottom:10px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--ink-soft);}
+  .hero h1{font-size:clamp(1.8rem, 4.2vw, 2.5rem); letter-spacing:-0.01em;}
+  .hero p.lede{color:var(--ink-soft); font-size:1.02rem; max-width:62ch; margin-top:10px;}
+  .paper-refs{
+    margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .paper-chip{
+    font-family:"IBM Plex Mono",monospace; font-size:0.72rem; font-weight:500;
+    background:var(--paper-alt); border:1px solid var(--rule); border-radius:6px;
+    padding:4px 9px; color:var(--ink-soft);
+  }
+
+  /* ---------- Chapter ---------- */
+  .chapter{padding-block:36px 8px; border-bottom:1px solid var(--rule); scroll-margin-top:64px;}
+  .chapter-head{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
+  .chapter-num{font-family:"IBM Plex Mono",monospace; font-size:0.85rem; font-weight:600; color:var(--accent);}
+  .chapter h2{font-size:1.6rem; color:var(--accent);}
+  .chapter-intro{color:var(--ink-soft); max-width:66ch; margin-block:8px 26px; font-size:0.97rem;}
+  .chapter.maths{--accent:var(--maths);}
+  .chapter.english{--accent:var(--english);}
+  .chapter.vr{--accent:var(--vr);}
+  .chapter.nvr{--accent:var(--nvr);}
+
+  /* ---------- Topic block ---------- */
+  .topic{margin-bottom:30px;}
+  .topic h3{
+    font-size:1.12rem; color:var(--ink); margin-bottom:4px;
+    padding-bottom:8px; border-bottom:2px solid var(--accent);
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  }
+  .topic h3 .badge{
+    font-family:"IBM Plex Mono",monospace; font-size:0.66rem; font-weight:600;
+    color:var(--accent); background:var(--tint); border-radius:5px; padding:2px 7px;
+    letter-spacing:0.03em; text-transform:uppercase;
+  }
+  .chapter.maths .topic h3 .badge{background:var(--maths-tint);}
+  .chapter.english .topic h3 .badge{background:var(--english-tint);}
+  .chapter.vr .topic h3 .badge{background:var(--vr-tint);}
+  .chapter.nvr .topic h3 .badge{background:var(--nvr-tint);}
+  .topic-body{margin-top:12px; font-size:0.94rem;}
+  .topic-body p{margin:0 0 10px;}
+  .topic-body ul, .topic-body ol{margin:0 0 10px; padding-left:20px;}
+  .topic-body li{margin-bottom:4px;}
+
+  .example{
+    background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--accent);
+    border-radius:8px; padding:12px 15px; margin:10px 0; font-size:0.9rem;
+  }
+  .example .ex-label{
+    font-family:"IBM Plex Mono",monospace; font-size:0.65rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.06em; color:var(--accent); margin-bottom:6px;
+  }
+  .example .ans{color:var(--accent); font-weight:700;}
+
+  .tip{
+    background:var(--tip-tint); border-radius:8px; padding:10px 14px;
+    font-size:0.87rem; margin:10px 0; display:flex; gap:9px; align-items:flex-start;
+    color:var(--ink);
+  }
+  .tip::before{content:"\270E"; color:var(--tip); flex-shrink:0; margin-top:1px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  table.ref{border-collapse:collapse; width:100%; font-size:0.87rem; margin:10px 0;}
+  table.ref caption{text-align:left; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); margin-bottom:6px; font-weight:600;}
+  table.ref th, table.ref td{border:1px solid var(--rule); padding:6px 10px; text-align:left;}
+  table.ref th{background:var(--tint); font-weight:600; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.02em;}
+  table.ref td.num{font-family:"IBM Plex Mono",monospace; text-align:right;}
+  .chapter.maths table.ref th{background:var(--maths-tint);}
+  .chapter.english table.ref th{background:var(--english-tint);}
+  .chapter.vr table.ref th{background:var(--vr-tint);}
+  .chapter.nvr table.ref th{background:var(--nvr-tint);}
+
+  /* ---------- Diagrams ---------- */
+  .diagram{
+    background:var(--paper-alt); border:1px solid var(--rule); border-radius:10px;
+    padding:16px; margin:10px 0; display:flex; flex-wrap:wrap; gap:18px;
+    align-items:center; justify-content:center;
+  }
+  .diagram-cap{width:100%; text-align:center; font-size:0.78rem; color:var(--ink-soft); margin-top:2px;}
+  .diagram figure{margin:0; text-align:center;}
+  .diagram figcaption{font-size:0.72rem; color:var(--ink-soft); margin-top:4px;}
+  svg text{font-family:"IBM Plex Mono",monospace;}
+  svg .lbl{font-size:9px; fill:var(--ink-soft);}
+  svg .lbl-strong{font-size:10px; fill:var(--ink); font-weight:600;}
+
+  /* number line */
+  .numline{width:100%; max-width:480px;}
+
+  /* metric chart */
+  .unit-chain{display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:0.85rem; justify-content:center;}
+  .unit-chain .u{background:var(--card); border:1px solid var(--rule); border-radius:7px; padding:5px 10px;}
+  .unit-chain .op{color:var(--accent); font-weight:600; font-size:0.78rem;}
+
+  /* bar chart */
+  .barchart{display:flex; align-items:flex-end; gap:14px; height:130px; padding:0 6px;}
+  .barchart .bar{width:30px; background:var(--maths); border-radius:4px 4px 0 0; position:relative;}
+  .barchart .bar span{position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:0.68rem; font-family:"IBM Plex Mono",monospace; color:var(--ink-soft);}
+  .barchart .bcol{display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end;}
+  .barchart .bcol label{font-size:0.68rem; color:var(--ink-soft);}
+
+  /* pie */
+  .pie{width:120px; height:120px; border-radius:50%; flex-shrink:0;}
+  .pie-legend{display:flex; flex-direction:column; gap:5px; font-size:0.78rem;}
+  .pie-legend .sw{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px;}
+
+  /* NVR shape system */
+  .nv-row{display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin:10px 0;}
+  .nv-box{width:46px; height:46px; display:flex; align-items:center; justify-content:center; background:var(--card); border:1.5px solid var(--rule); border-radius:7px; font-size:1.4rem; line-height:1; flex-shrink:0;}
+  .nv-box.qmark{font-size:1.2rem; font-weight:700; color:var(--ink-soft); background:var(--paper-alt); border-style:dashed;}
+  .nv-arrow{font-size:1.05rem; color:var(--ink-soft);}
+  .nv-sep{font-size:0.78rem; font-weight:700; color:var(--ink-soft);}
+  .nv-glyph{display:inline-block; color:var(--ink);}
+  .nv-glyph.outline{color:var(--paper); -webkit-text-stroke:1.6px var(--ink);}
+  .nv-glyph.grey{color:var(--ink-soft); -webkit-text-stroke:0;}
+  .nv-opts{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:8px;}
+  .nv-opt{display:flex; flex-direction:column; align-items:center; gap:3px;}
+  .nv-opt-label{font-size:0.66rem; font-weight:700; color:var(--ink-soft);}
+  .nv-grid3{display:grid; grid-template-columns:repeat(3,46px); gap:6px;}
+
+  footer{padding-block:30px 50px; text-align:center; color:var(--ink-soft); font-size:0.8rem;}
+
+  @media print{
+    .topnav{position:static;}
+    body{padding-inline:0; background:#fff; color:#000;}
+    .chapter{break-inside:avoid-page;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="index.html" style="text-decoration:none;">Kent 11+ Cheat Sheet</a>
+    <a class="navlink m active" href="maths.html">Maths</a>
+    <a class="navlink e" href="english.html">English</a>
+    <a class="navlink v" href="verbal-reasoning.html">Verbal Reasoning</a>
+    <a class="navlink n" href="non-verbal-reasoning.html">Spatial &amp; Non-Verbal</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Revision guide &middot; 01 of 4 &middot; Maths</div>
+    <h1>The whole Maths syllabus, one sitting.</h1>
+    <p class="lede">Number sense, calculation, shape and data &mdash; every Maths topic pulled from four Kent 11+ practice papers, with the method spelled out and a fresh worked example for each.</p>
+    <div class="paper-refs">
+      <span class="paper-chip">Paper 2 &middot; Mathematics</span>
+    </div>
+  </header>
+
+  <section class="chapter maths" id="maths">
+    <div class="chapter-head"><span class="chapter-num">01</span><h2>Maths</h2></div>
+    <p class="chapter-intro">Every Maths topic that turned up across the four papers, grouped the way you'd teach them in one sitting: number sense first, then the calculation toolkit, then shape and data. Each one has the method spelled out and a fresh worked example.</p>
+
+    <div class="topic">
+      <h3>Place value &amp; rounding <span class="badge">Number</span></h3>
+      <div class="topic-body">
+        <p>Every digit's value depends on its column. Rounding: look one digit to the right of where you're rounding to — 5 or more rounds up, less than 5 rounds down.</p>
+        <div class="diagram">
+          <svg viewBox="0 0 340 70" width="340" height="70" role="img" aria-label="Place value columns">
+            <text x="10" y="16" class="lbl">Th</text><text x="55" y="16" class="lbl">H</text><text x="100" y="16" class="lbl">T</text><text x="145" y="16" class="lbl">O</text>
+            <text x="205" y="16" class="lbl">.</text><text x="225" y="16" class="lbl">tenths</text><text x="290" y="16" class="lbl">hundredths</text>
+            <text x="10" y="40" class="lbl-strong">5</text><text x="55" y="40" class="lbl-strong">8</text><text x="100" y="40" class="lbl-strong">2</text><text x="145" y="40" class="lbl-strong">0</text>
+            <text x="190" y="40" class="lbl-strong">.</text><text x="225" y="40" class="lbl-strong">4</text><text x="290" y="40" class="lbl-strong">7</text>
+            <rect x="0" y="0" width="340" height="50" fill="none" stroke="var(--rule)"/>
+            <line x1="35" y1="0" x2="35" y2="50" stroke="var(--rule)"/><line x1="80" y1="0" x2="80" y2="50" stroke="var(--rule)"/>
+            <line x1="125" y1="0" x2="125" y2="50" stroke="var(--rule)"/><line x1="200" y1="0" x2="200" y2="50" stroke="var(--rule)"/><line x1="255" y1="0" x2="255" y2="50" stroke="var(--rule)"/>
+            <text x="10" y="63" class="lbl">58,204.47 &rarr; the 8 is worth 8,000 (8 thousands)</text>
+          </svg>
+        </div>
+        <div class="example"><div class="ex-label">Worked example</div>Round 3,847 to the nearest hundred. The tens digit is 4 (less than 5), so round down: <span class="ans">3,800</span>.</div>
+        <div class="tip">Forming the biggest number from a set of digits: put them in descending order. Smallest: ascending order (careful if a leading zero isn't allowed).</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Negative numbers &amp; the number line <span class="badge">Number</span></h3>
+      <div class="topic-body">
+        <p>Think of a thermometer: moving right = adding, moving left = subtracting. Crossing zero doesn't change the rule.</p>
+        <div class="diagram">
+          <svg class="numline" viewBox="0 0 480 50" width="100%" height="50" role="img" aria-label="Number line from -10 to 10">
+            <line x1="10" y1="25" x2="470" y2="25" stroke="var(--ink-soft)" stroke-width="1.5"/>
+            <text x="465" y="18" class="lbl">&#8594;</text>
+            <g class="lbl">
+              <!-- ticks every 40px = 2 units, from -10 to 10 -->
+              <g id="ticks"></g>
+            </g>
+            <line x1="250" y1="15" x2="250" y2="35" stroke="var(--ink)" stroke-width="2"/>
+            <text x="250" y="46" text-anchor="middle" class="lbl-strong">0</text>
+            <line x1="90" y1="18" x2="90" y2="32" stroke="var(--ink-soft)"/><text x="90" y="46" text-anchor="middle" class="lbl">-8</text>
+            <line x1="410" y1="18" x2="410" y2="32" stroke="var(--ink-soft)"/><text x="410" y="46" text-anchor="middle" class="lbl">8</text>
+            <path d="M330 25 A80 20 0 0 1 250 25" fill="none" stroke="var(--maths)" stroke-dasharray="3,2"/>
+            <text x="290" y="15" text-anchor="middle" class="lbl" fill="var(--maths)">-5 + 8 = 3</text>
+          </svg>
+        </div>
+        <div class="example"><div class="ex-label">Worked example</div>-9 + 15 = <span class="ans">6</span>. Start at -9, move 15 right: 9 steps gets you to 0, the remaining 6 steps gets you to 6.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Factors, multiples, primes &amp; powers <span class="badge">Number</span></h3>
+      <div class="topic-body">
+        <div class="grid2">
+          <div>
+            <p><strong>Factor</strong> = divides in exactly. <strong>Multiple</strong> = in the times table. <strong>Prime</strong> = exactly 2 factors (1 and itself).</p>
+            <p>First primes: <span class="mono">2, 3, 5, 7, 11, 13, 17, 19, 23, 29</span> (note: 1 is <em>not</em> prime, 2 is the only even prime).</p>
+          </div>
+          <div>
+            <p><strong>Square numbers</strong>: <span class="mono">1,4,9,16,25,36,49,64,81,100,121,144,169,196,225</span></p>
+            <p><strong>Cube numbers</strong>: <span class="mono">1, 8, 27, 64, 125</span> &mdash; know these cold, cube roots come up often.</p>
+          </div>
+        </div>
+        <div class="example"><div class="ex-label">Worked example &mdash; LCM word problem</div>Ella packs eggs in boxes of 6, Sam in boxes of 8. If they've each packed the <em>same</em> number of eggs, what's the smallest that could be? Find the Lowest Common Multiple of 6 and 8: multiples of 6 = 6,12,18,24&hellip;; multiples of 8 = 8,16,24&hellip; First match: <span class="ans">24</span>.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Order of operations (BIDMAS) <span class="badge">Calculation</span></h3>
+      <div class="topic-body">
+        <p><strong>B</strong>rackets &rarr; <strong>I</strong>ndices (powers/roots) &rarr; <strong>D</strong>ivision &amp; <strong>M</strong>ultiplication (left to right) &rarr; <strong>A</strong>ddition &amp; <strong>S</strong>ubtraction (left to right).</p>
+        <div class="example"><div class="ex-label">Worked example</div>
+          18 + (6 &times; 5) &divide; 2<br>
+          Brackets first: 6&times;5 = 30 &rarr; 18 + 30 &divide; 2 &rarr; Divide before add: 30&divide;2 = 15 &rarr; 18 + 15 = <span class="ans">33</span>.
+        </div>
+        <div class="tip">"Six squared" = 6&sup2; = 36. "Six cubed" = 6&sup3; = 216. Read power questions slowly — it's easy to multiply instead of raising to a power.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Fractions, decimals &amp; percentages (FDP) <span class="badge">Calculation</span></h3>
+      <div class="topic-body">
+        <p>These three are the same information in different clothes. Knowing the common conversions by heart saves huge amounts of time.</p>
+        <table class="ref">
+          <caption>Learn these by heart</caption>
+          <tr><th>Fraction</th><th>Decimal</th><th>Percent</th></tr>
+          <tr><td class="num">1/2</td><td class="num">0.5</td><td class="num">50%</td></tr>
+          <tr><td class="num">1/4</td><td class="num">0.25</td><td class="num">25%</td></tr>
+          <tr><td class="num">3/4</td><td class="num">0.75</td><td class="num">75%</td></tr>
+          <tr><td class="num">1/3</td><td class="num">0.33&hellip;</td><td class="num">33.3%</td></tr>
+          <tr><td class="num">1/5</td><td class="num">0.2</td><td class="num">20%</td></tr>
+          <tr><td class="num">1/10</td><td class="num">0.1</td><td class="num">10%</td></tr>
+          <tr><td class="num">1/8</td><td class="num">0.125</td><td class="num">12.5%</td></tr>
+        </table>
+        <p><strong>Fraction of an amount:</strong> divide by the bottom number, multiply by the top.</p>
+        <p><strong>Percentage of an amount:</strong> find 10% (&divide;10), then build up or down from there.</p>
+        <div class="example"><div class="ex-label">Worked example &mdash; a fraction of a percentage</div>What is 30% of half of 200? Half of 200 = 100. 10% of 100 = 10, so 30% = <span class="ans">30</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; reverse percentage</div>After paying a 20% deposit, Maya still owes £240 for a bike. What was the full price? The £240 remaining is 80% of the price. 80% &rarr; £240, so 1% &rarr; £3, so 100% = <span class="ans">£300</span>.</div>
+        <div class="tip">"Reverse percentage" questions are the ones that catch people out — the number given is <em>not</em> the whole amount. Always ask: what percentage does this number actually represent?</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Ratio &amp; sharing <span class="badge">Calculation</span></h3>
+      <div class="topic-body">
+        <p>Add the parts of the ratio together to find the total number of "shares", divide the amount by that to find one share, then multiply up.</p>
+        <div class="example"><div class="ex-label">Worked example</div>Share £40 between Priya and Josh in the ratio 3:5. Total shares = 3+5 = 8. One share = £40&divide;8 = £5. Priya = 3&times;£5 = <span class="ans">£15</span>, Josh = 5&times;£5 = <span class="ans">£25</span>.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Algebra: substitution &amp; solving <span class="badge">Calculation</span></h3>
+      <div class="topic-body">
+        <p><strong>Substitution</strong> means swapping the letter for its number and following BIDMAS.</p>
+        <div class="example"><div class="ex-label">Worked example</div>If a = 5, find 4(a + 2) &minus; 3(a &minus; 1). = 4(7) &minus; 3(4) = 28 &minus; 12 = <span class="ans">16</span>.</div>
+        <p><strong>Solving for x:</strong> do the same operation to both sides to get x on its own.</p>
+        <div class="example"><div class="ex-label">Worked example</div>3c &minus; 5 = 16 &rarr; add 5 to both sides: 3c = 21 &rarr; divide by 3: c = <span class="ans">7</span>.</div>
+        <div class="tip">
+          <div>
+            <strong>The "three pairs" trick</strong> — a classic Kent-style word problem: Sam &amp; Tia have 19 sweets between them, Tia &amp; Ravi have 15, Ravi &amp; Sam have 14. How many does Tia have?<br>
+            Add all three totals: 19+15+14 = 48. That counts everyone <em>twice</em>, so Sam+Tia+Ravi = 48&divide;2 = 24. Now subtract the pair that <em>excludes</em> Tia: Tia = 24 &minus; (Ravi+Sam) = 24 &minus; 14 = <span class="ans">10</span>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Sequences <span class="badge">Number</span></h3>
+      <div class="topic-body">
+        <p>Step 1: find the difference between consecutive terms. If it's constant, that's your rule. If not, find the differences <em>between the differences</em>. And watch for two sequences hiding inside one — check the odd positions and even positions separately.</p>
+        <div class="example"><div class="ex-label">Worked example &mdash; changing differences</div>
+          2, 5, 11, 20, 32, ?<br>
+          Differences: 3, 6, 9, 12 &mdash; increasing by 3 each time, so the next difference is 15. 32 + 15 = <span class="ans">47</span>.
+        </div>
+        <div class="example"><div class="ex-label">Worked example &mdash; two sequences interleaved</div>
+          3, 20, 6, 17, 9, 14, ?<br>
+          Odd positions (1st, 3rd, 5th&hellip;): 3, 6, 9 &mdash; adding 3. Even positions: 20, 17, 14 &mdash; subtracting 3. Position 7 is odd, so 9 + 3 = <span class="ans">12</span>.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Angles <span class="badge">Geometry</span></h3>
+      <div class="topic-body">
+        <div class="diagram">
+          <svg viewBox="0 0 400 90" width="400" height="90" role="img" aria-label="Four types of angle">
+            <g transform="translate(0,0)">
+              <line x1="50" y1="70" x2="95" y2="70" stroke="var(--ink)" stroke-width="1.6"/>
+              <line x1="50" y1="70" x2="75.7" y2="39.4" stroke="var(--ink)" stroke-width="1.6"/>
+              <path d="M65 70 A15 15 0 0 1 60.5 56.7" fill="none" stroke="var(--maths)"/>
+              <text x="50" y="86" text-anchor="middle" class="lbl-strong">Acute &lt;90&deg;</text>
+            </g>
+            <g transform="translate(100,0)">
+              <line x1="50" y1="70" x2="95" y2="70" stroke="var(--ink)" stroke-width="1.6"/>
+              <line x1="50" y1="70" x2="50" y2="30" stroke="var(--ink)" stroke-width="1.6"/>
+              <rect x="50" y="60" width="10" height="10" fill="none" stroke="var(--maths)"/>
+              <text x="50" y="86" text-anchor="middle" class="lbl-strong">Right = 90&deg;</text>
+            </g>
+            <g transform="translate(200,0)">
+              <line x1="50" y1="70" x2="95" y2="70" stroke="var(--ink)" stroke-width="1.6"/>
+              <line x1="50" y1="70" x2="24.3" y2="39.4" stroke="var(--ink)" stroke-width="1.6"/>
+              <path d="M65 70 A15 15 0 0 1 44.7 57.6" fill="none" stroke="var(--maths)"/>
+              <text x="50" y="86" text-anchor="middle" class="lbl-strong">Obtuse 90-180&deg;</text>
+            </g>
+            <g transform="translate(300,0)">
+              <line x1="50" y1="70" x2="95" y2="70" stroke="var(--ink)" stroke-width="1.6"/>
+              <line x1="50" y1="70" x2="70" y2="35.4" stroke="var(--ink)" stroke-width="1.6"/>
+              <path d="M65 70 A15 15 0 1 1 57.5 57" fill="none" stroke="var(--maths)" stroke-dasharray="2,2"/>
+              <text x="50" y="86" text-anchor="middle" class="lbl-strong">Reflex &gt;180&deg;</text>
+            </g>
+          </svg>
+        </div>
+        <table class="ref">
+          <caption>Angle facts worth memorising</caption>
+          <tr><td>On a straight line</td><td class="num">= 180&deg;</td></tr>
+          <tr><td>Around a full point</td><td class="num">= 360&deg;</td></tr>
+          <tr><td>Inside a triangle</td><td class="num">= 180&deg;</td></tr>
+          <tr><td>Inside a quadrilateral</td><td class="num">= 360&deg;</td></tr>
+          <tr><td>Vertically opposite angles (an X shape)</td><td class="num">equal</td></tr>
+          <tr><td>Regular polygon, exterior angle</td><td class="num">= 360&deg; &divide; sides</td></tr>
+        </table>
+        <div class="tip">Regular hexagon: exterior = 360&divide;6 = 60&deg;, so interior = 180&minus;60 = 120&deg;. Same method for any regular shape.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Clock angles <span class="badge">Geometry</span></h3>
+      <div class="topic-body">
+        <p>The minute hand moves 6&deg; per minute. The hour hand moves 30&deg; per <em>hour</em> — but also creeps 0.5&deg; every minute, so it's never sitting exactly on the hour number once the minutes start ticking.</p>
+        <div class="diagram">
+          <figure>
+            <svg width="110" height="110" viewBox="0 0 110 110" role="img" aria-label="Clock showing 9 o'clock">
+              <circle cx="55" cy="55" r="48" fill="var(--card)" stroke="var(--rule)"/>
+              <g class="lbl">
+                <text x="55" y="16" text-anchor="middle">12</text><text x="55" y="100" text-anchor="middle">6</text>
+                <text x="12" y="59" text-anchor="middle">9</text><text x="98" y="59" text-anchor="middle">3</text>
+              </g>
+              <line x1="55" y1="55" x2="55" y2="20" stroke="var(--maths)" stroke-width="2.5"/>
+              <line x1="55" y1="55" x2="20" y2="55" stroke="var(--ink)" stroke-width="1.8"/>
+              <circle cx="55" cy="55" r="2.2" fill="var(--ink)"/>
+            </svg>
+            <figcaption>9:00 &rarr; hands 90&deg; apart (right angle)</figcaption>
+          </figure>
+          <figure>
+            <svg width="110" height="110" viewBox="0 0 110 110" role="img" aria-label="Clock showing 3:15">
+              <circle cx="55" cy="55" r="48" fill="var(--card)" stroke="var(--rule)"/>
+              <g class="lbl">
+                <text x="55" y="16" text-anchor="middle">12</text><text x="55" y="100" text-anchor="middle">6</text>
+                <text x="12" y="59" text-anchor="middle">9</text><text x="98" y="59" text-anchor="middle">3</text>
+              </g>
+              <line x1="55" y1="55" x2="90.4" y2="61.3" stroke="var(--maths)" stroke-width="2.5"/>
+              <line x1="55" y1="55" x2="90" y2="55" stroke="var(--ink)" stroke-width="1.8"/>
+              <circle cx="55" cy="55" r="2.2" fill="var(--ink)"/>
+            </svg>
+            <figcaption>3:15 &rarr; only 7.5&deg; apart, not 90&deg;!</figcaption>
+          </figure>
+        </div>
+        <div class="example"><div class="ex-label">Worked example</div>
+          At 3:15: minute hand = 6&times;15 = 90&deg; from 12. Hour hand = 30&times;3 + 0.5&times;15 = 90 + 7.5 = 97.5&deg; from 12. Gap = 97.5 &minus; 90 = <span class="ans">7.5&deg;</span>.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>2D shapes <span class="badge">Geometry</span></h3>
+      <div class="topic-body">
+        <div class="diagram">
+          <svg viewBox="0 0 440 110" width="440" height="110" role="img" aria-label="Gallery of quadrilaterals with parallel sides marked">
+            <g transform="translate(10,10)"><rect width="60" height="60" fill="none" stroke="var(--ink)" stroke-width="1.6"/><text x="30" y="80" text-anchor="middle" class="lbl">Square</text><text x="30" y="92" text-anchor="middle" class="lbl">2 pairs ||</text></g>
+            <g transform="translate(90,20)"><rect width="70" height="45" fill="none" stroke="var(--ink)" stroke-width="1.6"/><text x="35" y="70" text-anchor="middle" class="lbl">Rectangle</text><text x="35" y="82" text-anchor="middle" class="lbl">2 pairs ||</text></g>
+            <g transform="translate(180,20)"><polygon points="10,45 70,45 55,0 -5,0" fill="none" stroke="var(--ink)" stroke-width="1.6"/><text x="35" y="70" text-anchor="middle" class="lbl">Parallelogram</text><text x="35" y="82" text-anchor="middle" class="lbl">2 pairs ||</text></g>
+            <g transform="translate(270,10)"><polygon points="30,0 60,55 0,55" fill="none" stroke="var(--ink)" stroke-width="1.6" transform="translate(0,0) rotate(0)"/><polygon points="15,0 55,15 40,55 0,40" fill="none" stroke="var(--ink)" stroke-width="1.6"/><text x="27" y="75" text-anchor="middle" class="lbl">Kite</text><text x="27" y="87" text-anchor="middle" class="lbl">0 pairs ||</text></g>
+            <g transform="translate(350,20)"><polygon points="10,45 60,45 45,0 25,0" fill="none" stroke="var(--ink)" stroke-width="1.6"/><text x="35" y="70" text-anchor="middle" class="lbl">Trapezium</text><text x="35" y="82" text-anchor="middle" class="lbl">1 pair ||</text></g>
+          </svg>
+        </div>
+        <p>"How many of these shapes have two pairs of parallel sides?" comes up a lot — know this list cold:</p>
+        <table class="ref">
+          <tr><th>Shape</th><th>Parallel pairs</th></tr>
+          <tr><td>Square, rectangle, rhombus, parallelogram</td><td class="num">2</td></tr>
+          <tr><td>Trapezium</td><td class="num">1</td></tr>
+          <tr><td>Kite, triangle</td><td class="num">0</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>3D shapes, nets &amp; volume <span class="badge">Geometry</span></h3>
+      <div class="topic-body">
+        <table class="ref">
+          <tr><th>Shape</th><th>Faces</th><th>Edges</th><th>Vertices</th></tr>
+          <tr><td>Cube / cuboid</td><td class="num">6</td><td class="num">12</td><td class="num">8</td></tr>
+          <tr><td>Triangular prism</td><td class="num">5</td><td class="num">9</td><td class="num">6</td></tr>
+          <tr><td>Square-based pyramid</td><td class="num">5</td><td class="num">8</td><td class="num">5</td></tr>
+          <tr><td>Cylinder</td><td class="num">3</td><td class="num">2</td><td class="num">0</td></tr>
+          <tr><td>Cone</td><td class="num">2</td><td class="num">1</td><td class="num">1</td></tr>
+        </table>
+        <div class="diagram">
+          <figure>
+            <svg width="130" height="110" viewBox="0 0 130 110" role="img" aria-label="Cube net in a cross shape">
+              <g fill="none" stroke="var(--ink)" stroke-width="1.4">
+                <rect x="35" y="5" width="30" height="30"/>
+                <rect x="5" y="35" width="30" height="30"/>
+                <rect x="35" y="35" width="30" height="30"/>
+                <rect x="65" y="35" width="30" height="30"/>
+                <rect x="95" y="35" width="30" height="30"/>
+                <rect x="35" y="65" width="30" height="30"/>
+              </g>
+            </svg>
+            <figcaption>A cube net &mdash; folds up into a cube</figcaption>
+          </figure>
+          <figure>
+            <svg width="90" height="90" viewBox="-15 -35 100 90" role="img" aria-label="Isometric cube diagram, three cubes forming an L shape">
+              <g stroke="var(--ink)" stroke-width="1">
+                <polygon points="20,-20 40,-10 20,0 0,-10" fill="var(--maths-tint)"/>
+                <polygon points="0,-10 20,0 20,20 0,10" fill="var(--maths)" opacity="0.55"/>
+                <polygon points="20,0 40,-10 40,10 20,20" fill="var(--maths)" opacity="0.8"/>
+                <polygon points="60,-20 80,-10 60,0 40,-10" fill="var(--maths-tint)"/>
+                <polygon points="40,-10 60,0 60,20 40,10" fill="var(--maths)" opacity="0.55"/>
+                <polygon points="60,0 80,-10 80,10 60,20" fill="var(--maths)" opacity="0.8"/>
+                <polygon points="20,-40 40,-30 20,-20 0,-30" fill="var(--maths-tint)"/>
+                <polygon points="0,-30 20,-20 20,0 0,-10" fill="var(--maths)" opacity="0.55"/>
+                <polygon points="20,-20 40,-30 40,-10 20,0" fill="var(--maths)" opacity="0.8"/>
+              </g>
+            </svg>
+            <figcaption>3 unit cubes joined &mdash; count the small cubes to find the total</figcaption>
+          </figure>
+        </div>
+        <p><strong>Volume of a cuboid</strong> = length &times; width &times; height. <strong>Volume of a cube</strong> = side&sup3;.</p>
+        <div class="example"><div class="ex-label">Worked example</div>A cube has volume 125m&sup3;. Since 5&sup3; = 125, the side length is 5m, so the area of one face = 5&sup2; = <span class="ans">25m&sup2;</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; scaling</div>Square B has a perimeter of 40cm (side = 10cm). Square A is twice as wide (side = 20cm). Area of A = 20&sup2; = <span class="ans">400cm&sup2;</span> &mdash; four times bigger, not two, because area scales by the <em>square</em> of the size change.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Units &amp; measurement <span class="badge">Measurement</span></h3>
+      <div class="topic-body">
+        <div class="diagram">
+          <div class="unit-chain">
+            <span class="u">mm</span><span class="op">&times;10&rarr;</span><span class="u">cm</span><span class="op">&times;100&rarr;</span><span class="u">m</span><span class="op">&times;1000&rarr;</span><span class="u">km</span>
+          </div>
+        </div>
+        <div class="diagram">
+          <div class="unit-chain"><span class="u">ml</span><span class="op">&times;1000&rarr;</span><span class="u">litres</span></div>
+          <div class="unit-chain"><span class="u">g</span><span class="op">&times;1000&rarr;</span><span class="u">kg</span></div>
+        </div>
+        <p>Going the other way (big &rarr; small unit), divide instead of multiply.</p>
+        <div class="example"><div class="ex-label">Worked example &mdash; unit rate</div>Fencing a rectangular garden 40m long and 15m wide costs £1.50 per metre. Perimeter = 2(40+15) = 110m. Cost = 110 &times; £1.50 = <span class="ans">£165</span>.</div>
+        <div class="example"><div class="ex-label">Worked example &mdash; map scale</div>A map's scale is 1cm : 25,000cm (1cm = 250m). A road measures 8cm on the map. Real distance = 8 &times; 250m = 2000m = <span class="ans">2km</span>.</div>
+        <div class="tip">Time isn't metric! 60 seconds = 1 minute, 60 minutes = 1 hour. For "seconds until lunch"-style questions, convert to minutes first (&divide;60) to keep the arithmetic manageable.</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <h3>Data handling: mean, Venn diagrams, charts <span class="badge">Data</span></h3>
+      <div class="topic-body">
+        <p><strong>Mean</strong> = total &divide; how many there are. To find a missing value: (new total) &minus; (old total).</p>
+        <div class="example"><div class="ex-label">Worked example</div>5 books have a mean of 250 pages (total = 1250). A 6th book is added and the mean drops to 240 (new total = 1440). The new book has 1440 &minus; 1250 = <span class="ans">190 pages</span>.</div>
+
+        <p><strong>Venn diagrams</strong> — read each region separately, and remember "not in a circle" includes the outside region too.</p>
+        <div class="diagram">
+          <svg width="220" height="140" viewBox="0 0 220 140" role="img" aria-label="Venn diagram of football and swimming">
+            <circle cx="85" cy="70" r="55" fill="var(--maths)" opacity="0.18" stroke="var(--maths)"/>
+            <circle cx="140" cy="70" r="55" fill="var(--english)" opacity="0.18" stroke="var(--english)"/>
+            <text x="55" y="40" class="lbl-strong">Football</text>
+            <text x="150" y="40" class="lbl-strong">Swimming</text>
+            <text x="60" y="75" class="lbl-strong" text-anchor="middle">12</text>
+            <text x="112" y="75" class="lbl-strong" text-anchor="middle">5</text>
+            <text x="165" y="75" class="lbl-strong" text-anchor="middle">8</text>
+            <text x="15" y="130" class="lbl">10 like neither</text>
+          </svg>
+        </div>
+        <div class="example"><div class="ex-label">Worked example</div>35 children total. How many <em>don't</em> like swimming? That's football-only (12) + neither (10) = <span class="ans">22</span>.</div>
+
+        <p><strong>Pie charts</strong>: angle for a slice = (part &divide; total) &times; 360&deg;.</p>
+        <div class="diagram">
+          <div class="pie" style="background:conic-gradient(var(--maths) 0deg 180deg, var(--english) 180deg 270deg, var(--vr) 270deg 360deg);"></div>
+          <div class="pie-legend">
+            <div><span class="sw" style="background:var(--maths)"></span>Apple &mdash; 20 of 40 &rarr; 180&deg;</div>
+            <div><span class="sw" style="background:var(--english)"></span>Banana &mdash; 10 of 40 &rarr; 90&deg;</div>
+            <div><span class="sw" style="background:var(--vr)"></span>Grape &mdash; 10 of 40 &rarr; 90&deg;</div>
+          </div>
+        </div>
+
+        <p><strong>Bar charts</strong>: read the axis scale carefully before comparing bars.</p>
+        <div class="diagram">
+          <div class="barchart">
+            <div class="bcol"><div class="bar" style="height:60px;"><span>3000</span></div><label>Mon</label></div>
+            <div class="bcol"><div class="bar" style="height:90px;"><span>4500</span></div><label>Tue</label></div>
+            <div class="bcol"><div class="bar" style="height:40px;"><span>2000</span></div><label>Wed</label></div>
+            <div class="bcol"><div class="bar" style="height:100px;"><span>5000</span></div><label>Thu</label></div>
+            <div class="bcol"><div class="bar" style="height:70px;"><span>3500</span></div><label>Fri</label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Built for Kent 11+ revision &middot; topics drawn from Examberry Kent Practice Tests 1&ndash;4 &middot; worked examples written fresh, not copied from the papers.
+  </footer>
+
+</div>
+
+<script>
+  // draw number-line ticks (every 2 units from -10 to 10) without hand-typing 11 lines
+  (function(){
+    var g = document.getElementById('ticks');
+    if(!g) return;
+    for (var v=-10; v<=10; v+=2){
+      var x = 250 + v*20;
+      if (v===0) continue;
+      var tick = document.createElementNS('http://www.w3.org/2000/svg','line');
+      tick.setAttribute('x1',x); tick.setAttribute('x2',x);
+      tick.setAttribute('y1',20); tick.setAttribute('y2',30);
+      tick.setAttribute('stroke','var(--ink-soft)');
+      g.appendChild(tick);
+      var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',x); t.setAttribute('y',43); t.setAttribute('text-anchor','middle');
+      t.setAttribute('class','lbl'); t.textContent = v;
+      g.appendChild(t);
+    }
+  })();
+</script>
+</body>
+</html>
